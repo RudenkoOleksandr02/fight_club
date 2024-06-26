@@ -1,0 +1,44 @@
+.btn {
+    background: transparent;
+    border: 1px solid var(--white);
+    color: var(--white);
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 40px; height: 100%;
+    transition: .1s;
+}
+.btn:hover {
+    opacity: 50%;
+}
+.btn:active {
+    opacity: 1;
+    background: var(--orange);
+}
+
+/* --FORM--*/
+.form {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 20px;
+    background: rgba(239, 239, 239, 1);
+}
+.form > input {
+    font-size: 18px;
+    margin-left: 15px;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+.btnForm {
+    width: 20px; height: 20px;
+    border: none;
+    background: transparent;
+}
+.btnForm > svg > path {
+    fill: black;
+}

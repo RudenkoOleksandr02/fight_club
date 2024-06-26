@@ -1,0 +1,25 @@
+.button {
+    height: 38px;
+    width: 100%;
+    border: none;
+    background: var(--green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    font-size: 16px;
+    transition: .1s;
+}
+
+.button:hover {
+    background: rgba(118, 158, 132, 1);
+}
+.button:active {
+    background: var(--orange);
+}
+.button:disabled {
+    opacity: 40%;
+}
+.button:hover:disabled {
+    background: var(--green);
+}

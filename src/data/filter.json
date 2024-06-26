@@ -1,0 +1,136 @@
+{
+  "filters": {
+    "brands": {
+      "A": [
+        "Armani",
+        "Aveda",
+        "Aesop"
+      ],
+      "B": [
+        "Benefit",
+        "Burt's Bees",
+        "Bioderma"
+      ],
+      "C": [
+        "Clinique",
+        "Caudalie",
+        "Chanel"
+      ],
+      "D": [
+        "Dior",
+        "Dermalogica",
+        "Dr. Jart+"
+      ],
+      "E": [
+        "Estée Lauder",
+        "E.l.f.",
+        "Elizabeth Arden"
+      ],
+      "F": [
+        "Fenty Beauty",
+        "Fresh",
+        "Foreo"
+      ],
+      "G": [
+        "Garnier",
+        "Giorgio Armani",
+        "Glossier"
+      ],
+      "H": [
+        "Huda Beauty",
+        "Herbivore",
+        "Hourglass"
+      ],
+      "I": [
+        "It Cosmetics",
+        "Ilia",
+        "Innisfree"
+      ],
+      "J": [
+        "Jo Malone",
+        "Jurlique",
+        "Juvia's Place"
+      ],
+      "K": [
+        "Kiehl's",
+        "KVD Beauty",
+        "Kérastase"
+      ],
+      "L": [
+        "Lancôme",
+        "La Mer",
+        "Laura Mercier"
+      ],
+      "M": [
+        "MAC",
+        "Murad",
+        "Milk Makeup"
+      ],
+      "N": [
+        "NARS",
+        "Neutrogena",
+        "Nivea"
+      ],
+      "O": [
+        "Origins",
+        "Olay",
+        "OUAI"
+      ],
+      "P": [
+        "Philosophy",
+        "Paula's Choice",
+        "Pixi"
+      ],
+      "Q": [
+        "QMS Medicosmetics",
+        "Queen Helene",
+        "Quip"
+      ],
+      "R": [
+        "Revlon",
+        "Rituals",
+        "REN Clean Skincare"
+      ],
+      "S": [
+        "Shiseido",
+        "Sephora Collection",
+        "Smashbox"
+      ],
+      "T": [
+        "Tarte",
+        "The Ordinary",
+        "Too Faced"
+      ],
+      "U": [
+        "Urban Decay",
+        "Ulta Beauty",
+        "Uriage"
+      ],
+      "V": [
+        "Vichy",
+        "Versace",
+        "Vaseline"
+      ],
+      "W": [
+        "Wet n Wild",
+        "Weleda",
+        "Wishful"
+      ],
+      "X": [
+        "XX Revolution",
+        "Xeno",
+        "XOXO"
+      ],
+      "Y": [
+        "Yves Saint Laurent",
+        "Youth to the People",
+        "Yardley"
+      ],
+      "Z": [
+        "Zoeva",
+        "Zelens",
+        "Zirh"
+      ]
+    }
+  }
+}

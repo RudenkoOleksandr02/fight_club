@@ -1,0 +1,67 @@
+{
+  "products": [
+    {
+      "id": 101,
+      "name": "Парфюма для жінок 1",
+      "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+      "brand": "Armani",
+      "price": 1000,
+      "discount": 0.1,
+      "is_new": true,
+      "rating": 4.5
+    },
+    {
+      "id": 102,
+      "name": "Парфюма для жінок 2",
+      "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+      "brand": "Benefit",
+      "price": 1200,
+      "discount": 0.15,
+      "is_new": false,
+      "rating": 4.2
+    },
+    {
+      "id": 103,
+      "name": "Парфюма для жінок 3",
+      "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+      "brand": "Chanel",
+      "price": 1400,
+      "discount": 0.05,
+      "is_new": true,
+      "rating": 4.7
+    },
+    {
+      "id": 104,
+      "name": "Парфюма для жінок 4",
+      "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+      "brand": "Dior",
+      "price": 1300,
+      "discount": 0.1,
+      "is_new": false,
+      "rating": 4.8
+    },
+    {
+      "id": 105,
+      "name": "Парфюма для жінок 5",
+      "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+      "brand": "Estée Lauder",
+      "price": 1600,
+      "discount": 0.2,
+      "is_new": true,
+      "rating": 4.6
+    },
+    {
+      "id": 106,
+      "name": "Парфюма для жінок 6",
+      "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+      "brand": "Fresh",
+      "price": 1100,
+      "discount": 0.05,
+      "is_new": false,
+      "rating": 4.4,
+      "categories": [
+        "Parfumery", "Man Parfumery"
+      ]
+    }
+  ]
+}

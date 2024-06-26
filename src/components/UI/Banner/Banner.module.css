@@ -1,0 +1,75 @@
+.wrapper {
+    background: var(--white);
+    margin-top: 60px;
+    box-shadow:
+            0 6px 13px rgba(0, 0, 0, 0.03),
+            0 24px 24px rgba(0, 0, 0, 0.03);
+    :global(.swiper-pagination) {
+        bottom: 0 !important;
+        top: 320px !important;
+    }
+    :global(.swiper-pagination-bullet) {
+        height: 17px;
+        border-radius: 0;
+        width: 6px;
+        background: #fff;
+        margin: 0 5px !important;
+    }
+
+}
+.bannerImage {
+    padding: 10px;
+    height: 370px;
+    position: relative;
+}
+.bannerImage img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.bannerText {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px 10px 10px;
+    column-gap: 10px;
+}
+.bannerText p {
+    font-family: "Caveat", cursive;
+}
+
+@media (max-width: 767px) {
+    .bannerText p:first-child {
+        font-size: 18px;
+    }
+    .bannerText p:last-child {
+        font-size: 18px;
+    }
+}
+@media (min-width: 768px) and (max-width: 999px) {
+    .bannerText p:first-child {
+        font-size: 24px;
+    }
+    .bannerText p:last-child {
+        font-size: 20px;
+    }
+}
+@media (min-width: 1000px) {
+    .bannerText p:first-child {
+        font-size: 32px;
+    }
+    .bannerText p:last-child {
+        font-size: 20px;
+    }
+}
+@media (min-width: 1360px) {
+    .wrapper {
+        :global(.swiper-pagination) {
+            top: 440px !important;
+        }
+    }
+    .bannerImage {
+        height: 487px;
+    }
+}
+

@@ -1,0 +1,510 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Парфумерія",
+      "subcategories": [
+        {
+          "id": 11,
+          "name": "Жіноча парфумерія",
+          "products": [
+            {
+              "id": 101,
+              "name": "Парфюма для жінок 1",
+              "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+              "brand": "Armani",
+              "price": 1000,
+              "discount": 0.1,
+              "is_new": true,
+              "rating": 4.5
+            },
+            {
+              "id": 102,
+              "name": "Парфюма для жінок 2",
+              "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+              "brand": "Benefit",
+              "price": 1200,
+              "discount": 0.15,
+              "is_new": false,
+              "rating": 4.2
+            },
+            {
+              "id": 103,
+              "name": "Парфюма для жінок 3",
+              "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+              "brand": "Chanel",
+              "price": 1400,
+              "discount": 0.05,
+              "is_new": true,
+              "rating": 4.7
+            },
+            {
+              "id": 104,
+              "name": "Парфюма для жінок 4",
+              "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+              "brand": "Dior",
+              "price": 1300,
+              "discount": 0.1,
+              "is_new": false,
+              "rating": 4.8
+            },
+            {
+              "id": 105,
+              "name": "Парфюма для жінок 5",
+              "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+              "brand": "Estée Lauder",
+              "price": 1600,
+              "discount": 0.2,
+              "is_new": true,
+              "rating": 4.6
+            },
+            {
+              "id": 106,
+              "name": "Парфюма для жінок 6",
+              "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+              "brand": "Fresh",
+              "price": 1100,
+              "discount": 0.05,
+              "is_new": false,
+              "rating": 4.4
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "name": "Чоловіча парфумерія",
+          "products": [
+            {
+              "id": 201,
+              "name": "Парфюма для чоловіків 1",
+              "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+              "brand": "Giorgio Armani",
+              "price": 1500,
+              "discount": 0.1,
+              "is_new": true,
+              "rating": 4.5
+            },
+            {
+              "id": 202,
+              "name": "Парфюма для чоловіків 2",
+              "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+              "brand": "Hugo Boss",
+              "price": 1700,
+              "discount": 0.15,
+              "is_new": false,
+              "rating": 4.3
+            },
+            {
+              "id": 203,
+              "name": "Парфюма для чоловіків 3",
+              "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+              "brand": "Issey Miyake",
+              "price": 1600,
+              "discount": 0.2,
+              "is_new": true,
+              "rating": 4.7
+            },
+            {
+              "id": 204,
+              "name": "Парфюма для чоловіків 4",
+              "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+              "brand": "Jo Malone",
+              "price": 1800,
+              "discount": 0.05,
+              "is_new": false,
+              "rating": 4.6
+            },
+            {
+              "id": 205,
+              "name": "Парфюма для чоловіків 5",
+              "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+              "brand": "Kiehl's",
+              "price": 1400,
+              "discount": 0.1,
+              "is_new": true,
+              "rating": 4.4
+            },
+            {
+              "id": 206,
+              "name": "Парфюма для чоловіків 6",
+              "image": "/static/media/card_img.116fe9daae8d94f61b51.png",
+              "brand": "Lacoste",
+              "price": 1300,
+              "discount": 0.2,
+              "is_new": false,
+              "rating": 4.2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Макіяж",
+      "subcategories": [
+        {
+          "id": 21,
+          "name": "Тушь для ресниц",
+          "products": [
+            {
+              "id": 201,
+              "name": "Тушь для ресниц DEF",
+              "brand": "Brand C",
+              "price": 14.99,
+              "discount": 0.2,
+              "is_new": true,
+              "rating": 4.6,
+              "attributes": {
+                "color": "Black",
+                "effect": "Volume",
+                "waterproof": "No"
+              }
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "Тени для век",
+          "products": [
+            {
+              "id": 202,
+              "name": "Палетка теней GHI",
+              "brand": "Brand D",
+              "price": 24.99,
+              "discount": 0.05,
+              "is_new": false,
+              "rating": 4.3,
+              "attributes": {
+                "color_range": "Nude",
+                "finish": "Shimmer",
+                "long_wearing": "Yes"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Для майстрів",
+      "subcategories": [
+        {
+          "id": 21,
+          "name": "Тушь для ресниц",
+          "products": [
+            {
+              "id": 201,
+              "name": "Тушь для ресниц DEF",
+              "brand": "Brand C",
+              "price": 14.99,
+              "discount": 0.2,
+              "is_new": true,
+              "rating": 4.6,
+              "attributes": {
+                "color": "Black",
+                "effect": "Volume",
+                "waterproof": "No"
+              }
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "Тени для век",
+          "products": [
+            {
+              "id": 202,
+              "name": "Палетка теней GHI",
+              "brand": "Brand D",
+              "price": 24.99,
+              "discount": 0.05,
+              "is_new": false,
+              "rating": 4.3,
+              "attributes": {
+                "color_range": "Nude",
+                "finish": "Shimmer",
+                "long_wearing": "Yes"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Волосся",
+      "subcategories": [
+        {
+          "id": 21,
+          "name": "Тушь для ресниц",
+          "products": [
+            {
+              "id": 201,
+              "name": "Тушь для ресниц DEF",
+              "brand": "Brand C",
+              "price": 14.99,
+              "discount": 0.2,
+              "is_new": true,
+              "rating": 4.6,
+              "attributes": {
+                "color": "Black",
+                "effect": "Volume",
+                "waterproof": "No"
+              }
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "Тени для век",
+          "products": [
+            {
+              "id": 202,
+              "name": "Палетка теней GHI",
+              "brand": "Brand D",
+              "price": 24.99,
+              "discount": 0.05,
+              "is_new": false,
+              "rating": 4.3,
+              "attributes": {
+                "color_range": "Nude",
+                "finish": "Shimmer",
+                "long_wearing": "Yes"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Обличчя",
+      "subcategories": [
+        {
+          "id": 21,
+          "name": "Тушь для ресниц",
+          "products": [
+            {
+              "id": 201,
+              "name": "Тушь для ресниц DEF",
+              "brand": "Brand C",
+              "price": 14.99,
+              "discount": 0.2,
+              "is_new": true,
+              "rating": 4.6,
+              "attributes": {
+                "color": "Black",
+                "effect": "Volume",
+                "waterproof": "No"
+              }
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "Тени для век",
+          "products": [
+            {
+              "id": 202,
+              "name": "Палетка теней GHI",
+              "brand": "Brand D",
+              "price": 24.99,
+              "discount": 0.05,
+              "is_new": false,
+              "rating": 4.3,
+              "attributes": {
+                "color_range": "Nude",
+                "finish": "Shimmer",
+                "long_wearing": "Yes"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Тіло і ванна",
+      "subcategories": [
+        {
+          "id": 21,
+          "name": "Тушь для ресниц",
+          "products": [
+            {
+              "id": 201,
+              "name": "Тушь для ресниц DEF",
+              "brand": "Brand C",
+              "price": 14.99,
+              "discount": 0.2,
+              "is_new": true,
+              "rating": 4.6,
+              "attributes": {
+                "color": "Black",
+                "effect": "Volume",
+                "waterproof": "No"
+              }
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "Тени для век",
+          "products": [
+            {
+              "id": 202,
+              "name": "Палетка теней GHI",
+              "brand": "Brand D",
+              "price": 24.99,
+              "discount": 0.05,
+              "is_new": false,
+              "rating": 4.3,
+              "attributes": {
+                "color_range": "Nude",
+                "finish": "Shimmer",
+                "long_wearing": "Yes"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Чоловікам",
+      "subcategories": [
+        {
+          "id": 21,
+          "name": "Тушь для ресниц",
+          "products": [
+            {
+              "id": 201,
+              "name": "Тушь для ресниц DEF",
+              "brand": "Brand C",
+              "price": 14.99,
+              "discount": 0.2,
+              "is_new": true,
+              "rating": 4.6,
+              "attributes": {
+                "color": "Black",
+                "effect": "Volume",
+                "waterproof": "No"
+              }
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "Тени для век",
+          "products": [
+            {
+              "id": 202,
+              "name": "Палетка теней GHI",
+              "brand": "Brand D",
+              "price": 24.99,
+              "discount": 0.05,
+              "is_new": false,
+              "rating": 4.3,
+              "attributes": {
+                "color_range": "Nude",
+                "finish": "Shimmer",
+                "long_wearing": "Yes"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Аксесуари",
+      "subcategories": [
+        {
+          "id": 21,
+          "name": "Тушь для ресниц",
+          "products": [
+            {
+              "id": 201,
+              "name": "Тушь для ресниц DEF",
+              "brand": "Brand C",
+              "price": 14.99,
+              "discount": 0.2,
+              "is_new": true,
+              "rating": 4.6,
+              "attributes": {
+                "color": "Black",
+                "effect": "Volume",
+                "waterproof": "No"
+              }
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "Тени для век",
+          "products": [
+            {
+              "id": 202,
+              "name": "Палетка теней GHI",
+              "brand": "Brand D",
+              "price": 24.99,
+              "discount": 0.05,
+              "is_new": false,
+              "rating": 4.3,
+              "attributes": {
+                "color_range": "Nude",
+                "finish": "Shimmer",
+                "long_wearing": "Yes"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Подарунки",
+      "subcategories": [
+        {
+          "id": 21,
+          "name": "Тушь для ресниц",
+          "products": [
+            {
+              "id": 201,
+              "name": "Тушь для ресниц DEF",
+              "brand": "Brand C",
+              "price": 14.99,
+              "discount": 0.2,
+              "is_new": true,
+              "rating": 4.6,
+              "attributes": {
+                "color": "Black",
+                "effect": "Volume",
+                "waterproof": "No"
+              }
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "Тени для век",
+          "products": [
+            {
+              "id": 202,
+              "name": "Палетка теней GHI",
+              "brand": "Brand D",
+              "price": 24.99,
+              "discount": 0.05,
+              "is_new": false,
+              "rating": 4.3,
+              "attributes": {
+                "color_range": "Nude",
+                "finish": "Shimmer",
+                "long_wearing": "Yes"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
