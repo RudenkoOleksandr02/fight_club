@@ -1,0 +1,35 @@
+.main {
+    display: grid;
+    grid-template-areas:
+        'filterPanel'
+        'paginationPanel'
+        'cardList';
+    grid-gap: 10px;
+}
+.main > div:nth-child(1) {
+    grid-area: filterPanel;
+}
+.main > div:nth-child(2) {
+    grid-area: paginationPanel;
+}
+.main > div:nth-child(3) {
+    grid-area: cardList;
+}
+@media (min-width: 1000px) {
+    .main {
+        grid-template-areas:
+            'filterPanel paginationPanel'
+            'filterPanel cardList';
+        grid-template-columns: 348px auto;
+    }
+}
+@media (max-width: 999px) {
+    .main {
+        grid-template-areas:
+            'paginationPanel'
+            'cardList';
+    }
+    .main > div:nth-child(1) {
+        display: none;
+    }
+}

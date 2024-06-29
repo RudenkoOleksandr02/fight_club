@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import classes from './Search.module.css'
-import {ReactComponent as IcoSearch} from "../../../assets/images/ico_search.svg";
-import Modal from "../../UI/Modal/Modal";
+import classes from './SearchDesktop.module.css'
+import {ReactComponent as IcoSearch} from "../../../../assets/images/ico_search.svg";
+import Modal from "../../../UI/Modal/Modal";
 
-const Search = () => {
+const SearchDesktop = () => {
     const [isActive, setIsActive] = useState(false);
 
     return <div className={classes.search}>
@@ -15,10 +15,10 @@ const Search = () => {
                 <button className={classes.btnForm}>
                     <IcoSearch/>
                 </button>
-                <input type='text' placeholder='Поиск' autoFocus={true}/>
+                <input type='text' placeholder='Пошук' autoFocus={true}/>
             </form>
         </Modal>
     </div>
 };
 
-export default Search;
+export default SearchDesktop;

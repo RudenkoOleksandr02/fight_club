@@ -5,13 +5,13 @@
     color: var(--white);
     min-height: 97px;
 }
-.mainContainer {
+.container {
     display: flex;
 }
-.mainContainer > .navigate {
+.navigate {
     display: contents;
 }
-.logo {
+.logo > a {
     font-weight: 400;
     font-family: 'Ahsing', sans-serif;
     font-size: 52px;
@@ -46,12 +46,19 @@
     font-weight: 100;
     margin-right: 12px;
 }
-/* 0px - 767px */
 @media (max-width: 767px) {
     .wrapper {
         min-height: auto;
     }
-    .mainContainer > .navigate {
+    .navigate {
+        display: none;
+    }
+    .basket {
+        display: none;
+    }
+}
+@media (min-width: 768px) and (max-width: 999px) {
+    .navigate {
         display: none;
     }
 }

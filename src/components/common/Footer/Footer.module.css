@@ -138,6 +138,11 @@
         grid-template-areas: 'logo rights socials';
     }
 }
+@media (max-width: 999px) {
+    .secondaryContent {
+        margin-bottom: 57px;
+    }
+}
 @media (min-width: 1360px) {
     .rights {
         flex-direction: row;

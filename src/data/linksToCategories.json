@@ -1,0 +1,11 @@
+[
+  {"id": "perfumery", "name": "Парфумерія"},
+  {"id": "makeup", "name": "Макіяж"},
+  {"id": "for_masters", "name":  "Для майстрів"},
+  {"id": "hair", "name":  "Волосся"},
+  {"id": "face", "name":  "Обличчя"},
+  {"id": "body_and_bath", "name":  "Тіло і ванна"},
+  {"id": "to_men", "name":  "Чоловікам"},
+  {"id": "accessories", "name":  "Аксесуари"},
+  {"id": "gifts", "name":  "Подарунки"}
+]

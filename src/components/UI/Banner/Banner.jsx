@@ -1,5 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import classes from './Banner.module.css';
+import {useSelector, useDispatch} from 'react-redux'
+import {
+    loadBannerDataFromFile
+} from '../../../store/bannerSlice';
 import { v4 as uuidv4 } from 'uuid';
 import { Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -7,7 +11,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 // --DATA--
-import banner from './../../../data/banner.json';
 import img1 from './../../../assets/images/banner/banner_img1.jpg'
 import img2 from './../../../assets/images/banner/banner_img2.png'
 import img3 from './../../../assets/images/banner/banner_img3.png'
@@ -15,6 +18,13 @@ import img4 from './../../../assets/images/banner/banner_img4.png'
 import img5 from './../../../assets/images/banner/banner_img5.png'
 
 const Banner = () => {
+    const bannerData = useSelector(state => state.bannerData.data);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(loadBannerDataFromFile())
+    }, []);
+
     return (
         <section>
             <div className={classes.wrapper}>
@@ -27,7 +37,7 @@ const Banner = () => {
                     pagination={{ clickable: true }}
                     autoplay={{ delay: 18000 }}
                 >
-                    {banner.map((item) => (
+                    {bannerData.map((item) => (
                         <SwiperSlide key={uuidv4()}>
                             <div className={classes.bannerContainer}>
                                 <div className={classes.bannerImage}>

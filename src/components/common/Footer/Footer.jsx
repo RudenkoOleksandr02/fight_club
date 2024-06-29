@@ -8,33 +8,34 @@ import ico_instagram from './../../../assets/images/ico_instagram.png';
 import ico_facebook from './../../../assets/images/ico_facebook.png';
 import ico_telegram from './../../../assets/images/ico_telegram.png';
 
-// --DATA--
-import categories from './../../../data/categories_product.json';
+import linksToCategories from '../../../data/linksToCategories.json';
+import linksToInformation from './../../../data/linksToInformation.json';
+import linksToUs from './../../../data/linksToUs.json';
+import linksToRights from './../../../data/linksToRights.json';
+import linksToSocials from './../../../data/linksToSocials.json';
+
 
 const Footer = () => {
-    const linksForCatalogJSX = (
-        <div className={classes.links}>
-            {categories.map(category => {
-                return <Link key={uuidv4()}>
-                    {category.title}
-                </Link>
-            })}
-        </div>
-    )
-    const linksForInfoJSX = (
-        <div className={classes.links}>
-            <Link>FAQ</Link>
-            <Link>Блог</Link>
-            <Link>Поддержка</Link>
-            <Link>Доставка и оплата</Link>
-        </div>
-    )
-    const linksForCompanyJSX = (
-        <div className={classes.links}>
-            <Link>О нас</Link>
-            <Link>Контакты</Link>
-        </div>
-    )
+    const linksToCategoriesJSX = <div className={classes.links}>
+        {linksToCategories.map(link => {
+            return <Link key={uuidv4()} to={link.id}>{link.name}</Link>
+        })}
+    </div>
+    const linksToInformationJSX = <div className={classes.links}>
+        {linksToInformation.map(link => {
+            return <Link key={uuidv4()} to={link.id}>{link.name}</Link>
+        })}
+    </div>
+    const linksToUsJSX = <div className={classes.links}>
+        {linksToUs.map(link => {
+            return <Link key={uuidv4()} to={link.id}>{link.name}</Link>
+        })}
+    </div>
+    const linksToRightsJSX = <div className={classes.rights}>
+        {linksToRights.map(link => {
+            return <Link key={uuidv4()} to={link.id}>{link.name}</Link>
+        })}
+    </div>
 
     return (
         <footer>
@@ -45,33 +46,29 @@ const Footer = () => {
                     </div>
                     <div className={classes.catalog}>
                         <h3>Каталог</h3>
-                        {linksForCatalogJSX}
+                        {linksToCategoriesJSX}
                     </div>
                     <div className={classes.info}>
                         <h3>Информация</h3>
-                        {linksForInfoJSX}
+                        {linksToInformationJSX}
                     </div>
                     <div className={classes.company}>
                         <h3>Мы</h3>
-                        {linksForCompanyJSX}
+                        {linksToUsJSX}
                     </div>
                 </div>
                 <div className={classes.secondaryContent}>
                     <h2 className={classes.logo}>BLOSSOM</h2>
-                    <div className={classes.rights}>
-                        <Link>Политика конфиденциальности</Link>
-                        <Link>Права пользователя</Link>
-                        <Link>Файлы подгрузки</Link>
-                    </div>
+                    {linksToRightsJSX}
                     <div className={classes.socials}>
-                        <Link>
+                        <Link to={linksToSocials[0].id}>
                             <img src={ico_instagram} alt='instagram'/>
                         </Link>
-                        <Link>
-                            <img src={ico_facebook} alt='instagram'/>
+                        <Link to={linksToSocials[1].id}>
+                            <img src={ico_facebook} alt='facebook'/>
                         </Link>
-                        <Link>
-                            <img src={ico_telegram} alt='instagram'/>
+                        <Link to={linksToSocials[2].id}>
+                            <img src={ico_telegram} alt='telegram'/>
                         </Link>
                     </div>
                 </div>

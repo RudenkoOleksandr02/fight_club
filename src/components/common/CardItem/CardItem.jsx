@@ -1,8 +1,7 @@
 import React from 'react';
-import classes from './CardItem.module.css';
 import Button from "../../UI/Buttons/Button/Button";
 
-const CardItem = ({src, titles, price, inStock}) => {
+const CardItem = ({src, titles, price, inStock, classes}) => {
     return (
         <div className={classes.wrapper}>
             <div className={classes.image}>
@@ -17,7 +16,7 @@ const CardItem = ({src, titles, price, inStock}) => {
                 <div className={classes.box}>
                     <div className={classes.price}>
                         <p>{price}₴</p>
-                        <p>{inStock ? 'В наличии' : 'Нету в наличии'}</p>
+                        <p>{inStock ? 'В наявності' : 'Немає в наявності'}</p>
                     </div>
                     <Button disabled={!inStock}>Купить</Button>
                 </div>

@@ -1,0 +1,31 @@
+.form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    padding: 0 20px;
+    background: rgba(239, 239, 239, 1);
+    border-radius: 20px;
+}
+.form > input {
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+.form > input::placeholder {
+    color: #C7C7C7;
+    font-family: 'Montserrat', sans-serif;
+    font-size:  18px;
+}
+.btnForm {
+    width: 20px; height: 20px;
+    border: none;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btnForm > svg > path {
+    fill: black;
+}

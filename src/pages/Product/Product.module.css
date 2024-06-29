@@ -1,0 +1,130 @@
+.wrapper {
+    display: grid;
+    grid-template-areas:
+        'images'
+        'rightPanel'
+        'aboutMoreBrand'
+        'characteristics'
+        'description'
+        'buyTogether'
+        'alsoBuy'
+        'reviews';
+    grid-gap: 10px;
+}
+
+.images, .rightPanel, .characteristics, .description, .buyTogether, .alsoBuy, .reviews, .aboutMoreBrand {
+    background: var(--white);
+}
+.images {
+    grid-area: images;
+}
+.rightPanel {
+    grid-area: rightPanel;
+}
+.aboutMoreBrand {
+    grid-area: aboutMoreBrand;
+}
+.characteristics {
+    grid-area: characteristics;
+}
+.description {
+    grid-area: description;
+}
+.buyTogether {
+    grid-area: buyTogether;
+}
+.alsoBuy {
+    grid-area: alsoBuy;
+}
+.reviews {
+    grid-area: reviews;
+}
+@media (max-width: 999px) {
+    .wrapper {
+        grid-template-areas:
+            'images'
+            'rightPanel'
+            'characteristics'
+            'aboutMoreBrand'
+            'buyTogether'
+            'description'
+            'reviews';
+    }
+    .images, .rightPanel, .characteristics, .description, .buyTogether, .alsoBuy, .reviews, .aboutMoreBrand {
+        width: 100%;
+    }
+}
+@media (min-width: 1000px) and (max-width: 1359px) {
+    .wrapper {
+        grid-template-areas:
+            'images          rightPanel'
+            'characteristics aboutMoreBrand'
+            'buyTogether     .'
+            'description     .'
+            'alsoBuy         alsoBuy'
+            'reviews         reviews';
+    }
+}
+@media (min-width: 1360px) {
+    .wrapper {
+        grid-template-areas:
+            'images          rightPanel'
+            'characteristics aboutMoreBrand'
+            'description     .'
+            'buyTogether     .'
+            'alsoBuy         .'
+            'reviews         reviews';
+    }
+}
+@media (max-width: 999px) {
+    .images {
+        height: 443px;
+    }
+    .rightPanel {
+        height: 962px;
+    }
+    .characteristics {
+        height: 209px;
+    }
+    .aboutMoreBrand {
+        height: 546px;
+    }
+    .buyTogether {
+        height: 404px;
+    }
+    .description {
+        height: 224px;
+    }
+    .alsoBuy {
+        display: none;
+    }
+    .reviews {
+        height: 1738px;
+    }
+}
+@media (min-width: 1000px) {
+    .images {
+        height: 443px;
+    }
+    .rightPanel {
+        height: 962px;
+    }
+    .characteristics {
+        height: 209px;
+    }
+    .aboutMoreBrand {
+        height: 546px;
+    }
+    .buyTogether {
+        height: 404px;
+    }
+    .description {
+        height: 224px;
+    }
+    .alsoBuy {
+        height: 200px;
+    }
+    .reviews {
+        height: 1738px;
+    }
+}
