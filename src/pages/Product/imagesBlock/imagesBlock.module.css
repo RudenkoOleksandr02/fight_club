@@ -1,10 +1,33 @@
-@media (max-width: 767px) {
-    .wrapper {
-
-    }
+.mainImage {
+    padding: 10px;
+    background: var(--white);
 }
-@media (min-width: 1360px) {
+.mainImage img {
+    width: 100%;
+    height: 100%;
+}
+.imageSecondaryWrapper {
+    padding: 5px;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.imageSecondaryWrapper img {
+    width: 100%; height: 100%;
+}
+@media (max-width: 767px) {
+
+    .imageSecondaryWrapper {
+        width: 104px; height: 104px;
+    }
     .wrapper {
-        width: 100%
+        :global(.swiper-slide) {
+            width: auto !important;
+        }
+    }
+    :global(.swiper) {
+        padding: 0 15px;
+        margin: 0 -15px;
     }
 }
