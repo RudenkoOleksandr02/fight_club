@@ -20,30 +20,28 @@ const CardListWithSwap = ({title, products}) => {
             spaceBetween={20}
             grabCursor={true}
             speed={800}
-            slidesPerView="auto"
             pagination={{
-                clickable: true,
-                dynamicBullets: true
-        }}
-            freeMode={true}
+                clickable: true
+            }}
             breakpoints={{
+                0: {
+                    pagination: {
+                        dynamicBullets: true
+                    },
+                    slidesPerView: "auto",
+                    freeMode: true
+                },
                 768: {
                     slidesPerView: 3,
                     slidesPerGroup: 3,
-                    freeMode: false,
-                    pagination: {dynamicBullets: false}
                 },
                 1000: {
                     slidesPerView: 4,
                     slidesPerGroup: 4,
-                    freeMode: false,
-                    pagination: {dynamicBullets: false}
                 },
                 1360: {
                     slidesPerView: 5,
                     slidesPerGroup: 5,
-                    freeMode: false,
-                    pagination: {dynamicBullets: false}
                 }
             }}
         >

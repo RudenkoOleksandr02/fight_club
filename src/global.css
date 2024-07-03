@@ -25,7 +25,7 @@ header a, nav a {
   text-decoration: none;
   font-family: 'Roboto', sans-serif;
 }
-button, input, a, p, h1, h2, h3, h4, h5, h6 {
+button, input, a, p, h1, h2, h3, h4, h5, h6, span {
   font-family: 'Montserrat', sans-serif;
 }
 button {

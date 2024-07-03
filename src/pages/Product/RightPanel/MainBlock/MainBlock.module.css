@@ -1,0 +1,81 @@
+.wrapper {
+    padding: 25px;
+    background: var(--white);
+}
+.wrapper > h3 {
+    opacity: 40%;
+    font-size: 14px;
+    font-weight: 400;
+}
+.wrapper > h2 {
+    margin: 10px 0 20px;
+    color: var(--black);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.reviewsContainer {
+    margin: 10px 0 60px;
+    font-size: 14px;
+    color: var(--green)
+}
+.reviewsContainer > span {
+    margin-right: 10px;
+}
+
+.priceContainer {
+    display: flex;
+    justify-content: space-between;
+}
+.priceContainer > span:first-child {
+    font-family: 'Ahsing', sans-serif;
+    color: var(--black);
+    font-size: 24px;
+}
+
+
+.buyContainer {
+    margin: 10px 0 10px;
+    display: flex;
+}
+.buyContainer > button {
+    height: 40px;
+    border: none;
+}
+.buyContainer > button:first-child {
+    background: var(--green);
+    color: #fff;
+    font-size: 16px;
+}
+.buyContainer > button:last-child {
+    background: transparent;
+    color: var(--black);
+    border: 1px solid var(--black);
+    font-size: 14px;
+}
+@media (max-width: 767px) {
+    .buyContainer {
+        flex-direction: column;
+    }
+    .buyContainer > button {
+        width: 100%;
+    }
+    .buyContainer > button:first-child {
+        order: 1;
+        margin-top: 10px;
+    }
+}
+@media (min-width: 768px) {
+    .buyContainer > button:last-child {
+        width: 150px;
+    }
+    .buyContainer > button:first-child {
+        width: 100%;
+        margin-right: 10px;
+    }
+}
+
+.inStockContainer {
+    display: flex;
+    justify-content: space-between;
+}

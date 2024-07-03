@@ -1,0 +1,91 @@
+/* swiper */
+.imagesPanel {
+    :global(.swiper) {
+        width: 100%;
+        height: 100%;
+    }
+    height: 100%;
+}
+.wrapper {
+    display: flex;
+    margin-bottom: 10px;
+}
+/* MAIN STYLES */
+.mainImage {
+    width: 100%; height: 100%;
+    padding: 10px;
+    background: var(--white);
+}
+.mainImage img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+}
+.imageSecondaryWrapper {
+    padding: 5px;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.imageSecondaryWrapper img {
+    width: 100%; height: 100%;
+}
+
+/* Media */
+@media (max-width: 767px) {
+    .wrapper {
+        height: fit-content;
+        flex-direction: column;
+    }
+    .imageSecondaryWrapper {
+        height: 104px;
+    }
+    .mainImage {
+        height: 330px;
+        margin-bottom: 10px;
+    }
+}
+@media (min-width: 768px) and (max-width: 999px) {
+    .wrapper {
+        height: 595px;
+    }
+    .imageSecondaryWrapper {
+        height: 111px; width: 111px;
+    }
+}
+@media (min-width: 1000px) and (max-width: 1359px) {
+    .wrapper {
+        height: 410px;
+    }
+    .imageSecondaryWrapper {
+        height: 74px; width: 77px;
+    }
+}
+@media (min-width: 1360px) {
+    .wrapper {
+        height: 600px;
+    }
+    .imageSecondaryWrapper {
+        height: 112px; width: 116px;
+    }
+}
+
+/* min 768 */
+@media (min-width: 768px) {
+    .wrapper {
+        flex-direction: row;
+    }
+    .mainImage {
+        order: 1;
+        margin: 0 0 0 10px;
+    }
+}
+
+/* MAIN IMAGE SCALE */
+@media (min-width: 592px) and (max-width: 767px) {
+    .mainImage {
+        height: 400px;
+    }
+}
+
+

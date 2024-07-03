@@ -1,0 +1,17 @@
+.wrapper {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.container {
+    display: flex;
+    align-items: center;
+    padding: 25px;
+    margin-top: 10px;
+    background: var(--white);
+    color: var(--green);
+}
+.container > p {
+    margin-left: 25px;
+    font-size: 16px;
+    font-weight: 600;
+}

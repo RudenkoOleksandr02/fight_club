@@ -1,0 +1,9 @@
+.characteristic {
+    padding: 8px 15px;
+    display: flex;
+    justify-content: space-between;
+    color: #757575;
+}
+.characteristic:nth-child(odd) {
+    background: #f3f3f3;
+}

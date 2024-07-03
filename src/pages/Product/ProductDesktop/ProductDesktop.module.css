@@ -1,0 +1,39 @@
+.wrapper {
+    display: grid;
+    grid-template-areas:
+        'rightPanel'
+        'leftPanel'
+        'alsoBuy'
+        'reviews';
+    grid-gap: 10px;
+}
+.rightPanel {
+    grid-area: rightPanel;
+}
+.leftPanel{
+    grid-area: leftPanel;
+}
+.alsoBuy {
+    grid-area: alsoBuy;
+}
+.reviews {
+    grid-area: reviews;
+}
+@media (min-width: 1000px) {
+    .wrapper {
+        grid-template-columns: 510px 1fr;
+        grid-template-areas:
+        'leftPanel rightPanel'
+        'alsoBuy    alsoBuy'
+        'reviews    reviews';
+    }
+}
+@media (min-width: 1359px) {
+    .wrapper {
+        grid-template-columns: 60% 1fr;
+        grid-template-areas:
+        'leftPanel rightPanel'
+        'alsoBuy    .'
+        'reviews    reviews';
+    }
+}
