@@ -1,6 +1,7 @@
 .wrapper {
     padding: 25px;
     background: var(--white);
+    color: var(--black);
 }
 .wrapper > h3 {
     opacity: 40%;
@@ -9,7 +10,6 @@
 }
 .wrapper > h2 {
     margin: 10px 0 20px;
-    color: var(--black);
     font-size: 24px;
     font-weight: 700;
 }
@@ -31,6 +31,14 @@
     font-family: 'Ahsing', sans-serif;
     color: var(--black);
     font-size: 24px;
+}
+.priceContainer > div {
+    display: flex;
+    align-items: center;
+}
+.priceContainer > div > span {
+    opacity: 40%;
+    margin-right: 10px;
 }
 
 

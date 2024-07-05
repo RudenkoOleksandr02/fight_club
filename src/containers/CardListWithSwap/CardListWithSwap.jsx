@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './CardListWithSwap.module.css';
 import clForCardItem from './CardItem.module.css'
 import {v4 as uuidv4} from 'uuid'
-import {A11y, Pagination, FreeMode} from "swiper/modules";
+import {Pagination, FreeMode} from "swiper/modules";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';

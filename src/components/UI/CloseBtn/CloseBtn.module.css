@@ -1,0 +1,23 @@
+.close {
+    border: none;
+    background: transparent;
+    position: relative;
+    align-self: end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.close .item {
+    position: absolute;
+    width: 33px;
+    height: 2px;
+    border-radius: 28px;
+   /* background: var(--main-color);*/
+}
+.close .item:first-child {
+    transform: rotate(45deg);
+}
+.close .item:last-child {
+    transform: rotate(-45deg);
+}

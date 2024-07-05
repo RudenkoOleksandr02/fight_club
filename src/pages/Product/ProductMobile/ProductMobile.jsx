@@ -5,6 +5,7 @@ import RightPanel from "../RightPanel/RightPanel";
 import Characteristics from "../Characteristics/Characteristics";
 import Description from "../Description/Description";
 import AboutMoreBrand from "../AboutMoreBrand/AboutMoreBrand";
+import Reviews from "../Reviews/Reviews";
 
 const ProductMobile = ({data}) => {
     return (
@@ -35,8 +36,9 @@ const ProductMobile = ({data}) => {
             <div className={classes.description}>
                 <Description description={data.description}/>
             </div>
-            <div className={classes.buyTogether}>buyTogether</div>
-            <div className={classes.reviews}>reviews</div>
+            <div className={classes.reviews}>
+                <Reviews reviews={data.reviews}/>
+            </div>
         </div>
     );
 };

@@ -1,0 +1,23 @@
+.wrapper > h3, .wrapper > .content {
+    padding: 25px;
+    background: var(--white);
+}
+.wrapper > .content {
+    margin-top: 10px;
+}
+.wrapper > h3 {
+    font-size: 16px;
+    font-weight: 600;
+}
+.inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.inner > button {
+    background: transparent;
+    border: none;
+}
+.review {
+    margin: 25px 0;
+}

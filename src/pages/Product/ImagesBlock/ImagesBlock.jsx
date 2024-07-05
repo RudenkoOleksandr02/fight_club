@@ -1,18 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './ImagesBlock.module.css';
 import {v4 as uuidv4} from 'uuid';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {FreeMode} from "swiper/modules";
+import ModalImage from "../../../components/UI/ModalImage/ModalImage";
 
 const ImagesBlock = ({images}) => {
-    const firstImage = images[0];
-    const otherImages = images.filter((image, index) => index !== 0);
+    const [selectedImage, setSelectedImage] = useState(images[0]);
+    const [selectedModalImage, selectedOpenModalImage] = useState(null)
+
+    const handleChangeImage = (image)  => {
+        setSelectedImage(image)
+    }
+    const handleOpenImage = () => {
+        selectedOpenModalImage(selectedImage)
+    }
 
     const getSlides = () => {
-        return otherImages.map((image) => {
+        return images.map((image) => {
             return <SwiperSlide key={uuidv4()}>
-                <div className={classes.imageSecondaryWrapper}>
-                    <img src={image} alt='product'/>
+                <div
+                    className={selectedImage === image ? `${classes.imageSecondaryWrapper} ${classes.active}` : classes.imageSecondaryWrapper} onClick={() => handleChangeImage(image)}
+                >
+                    <img src={image} alt='product' />
                 </div>
             </SwiperSlide>
         })
@@ -21,7 +31,6 @@ const ImagesBlock = ({images}) => {
         <Swiper
             modules={[FreeMode]}
             spaceBetween={10}
-            grabCursor={true}
             speed={800}
             freeMode={true}
             breakpoints={{
@@ -56,12 +65,18 @@ const ImagesBlock = ({images}) => {
         </Swiper>
     )
     return <div className={classes.wrapper}>
-        <div className={classes.mainImage}>
-            <img src={firstImage} alt='product'/>
+        <div className={classes.mainImage} onClick={handleOpenImage}>
+            <img src={selectedImage} alt='product'/>
         </div>
         <div className={classes.imagesPanel}>
             {otherImagesSwapJSX}
         </div>
+        {selectedModalImage && (
+            <ModalImage
+                onClose={() => selectedOpenModalImage(null)}
+                selectedImage={selectedModalImage}
+            />
+        )}
     </div>
 };
 

@@ -19,21 +19,20 @@
 .reviews {
     grid-area: reviews;
 }
-@media (min-width: 1000px) {
+@media (min-width: 1000px) and (max-width: 1359px) {
     .wrapper {
         grid-template-columns: 510px 1fr;
         grid-template-areas:
         'leftPanel rightPanel'
-        'alsoBuy    alsoBuy'
+        'alsoBuy   alsoBuy'
         'reviews    reviews';
     }
 }
-@media (min-width: 1359px) {
+@media (min-width: 1360px) {
     .wrapper {
         grid-template-columns: 60% 1fr;
         grid-template-areas:
         'leftPanel rightPanel'
-        'alsoBuy    .'
         'reviews    reviews';
     }
 }

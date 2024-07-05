@@ -1,5 +1,7 @@
 import React from 'react';
 import classes from './MainBlock.module.css'
+import Rating from "../../../../components/UI/Rating/Rating";
+import {ReactComponent as IcoHeart} from "../../../../assets/images/heart.svg";
 
 const MainBlock = (props) => {
     const {name, nameEng, rating, numberOfReviews, numberOfPurchases, numberOfViews, article, options, price, inStock} = props;
@@ -8,7 +10,9 @@ const MainBlock = (props) => {
         <div className={classes.wrapper}>
             <h3>{nameEng}</h3>
             <h2>{name}</h2>
-            <div className={classes.rating}>{rating}</div>
+            <div className={classes.rating}>
+                <Rating rating={rating}/>
+            </div>
 
             <div className={classes.reviewsContainer}>
                 <span>{numberOfReviews} відгуків</span>
@@ -20,7 +24,7 @@ const MainBlock = (props) => {
                 <span>{price}₴</span>
                 <div>
                     <span>У обране</span>
-                    <span>+</span>
+                    <IcoHeart/>
                 </div>
             </div>
 

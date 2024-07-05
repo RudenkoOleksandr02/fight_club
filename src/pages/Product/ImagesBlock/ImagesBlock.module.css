@@ -15,10 +15,16 @@
     width: 100%; height: 100%;
     padding: 10px;
     background: var(--white);
+    overflow: hidden;
 }
 .mainImage img {
     width: 100%; height: 100%;
     object-fit: cover;
+    transition: .3s;
+    cursor: url("../../../assets/images/zoom-in.png"), auto;
+}
+.mainImage img:hover {
+    transform: scale(1.04);
 }
 .imageSecondaryWrapper {
     padding: 5px;
@@ -26,6 +32,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: .2s;
+    cursor: pointer;
+}
+.imageSecondaryWrapper.active {
+    filter: brightness(70%);
+}
+.imageSecondaryWrapper:hover {
+    filter: brightness(70%);
 }
 .imageSecondaryWrapper img {
     width: 100%; height: 100%;
