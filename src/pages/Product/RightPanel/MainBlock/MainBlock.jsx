@@ -2,6 +2,8 @@ import React from 'react';
 import classes from './MainBlock.module.css'
 import Rating from "../../../../components/UI/Rating/Rating";
 import {ReactComponent as IcoHeart} from "../../../../assets/images/heart.svg";
+import TertiaryButton from "../../../../components/UI/Buttons/TertiaryButton/TertiaryButton";
+import PrimaryButton from "../../../../components/UI/Buttons/PrimaryButton/PrimaryButton";
 
 const MainBlock = (props) => {
     const {name, nameEng, rating, numberOfReviews, numberOfPurchases, numberOfViews, article, options, price, inStock} = props;
@@ -29,8 +31,8 @@ const MainBlock = (props) => {
             </div>
 
             <div className={classes.buyContainer}>
-                <button>Купити</button>
-                <button>Варіант</button>
+                <PrimaryButton>Купити</PrimaryButton>
+                <TertiaryButton>Варіант</TertiaryButton>
             </div>
 
             <div className={classes.inStockContainer}>

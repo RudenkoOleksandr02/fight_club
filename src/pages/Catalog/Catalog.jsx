@@ -1,8 +1,8 @@
 import React from 'react';
 import classes from './Catalog.module.css'
 import Breadcrumbs from "../../components/UI/Breadcrumbs/Breadcrumbs";
-import FilterPanel from "../../components/common/FilterPanel/FilterPanel";
-import PaginationAndFilterPanel from "../../components/common/PaginationAndFilterPanel/PaginationAndFilterPanel";
+import FilterPanel from "./FilterPanel/FilterPanel";
+import TopPanel from "./TopPanel/TopPanel";
 import CardList from "../../containers/CardList/CardList";
 
 // --DATA--
@@ -12,10 +12,10 @@ const Catalog = () => {
     return (
         <section>
             <div className={classes.wrapper}>
-                <Breadcrumbs links={[]}/>
+                {/*<Breadcrumbs links={[]}/>*/}
                 <div className={classes.main}>
                     <FilterPanel/>
-                    <PaginationAndFilterPanel/>
+                    <TopPanel/>
                     <CardList products={productsData}/>
                 </div>
             </div>

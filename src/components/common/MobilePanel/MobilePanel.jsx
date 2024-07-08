@@ -6,7 +6,7 @@ import {ReactComponent as IcoSearch} from './../../../assets/images/mobilePanel/
 import {ReactComponent as IcoHome} from './../../../assets/images/mobilePanel/ico_home.svg';
 import {ReactComponent as IcoCart} from './../../../assets/images/mobilePanel/ico_cart.svg';
 import {ReactComponent as IcoMenu} from './../../../assets/images/mobilePanel/ico_menu.svg';
-import ButtonWithIcoRow from "../../UI/Buttons/ButtonWithIcoRow/ButtonWithIcoRow";
+import SecondaryButton from "../../UI/Buttons/SecondaryButton/SecondaryButton";
 import SearchMobile from "../Search/Mobile/SearchMobile";
 
 const MobilePanel = () => {
@@ -28,24 +28,24 @@ const MobilePanel = () => {
     const contentSearch = (
         <>
             <SearchMobile/>
-            <ButtonWithIcoRow>Парфумерія</ButtonWithIcoRow>
-            <ButtonWithIcoRow>Макіяж</ButtonWithIcoRow>
-            <ButtonWithIcoRow>Для майстрів</ButtonWithIcoRow>
-            <ButtonWithIcoRow>Волосся</ButtonWithIcoRow>
-            <ButtonWithIcoRow>Обличчя</ButtonWithIcoRow>
-            <ButtonWithIcoRow>Тіло і ванна</ButtonWithIcoRow>
-            <ButtonWithIcoRow>Чоловікам</ButtonWithIcoRow>
-            <ButtonWithIcoRow>Аксесуари</ButtonWithIcoRow>
-            <ButtonWithIcoRow>Подарунки</ButtonWithIcoRow>
+            <SecondaryButton>Парфумерія</SecondaryButton>
+            <SecondaryButton>Макіяж</SecondaryButton>
+            <SecondaryButton>Для майстрів</SecondaryButton>
+            <SecondaryButton>Волосся</SecondaryButton>
+            <SecondaryButton>Обличчя</SecondaryButton>
+            <SecondaryButton>Тіло і ванна</SecondaryButton>
+            <SecondaryButton>Чоловікам</SecondaryButton>
+            <SecondaryButton>Аксесуари</SecondaryButton>
+            <SecondaryButton>Подарунки</SecondaryButton>
         </>
     )
     const contentMenu = (
         <>
-            <ButtonWithIcoRow>Мой кабинет</ButtonWithIcoRow>
-            <ButtonWithIcoRow>Избранное</ButtonWithIcoRow>
-            <ButtonWithIcoRow>Контакты</ButtonWithIcoRow>
-            <ButtonWithIcoRow>Информация</ButtonWithIcoRow>
-            <ButtonWithIcoRow>О нас</ButtonWithIcoRow>
+            <SecondaryButton>Мой кабинет</SecondaryButton>
+            <SecondaryButton>Избранное</SecondaryButton>
+            <SecondaryButton>Контакты</SecondaryButton>
+            <SecondaryButton>Информация</SecondaryButton>
+            <SecondaryButton>О нас</SecondaryButton>
         </>
     )
 

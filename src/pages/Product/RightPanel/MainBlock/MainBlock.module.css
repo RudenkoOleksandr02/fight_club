@@ -40,26 +40,10 @@
     opacity: 40%;
     margin-right: 10px;
 }
-
-
 .buyContainer {
     margin: 10px 0 10px;
     display: flex;
-}
-.buyContainer > button {
-    height: 40px;
-    border: none;
-}
-.buyContainer > button:first-child {
-    background: var(--green);
-    color: #fff;
-    font-size: 16px;
-}
-.buyContainer > button:last-child {
-    background: transparent;
-    color: var(--black);
-    border: 1px solid var(--black);
-    font-size: 14px;
+    height: 46px;
 }
 @media (max-width: 767px) {
     .buyContainer {

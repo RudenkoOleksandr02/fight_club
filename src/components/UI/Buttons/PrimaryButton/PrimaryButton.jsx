@@ -1,7 +1,7 @@
 import React from 'react';
-import classes from './Button.module.css'
+import classes from './PrimaryButton.module.css'
 
-const Button = ({children, disabled = false}) => {
+const PrimaryButton = ({children, disabled = false}) => {
     return (
         <button className={classes.button} disabled={disabled}>
             {children}
@@ -10,4 +10,4 @@ const Button = ({children, disabled = false}) => {
     );
 };
 
-export default Button;
+export default PrimaryButton;

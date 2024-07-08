@@ -3,7 +3,7 @@ import classes from './AboutMoreBrand.module.css';
 
 // --DATA--
 import image from './../../../assets/images/chanel.png';
-import ButtonWithIcoRow from "../../../components/UI/Buttons/ButtonWithIcoRow/ButtonWithIcoRow";
+import SecondaryButton from "../../../components/UI/Buttons/SecondaryButton/SecondaryButton";
 
 const data = {
     image,
@@ -23,8 +23,8 @@ const AboutMoreBrand = () => {
                 <img src={data.image} alt='company' />
             </div>
             <div className={classes.bnts}>
-                <ButtonWithIcoRow>Подробнее</ButtonWithIcoRow>
-                <ButtonWithIcoRow>Другие товары</ButtonWithIcoRow>
+                <SecondaryButton>Подробнее</SecondaryButton>
+                <SecondaryButton>Другие товары</SecondaryButton>
             </div>
         </div>
     );

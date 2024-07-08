@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import classes from './ShowMore.module.css';
-import {ReactComponent as IcoBird} from "./../../../assets/images/ico_bird.svg";
+import {ReactComponent as IcoBird} from "../../../assets/images/ico_arrow3.svg";
 
 const ShowMore = ({ title, children }) => {
     const [showMore, setShowMore] = useState(false);

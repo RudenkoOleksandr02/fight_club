@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Subscribe.module.css';
-import ico_arrow from './../../../../assets/images/ico_arrow.png'
+import ico_arrow from '../../../../assets/images/ico_arrow1.png'
 
 const Subscribe = () => {
     return (

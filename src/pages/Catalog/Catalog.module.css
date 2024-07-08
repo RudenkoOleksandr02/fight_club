@@ -1,3 +1,6 @@
+.wrapper {
+    margin-top: 60px;
+}
 .main {
     display: grid;
     grid-template-areas:

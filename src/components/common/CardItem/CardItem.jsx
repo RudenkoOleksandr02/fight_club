@@ -1,5 +1,6 @@
 import React from 'react';
-import Button from "../../UI/Buttons/Button/Button";
+import PrimaryButton from "../../UI/Buttons/PrimaryButton/PrimaryButton";
+import cl from './CardItem.module.css'
 
 const CardItem = ({src, titles, price, inStock, classes}) => {
     return (
@@ -18,7 +19,9 @@ const CardItem = ({src, titles, price, inStock, classes}) => {
                         <p>{price}₴</p>
                         <p>{inStock ? 'В наявності' : 'Немає в наявності'}</p>
                     </div>
-                    <Button disabled={!inStock}>Купить</Button>
+                    <div className={cl.btnContainer}>
+                        <PrimaryButton disabled={!inStock}>Купить</PrimaryButton>
+                    </div>
                 </div>
             </div>
         </div>

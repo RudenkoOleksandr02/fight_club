@@ -18,7 +18,7 @@ const data = {
     "price": 599.99,
     "discount": 20,
     "isNew": true,
-    "rating": 4.3,
+    "rating": 4.1,
     "inStock": true,
     "numberOfReviews": 12000,
     "numberOfPurchases": 156,

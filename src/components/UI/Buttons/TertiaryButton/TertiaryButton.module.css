@@ -1,0 +1,14 @@
+.button {
+    background: transparent;
+    color: var(--black);
+    border: 1px solid var(--black);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 25px;
+    font-weight: 500;
+}
+.button > span {
+    margin-right: 10px;
+}

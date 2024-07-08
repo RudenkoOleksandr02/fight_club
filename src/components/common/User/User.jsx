@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {ReactComponent as IcoUser} from "../../../assets/images/ico_user.svg";
 import classes from "./User.module.css";
-import ButtonWithIcoRow from "../../UI/Buttons/ButtonWithIcoRow/ButtonWithIcoRow";
+import SecondaryButton from "../../UI/Buttons/SecondaryButton/SecondaryButton";
 
 const User = () => {
     const [openUserPanel, setOpenUserPanel] = useState(false);
@@ -12,9 +12,9 @@ const User = () => {
                 ? `${classes.userPanel + ' ' + classes.open}`
                 : classes.userPanel
         }>
-            <ButtonWithIcoRow>Мій кабінет</ButtonWithIcoRow>
-            <ButtonWithIcoRow>Вибране</ButtonWithIcoRow>
-            <ButtonWithIcoRow>Підтримка</ButtonWithIcoRow>
+            <SecondaryButton>Мій кабінет</SecondaryButton>
+            <SecondaryButton>Вибране</SecondaryButton>
+            <SecondaryButton>Підтримка</SecondaryButton>
         </div>
     )
 

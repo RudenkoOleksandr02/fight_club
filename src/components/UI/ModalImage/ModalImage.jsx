@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import classes from './ModalImage.module.css';
-import CloseBtn from "../CloseBtn/CloseBtn";
+import CloseBtn from "../Buttons/CloseBtn/CloseBtn";
 
 
 const ModalImage = ({onClose, selectedImage}) => {
