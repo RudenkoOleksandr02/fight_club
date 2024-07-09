@@ -1,0 +1,38 @@
+.page, .prev, .next {
+    border: none;
+    background: transparent;
+    width: 26px; height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: .2s;
+    border-radius: 50%;
+    color: var(--black);
+    margin: 0 2px;
+}
+.page:disabled:hover, .prev:disabled:hover, .next:disabled:hover {
+    background: transparent;
+    cursor: default;
+}
+.page:hover, .prev:hover, .next:hover {
+    background: #dfe4e9;
+}
+.page.active {
+    border: 1px solid var(--orange);
+}
+.page.active:disabled {
+    color: var(--black);
+}
+.prev:disabled > svg > path, .next:disabled > svg > path {
+    stroke: #B2B2B2;
+}
+.prev {
+    transform: rotate(90deg);
+}
+.next {
+    transform: rotate(-90deg);
+}
+.ellipsis {
+    font-size: 14px;
+}

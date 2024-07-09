@@ -1,11 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-    withCredentials: true,
-    baseURL: 'https://...',
-    headers: {
-        'API-KEY': 'd1d08d2b-19c6-436a-abe9-59b5357407f1'
-    }
+    baseURL: 'http://localhost:8001/api/'
 });
 
 export const bannerAPI = {
@@ -14,7 +10,12 @@ export const bannerAPI = {
             .then(response => response.data)
     }
 };
-
+export const catalogApi = {
+    getCatalogData() {
+        return instance.get('Category')
+            .then(response => response.data)
+    }
+}
 export const productsAPI = {
     getProductsData(data) {
         return instance.post(data)

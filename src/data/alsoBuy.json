@@ -3,6 +3,7 @@
     "id": 8,
     "name": "Чоловічий парфум 2",
     "nameEng": "Men's Perfume 2",
+    "amount": 2,
     "images": [
       "img1",
       "img2",
@@ -17,7 +18,6 @@
     "discount": 20,
     "isNew": true,
     "rating": 4.3,
-    "inStock": true,
     "numberOfReviews": 12000,
     "numberOfPurchases": 156,
     "numberOfViews": 1300,
