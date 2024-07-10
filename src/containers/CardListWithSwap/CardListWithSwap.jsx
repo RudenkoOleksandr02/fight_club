@@ -7,7 +7,7 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/free-mode';
-import CardItem from "../../components/common/CardItem/CardItem";
+import CardItem from "./../../ui/CardItem/CardItem";
 
 
 // --DATA--

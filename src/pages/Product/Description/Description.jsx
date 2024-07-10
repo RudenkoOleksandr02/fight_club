@@ -1,5 +1,5 @@
 import React from 'react';
-import ShowMore from "../../../components/UI/ShowMore/ShowMore";
+import ShowMore from "../../../ui/ShowMore/ShowMore";
 
 const Description = ({description}) => {
     return <ShowMore title='Опис'>

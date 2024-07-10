@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import classes from './TopPanel.module.css'
-import TertiaryButton from "../../../components/UI/Buttons/TertiaryButton/TertiaryButton";
-import Pagination from "../../../components/UI/Pagination/Pagination";
+import TertiaryButton from "./../../../ui/Buttons/TertiaryButton/TertiaryButton";
+import Pagination from "./../../../ui/Pagination/Pagination";
 
 const TopPanel = ({totalPages, currentPage, amount, handleChangePage}) => {
     return (

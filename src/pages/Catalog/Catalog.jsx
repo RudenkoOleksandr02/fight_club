@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import classes from './Catalog.module.css'
-import Breadcrumbs from "../../components/UI/Breadcrumbs/Breadcrumbs";
+import Breadcrumbs from "./../../ui/Breadcrumbs/Breadcrumbs";
 import FilterPanel from "./FilterPanel/FilterPanel";
 import TopPanel from "./TopPanel/TopPanel";
 import CardList from "./CardList/CardList";

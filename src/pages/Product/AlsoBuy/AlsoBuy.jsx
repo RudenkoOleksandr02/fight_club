@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './AlsoBuy.module.css';
 import clForCardItem from './CardItem.module.css';
-import CardItem from "../../../components/common/CardItem/CardItem";
+import CardItem from "../../../ui/CardItem/CardItem";
 import {v4 as uuidv4} from 'uuid';
 import {Pagination} from "swiper/modules";
 import {Swiper, SwiperSlide} from 'swiper/react';

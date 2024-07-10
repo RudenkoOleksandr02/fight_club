@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Reviews.module.css';
 import {ReactComponent as Like} from '../../../assets/images/ico_like.svg';
 import {v4 as uuidv4} from 'uuid'
-import Rating from "../../../components/UI/Rating/Rating";
+import Rating from "../../../ui/Rating/Rating";
 
 const Reviews = ({reviews}) => {
     const reviewsJSX = reviews.map(el => {

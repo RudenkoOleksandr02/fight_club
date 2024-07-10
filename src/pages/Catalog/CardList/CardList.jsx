@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './CardList.module.css';
-import CardItem from "../../../components/common/CardItem/CardItem";
+import CardItem from "./../../../ui/CardItem/CardItem";
 import {v4 as uuidv4} from 'uuid';
 
 const CardList = ({products}) => {

@@ -1,12 +1,10 @@
 import React, {useEffect} from 'react';
-import Banner from "../../components/UI/Banner/Banner";
+import Banner from "./../../ui/Banner/Banner";
 import CardListWithSwap from "../../containers/CardListWithSwap/CardListWithSwap";
 import classes from './Home.module.css'
 import background from '../../assets/images/background/background1.png'
-import {useSelector, useDispatch} from 'react-redux'
-import {
-    getProductsData
-} from '../../store/productsSlice';
+import {useDispatch, useSelector} from 'react-redux'
+import {getProductsData} from '../../store/productsSlice';
 
 const Home = () => {
     const productsData = useSelector(state => state.productsData.data);

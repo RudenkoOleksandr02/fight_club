@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './global.css';
+import './assets/styles/global.css';
+import './assets/styles/variables.css';
 import {
     createBrowserRouter,
     createRoutesFromElements,
@@ -11,15 +12,15 @@ import {
 import {Provider} from "react-redux";
 import {store} from './store/store';
 
-import Header from "./components/common/Header/Header";
-import Navigation from "./components/common/Navigation/Navigation";
-import Footer from "./components/common/Footer/Footer";
+import Header from "./ui/Header/Header";
+import Navigation from "./ui/Navigation/Navigation";
+import Footer from "./ui/Footer/Footer";
 import Home from "./pages/Home/Home";
 import Blog from "./pages/Blog/Blog";
 import Brands from "./pages/Brands/Brands";
 import About from "./pages/About/About";
 import ErrorPage from "./pages/Error/Error";
-import MobilePanel from "./components/common/MobilePanel/MobilePanel";
+import MobilePanel from "./ui/MobilePanel/MobilePanel";
 import Catalog from "./pages/Catalog/Catalog";
 import Product from "./pages/Product/Product";
 

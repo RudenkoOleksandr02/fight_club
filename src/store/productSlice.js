@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import {productsAPI} from '../api'
+import {productsAPI} from '../api/api'
 
 const initialState = {
     data: []
@@ -27,8 +27,6 @@ export const {} = productSlice.actions;
 export default productSlice.reducer;
 
 export const getProductById = (id) => async (dispatch) => {
-    const data = await dispatch(loadProductData(id));
-    debugger
-    return data
+    return await dispatch(loadProductData(id));
 };
 

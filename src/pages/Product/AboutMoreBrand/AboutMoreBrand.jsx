@@ -3,7 +3,7 @@ import classes from './AboutMoreBrand.module.css';
 
 // --DATA--
 import image from '../../../assets/images/other/chanel.png';
-import SecondaryButton from "../../../components/UI/Buttons/SecondaryButton/SecondaryButton";
+import SecondaryButton from "../../../ui/Buttons/SecondaryButton/SecondaryButton";
 
 const data = {
     image,
