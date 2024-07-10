@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './TertiaryButton.module.css';
-import {ReactComponent as IcoRow} from '../../../../assets/images/ico_arrow3.svg'
+import {ReactComponent as IcoRow} from '../../../../assets/images/arrows/ico_arrow3.svg'
 
 const TertiaryButton = ({children}) => {
     return (

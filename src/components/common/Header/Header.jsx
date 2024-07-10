@@ -1,8 +1,8 @@
 import React from 'react';
 import classes from './Header.module.css';
-import ico_basket from '../../../assets/images/ico_basket.png';
 import {Link} from "react-router-dom";
 import User from "../User/User";
+import {ReactComponent as IcoCart} from "./../../../assets/images/header/ico_cart.svg";
 
 const Header = () => {
     return (
@@ -26,7 +26,7 @@ const Header = () => {
                             200₴
                         </div>
                         <div className={classes.icoBasket}>
-                            <img src={ico_basket} alt='busket'/>
+                            <IcoCart/>
                         </div>
                     </div>
                     <User/>

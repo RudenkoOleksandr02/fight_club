@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import {catalogApi} from "../api";
+import {catalogAPI} from "../api";
 
 const initialState = {
     data: []
@@ -7,7 +7,7 @@ const initialState = {
 const loadCatalogData = createAsyncThunk(
     'catalog/loadData',
     async () => {
-        return catalogApi.getCatalogData();
+        return catalogAPI.getCatalogData();
     }
 );
 

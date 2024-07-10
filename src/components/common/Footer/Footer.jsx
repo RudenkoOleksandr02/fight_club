@@ -3,11 +3,11 @@ import classes from './Footer.module.css';
 import {v4 as uuidv4} from 'uuid';
 import {Link} from "react-router-dom";
 import Subscribe from "./Subscribe/Subscribe";
-
-import ico_instagram from './../../../assets/images/ico_instagram.png';
-import ico_facebook from './../../../assets/images/ico_facebook.png';
-import ico_telegram from './../../../assets/images/ico_telegram.png';
-
+// --ICONS--
+import {ReactComponent as IcoInstagram} from "./../../../assets/images/socials/ico_instagram.svg";
+import {ReactComponent as IcoFacebook} from "./../../../assets/images/socials/ico_facebook.svg";
+import {ReactComponent as IcoTelegram} from "./../../../assets/images/socials/ico_telegram.svg";
+// --DATA--
 import linksToCategories from '../../../data/linksToCategories.json';
 import linksToInformation from './../../../data/linksToInformation.json';
 import linksToUs from './../../../data/linksToUs.json';
@@ -62,13 +62,13 @@ const Footer = () => {
                     {linksToRightsJSX}
                     <div className={classes.socials}>
                         <Link to={linksToSocials[0].id}>
-                            <img src={ico_instagram} alt='instagram'/>
+                            <IcoInstagram/>
                         </Link>
                         <Link to={linksToSocials[1].id}>
-                            <img src={ico_facebook} alt='facebook'/>
+                            <IcoFacebook/>
                         </Link>
                         <Link to={linksToSocials[2].id}>
-                            <img src={ico_telegram} alt='telegram'/>
+                            <IcoTelegram/>
                         </Link>
                     </div>
                 </div>

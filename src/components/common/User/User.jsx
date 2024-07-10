@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ReactComponent as IcoUser} from "../../../assets/images/ico_user.svg";
+import {ReactComponent as IcoUser} from "../../../assets/images/header/ico_user.svg";
 import classes from "./User.module.css";
 import SecondaryButton from "../../UI/Buttons/SecondaryButton/SecondaryButton";
 

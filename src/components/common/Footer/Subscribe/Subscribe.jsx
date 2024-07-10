@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Subscribe.module.css';
-import ico_arrow from '../../../../assets/images/ico_arrow1.png'
+import {ReactComponent as IcoArrow} from "./../../../../assets/images/arrows/ico_arrow1.svg";
 
 const Subscribe = () => {
     return (
@@ -10,7 +10,7 @@ const Subscribe = () => {
                 <form className={classes.sendEmail}>
                     <input type='email' placeholder='Email'/>
                     <button>
-                        <img src={ico_arrow} alt='send email'/>
+                        <IcoArrow/>
                     </button>
                 </form>
                 <p>Подпишитесь и получите скидку 10% на первый заказ</p>

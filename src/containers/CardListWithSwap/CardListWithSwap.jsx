@@ -11,7 +11,7 @@ import CardItem from "../../components/common/CardItem/CardItem";
 
 
 // --DATA--
-import card_img from './../../assets/images/card_img.png'
+import card_img from '../../assets/images/other/card_img.png'
 
 const CardListWithSwap = ({title, products}) => {
     const productsListJSX = (

@@ -8,6 +8,10 @@ import AboutMoreBrand from "../AboutMoreBrand/AboutMoreBrand";
 import Reviews from "../Reviews/Reviews";
 
 const ProductMobile = ({data}) => {
+    if (data.length === 0) {
+        return <div>preloader...</div>;
+    }
+
     return (
         <div className={classes.wrapper}>
             <div className={classes.images}>

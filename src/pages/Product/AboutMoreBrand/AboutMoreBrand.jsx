@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './AboutMoreBrand.module.css';
 
 // --DATA--
-import image from './../../../assets/images/chanel.png';
+import image from '../../../assets/images/other/chanel.png';
 import SecondaryButton from "../../../components/UI/Buttons/SecondaryButton/SecondaryButton";
 
 const data = {

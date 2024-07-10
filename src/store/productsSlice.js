@@ -1,39 +1,32 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import productsDataJSON from './../data/productsData.json'
+import {productsAPI} from '../api'
 
 const initialState = {
     data: []
 }
-/*const loadProductsData = createAsyncThunk(
+const loadProductsData = createAsyncThunk(
     'products/loadData',
-    async (getProductsData) => {
-        return await getProductsData();
+    async (filter) => {
+        return productsAPI.getProductsData(filter);
     }
-);*/
-const loadProductsData = () => {
-    return productsDataJSON;
-};
+);
 
 export const productsSlice = createSlice({
     name: 'productsData',
     initialState,
-    reducers: {
-        loadProductsDataFromFile: (state) => {
-            state.data = loadProductsData();
-        }
-    },
-    /*extraReducers: (builder) => {
+    reducers: {},
+    extraReducers: (builder) => {
         builder
             .addCase(loadProductsData.fulfilled, (state, action) => {
                 state.data = action.payload;
             });
-    }*/
+    }
 })
 
-export const {loadProductsDataFromFile} = productsSlice.actions;
+export const {} = productsSlice.actions;
 export default productsSlice.reducer;
 
-/*export const getProductsData = () => async (dispatch) => {
-    await dispatch(loadProductsData(productsDataJSON()));
-};*/
+export const getProductsData = (filter) => async (dispatch) => {
+    return await dispatch(loadProductsData(filter));
+};
 

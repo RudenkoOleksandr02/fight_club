@@ -2,13 +2,15 @@ import React, {useEffect, useState} from 'react';
 import classes from './Product.module.css'
 
 // --DATA--
-import img1 from '../../assets/images/product/1.png'
-import img2 from '../../assets/images/product/2.png'
-import img3 from '../../assets/images/product/3.png'
-import img4 from '../../assets/images/product/4.png'
-import img5 from '../../assets/images/product/5.png'
+import img1 from '../../assets/images/other/product/1.png'
+import img2 from '../../assets/images/other/product/2.png'
+import img3 from '../../assets/images/other/product/3.png'
+import img4 from '../../assets/images/other/product/4.png'
+import img5 from '../../assets/images/other/product/5.png'
 import ProductDesktop from "./ProductDesktop/ProductDesktop";
 import ProductMobile from "./ProductMobile/ProductMobile";
+import {useDispatch, useSelector} from "react-redux";
+import {getProductById} from "../../store/productSlice";
 const data = {
     "id": 8,
     "name": "Чоловічий парфум 2",
@@ -87,6 +89,12 @@ const data = {
     "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ultrices justo ac ante pretium, et aliquam ipsum pharetra. Fusce urna quam, semper at odio quis, finibus vulputate diam. Sed mattis ornare nulla ac malesuada. Quisque sagittis est ex, at faucibus enim aliquam eu. Aenean mi felis, mollis at molestie vitae, ultricies ac ipsum. Aliquam erat volutpat. Proin commodo hendrerit libero a blandit. Donec vehicula est vitae sagittis congue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum luctus urna elit, eget lacinia."
 }
 const Product = () => {
+    const productData = useSelector(state => state.productData.data);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getProductById(1));
+    }, [])
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 999);
     useEffect(() => {
         const handleResize = () => {
@@ -102,8 +110,8 @@ const Product = () => {
         <section>
             <div className={classes.wrapper}>
                 {isSmallScreen
-                    ? <ProductMobile data={data}/>
-                    : <ProductDesktop data={data}/>
+                    ? <ProductMobile data={productData}/>
+                    : <ProductDesktop data={productData}/>
                 }
             </div>
         </section>

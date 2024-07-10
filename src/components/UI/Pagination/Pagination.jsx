@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Pagination.module.css';
-import {ReactComponent as IcoArrow} from './../../../assets/images/ico_arrow3.svg';
+import {ReactComponent as IcoArrow} from '../../../assets/images/arrows/ico_arrow3.svg';
 
 const Pagination = ({currentPage, totalPages, onPageChange}) => {
     const handleClick = (page) => {

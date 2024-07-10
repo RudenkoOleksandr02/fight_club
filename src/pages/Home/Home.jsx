@@ -2,18 +2,29 @@ import React, {useEffect} from 'react';
 import Banner from "../../components/UI/Banner/Banner";
 import CardListWithSwap from "../../containers/CardListWithSwap/CardListWithSwap";
 import classes from './Home.module.css'
-import background from './../../assets/images/BG.png'
+import background from '../../assets/images/background/background1.png'
 import {useSelector, useDispatch} from 'react-redux'
 import {
-    loadProductsDataFromFile
+    getProductsData
 } from '../../store/productsSlice';
 
 const Home = () => {
     const productsData = useSelector(state => state.productsData.data);
+    debugger
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(loadProductsDataFromFile())
+        dispatch(getProductsData({
+            categories: [
+
+            ],
+            sortBy: "string",
+            amount: 15,
+            star: 15,
+            minPrice: 0,
+            maxPrice: 1000,
+            search: null
+        }))
     }, []);
 
     const productsDiscount = productsData.filter(product => product.discount);

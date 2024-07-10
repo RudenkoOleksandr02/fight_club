@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Reviews.module.css';
-import {ReactComponent as Like} from './../../../assets/images/like.svg';
+import {ReactComponent as Like} from '../../../assets/images/ico_like.svg';
 import {v4 as uuidv4} from 'uuid'
 import Rating from "../../../components/UI/Rating/Rating";
 

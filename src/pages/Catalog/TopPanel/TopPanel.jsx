@@ -3,21 +3,14 @@ import classes from './TopPanel.module.css'
 import TertiaryButton from "../../../components/UI/Buttons/TertiaryButton/TertiaryButton";
 import Pagination from "../../../components/UI/Pagination/Pagination";
 
-const TopPanel = () => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = 10;
-
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-    };
-
+const TopPanel = ({totalPages, currentPage, amount, handleChangePage}) => {
     return (
         <div className={classes.wrapper}>
             <TertiaryButton>За популярністю</TertiaryButton>
             <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
-                onPageChange={handlePageChange}
+                onPageChange={() => handleChangePage(currentPage + amount)}
             />
         </div>
     );

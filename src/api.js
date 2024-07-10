@@ -1,7 +1,10 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'http://localhost:8001/api/'
+    baseURL: 'http://localhost:8001/api/',
+    headers: {
+        'Content-Type': 'application/json'
+    }
 });
 
 export const bannerAPI = {
@@ -10,15 +13,21 @@ export const bannerAPI = {
             .then(response => response.data)
     }
 };
-export const catalogApi = {
+export const catalogAPI = {
     getCatalogData() {
         return instance.get('Category')
             .then(response => response.data)
     }
 }
 export const productsAPI = {
-    getProductsData(data) {
-        return instance.post(data)
+    getProductsData(filter) {
+        return instance.post('Product/GetProductsByFilter', JSON.stringify(filter))
             .then(response => response.data)
+    },
+    getProductById(productId) {
+        return instance.get(`Product/${productId}`)
+            .then(response => {
+                return response.data
+            })
     }
 };

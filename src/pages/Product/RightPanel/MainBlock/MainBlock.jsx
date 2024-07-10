@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './MainBlock.module.css'
 import Rating from "../../../../components/UI/Rating/Rating";
-import {ReactComponent as IcoHeart} from "../../../../assets/images/heart.svg";
+import {ReactComponent as IcoHeart} from "../../../../assets/images/ico_heart.svg";
 import TertiaryButton from "../../../../components/UI/Buttons/TertiaryButton/TertiaryButton";
 import PrimaryButton from "../../../../components/UI/Buttons/PrimaryButton/PrimaryButton";
 
