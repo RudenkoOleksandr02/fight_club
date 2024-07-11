@@ -13,7 +13,7 @@ import {Provider} from "react-redux";
 import {store} from './store/store';
 
 import Header from "./ui/components/Header/Header";
-import Navigation from "./ui/components/Navigation/Navigation";
+import Navigation from "./containers/Navigation/Navigation";
 import Footer from "./ui/components/Footer/Footer";
 import Home from "./pages/Home/Home";
 import Blog from "./pages/Blog/Blog";
@@ -47,9 +47,9 @@ const Root = () => {
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={<Root/>}>
-            <Route index element={<Home/>}/>
+            {/*<Route index element={<Home/>}/>*/}
             {/*<Route index element={<Catalog/>}/>*/}
-            {/*<Route index element={<Product/>}/>*/}
+            <Route index element={<Product/>}/>
             <Route path='/blog' element={<Blog/>}/>
             <Route path='/brands' element={<Brands/>}/>
             <Route path='/about' element={<About/>}/>

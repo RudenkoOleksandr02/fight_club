@@ -13,12 +13,6 @@ export const bannerAPI = {
             .then(response => response.data)
     }
 };
-export const catalogAPI = {
-    getCatalogData() {
-        return instance.get('Category')
-            .then(response => response.data)
-    }
-}
 export const productsAPI = {
     getProductsData(filter) {
         return instance.post('Product/GetProductsByFilter', JSON.stringify(filter))

@@ -1,0 +1,10 @@
+.wrapper {
+    height: 500px;
+    width: 100%;
+    background: var(--white);
+    position: absolute;
+    z-index: 50;
+}
+.subcategory a {
+    color:  var(--black) !important;
+}

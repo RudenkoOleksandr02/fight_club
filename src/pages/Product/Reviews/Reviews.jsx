@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Reviews.module.css';
 import {ReactComponent as Like} from '../../../assets/images/ico_like.svg';
-import {v4 as uuidv4} from 'uuid'
+import {v4 as uuidv4} from 'uuid';
 import Rating from "../../../ui/components/Rating/Rating";
 
 const Reviews = ({reviews}) => {
