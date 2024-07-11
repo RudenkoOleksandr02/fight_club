@@ -12,15 +12,15 @@ import {
 import {Provider} from "react-redux";
 import {store} from './store/store';
 
-import Header from "./ui/Header/Header";
-import Navigation from "./ui/Navigation/Navigation";
-import Footer from "./ui/Footer/Footer";
+import Header from "./ui/components/Header/Header";
+import Navigation from "./ui/components/Navigation/Navigation";
+import Footer from "./ui/components/Footer/Footer";
 import Home from "./pages/Home/Home";
 import Blog from "./pages/Blog/Blog";
 import Brands from "./pages/Brands/Brands";
 import About from "./pages/About/About";
 import ErrorPage from "./pages/Error/Error";
-import MobilePanel from "./ui/MobilePanel/MobilePanel";
+import MobilePanel from "./ui/components/MobilePanel/MobilePanel";
 import Catalog from "./pages/Catalog/Catalog";
 import Product from "./pages/Product/Product";
 
@@ -47,9 +47,9 @@ const Root = () => {
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={<Root/>}>
-            {/*<Route index element={<Home/>}/>*/}
+            <Route index element={<Home/>}/>
             {/*<Route index element={<Catalog/>}/>*/}
-            <Route index element={<Product/>}/>
+            {/*<Route index element={<Product/>}/>*/}
             <Route path='/blog' element={<Blog/>}/>
             <Route path='/brands' element={<Brands/>}/>
             <Route path='/about' element={<About/>}/>

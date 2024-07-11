@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Characteristics.module.css';
-import ShowMore from "../../../ui/ShowMore/ShowMore";
+import ShowMore from "../../../ui/components/ShowMore/ShowMore";
 
 const Characteristics = ({characteristics}) => {
     const characteristicsJSX = characteristics.map(el => {

@@ -1,0 +1,18 @@
+.extraClassSwiperList {
+    padding: 25px;
+    background: var(--white);
+}
+.extraClassSwiperList h2 {
+    font-size: 16px;
+    font-weight: 600;
+}
+@media (min-width: 1000px) and (max-width: 1359px) {
+    .extraClassCardItem img {
+        height: 239px;
+    }
+}
+@media (min-width: 1360px) {
+    .extraClassCardItem img {
+        height: 219px;
+    }
+}

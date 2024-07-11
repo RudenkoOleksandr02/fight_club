@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import Banner from "./../../ui/Banner/Banner";
+import BannerContainer from "../../containers/BannerContainer/BannerContainer";
 import CardListWithSwap from "../../containers/CardListWithSwap/CardListWithSwap";
 import classes from './Home.module.css'
 import background from '../../assets/images/background/background1.png'
@@ -8,7 +8,6 @@ import {getProductsData} from '../../store/productsSlice';
 
 const Home = () => {
     const productsData = useSelector(state => state.productsData.data);
-    debugger
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -34,7 +33,7 @@ const Home = () => {
             <div className={classes.background}>
                 <img src={background}/>
             </div>
-            <Banner/>
+            <BannerContainer/>
             <CardListWithSwap title='Новинки' products={productsDiscount}/>
             <CardListWithSwap title='Акции и скидки' products={productsIsNew}/>
             <CardListWithSwap title='Популярные товары' products={productsPopular}/>

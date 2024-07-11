@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import classes from './Catalog.module.css'
-import Breadcrumbs from "./../../ui/Breadcrumbs/Breadcrumbs";
+import Breadcrumbs from "../../ui/components/Breadcrumbs/Breadcrumbs";
 import FilterPanel from "./FilterPanel/FilterPanel";
 import TopPanel from "./TopPanel/TopPanel";
-import CardList from "./CardList/CardList";
+import CardListContainer from "../../containers/CardListContainer/CardListContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {getProductsData} from "../../store/productsSlice";
 
@@ -42,7 +42,7 @@ const Catalog = () => {
                         amount={productsData.amount}
                         handleChangePage={handleChangePage}
                     />
-                    <CardList products={productsData}/>
+                    <CardListContainer products={productsData}/>
                 </div>
             </div>
         </section>

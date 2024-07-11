@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from './MainBlock.module.css'
 import {ReactComponent as IcoHeart} from "../../../../assets/images/ico_heart.svg";
-import Rating from "../../../../ui/Rating/Rating";
-import TertiaryButton from "../../../../ui/Buttons/TertiaryButton/TertiaryButton";
-import PrimaryButton from "../../../../ui/Buttons/PrimaryButton/PrimaryButton";
+import Rating from "../../../../ui/components/Rating/Rating";
+import TertiaryButton from "../../../../ui/components/Buttons/TertiaryButton/TertiaryButton";
+import PrimaryButton from "../../../../ui/components/Buttons/PrimaryButton/PrimaryButton";
 
 const MainBlock = (props) => {
     const {name, nameEng, rating, numberOfReviews, numberOfPurchases, numberOfViews, article, options, price, inStock} = props;

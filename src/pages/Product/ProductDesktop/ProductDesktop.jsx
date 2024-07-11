@@ -6,7 +6,7 @@ import Characteristics from "../Characteristics/Characteristics";
 import Description from "../Description/Description";
 import AboutMoreBrand from "../AboutMoreBrand/AboutMoreBrand";
 import Reviews from "../Reviews/Reviews";
-import AlsoBuy from "../AlsoBuy/AlsoBuy";
+import AlsoBuy from "../../../containers/AlsoBuy/AlsoBuy";
 
 const ProductDesktop = ({data}) => {
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1359);
