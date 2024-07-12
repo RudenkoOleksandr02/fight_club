@@ -19,8 +19,7 @@ const Catalog = () => {
         minPrice: 0,
         maxPrice: 0
     });
-
-    useEffect(() => {
+    const applyFilter = () => {
         dispatch(getProductsByFilter({
             categoryName: categoryName,
             sortBy: sortBy,
@@ -30,16 +29,20 @@ const Catalog = () => {
             maxPrice: minMaxPrice.maxPrice,
             selectedCharacteristics: selectedCharacteristics
         }));
-    }, [currentPage, categoryName, sortBy, selectedCharacteristics]);
+    }
+    useEffect(() => {
+        applyFilter()
+    }, [currentPage, categoryName, sortBy]);
 
+    const handleApplyFilter = () => {
+        applyFilter()
+    }
     const handleChangePage = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
-
     if (!productsData) {
         return <div>Loading...</div>;
     }
-
     return (
         <section>
             <div className={classes.wrapper}>
@@ -49,7 +52,9 @@ const Catalog = () => {
                         setCategoryName={setCategoryName}
                         setSelectedCharacteristics={setSelectedCharacteristics}
                         selectedCharacteristics={selectedCharacteristics}
+                        minMaxPrice={minMaxPrice}
                         setMinMaxPrice={setMinMaxPrice}
+                        handleApplyFilter={handleApplyFilter}
                     />
                     <TopPanel
                         totalCount={productsData.totalCount}
