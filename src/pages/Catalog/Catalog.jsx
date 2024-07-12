@@ -1,33 +1,36 @@
-import React, {useEffect, useState} from 'react';
-import classes from './Catalog.module.css'
+import React, { useEffect, useState } from 'react';
+import classes from './Catalog.module.css';
 import Breadcrumbs from "../../ui/components/Breadcrumbs/Breadcrumbs";
 import FilterPanel from "./FilterPanel/FilterPanel";
 import TopPanel from "./TopPanel/TopPanel";
 import CardListContainer from "../../containers/CardListContainer/CardListContainer";
-import {useDispatch, useSelector} from "react-redux";
-import {getProductsData} from "../../store/productsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductsByFilter } from "../../store/productSlice";
 
 const Catalog = () => {
-    const productsData = useSelector(state => state.productsData.data);
+    const productsData = useSelector(state => state.productData.catalog);
     const dispatch = useDispatch();
-    const [currentPage, setCurrentPage] = useState(productsData.star);
+    const [currentPage, setCurrentPage] = useState(1);
+    const amount = 15;
 
     useEffect(() => {
-        dispatch(getProductsData({
-            categories: [
-
-            ],
+        dispatch(getProductsByFilter({
+            categoryName: "",
             sortBy: "string",
-            amount: 15,
-            star: currentPage,
+            amount: amount,
+            start: (currentPage - 1) * amount,
             minPrice: 0,
-            maxPrice: 1000,
-            search: null
-        }))
-    }, [currentPage]);
+            maxPrice: 0,
+            selectedCharacteristics: []
+        }));
+    }, [currentPage, dispatch]);
 
     const handleChangePage = (pageNumber) => {
         setCurrentPage(pageNumber);
+    };
+
+    if (!productsData) {
+        return <div>Loading...</div>;
     }
 
     return (
@@ -35,14 +38,14 @@ const Catalog = () => {
             <div className={classes.wrapper}>
                 {/*<Breadcrumbs links={[]}/>*/}
                 <div className={classes.main}>
-                    <FilterPanel/>
+                    <FilterPanel />
                     <TopPanel
-                        totalPages={productsData.totalPages}
-                        currentPage={productsData.currentPage}
-                        amount={productsData.amount}
+                        totalCount={productsData.totalCount}
+                        currentPage={currentPage}
+                        amount={amount}
                         handleChangePage={handleChangePage}
                     />
-                    <CardListContainer products={productsData}/>
+                    <CardListContainer productsData={productsData} />
                 </div>
             </div>
         </section>

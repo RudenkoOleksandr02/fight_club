@@ -15,7 +15,7 @@ import {store} from './store/store';
 import Header from "./ui/components/Header/Header";
 import Navigation from "./containers/Navigation/Navigation";
 import Footer from "./ui/components/Footer/Footer";
-import Home from "./pages/Home/Home";
+/*import Home from "./pages/Home/Home";*/
 import Blog from "./pages/Blog/Blog";
 import Brands from "./pages/Brands/Brands";
 import About from "./pages/About/About";
@@ -48,8 +48,8 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={<Root/>}>
             {/*<Route index element={<Home/>}/>*/}
-            {/*<Route index element={<Catalog/>}/>*/}
-            <Route index element={<Product/>}/>
+            <Route index element={<Catalog/>}/>
+            {/*<Route index element={<Product/>}/>*/}
             <Route path='/blog' element={<Blog/>}/>
             <Route path='/brands' element={<Brands/>}/>
             <Route path='/about' element={<About/>}/>

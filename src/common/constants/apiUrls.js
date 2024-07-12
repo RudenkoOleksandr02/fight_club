@@ -9,3 +9,14 @@ export const instance = axios.create({
 export const CatalogUrls = {
     GetCategoryTree: 'Category/GetCategoryTree'
 }
+export const ProductsUrls = {
+    GetProductsByFilter: 'Product/GetProductsByFilter',
+    GetProductById(productId) {
+        return `Product/${productId}`
+    }
+}
+export const bannerApi = {
+    getBannerData(data) {
+
+    }
+}

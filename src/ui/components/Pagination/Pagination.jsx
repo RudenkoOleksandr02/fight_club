@@ -2,7 +2,9 @@ import React from 'react';
 import classes from './Pagination.module.css';
 import {ReactComponent as IcoArrow} from '../../../assets/images/arrows/ico_arrow3.svg';
 
-const Pagination = ({currentPage, totalPages, onPageChange}) => {
+const Pagination = ({currentPage, amount, totalCount, onPageChange}) => {
+    const totalPages = Math.ceil(totalCount / amount);
+
     const handleClick = (page) => {
         onPageChange(page);
     };

@@ -4,13 +4,13 @@ import {v4 as uuidv4} from 'uuid'
 import {Link} from "react-router-dom";
 
 const Die = ({ categoryTree }) => {
-    const [activeSubcategory, setActiveSubcategory] = useState(null);
+    const [activeSubcategories, setActiveSubcategories] = useState([]);
 
     const handleButtonClick = (subcategory) => {
-        if (activeSubcategory === subcategory) {
-            setActiveSubcategory(null);
+        if (activeSubcategories.includes(subcategory)) {
+            setActiveSubcategories(activeSubcategories.filter(active => active !== subcategory));
         } else {
-            setActiveSubcategory(subcategory);
+            setActiveSubcategories([...activeSubcategories, subcategory]);
         }
     };
 
@@ -23,7 +23,7 @@ const Die = ({ categoryTree }) => {
                     </button>
                 )}
                 <Link to={`/category/${subcategory.categoryId}`}>{subcategory.name}</Link>
-                {activeSubcategory === subcategory && (
+                {activeSubcategories.includes(subcategory) && (
                     <div className={classes.underSubcategory}>
                         {subcategory.children.map(child => (
                             <Link key={uuidv4()} to={`/category/${child.categoryId}`}>

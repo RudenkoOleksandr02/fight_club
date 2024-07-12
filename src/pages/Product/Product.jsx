@@ -93,7 +93,7 @@ const Product = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getProductById(1));
+        dispatch(getProductById(2));
     }, [])
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 999);
     useEffect(() => {

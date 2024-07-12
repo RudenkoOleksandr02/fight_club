@@ -1,32 +1,48 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import {productsAPI} from '../api/api'
+import productAPI from '../api/productApi';
 
 const initialState = {
-    data: []
-}
-const loadProductData = createAsyncThunk(
-    'product/loadData',
+    product: null,
+    catalog: null
+};
+
+const loadProductById = createAsyncThunk(
+    'product/loadProductById',
     async (id) => {
-        return productsAPI.getProductById(id);
+        return productAPI.getProductById(id);
+
     }
 );
 
-export const productSlice = createSlice({
+const loadProductsByFilter = createAsyncThunk(
+    'product/loadProductsByFilter',
+    async (params) => {
+        return productAPI.getProductsByFilter(params);
+    }
+);
+
+const productSlice = createSlice({
     name: 'productData',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(loadProductData.fulfilled, (state, action) => {
-                state.data = action.payload;
-            });
-    }
-})
+            .addCase(loadProductById.fulfilled, (state, action) => {
+                state.product = action.payload;
+            })
+            .addCase(loadProductsByFilter.fulfilled, (state, action) => {
+                state.catalog = action.payload;
+            })
 
-export const {} = productSlice.actions;
+    }
+});
+
 export default productSlice.reducer;
 
 export const getProductById = (id) => async (dispatch) => {
-    return await dispatch(loadProductData(id));
+    return await dispatch(loadProductById(id));
 };
 
+export const getProductsByFilter = (filter) => async (dispatch) => {
+    return await dispatch(loadProductsByFilter(filter));
+};
