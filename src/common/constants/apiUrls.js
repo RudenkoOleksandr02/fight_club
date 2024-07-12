@@ -15,8 +15,13 @@ export const ProductsUrls = {
         return `Product/${productId}`
     }
 }
-export const bannerApi = {
-    getBannerData(data) {
-
+export const FilterPanelUrls = {
+    GetFilterPanelByCategoryName(categoryName) {
+        return `FilterPanel/${categoryName}`
     }
 }
+export const bannerApi = {
+    getBannerData(data) {
+    }
+
+    }

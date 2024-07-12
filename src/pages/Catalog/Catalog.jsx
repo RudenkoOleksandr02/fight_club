@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import classes from './Catalog.module.css';
 import Breadcrumbs from "../../ui/components/Breadcrumbs/Breadcrumbs";
-import FilterPanel from "./FilterPanel/FilterPanel";
+import FilterPanel from "./../../containers/FilterPanel/FilterPanel";
 import TopPanel from "./TopPanel/TopPanel";
 import CardListContainer from "../../containers/CardListContainer/CardListContainer";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,18 +12,25 @@ const Catalog = () => {
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const amount = 15;
+    const [sortBy, setSortBy] = useState("");
+    const [categoryName, setCategoryName] = useState("");
+    const [selectedCharacteristics, setSelectedCharacteristics] = useState([]);
+    const [minMaxPrice, setMinMaxPrice] = useState({
+        minPrice: 0,
+        maxPrice: 0
+    });
 
     useEffect(() => {
         dispatch(getProductsByFilter({
-            categoryName: "",
-            sortBy: "string",
+            categoryName: categoryName,
+            sortBy: sortBy,
             amount: amount,
             start: (currentPage - 1) * amount,
-            minPrice: 0,
-            maxPrice: 0,
-            selectedCharacteristics: []
+            minPrice: minMaxPrice.minPrice,
+            maxPrice: minMaxPrice.maxPrice,
+            selectedCharacteristics: selectedCharacteristics
         }));
-    }, [currentPage, dispatch]);
+    }, [currentPage, categoryName, sortBy, selectedCharacteristics]);
 
     const handleChangePage = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -38,14 +45,20 @@ const Catalog = () => {
             <div className={classes.wrapper}>
                 {/*<Breadcrumbs links={[]}/>*/}
                 <div className={classes.main}>
-                    <FilterPanel />
+                    <FilterPanel
+                        setCategoryName={setCategoryName}
+                        setSelectedCharacteristics={setSelectedCharacteristics}
+                        selectedCharacteristics={selectedCharacteristics}
+                        setMinMaxPrice={setMinMaxPrice}
+                    />
                     <TopPanel
                         totalCount={productsData.totalCount}
                         currentPage={currentPage}
                         amount={amount}
                         handleChangePage={handleChangePage}
+                        setSortBy={setSortBy}
                     />
-                    <CardListContainer productsData={productsData} />
+                    <CardListContainer productsData={productsData}/>
                 </div>
             </div>
         </section>
