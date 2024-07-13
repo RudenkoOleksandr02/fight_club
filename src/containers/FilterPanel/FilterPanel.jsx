@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './FilterPanel.module.css';
-import { useDispatch, useSelector } from "react-redux";
-import { getFilterPanelDataById } from "../../store/filterPanelSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {getFilterPanelDataById} from "../../store/filterPanelSlice";
 import PrimaryButton from "../../ui/components/Buttons/PrimaryButton/PrimaryButton";
 import Categories from "./Categories/Categories";
 import Characteristics from "./Characteristics/Characteristics";
@@ -19,12 +19,17 @@ const FilterPanel = ({
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (categoryId) {
-            dispatch(getFilterPanelDataById(categoryId));
-            setSelectedCharacteristics([]); // Сброс характеристик при изменении категории
-            setMinMaxPrice({ minPrice: 0, maxPrice: 0 }); // Сброс минимальной и максимальной цены
+        dispatch(getFilterPanelDataById(categoryId));
+        setSelectedCharacteristics([]);
+    }, [categoryId]);
+    useEffect(() => {
+        if (filterPanelData) {
+            setMinMaxPrice({
+                minPrice: filterPanelData.minPrice,
+                maxPrice: filterPanelData.maxPrice
+            });
         }
-    }, [categoryId, dispatch, setSelectedCharacteristics, setMinMaxPrice]);
+    }, [filterPanelData]);
 
     if (!filterPanelData) {
         return <div>...preloader</div>;

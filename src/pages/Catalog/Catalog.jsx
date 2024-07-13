@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './Catalog.module.css';
 import Breadcrumbs from "../../ui/components/Breadcrumbs/Breadcrumbs";
 import FilterPanel from "./../../containers/FilterPanel/FilterPanel";
 import TopPanel from "./TopPanel/TopPanel";
 import CardListContainer from "../../containers/CardListContainer/CardListContainer";
-import { useDispatch, useSelector } from "react-redux";
-import { getProductsByFilter } from "../../store/productSlice";
-import { getCategoryById } from "../../store/categorySlice";
-import { useParams } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {getProductsByFilter} from "../../store/productSlice";
+import {useParams} from "react-router-dom";
 
 const Catalog = () => {
-    const { id: categoryId } = useParams();
+    const {id: categoryId} = useParams();
     const productsData = useSelector(state => state.productData.catalog);
-    const categoryData = useSelector(state => state.categoryData.categoryData);
     const dispatch = useDispatch();
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
     const amount = 15;
     const [sortBy, setSortBy] = useState("");
     const [selectedCharacteristics, setSelectedCharacteristics] = useState([]);
@@ -28,7 +26,7 @@ const Catalog = () => {
             categoryId: categoryId,
             sortBy: sortBy,
             amount: amount,
-            start: currentPage * amount,
+            start: (currentPage - 1) * amount,
             minPrice: minMaxPrice.minPrice,
             maxPrice: minMaxPrice.maxPrice,
             selectedCharacteristics: selectedCharacteristics
@@ -36,16 +34,11 @@ const Catalog = () => {
     };
 
     useEffect(() => {
-        dispatch(getCategoryById(categoryId));
-        setSelectedCharacteristics([]); // Сброс характеристик при изменении категории
-        setMinMaxPrice({ minPrice: 0, maxPrice: 0 }); // Сброс минимальной и максимальной цены
-    }, [categoryId, dispatch]);
-
-    useEffect(() => {
         applyFilter();
-    }, [currentPage, categoryId, sortBy, minMaxPrice, selectedCharacteristics]);
+    }, [categoryId]);
 
     const handleApplyFilter = () => {
+        setCurrentPage(1);
         applyFilter();
     };
 
@@ -60,7 +53,7 @@ const Catalog = () => {
     return (
         <section>
             <div className={classes.wrapper}>
-                {/*<Breadcrumbs links={[]}/>*/}
+                <Breadcrumbs links={[]}/>
                 <div className={classes.main}>
                     <FilterPanel
                         categoryId={categoryId}

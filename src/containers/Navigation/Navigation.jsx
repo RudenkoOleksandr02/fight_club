@@ -6,21 +6,21 @@ import SearchDesktop from "../../ui/components/Search/Desctop/SearchDesktop";
 import linksToCategories from '../../data/linksToCategories.json';
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoryTree } from "../../store/categorySlice";
-import Die from "./Die/Die";
+import CategoryTree from "./CategoryTree/CategoryTree";
 
 const Navigation = () => {
     const [currentCategory, setCurrentCategory] = useState(null);
-    const [showDie, setShowDie] = useState(false);
+    const [showCategoryTree, setShowCategoryTree] = useState(true);
     const categoryTree = useSelector((state) => state.categoryData.categoryTree);
     const dispatch = useDispatch();
 
     const handleSetCategoryTree = (categoryId) => {
         setCurrentCategory(categoryId);
-        setShowDie(true);
+        setShowCategoryTree(true);
     };
 
     const handleDellCategoryTree = () => {
-        setShowDie(false);
+        setShowCategoryTree(false);
     };
 
     useEffect(() => {
@@ -36,6 +36,7 @@ const Navigation = () => {
                     key={uuidv4()}
                     to={'/category/' + link.id}
                     onMouseEnter={() => handleSetCategoryTree(link.id)}
+                    onMouseLeave={handleDellCategoryTree}
                 >
                     {link.name}
                 </NavLink>
@@ -46,17 +47,15 @@ const Navigation = () => {
     return (
         <nav className={classes.navigation}>
             <div className={classes.wrapper}>
-                <SearchDesktop />
+                <SearchDesktop/>
                 {linksToCategoriesJSX}
             </div>
-            {showDie && categoryTree.length !== 0 && (
-                <div
-                    className={classes.dieWrapper}
-                    onMouseEnter={() => setShowDie(true)}
-                    onMouseLeave={handleDellCategoryTree}
-                >
-                    <Die categoryTree={categoryTree} />
-                </div>
+            {showCategoryTree && categoryTree && (
+                <CategoryTree
+                    categoryTree={categoryTree}
+                    handleSetCategoryTree={() => {}}
+                    handleDellCategoryTree={() => {}}
+                />
             )}
         </nav>
     );

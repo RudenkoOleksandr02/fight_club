@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
-import classes from './Die.module.css';
-import {v4 as uuidv4} from 'uuid'
-import {Link, useNavigate} from "react-router-dom";
-import {ReactComponent as Arrow} from "../../../assets/images/arrows/ico_arrow3.svg";
-import TertiaryButton from "../../../ui/components/Buttons/TertiaryButton/TertiaryButton";
+import React, { useState } from 'react';
+import classes from './CategoryTree.module.css';
+import { v4 as uuidv4 } from 'uuid';
+import { Link, useNavigate } from "react-router-dom";
+import { ReactComponent as Arrow } from "../../../assets/images/arrows/ico_arrow3.svg";
 import SecondaryButton from "../../../ui/components/Buttons/SecondaryButton/SecondaryButton";
 
-const Die = ({categoryTree}) => {
+const CategoryTree = ({ categoryTree, handleSetCategoryTree, handleDellCategoryTree }) => {
     const [activeSubcategories, setActiveSubcategories] = useState([]);
     const navigate = useNavigate();
 
@@ -18,7 +17,7 @@ const Die = ({categoryTree}) => {
         }
     };
 
-    const categoryTreeJSX = categoryTree.children.map(subcategory => {
+    const categoryTreeJSX = categoryTree && categoryTree.children ? categoryTree.children.map(subcategory => {
         return (
             <div key={uuidv4()} className={classes.categoriesWrapper}>
                 <div className={classes.subcategoryWithButton}>
@@ -32,7 +31,7 @@ const Die = ({categoryTree}) => {
                             onClick={() => handleButtonClick(subcategory)}
                             className={classes.showMore}
                         >
-                            <Arrow/>
+                            <Arrow />
                         </button>
                     )}
                 </div>
@@ -47,11 +46,13 @@ const Die = ({categoryTree}) => {
                 )}
             </div>
         );
-    });
+    }) : <div>preloader...</div>;
 
-    return <div className={classes.wrapper}>
-        {categoryTreeJSX}
-    </div>;
+    return (
+        <div className={classes.wrapper} onMouseEnter={handleSetCategoryTree} onMouseLeave={handleDellCategoryTree}>
+            {categoryTreeJSX}
+        </div>
+    );
 };
 
-export default Die;
+export default CategoryTree;
