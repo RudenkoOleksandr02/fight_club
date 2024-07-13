@@ -22,7 +22,7 @@ import ErrorPage from "./pages/Error/Error";
 import MobilePanel from "./ui/components/MobilePanel/MobilePanel";
 import Catalog from "./pages/Catalog/Catalog";
 import Product from "./pages/Product/Product";
-/*import Home from "./pages/Home/Home";*/
+import Home from "./pages/Home/Home";
 
 /*const loader = ({ params }) => {
     const products = dataProducts.filter(product => {
@@ -47,12 +47,12 @@ const Root = () => {
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={<Root/>}>
-            {/*<Route index element={<Home/>}/>*/}
+            <Route index element={<Home/>}/>
             <Route path='/blog' element={<Blog/>}/>
             <Route path='/brands' element={<Brands/>}/>
             <Route path='/about' element={<About/>}/>
             <Route path='/category/:id' element={<Catalog/>} errorElement={<ErrorPage/>}/>
-            <Route path='/category/:id/product/:id' element={<Product/>} errorElement={<ErrorPage/>}/>/>
+            <Route path='product/:id' element={<Product/>} errorElement={<ErrorPage/>}/>/>
             <Route path='*' element={<ErrorPage/>}/>
         </Route>
     )

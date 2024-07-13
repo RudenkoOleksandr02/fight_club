@@ -14,8 +14,8 @@ const Navigation = () => {
     const categoryTree = useSelector((state) => state.categoryData.categoryTree);
     const dispatch = useDispatch();
 
-    const handleSetCategoryTree = (categoryName) => {
-        setCurrentCategory(categoryName);
+    const handleSetCategoryTree = (categoryId) => {
+        setCurrentCategory(categoryId);
         setShowDie(true);
     };
 
@@ -34,8 +34,8 @@ const Navigation = () => {
             {linksToCategories.map(link => (
                 <NavLink
                     key={uuidv4()}
-                    to={link.id}
-                    onMouseEnter={() => handleSetCategoryTree(link.name)}
+                    to={'/category/' + link.id}
+                    onMouseEnter={() => handleSetCategoryTree(link.id)}
                 >
                     {link.name}
                 </NavLink>

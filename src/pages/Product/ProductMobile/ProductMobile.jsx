@@ -7,37 +7,38 @@ import Description from "../Description/Description";
 import AboutMoreBrand from "../AboutMoreBrand/AboutMoreBrand";
 import Reviews from "../Reviews/Reviews";
 
-const ProductMobile = ({data}) => {
+const ProductMobile = ({product}) => {
     return (
         <div className={classes.wrapper}>
             <div className={classes.images}>
-                <ImagesBlock images={data.images}/>
+                <ImagesBlock images={product.images}/>
             </div>
             <div className={classes.rightPanel}>
                 <RightPanel
-                    name={data.name}
-                    nameEng={data.nameEng}
-                    rating={data.rating}
-                    numberOfReviews={data.numberOfReviews}
-                    numberOfPurchases={data.numberOfPurchases}
-                    numberOfViews={data.numberOfViews}
-                    article={data.article}
-                    options={data.options}
-                    price={data.price}
-                    inStock={data.inStock}
+                    name={product.name}
+                    nameEng={product.nameEng}
+                    rating={product.rating}
+                    numberOfReviews={product.numberOfReviews}
+                    numberOfPurchases={product.numberOfPurchases}
+                    numberOfViews={product.numberOfViews}
+                    article={product.article}
+                    options={product.options}
+                    price={product.price}
+                    inStock={product.inStock}
+                    dieNumbers={product.dieNumbers}
                 />
             </div>
             <div className={classes.characteristics}>
-                <Characteristics characteristics={data.characteristics}/>
+                <Characteristics characteristics={product.characteristics}/>
             </div>
             <div className={classes.aboutMoreBrand}>
                 <AboutMoreBrand/>
             </div>
             <div className={classes.description}>
-                <Description description={data.description}/>
+                <Description description={product.description}/>
             </div>
             <div className={classes.reviews}>
-                <Reviews reviews={data.reviews}/>
+                <Reviews reviews={product.reviews}/>
             </div>
         </div>
     );

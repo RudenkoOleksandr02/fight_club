@@ -4,29 +4,23 @@ import CardListWithSwap from "../../containers/CardListWithSwap/CardListWithSwap
 import classes from './Home.module.css'
 import background from '../../assets/images/background/background1.png'
 import {useDispatch, useSelector} from 'react-redux'
-import {getProductsData} from '../../store/productSlice';
+import {getNewProducts, getDiscountsProducts, getPopularProducts} from '../../store/homePageSlice';
 
 const Home = () => {
-    const productsData = useSelector(state => state.productsData.data);
+    const newProducts = useSelector(state => state.homePageData.newProducts);
+    const discountsProducts = useSelector(state => state.homePageData.discountsProducts);
+    const popularProducts = useSelector(state => state.homePageData.popularProducts);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getProductsData({
-            categories: [
-
-            ],
-            sortBy: "string",
-            amount: 15,
-            star: 15,
-            minPrice: 0,
-            maxPrice: 1000,
-            search: null
-        }))
+        dispatch(getNewProducts());
+        dispatch(getDiscountsProducts());
+        dispatch(getPopularProducts());
     }, []);
 
-    const productsDiscount = productsData.filter(product => product.discount);
-    const productsIsNew = productsData.filter(product => product.isNew);
-    const productsPopular = productsData;
+    if (!(newProducts.length && discountsProducts.length && popularProducts.length)) {
+        return <div>loader...</div>
+    }
 
     return (
         <main className={classes.main}>
@@ -34,9 +28,9 @@ const Home = () => {
                 <img src={background}/>
             </div>
             <BannerContainer/>
-            <CardListWithSwap title='Новинки' products={productsDiscount}/>
-            <CardListWithSwap title='Акции и скидки' products={productsIsNew}/>
-            <CardListWithSwap title='Популярные товары' products={productsPopular}/>
+            <CardListWithSwap title='Новинки' products={newProducts}/>
+            <CardListWithSwap title='Акции и скидки' products={discountsProducts}/>
+            <CardListWithSwap title='Популярные товары' products={popularProducts}/>
         </main>
     );
 };

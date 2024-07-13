@@ -12,6 +12,7 @@
 }
 .button > svg {
     transition: .1s;
+    margin-left: 10px;
 }
 
 .button:hover svg {

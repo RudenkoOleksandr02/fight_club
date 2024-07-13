@@ -32,8 +32,8 @@ const Product = () => {
         <section>
             <div className={classes.wrapper}>
                 {isSmallScreen
-                    ? <ProductMobile data={productData}/>
-                    : <ProductDesktop data={productData}/>
+                    ? <ProductMobile product={productData}/>
+                    : <ProductDesktop product={productData}/>
                 }
             </div>
         </section>

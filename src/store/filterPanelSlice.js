@@ -7,8 +7,8 @@ const initialState = {
 
 const loadFilterPanelData = createAsyncThunk(
     'filterPanel/loadFilterPanelData',
-    async (categoryName) => {
-        return FilterPanelApi.getFilterPanelByCategoryName(categoryName);
+    async (categoryId) => {
+        return FilterPanelApi.getFilterPanelById(categoryId);
     }
 )
 
@@ -28,6 +28,6 @@ export const filterPanelSlice = createSlice({
 export const {} = filterPanelSlice.actions;
 export default filterPanelSlice.reducer
 
-export const getFilterPanelDataByCategoryName = (categoryName) =>  async (dispatch) => {
-    return await dispatch(loadFilterPanelData(categoryName))
+export const getFilterPanelDataById = (categoryId) =>  async (dispatch) => {
+    return await dispatch(loadFilterPanelData(categoryId))
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './MainBlock.module.css'
 import {ReactComponent as IcoHeart} from "../../../../assets/images/ico_heart.svg";
 import Rating from "../../../../ui/components/Rating/Rating";
@@ -6,7 +6,25 @@ import TertiaryButton from "../../../../ui/components/Buttons/TertiaryButton/Ter
 import PrimaryButton from "../../../../ui/components/Buttons/PrimaryButton/PrimaryButton";
 
 const MainBlock = (props) => {
-    const {name, nameEng, rating, numberOfReviews, numberOfPurchases, numberOfViews, article, options, price, inStock} = props;
+    const {
+        name,
+        nameEng,
+        rating,
+        numberOfReviews,
+        numberOfPurchases,
+        numberOfViews,
+        article,
+        options,
+        price,
+        inStock
+    } = props;
+    const [sortBy, setSortBy] = useState('');
+    const paramsForVariant = options.map((option, index) => {
+        return {
+            name: option,
+            value: index
+        }
+    })
 
     return (
         <div className={classes.wrapper}>
@@ -32,7 +50,12 @@ const MainBlock = (props) => {
 
             <div className={classes.buyContainer}>
                 <PrimaryButton>Купити</PrimaryButton>
-                <TertiaryButton>Варіант</TertiaryButton>
+                <TertiaryButton
+                    params={paramsForVariant}
+                    onChange={setSortBy}
+                >
+                    Варіант
+                </TertiaryButton>
             </div>
 
             <div className={classes.inStockContainer}>

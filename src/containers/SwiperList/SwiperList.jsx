@@ -8,6 +8,7 @@ import CardItem from "../../ui/components/CardItem/CardItem";
 import classes from './SwiperList.module.css';
 
 const SwiperList = ({
+                        path,
                         title,
                         products,
                         swiperParams,
@@ -25,6 +26,7 @@ const SwiperList = ({
                             <SwiperSlide key={index}>
                                 {renderSlide ? renderSlide(product) : (
                                     <CardItem
+                                        path={`/product/${product.id}`}
                                         src={product.images[0]}
                                         titles={[product.name, product.nameEng]}
                                         price={product.price}

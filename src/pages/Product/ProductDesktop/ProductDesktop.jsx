@@ -8,7 +8,7 @@ import AboutMoreBrand from "../AboutMoreBrand/AboutMoreBrand";
 import Reviews from "../Reviews/Reviews";
 import AlsoBuy from "../../../containers/AlsoBuy/AlsoBuy";
 
-const ProductDesktop = ({data}) => {
+const ProductDesktop = ({product}) => {
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1359);
     useEffect(() => {
         const handleResize = () => {
@@ -23,31 +23,32 @@ const ProductDesktop = ({data}) => {
     return (
         <div className={classes.wrapper}>
             <div className="leftPanel">
-                <ImagesBlock images={data.images}/>
-                <Characteristics characteristics={data.characteristics}/>
-                <Description description={data.description}/>
-                {!isSmallScreen && <AlsoBuy/>}
+                <ImagesBlock images={product.images}/>
+                <Characteristics characteristics={product.characteristics}/>
+                <Description description={product.description}/>
+                {!isSmallScreen && <AlsoBuy productId={product.id}/>}
             </div>
             <div className="rightPanel">
                 <RightPanel
-                    name={data.name}
-                    nameEng={data.nameEng}
-                    rating={data.rating}
-                    numberOfReviews={data.numberOfReviews}
-                    numberOfPurchases={data.numberOfPurchases}
-                    numberOfViews={data.numberOfViews}
-                    article={data.article}
-                    options={data.options}
-                    price={data.price}
-                    inStock={data.inStock}
+                    name={product.name}
+                    nameEng={product.nameEng}
+                    rating={product.rating}
+                    numberOfReviews={product.numberOfReviews}
+                    numberOfPurchases={product.numberOfPurchases}
+                    numberOfViews={product.numberOfViews}
+                    article={product.article}
+                    options={product.options}
+                    price={product.price}
+                    inStock={product.inStock}
+                    dieNumbers={product.dieNumbers}
                 />
                 <AboutMoreBrand/>
             </div>
             {isSmallScreen && <div className={classes.alsoBuy}>
-                <AlsoBuy/>
+                <AlsoBuy productId={product.id}/>
             </div>}
             <div className={classes.reviews}>
-                <Reviews reviews={data.reviews}/>
+                <Reviews reviews={product.reviews}/>
             </div>
         </div>
     );

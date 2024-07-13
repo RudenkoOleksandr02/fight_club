@@ -7,8 +7,8 @@ const initialState = {
 }
 const loadCategoryTree = createAsyncThunk(
     'category/loadCategoryTree',
-    async (categoryName) => {
-        return categoryApi.getCategoryTree(categoryName);
+    async (categoryId) => {
+        return categoryApi.getCategoryTree(categoryId);
     }
 );
 const loadCategoryById = createAsyncThunk(
@@ -36,8 +36,8 @@ export const categorySlice = createSlice({
 export const {} = categorySlice.actions;
 export default categorySlice.reducer;
 
-export const getCategoryTree = (categoryName) => async (dispatch) => {
-    return await dispatch(loadCategoryTree(categoryName));
+export const getCategoryTree = (categoryId) => async (dispatch) => {
+    return await dispatch(loadCategoryTree(categoryId));
 };
 
 export const getCategoryById = (categoryId) => async (dispatch) => {

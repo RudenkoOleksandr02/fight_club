@@ -1,8 +1,8 @@
 import {instance, CategoryUrls} from '../common/constants/apiUrls'
 
 const categoryApi = {
-    getCategoryTree(categoryName) {
-        return instance.get(CategoryUrls.GetCategoryTree + '?categoryName=' + categoryName)
+    getCategoryTree(categoryId) {
+        return instance.get(CategoryUrls.GetCategoryTree(categoryId))
             .then(response => response.data)
     },
     getCategoryById(categoryId) {
