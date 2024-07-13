@@ -2,7 +2,8 @@ import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import categoryApi from "../api/categoryApi";
 
 const initialState = {
-    categoryTree: []
+    categoryTree: [],
+    categoryData: []
 }
 const loadCategoryTree = createAsyncThunk(
     'category/loadCategoryTree',
@@ -10,6 +11,12 @@ const loadCategoryTree = createAsyncThunk(
         return categoryApi.getCategoryTree(categoryName);
     }
 );
+const loadCategoryById = createAsyncThunk(
+    'category/loadCategoryById',
+    async (categoryId) => {
+        return categoryApi.getCategoryById(categoryId);
+    }
+)
 
 export const categorySlice = createSlice({
     name: 'categoryData',
@@ -19,7 +26,10 @@ export const categorySlice = createSlice({
         builder
             .addCase(loadCategoryTree.fulfilled, (state, action) => {
                 state.categoryTree = action.payload;
-            });
+            })
+            .addCase(loadCategoryById.fulfilled, (state, action) => {
+                state.categoryData = action.payload;
+            })
     }
 })
 
@@ -30,3 +40,6 @@ export const getCategoryTree = (categoryName) => async (dispatch) => {
     return await dispatch(loadCategoryTree(categoryName));
 };
 
+export const getCategoryById = (categoryId) => async (dispatch) => {
+    return await dispatch(loadCategoryById(categoryId));
+}

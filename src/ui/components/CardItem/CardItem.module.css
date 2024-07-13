@@ -18,27 +18,32 @@
 .btnContainer {
     height: 38px;
 }
-.image > img {
+.image > a {
+    display: block;
+}
+.image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.titles > p:first-child,
-.titles > p:last-child {
+.titles > a,
+.titles > p {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: var(--black);
 }
-.titles > p:first-child {
+.titles > a {
     line-height: 19.5px;
     margin: 15px 0 5px;
     -webkit-line-clamp: 2;
+    text-decoration: none;
 }
-.titles > p:last-child {
+.titles > p {
     -webkit-line-clamp: 1;
 }
-.titles > p:last-child,
+.titles > p,
 .price > p:last-child {
     font-size: 14px;
     opacity: 40%;

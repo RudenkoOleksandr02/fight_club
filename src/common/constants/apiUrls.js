@@ -6,8 +6,11 @@ export const instance = axios.create({
         'Content-Type': 'application/json'
     }
 });
-export const CatalogUrls = {
-    GetCategoryTree: 'Category/GetCategoryTree'
+export const CategoryUrls = {
+    GetCategoryTree: 'Category/GetCategoryTree',
+    GetCategoryById(categoryId) {
+        return `Category/${categoryId}`
+    }
 }
 export const ProductsUrls = {
     GetProductsByFilter: 'Product/GetProductsByFilter',

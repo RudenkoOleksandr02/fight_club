@@ -1,11 +1,11 @@
 [
-  {"id": "perfumery", "name": "Парфумерія"},
-  {"id": "makeup", "name": "Макіяж"},
-  {"id": "for_masters", "name":  "Для майстрів"},
-  {"id": "hair", "name":  "Волосся"},
-  {"id": "face", "name":  "Обличчя"},
-  {"id": "body_and_bath", "name":  "Тіло і ванна"},
-  {"id": "to_men", "name":  "Чоловікам"},
-  {"id": "accessories", "name":  "Аксесуари"},
-  {"id": "gifts", "name":  "Подарунки"}
+  {"id": "category/1", "name": "Парфумерія"},
+  {"id": "category/7", "name": "Макіяж"},
+  {"id": "category/152", "name":  "Для майстрів"},
+  {"id": "category/40", "name":  "Волосся"},
+  {"id": "category/27", "name":  "Обличчя"},
+  {"id": "category/95", "name":  "Тіло і ванна"},
+  {"id": "category/120", "name":  "Чоловікам"},
+  {"id": "category/128", "name":  "Аксесуари"},
+  {"id": "category/148", "name":  "Подарунки"}
 ]

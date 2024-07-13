@@ -8,6 +8,7 @@ import Characteristics from "./Characteristics/Characteristics";
 import MinMaxPrice from "./MinMaxPrice/MinMaxPrice";
 
 const FilterPanel = ({
+                         categoryName,
                          setCategoryName,
                          setSelectedCharacteristics,
                          selectedCharacteristics,
@@ -17,14 +18,14 @@ const FilterPanel = ({
                      }) => {
     const filterPanelData = useSelector(state => state.filterPanelData.filterPanelData);
     const dispatch = useDispatch();
-    const [selectedCategory, setSelectedCategory] = useState('Макіяж');
 
     useEffect(() => {
-        dispatch(getFilterPanelDataByCategoryName(selectedCategory));
-    }, [selectedCategory])
+        if (categoryName) {
+            dispatch(getFilterPanelDataByCategoryName(categoryName));
+        }
+    }, [categoryName, dispatch]);
 
     const handleChangeCategory = (name) => {
-        setSelectedCategory(name);
         setCategoryName(name)
     }
     if (!filterPanelData) {

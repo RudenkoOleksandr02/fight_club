@@ -1,16 +1,26 @@
 import React from 'react';
 import PrimaryButton from "../Buttons/PrimaryButton/PrimaryButton";
 import classes from './CardItem.module.css'
+import {Link} from "react-router-dom";
 
-const CardItem = ({src, titles, price, inStock, extraClass = ''}) => {
+const CardItem = ({
+                      path,
+                      src,
+                      titles,
+                      price,
+                      inStock,
+                      extraClass = ''
+                  }) => {
     return (
-        <div className={`${classes.wrapper} ${extraClass}`} >
+        <div className={`${classes.wrapper} ${extraClass}`}>
             <div className={classes.image}>
-                <img src={src} alt='card-image'/>
+                <Link to={path}>
+                    <img src={src} alt='card-image'/>
+                </Link>
             </div>
             <div className={classes.inner}>
                 <div className={classes.titles}>
-                    <p>{titles[0]}</p>
+                    <Link to={path}>{titles[0]}</Link>
                     <p>{titles[1]}</p>
                 </div>
 
