@@ -48,8 +48,9 @@
 @media (max-width: 767px) {
     .buyContainer {
         flex-direction: column;
+        height: 90px;
     }
-    .buyContainer > button {
+    .buyContainer > button, .buyContainer > div > button {
         width: 100%;
     }
     .buyContainer > button:first-child {
@@ -58,8 +59,8 @@
     }
 }
 @media (min-width: 768px) {
-    .buyContainer > button:last-child {
-        width: 150px;
+    .buyContainer > div button {
+        width: max-content;
     }
     .buyContainer > button:first-child {
         width: 100%;

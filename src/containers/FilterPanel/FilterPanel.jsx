@@ -38,10 +38,15 @@ const FilterPanel = ({
     return (
         <div className={classes.wrapper}>
             <div>
-                <h3>Під категорії</h3>
-                <Categories
-                    categories={filterPanelData.categories}
-                />
+                {
+                    filterPanelData?.categories.children.length !== 0 &&
+                    <>
+                        <h3 className={classes}>Під категорії</h3>
+                        <Categories
+                            categories={filterPanelData.categories}
+                        />
+                    </>
+                }
                 <h3>Характеристики</h3>
                 <Characteristics
                     characteristics={filterPanelData.characteristics}
@@ -54,7 +59,9 @@ const FilterPanel = ({
                     minMaxPrice={minMaxPrice}
                     setMinMaxPrice={setMinMaxPrice}
                 />
-                <PrimaryButton onClick={handleApplyFilter}>Застосувати</PrimaryButton>
+                <div className={classes.buttonWrapper}>
+                    <PrimaryButton onClick={handleApplyFilter}>Застосувати</PrimaryButton>
+                </div>
             </div>
         </div>
     );

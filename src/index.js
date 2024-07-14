@@ -12,6 +12,7 @@ import {
 import {Provider} from "react-redux";
 import {store} from './store/store';
 
+import ScrollToTop from './common/utils/ScrollToTop'
 import Header from "./ui/components/Header/Header";
 import Navigation from "./containers/Navigation/Navigation";
 import Footer from "./ui/components/Footer/Footer";
@@ -24,18 +25,9 @@ import Catalog from "./pages/Catalog/Catalog";
 import Product from "./pages/Product/Product";
 import Home from "./pages/Home/Home";
 
-/*const loader = ({ params }) => {
-    const products = dataProducts.filter(product => {
-        return product.categories.some(category => category === params.categoryId);
-    });
-    if (products.length === 0) {
-        throw new Error('Category not found');
-    }
-    return products;
-}*/
-
 const Root = () => {
     return <div className="app-container">
+        <ScrollToTop/>
         <Header/>
         <Navigation/>
         <Outlet/>

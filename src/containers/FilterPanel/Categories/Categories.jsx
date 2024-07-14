@@ -1,32 +1,49 @@
-import React from 'react';
-import {Link} from "react-router-dom";
+import React, { useState } from 'react';
+import { Link } from "react-router-dom";
+import classes from './Categories.module.css';
+import { ReactComponent as IcoArrow } from './../../../assets/images/arrows/ico_arrow3.svg';
 
-const Categories = ({categories}) => {
+const Categories = ({ categories }) => {
+    const [expandedCategories, setExpandedCategories] = useState({});
+
+    const toggleCategory = (categoryId) => {
+        setExpandedCategories(prevState => ({
+            ...prevState,
+            [categoryId]: !prevState[categoryId]
+        }));
+    };
+
     const categoriesJSX = categories.children.map(category => {
         const categoryName = category.name;
-        const subcategories = category.children.map(subcategory => {
-            return <Link
-                to={`/category/${subcategory.categoryId}`}
-                style={{marginLeft: '20px', cursor: 'pointer'}}
-            >
+        const subcategories = category.children.map(subcategory => (
+            <Link key={subcategory.categoryId} to={`/category/${subcategory.categoryId}`}>
                 {subcategory.name}
             </Link>
-        })
-        return <div>
-            <Link
-                style={{cursor: 'pointer'}}
-                to={`/category/${category.categoryId}`}
-            >
-                {categoryName}
-            </Link>
-            <div>
-                {subcategories}
+        ));
+
+        const isExpanded = expandedCategories[category.categoryId];
+
+        return (
+            <div key={category.categoryId} className={classes.links}>
+                <div className={classes.category} onClick={() => toggleCategory(category.categoryId)}>
+                    <Link to={`/category/${category.categoryId}`}>
+                        {categoryName}
+                    </Link>
+                    {category.children.length !== 0 && (
+                        <div className={`${classes.arrowWrapper} ${isExpanded ? classes.expanded : ''}`}>
+                            <IcoArrow />
+                        </div>
+                    )}
+                </div>
+                <div className={`${classes.subcategoriesWrapper} ${isExpanded ? classes.expanded : ''}`}>
+                    {subcategories}
+                </div>
             </div>
-        </div>
-    })
+        );
+    });
 
     return (
-        <div>
+        <div className={classes.wrapper}>
             {categoriesJSX}
         </div>
     );

@@ -1,8 +1,60 @@
 .wrapper {
-    height: 58px;
-    background: var(--white);
-    padding: 10px;
     display: flex;
+    background: var(--white);
+    height: 58px;
+    padding: 10px;
     justify-content: space-between;
     align-items: center;
+}
+.btns {
+    display: flex;
+    height: 100%;
+}
+.filters {
+    border: 1px solid var(--black);
+    margin-left: 10px;
+    padding: 10.5px 25px;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    background: transparent;
+}
+@media (max-width: 767px) {
+    .wrapper {
+        flex-direction: column;
+        height: auto;
+        background: none;
+        align-items: center;
+        justify-content: start;
+        padding: 0;
+    }
+    .btns {
+        height: 58px;
+        width: 100%;
+        justify-content: space-between;
+        padding: 10px;
+        background: var(--white);
+        order: 1;
+    }
+    .pagination {
+        height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+    .pagination > div > button {
+        color: var(--white) !important;
+        border-color: var(--white) !important;
+    }
+}
+@media (min-width: 768px) and (max-width: 999px) {
+
+}
+@media (min-width: 1000px) {
+    .filters {
+        display: none;
+    }
 }

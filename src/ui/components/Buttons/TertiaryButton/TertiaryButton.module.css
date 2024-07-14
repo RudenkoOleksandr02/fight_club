@@ -9,6 +9,7 @@
     font-size: 14px;
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 100%;
     padding: 0 25px;
     font-weight: 500;
@@ -21,4 +22,19 @@
     width: 100%;
     background: var(--white);
     padding: 10px;
+}
+.sortByWrapper > div {
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+.sortByWrapper > div:not(:first-child) {
+    margin-top: 10px;
+}
+.icoArrowWrapper {
+    transition: 0.2s;
+}
+.icoArrowWrapper.roll {
+    transform: rotate(-180deg);
 }

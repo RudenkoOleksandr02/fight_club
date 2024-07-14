@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import classes from './CategoryTree.module.css';
-import { v4 as uuidv4 } from 'uuid';
-import { Link, useNavigate } from "react-router-dom";
-import { ReactComponent as Arrow } from "../../../assets/images/arrows/ico_arrow3.svg";
+import {v4 as uuidv4} from 'uuid';
+import {Link, useNavigate} from "react-router-dom";
+import {ReactComponent as Arrow} from "../../../assets/images/arrows/ico_arrow3.svg";
 import SecondaryButton from "../../../ui/components/Buttons/SecondaryButton/SecondaryButton";
 
-const CategoryTree = ({ categoryTree, handleSetCategoryTree, handleDellCategoryTree }) => {
+const CategoryTree = ({categoryTree, setShowCategoryTree}) => {
     const [activeSubcategories, setActiveSubcategories] = useState([]);
     const navigate = useNavigate();
 
@@ -22,8 +22,10 @@ const CategoryTree = ({ categoryTree, handleSetCategoryTree, handleDellCategoryT
             <div key={uuidv4()} className={classes.categoriesWrapper}>
                 <div className={classes.subcategoryWithButton}>
                     <SecondaryButton
-                        handleClick={() => navigate(`/category/${subcategory.categoryId}`)}
-                    >
+                        handleClick={() => {
+                            setShowCategoryTree(false)
+                            navigate(`/category/${subcategory.categoryId}`)
+                        }}>
                         {subcategory.name}
                     </SecondaryButton>
                     {subcategory.children.length !== 0 && (
@@ -31,14 +33,14 @@ const CategoryTree = ({ categoryTree, handleSetCategoryTree, handleDellCategoryT
                             onClick={() => handleButtonClick(subcategory)}
                             className={classes.showMore}
                         >
-                            <Arrow />
+                            <Arrow/>
                         </button>
                     )}
                 </div>
                 {activeSubcategories.includes(subcategory) && (
                     <div className={classes.underSubcategory}>
                         {subcategory.children.map(child => (
-                            <Link key={uuidv4()} to={`/category/${child.categoryId}`}>
+                            <Link key={uuidv4()} to={`/category/${child.categoryId}`} onClick={() => setShowCategoryTree(false)}>
                                 {child.name}
                             </Link>
                         ))}
@@ -49,7 +51,11 @@ const CategoryTree = ({ categoryTree, handleSetCategoryTree, handleDellCategoryT
     }) : <div>preloader...</div>;
 
     return (
-        <div className={classes.wrapper} onMouseEnter={handleSetCategoryTree} onMouseLeave={handleDellCategoryTree}>
+        <div
+            className={classes.wrapper}
+            onMouseLeave={() => setShowCategoryTree(false)}
+            onMouseEnter={() => setShowCategoryTree(true)}
+        >
             {categoryTreeJSX}
         </div>
     );

@@ -1,5 +1,28 @@
+.categoryTree {
+    overflow: hidden;
+    transition: opacity .3s ease-out;
+    opacity: 0;
+}
+.categoryTree.visible {
+    opacity: 1;
+}
 .navigation {
     position: relative;
+    z-index: 100;
+}
+.navigation.fill {
+    background: var(--white);
+    border-radius: 20px 20px 0 0;
+}
+.navigation.fill .categories a {
+    color: black;
+    border: none;
+}
+.navigation.fill > .wrapper button {
+    border: none;
+}
+.navigation.fill > .wrapper button > svg > path {
+    fill: var(--black);
 }
 .wrapper {
     display: flex;
@@ -9,10 +32,10 @@
     width: 100%; height: 100%;
 }
 .categories a {
-    transition: .1s;
+    transition: .3s;
 }
 .categories > a:hover {
-    opacity: 50%;
+    color: var(--black);
 }
 .categories > a:active {
     opacity: 1;
@@ -38,6 +61,11 @@
         padding: 0 21px;
         border-radius: 20px;
     }
+    .navigation.fill .categories a {
+        border: none;
+        padding: 11px 0;
+        display: inline-block;
+    }
 }
 @media (min-width: 1360px) {
     .wrapper {
@@ -57,8 +85,9 @@
     }
     .categories > a:hover {
         opacity: 1;
-        background: var(--white);
-        color: var(--black);
+        background: var(--black);
+        border: 1px solid var(--black);
+        color: var(--white);
     }
     .categories > a:active {
         background: var(--orange);
@@ -67,5 +96,8 @@
     }
     .categories > a:disabled {
         opacity: 40%;
+    }
+    .navigation.fill .categories a:hover {
+        color: var(--white);
     }
 }

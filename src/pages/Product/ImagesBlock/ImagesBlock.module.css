@@ -24,7 +24,7 @@
     cursor: url("../../../assets/images/zoom-in.png"), auto;
 }
 .mainImage img:hover {
-    transform: scale(1.04);
+    transform: scale(1.01);
 }
 .imageSecondaryWrapper {
     padding: 5px;

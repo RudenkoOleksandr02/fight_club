@@ -17,6 +17,7 @@ const MinMaxPrice = ({minPrice, maxPrice, minMaxPrice, setMinMaxPrice}) => {
                     setMinMaxPrice({maxPrice: minMaxPrice.maxPrice, minPrice: e.target.value});
                 }}
             />
+            <span className={classes.line}/>
             <input
                 type="number"
                 min={minMaxPrice.minPrice}

@@ -2,3 +2,11 @@
     background: var(--white);
     padding: 25px;
 }
+.wrapper h3 {
+    font-size: 24px;
+    font-weight: 700;
+}
+.buttonWrapper {
+    margin-top: 25px;
+    height: 38px;
+}

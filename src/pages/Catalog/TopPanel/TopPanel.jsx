@@ -6,22 +6,32 @@ import Pagination from "../../../ui/components/Pagination/Pagination";
 const TopPanel = ({totalCount, currentPage, amount, handleChangePage, setSortBy}) => {
     return (
         <div className={classes.wrapper}>
-            <TertiaryButton
-                onChange={setSortBy}
-                params={[
-                    {name: "Популярністю", value: "popularity"},
-                    {name: "ціна за зростанням", value: "price_asc"},
-                    {name: "ціна за зниженням", value: "price_desc"},
-                ]}
-            >
-                Сортувати за
-            </TertiaryButton>
-            <Pagination
-                currentPage={currentPage}
-                totalCount={totalCount}
-                amount={amount}
-                onPageChange={handleChangePage}
-            />
+            <div className={classes.btns}>
+                <TertiaryButton
+                    onChange={setSortBy}
+                    params={[
+                        {name: "За замовчуванням", value: ""},
+                        {name: "Популярністю", value: "popularity"},
+                        {name: "ціна за зростанням", value: "price_asc"},
+                        {name: "ціна за зниженням", value: "price_desc"},
+                    ]}
+                >
+                    Сортувати за
+                </TertiaryButton>
+                <button className={classes.filters}>
+                    Фільтри
+                </button>
+            </div>
+            <div className={classes.pagination}>
+                {totalCount > amount &&
+                    <Pagination
+                        currentPage={currentPage}
+                        totalCount={totalCount}
+                        amount={amount}
+                        onPageChange={handleChangePage}
+                    />
+                }
+            </div>
         </div>
     );
 };

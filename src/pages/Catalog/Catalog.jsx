@@ -35,7 +35,10 @@ const Catalog = () => {
 
     useEffect(() => {
         applyFilter();
-    }, [categoryId]);
+    }, [categoryId, sortBy, currentPage, minMaxPrice.minPrice, minMaxPrice.maxPrice]);
+    useEffect(() => {
+        handleApplyFilter()
+    }, [categoryId])
 
     const handleApplyFilter = () => {
         setCurrentPage(1);
@@ -53,7 +56,7 @@ const Catalog = () => {
     return (
         <section>
             <div className={classes.wrapper}>
-                <Breadcrumbs links={[]}/>
+                {/*<Breadcrumbs links={[]}/>*/}
                 <div className={classes.main}>
                     <FilterPanel
                         categoryId={categoryId}

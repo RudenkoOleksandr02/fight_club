@@ -1,8 +1,8 @@
 import React from 'react';
 import classes from './Pagination.module.css';
-import {ReactComponent as IcoArrow} from '../../../assets/images/arrows/ico_arrow3.svg';
+import { ReactComponent as IcoArrow } from '../../../assets/images/arrows/ico_arrow3.svg';
 
-const Pagination = ({currentPage, amount, totalCount, onPageChange}) => {
+const Pagination = ({ currentPage, amount, totalCount, onPageChange }) => {
     const totalPages = Math.ceil(totalCount / amount);
 
     const handleClick = (page) => {
@@ -12,8 +12,9 @@ const Pagination = ({currentPage, amount, totalCount, onPageChange}) => {
     const renderPageNumbers = () => {
         let showPages = [];
 
-        if (currentPage < 4) {
-            for (let i = 1; i <= Math.min(5, totalPages); i++) {
+        if (totalPages <= 5) {
+            // If total pages are 5 or less, show all page numbers
+            for (let i = 1; i <= totalPages; i++) {
                 showPages.push(
                     <button
                         key={i}
@@ -25,22 +26,35 @@ const Pagination = ({currentPage, amount, totalCount, onPageChange}) => {
                     </button>
                 );
             }
-            if (totalPages > 4) {
-                showPages.push(
-                    <span key="ellipsis" className={classes.ellipsis}>...</span>
-                );
+        } else if (currentPage < 4) {
+            // If current page is less than 4, show first 5 pages
+            for (let i = 1; i <= 5; i++) {
                 showPages.push(
                     <button
-                        key={totalPages}
-                        onClick={() => handleClick(totalPages)}
-                        disabled={currentPage === totalPages}
-                        className={totalPages === currentPage ? `${classes.page} ${classes.active}` : classes.page}
+                        key={i}
+                        onClick={() => handleClick(i)}
+                        disabled={currentPage === i}
+                        className={i === currentPage ? `${classes.page} ${classes.active}` : classes.page}
                     >
-                        {totalPages}
+                        {i}
                     </button>
                 );
             }
-        } else if (currentPage >= 4 && currentPage < totalPages - 3) {
+            showPages.push(
+                <span key="ellipsis" className={classes.ellipsis}>...</span>
+            );
+            showPages.push(
+                <button
+                    key={totalPages}
+                    onClick={() => handleClick(totalPages)}
+                    disabled={currentPage === totalPages}
+                    className={totalPages === currentPage ? `${classes.page} ${classes.active}` : classes.page}
+                >
+                    {totalPages}
+                </button>
+            );
+        } else if (currentPage >= 4 && currentPage <= totalPages - 3) {
+            // If current page is in the middle, show 2 pages before and after the current page
             showPages.push(
                 <button
                     key={1}
@@ -55,7 +69,7 @@ const Pagination = ({currentPage, amount, totalCount, onPageChange}) => {
                 <span key="ellipsis-start" className={classes.ellipsis}>...</span>
             );
 
-            for (let i = currentPage - 1; i <= currentPage + 2; i++) {
+            for (let i = currentPage - 1; i <= currentPage + 1; i++) {
                 showPages.push(
                     <button
                         key={i}
@@ -82,6 +96,7 @@ const Pagination = ({currentPage, amount, totalCount, onPageChange}) => {
                 </button>
             );
         } else {
+            // If current page is at the end, show the last 5 pages
             showPages.push(
                 <button
                     key={1}
@@ -120,7 +135,7 @@ const Pagination = ({currentPage, amount, totalCount, onPageChange}) => {
                 disabled={currentPage === 1}
                 className={classes.prev}
             >
-                <IcoArrow/>
+                <IcoArrow />
             </button>
             {renderPageNumbers()}
             <button
@@ -128,7 +143,7 @@ const Pagination = ({currentPage, amount, totalCount, onPageChange}) => {
                 disabled={currentPage === totalPages}
                 className={classes.next}
             >
-                <IcoArrow/>
+                <IcoArrow />
             </button>
         </div>
     );

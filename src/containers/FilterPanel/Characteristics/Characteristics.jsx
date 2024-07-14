@@ -1,5 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import classes from './Characteristics.module.css'
 
 const Characteristics = ({ characteristics, setSelectedCharacteristics, selectedCharacteristics }) => {
     const handleCharacteristicChange = (optionId) => {
@@ -14,8 +15,8 @@ const Characteristics = ({ characteristics, setSelectedCharacteristics, selected
         const characteristicName = characteristic.characteristicName;
         const options = characteristic.options.map((option) => (
             <label
-                key={option.id}
-                style={{ marginLeft: '20px', cursor: 'pointer' }}
+                key={uuidv4()}
+                className={classes.option}
             >
                 <input
                     type="checkbox"
@@ -28,14 +29,14 @@ const Characteristics = ({ characteristics, setSelectedCharacteristics, selected
         ));
 
         return (
-            <div key={uuidv4()} style={{ marginTop: '20px' }}>
-                {characteristicName}
+            <div key={uuidv4()}>
+                <h4 className={classes.characteristicName}>{characteristicName}</h4>
                 {options}
             </div>
         );
     });
 
-    return <div>{characteristicsJSX}</div>;
+    return <div className={classes.wrapper}>{characteristicsJSX}</div>;
 };
 
 export default Characteristics;

@@ -1,6 +1,21 @@
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    margin: 0;
+}
+.wrapper {
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.wrapper input {
+    height: 38px;
+    width: 100%;
+    padding: 10.5px 25px;
+}
+.line {
+    min-width: 9px; height: 1px;
+    background: var(--black);
+    margin: 0 10px;
 }
