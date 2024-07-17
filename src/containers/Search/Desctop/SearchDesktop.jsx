@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import classes from './SearchDesktop.module.css'
-import {ReactComponent as IcoSearch} from "../../../../assets/images/header/ico_search.svg";
-import Modal from "../../Modal/Modal";
+import {ReactComponent as IcoSearch} from "../../../assets/images/header/ico_search.svg";
+import Modal from "./Modal/Modal";
 
 const SearchDesktop = () => {
     const [isActive, setIsActive] = useState(false);

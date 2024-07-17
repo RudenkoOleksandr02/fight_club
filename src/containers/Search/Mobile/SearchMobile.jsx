@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from "./SearchMobile.module.css";
-import {ReactComponent as IcoSearch} from "../../../../assets/images/header/ico_search.svg";
+import {ReactComponent as IcoSearch} from "../../../assets/images/header/ico_search.svg";
 
 const SearchMobile = () => {
     return (

@@ -13,6 +13,10 @@ const homePageApi = {
         return instance.get(HomePageUrls.GetPopularProducts)
             .then(response => response.data)
     },
+    getPopularProductsByCategory(categoryId) {
+        return instance.get(HomePageUrls.GetPopularProductsByCategory(categoryId))
+            .then(response => response.data)
+    }
 }
 
 export default homePageApi;

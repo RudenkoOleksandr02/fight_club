@@ -7,7 +7,7 @@ import {ReactComponent as IcoHome} from '../../../assets/images/mobilePanel/ico_
 import {ReactComponent as IcoCart} from '../../../assets/images/mobilePanel/ico_cart.svg';
 import {ReactComponent as IcoMenu} from '../../../assets/images/mobilePanel/ico_menu.svg';
 import SecondaryButton from "../Buttons/SecondaryButton/SecondaryButton";
-import SearchMobile from "../Search/Mobile/SearchMobile";
+import SearchMobile from "../../../containers/Search/Mobile/SearchMobile";
 
 const MobilePanel = () => {
     const [open, setOpen] = useState(false);

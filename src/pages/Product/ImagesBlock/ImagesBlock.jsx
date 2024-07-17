@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './ImagesBlock.module.css';
 import {v4 as uuidv4} from 'uuid';
 import {Swiper, SwiperSlide} from "swiper/react";
@@ -6,7 +6,7 @@ import {FreeMode} from "swiper/modules";
 import ModalImage from "../../../ui/components/ModalImage/ModalImage";
 
 const ImagesBlock = ({images}) => {
-    const [selectedImage, setSelectedImage] = useState(images[0]);
+    const [selectedImage, setSelectedImage] = useState([]);
     const [selectedModalImage, selectedOpenModalImage] = useState(null)
 
     const handleChangeImage = (image)  => {
@@ -15,6 +15,9 @@ const ImagesBlock = ({images}) => {
     const handleOpenImage = () => {
         selectedOpenModalImage(selectedImage)
     }
+    useEffect(() => {
+        setSelectedImage(images[0])
+    }, [images]);
 
     const getSlides = () => {
         return images.map((image) => {

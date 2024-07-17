@@ -9,7 +9,10 @@ export const instance = axios.create({
 export const HomePageUrls = {
     GetNewProducts: 'HomePage/New',
     GetDiscountsProducts: 'HomePage/Discounts',
-    GetPopularProducts: 'HomePage/Popular'
+    GetPopularProducts: 'HomePage/Popular',
+    GetPopularProductsByCategory(categoryId) {
+        return `HomePage/PopularByCategory/${categoryId}`
+    }
 }
 export const CategoryUrls = {
     GetCategoryTree(categoryId) {

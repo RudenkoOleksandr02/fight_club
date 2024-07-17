@@ -6,9 +6,9 @@ import 'swiper/css/free-mode';
 import 'swiper/css/autoplay';
 import CardItem from "../../ui/components/CardItem/CardItem";
 import classes from './SwiperList.module.css';
+import {v4 as uuidv4} from 'uuid';
 
 const SwiperList = ({
-                        path,
                         title,
                         products,
                         swiperParams,
@@ -22,8 +22,8 @@ const SwiperList = ({
                 {title && <h2>{title}</h2>}
                 <div className={classes.cardList}>
                     <Swiper {...swiperParams}>
-                        {products.map((product, index) => (
-                            <SwiperSlide key={index}>
+                        {products.map(product => (
+                            <SwiperSlide key={uuidv4()}>
                                 {renderSlide ? renderSlide(product) : (
                                     <CardItem
                                         path={`/product/${product.id}`}

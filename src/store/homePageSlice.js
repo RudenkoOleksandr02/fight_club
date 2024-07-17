@@ -4,7 +4,8 @@ import homePageApi from "../api/homePageApi";
 const initialState = {
     newProducts: [],
     discountsProducts: [],
-    popularProducts: []
+    popularProducts: [],
+    popularProductsByCategory: []
 }
 const loadNewProducts = createAsyncThunk(
     'homePage/loadNewProducts',
@@ -24,6 +25,12 @@ const loadPopularProducts = createAsyncThunk(
         return homePageApi.getPopularProducts();
     }
 );
+const loadPopularProductsByCategory = createAsyncThunk(
+    'homePage/loadPopularProductsById',
+    async (categoryId) => {
+        return homePageApi.getPopularProductsByCategory(categoryId);
+    }
+)
 
 export const homePageSlice = createSlice({
     name: 'homePageData',
@@ -39,6 +46,9 @@ export const homePageSlice = createSlice({
             })
             .addCase(loadPopularProducts.fulfilled, (state, action) => {
                 state.popularProducts = action.payload;
+            })
+            .addCase(loadPopularProductsByCategory.fulfilled, (state, action) => {
+                state.popularProductsByCategory = action.payload;
             })
 
     }
@@ -56,3 +66,6 @@ export const getDiscountsProducts = () => async (dispatch) => {
 export const getPopularProducts = () => async (dispatch) => {
     return await dispatch(loadPopularProducts());
 };
+export const getPopularProductsByCategory = (categoryId) => async (dispatch) => {
+    return await dispatch(loadPopularProductsByCategory(categoryId))
+}
