@@ -20,7 +20,7 @@ import Blog from "./pages/Blog/Blog";
 import Brands from "./pages/Brands/Brands";
 import About from "./pages/About/About";
 import ErrorPage from "./pages/Error/Error";
-import MobilePanel from "./ui/components/MobilePanel/MobilePanel";
+import MobilePanel from "./containers/MobilePanel/MobilePanel";
 import Catalog from "./pages/Catalog/Catalog";
 import Product from "./pages/Product/Product";
 import Home from "./pages/Home/Home";

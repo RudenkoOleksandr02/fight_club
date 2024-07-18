@@ -1,0 +1,15 @@
+.underSubcategories {
+    display: flex;
+    flex-direction: column;
+    background: rgba(241, 241, 241, 1);
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.underSubcategories a {
+    color: var(--black) !important;
+    border: none !important;
+}
+.underSubcategories a:not(:last-child) {
+    margin-bottom: 5px;
+}

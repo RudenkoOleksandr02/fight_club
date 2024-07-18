@@ -2,12 +2,16 @@ import React, {useEffect, useState} from 'react';
 import {BottomSheet} from 'react-spring-bottom-sheet';
 import 'react-spring-bottom-sheet/dist/style.css';
 import classes from './MobilePanel.module.css';
-import {ReactComponent as IcoSearch} from '../../../assets/images/mobilePanel/ico_search.svg';
-import {ReactComponent as IcoHome} from '../../../assets/images/mobilePanel/ico_home.svg';
-import {ReactComponent as IcoCart} from '../../../assets/images/mobilePanel/ico_cart.svg';
-import {ReactComponent as IcoMenu} from '../../../assets/images/mobilePanel/ico_menu.svg';
-import SecondaryButton from "../Buttons/SecondaryButton/SecondaryButton";
-import SearchMobile from "../../../containers/Search/Mobile/SearchMobile";
+import {ReactComponent as IcoSearch} from '../../assets/images/mobilePanel/ico_search.svg';
+import {ReactComponent as IcoHome} from '../../assets/images/mobilePanel/ico_home.svg';
+import {ReactComponent as IcoCart} from '../../assets/images/mobilePanel/ico_cart.svg';
+import {ReactComponent as IcoMenu} from '../../assets/images/mobilePanel/ico_menu.svg';
+import SecondaryButton from "../../ui/components/Buttons/SecondaryButton/SecondaryButton";
+import SearchMobile from "../Search/Mobile/SearchMobile";
+import {v4 as uuidv4} from 'uuid'
+
+// --DATA--
+import linksToCategories from './../../data/linksToCategories.json'
 
 const MobilePanel = () => {
     const [open, setOpen] = useState(false);
@@ -28,15 +32,15 @@ const MobilePanel = () => {
     const contentSearch = (
         <>
             <SearchMobile/>
-            <SecondaryButton>Парфумерія</SecondaryButton>
-            <SecondaryButton>Макіяж</SecondaryButton>
-            <SecondaryButton>Для майстрів</SecondaryButton>
-            <SecondaryButton>Волосся</SecondaryButton>
-            <SecondaryButton>Обличчя</SecondaryButton>
-            <SecondaryButton>Тіло і ванна</SecondaryButton>
-            <SecondaryButton>Чоловікам</SecondaryButton>
-            <SecondaryButton>Аксесуари</SecondaryButton>
-            <SecondaryButton>Подарунки</SecondaryButton>
+            {linksToCategories.map(link => {
+                return <SecondaryButton
+                    handleClick={() => {}}
+                    putIcoArrow={true}
+                    key={uuidv4()}
+                >
+                    {link.name}
+                </SecondaryButton>
+            })}
         </>
     )
     const contentMenu = (

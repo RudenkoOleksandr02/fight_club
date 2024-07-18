@@ -45,8 +45,8 @@ const Navigation = () => {
 
     return (
         <nav
-            onMouseLeave={handleDellCategoryTree}
             className={showCategoryTree ? `${classes.navigation} ${classes.fill}` : classes.navigation}
+            onMouseLeave={handleDellCategoryTree}
         >
             <div className={classes.mainCategoriesAndSearch}>
                 <SearchDesktop/>

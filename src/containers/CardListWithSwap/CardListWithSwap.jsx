@@ -6,9 +6,6 @@ import 'swiper/css/free-mode';
 import SwiperList from "../SwiperList/SwiperList";
 import classes from './CardListWithSwap.module.css'
 
-
-// --DATA--
-import card_img from '../../assets/images/other/card_img.png'
 const CardListWithSwap = ({ title, products }) => {
     const swiperParams = {
         modules: [Pagination, FreeMode],
