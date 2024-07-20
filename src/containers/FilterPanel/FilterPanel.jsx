@@ -6,6 +6,7 @@ import PrimaryButton from "../../ui/components/Buttons/PrimaryButton/PrimaryButt
 import Categories from "./Categories/Categories";
 import Characteristics from "./Characteristics/Characteristics";
 import MinMaxPrice from "./MinMaxPrice/MinMaxPrice";
+import CloseBtn from "../../ui/components/Buttons/CloseBtn/CloseBtn";
 
 const FilterPanel = ({
                          categoryId,
@@ -13,7 +14,8 @@ const FilterPanel = ({
                          selectedCharacteristics,
                          minMaxPrice,
                          setMinMaxPrice,
-                         handleApplyFilter
+                         handleApplyFilter,
+                         onCloseFilterPanelInMobile
                      }) => {
     const filterPanelData = useSelector(state => state.filterPanelData.filterPanelData);
     const dispatch = useDispatch();
@@ -37,7 +39,14 @@ const FilterPanel = ({
 
     return (
         <div className={classes.wrapper}>
-            <div>
+            <div className={classes.mobileExhibition}>
+                <h3>Фільтри</h3>
+                <CloseBtn
+                    setIsOpen={onCloseFilterPanelInMobile}
+                    styles={{width1: '40px', width2: '40px', color: 'black', height: '40px'}}
+                />
+            </div>
+            <div className={classes.inner}>
                 {
                     filterPanelData?.categories.children.length !== 0 &&
                     <>

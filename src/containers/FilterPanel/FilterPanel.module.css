@@ -10,3 +10,22 @@
     margin-top: 25px;
     height: 38px;
 }
+.mobileExhibition {
+    display: none;
+}
+@media (max-width: 999px) {
+    .wrapper {
+        height: 100%;
+        overflow: auto;
+    }
+    .inner {
+        width: max-content;
+        margin: 0 auto;
+    }
+    .mobileExhibition {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+}

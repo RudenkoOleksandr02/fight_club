@@ -1,0 +1,14 @@
+.wrapper {
+    padding: 25px 0 0;
+}
+@media (max-width: 999px) {
+   .wrapper {
+       position: absolute;
+       z-index: 10;
+       left: 0;
+       right: 0;
+       padding: 0 10px;
+       background: #F9F9F9;
+       height: 100%;
+   }
+}

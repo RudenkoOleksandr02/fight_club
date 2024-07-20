@@ -3,7 +3,7 @@ import classes from './TopPanel.module.css';
 import TertiaryButton from "../../../ui/components/Buttons/TertiaryButton/TertiaryButton";
 import Pagination from "../../../ui/components/Pagination/Pagination";
 
-const TopPanel = ({ totalCount, currentPage, amount, handleChangePage, setSortBy, onFilterButtonClick }) => {
+const TopPanel = ({ totalCount, currentPage, amount, handleChangePage, setSortBy, onOpenFilterPanelInMobile}) => {
     return (
         <div className={classes.wrapper}>
             <div className={classes.btns}>
@@ -18,7 +18,7 @@ const TopPanel = ({ totalCount, currentPage, amount, handleChangePage, setSortBy
                 >
                     Сортувати за
                 </TertiaryButton>
-                <button className={classes.filters} onClick={onFilterButtonClick}>
+                <button className={classes.filters} onClick={onOpenFilterPanelInMobile}>
                     Фільтри
                 </button>
             </div>

@@ -31,7 +31,7 @@ const MobilePanel = () => {
 
     const contentSearch = (
         <>
-            <SearchMobile/>
+            <SearchMobile setOpen={setOpen}/>
             {linksToCategories.map(link => {
                 return <SecondaryButton
                     handleClick={() => {}}

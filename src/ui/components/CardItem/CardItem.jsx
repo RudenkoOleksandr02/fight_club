@@ -2,8 +2,11 @@ import React from 'react';
 import PrimaryButton from "../Buttons/PrimaryButton/PrimaryButton";
 import classes from './CardItem.module.css'
 import {Link} from "react-router-dom";
+import { putProductInCart } from '../../../store/cartSlice';
+import {useDispatch} from "react-redux";
 
 const CardItem = ({
+                      id,
                       path,
                       src,
                       titles,
@@ -11,6 +14,16 @@ const CardItem = ({
                       inStock,
                       extraClass = ''
                   }) => {
+    const dispatch = useDispatch();
+    const handleAddToCart = () => {
+        dispatch(putProductInCart({
+            id,
+            image: src,
+            name: titles[0],
+            price
+        }));
+    };
+
     return (
         <div className={`${classes.wrapper} ${extraClass}`}>
             <div className={classes.image}>
@@ -30,7 +43,7 @@ const CardItem = ({
                         <p>{inStock ? 'В наявності' : 'Немає в наявності'}</p>
                     </div>
                     <div className={classes.btnContainer}>
-                        <PrimaryButton disabled={!inStock}>Купить</PrimaryButton>
+                        <PrimaryButton disabled={!inStock} onClick={handleAddToCart}>Купить</PrimaryButton>
                     </div>
                 </div>
             </div>

@@ -26,6 +26,7 @@ const SwiperList = ({
                             <SwiperSlide key={uuidv4()}>
                                 {renderSlide ? renderSlide(product) : (
                                     <CardItem
+                                        id={product.id}
                                         path={`/product/${product.id}`}
                                         src={product.images[0]}
                                         titles={[product.name, product.nameEng]}

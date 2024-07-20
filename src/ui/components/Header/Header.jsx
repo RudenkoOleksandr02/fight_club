@@ -26,7 +26,7 @@ const Header = () => {
                             200₴
                         </div>
                         <div className={classes.icoBasket}>
-                            <IcoCart/>
+                            <Link to='/cart'><IcoCart/></Link>
                         </div>
                     </div>
                     <User/>

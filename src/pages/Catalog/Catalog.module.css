@@ -10,13 +10,6 @@
     grid-gap: 10px;
     grid-auto-rows: auto 1fr;
 }
-.filterPanel {
-    grid-area: filterPanel;
-    display: block; /* Панель фильтров по умолчанию видима */
-}
-.filterPanel.hidden {
-    display: none; /* Скрыть панель фильтров на мобильных устройствах */
-}
 .main > div:nth-child(1) {
     grid-area: filterPanel;
 }
@@ -33,9 +26,6 @@
             'filterPanel cardList';
         grid-template-columns: 348px auto;
     }
-    .filterPanel {
-        display: block; /* Панель фильтров видима на десктопах */
-    }
 }
 @media (max-width: 999px) {
     .main {
@@ -43,21 +33,21 @@
             'paginationPanel'
             'cardList';
     }
+}
+
+/* --FILTER MOBILE-- */
+
+@media (max-width: 999px) {
     .filterPanel {
-        display: none; /* Панель фильтров скрыта на мобильных по умолчанию */
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        z-index: 150;
+        opacity: 0;
+        pointer-events: none;
+        transition: .3s;
     }
     .filterPanel.visible {
-        display: block; /* Показать панель фильтров на мобильных при клике */
-        position: absolute; /* Добавить абсолютное позиционирование */
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: white;
-        z-index: 1000; /* Показать поверх всего */
-        overflow: auto; /* Добавить прокрутку для большого содержимого */
-    }
-    .main > div:nth-child(1) {
-        display: none;
+        opacity: 1;
+        pointer-events: all;
     }
 }

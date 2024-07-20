@@ -1,0 +1,44 @@
+.wrapper {
+    height: 73px; width: 100%;
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+    justify-content: space-between;
+    transition: .2s;
+    padding: 0 10px 0 0;
+    cursor: pointer;
+}
+.wrapper:hover {
+    color: var(--green);
+    background: #EFEFEF;
+}
+.wrapper > svg {
+    transition: .2s;
+}
+.wrapper:hover > svg {
+    transform: rotate(30deg);
+}
+.inner {
+    display: flex;
+    align-items: center;
+}
+.image {
+    height: 73px; width: 73px;
+    object-fit: cover;
+}
+.name {
+    margin-left: 10px;
+    font-size: 18px;
+}
+@media (max-width: 999px) {
+    .wrapper {
+        height: 33px;
+    }
+    .image {
+        height: 33px; width: 33px;
+    }
+    .name {
+        font-size: 14px;
+    }
+}
+

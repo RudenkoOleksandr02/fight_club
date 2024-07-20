@@ -10,7 +10,8 @@ import {
     Outlet
 } from "react-router-dom";
 import {Provider} from "react-redux";
-import {store} from './store/store';
+import {PersistGate} from 'redux-persist/integration/react';
+import store, {persistor} from './store/store';
 
 import ScrollToTop from './common/utils/ScrollToTop'
 import Header from "./ui/components/Header/Header";
@@ -24,6 +25,8 @@ import MobilePanel from "./containers/MobilePanel/MobilePanel";
 import Catalog from "./pages/Catalog/Catalog";
 import Product from "./pages/Product/Product";
 import Home from "./pages/Home/Home";
+import Cart from "./pages/Cart/Cart";
+import Checkout from "./pages/Checkout/Checkout";
 
 const Root = () => {
     return <div className="app-container">
@@ -43,6 +46,8 @@ const router = createBrowserRouter(
             <Route path='/blog' element={<Blog/>}/>
             <Route path='/brands' element={<Brands/>}/>
             <Route path='/about' element={<About/>}/>
+            <Route path='/cart' element={<Cart/>}/>
+            <Route path='/checkout' element={<Checkout/>}/>
             <Route path='/category/:id' element={<Catalog/>} errorElement={<ErrorPage/>}/>
             <Route path='product/:id' element={<Product/>} errorElement={<ErrorPage/>}/>/>
             <Route path='*' element={<ErrorPage/>}/>
@@ -53,6 +58,8 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>
-        <RouterProvider router={router}/>
+        <PersistGate loading={null} persistor={persistor}>
+            <RouterProvider router={router}/>
+        </PersistGate>
     </Provider>
 );

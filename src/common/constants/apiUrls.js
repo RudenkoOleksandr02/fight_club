@@ -36,6 +36,11 @@ export const FilterPanelUrls = {
         return `FilterPanel/${categoryId}`
     }
 }
+export const SearchUrls = {
+    GetSearchByQuery(query) {
+        return `Search/products?query=${query}`
+    }
+}
 export const bannerApi = {
     getBannerData(data) {
 
