@@ -7,6 +7,7 @@ const CardListContainer = ({ productsData }) => {
     const productListJSX = productsData.products.map(product => (
         <div key={product.id}>
             <CardItem
+                id={product.id}
                 path={`/product/${product.id}`}
                 src={product.images[0]}
                 titles={[product.name, product.nameEng]}

@@ -4,9 +4,12 @@ import {ReactComponent as IcoHeart} from "../../../../assets/images/ico_heart.sv
 import Rating from "../../../../ui/components/Rating/Rating";
 import TertiaryButton from "../../../../ui/components/Buttons/TertiaryButton/TertiaryButton";
 import PrimaryButton from "../../../../ui/components/Buttons/PrimaryButton/PrimaryButton";
+import {useDispatch} from "react-redux";
+import {putProductInCart} from "../../../../store/cartSlice";
 
 const MainBlock = (props) => {
     const {
+        id,
         name,
         nameEng,
         rating,
@@ -16,8 +19,18 @@ const MainBlock = (props) => {
         article,
         options,
         price,
-        inStock
+        inStock,
+        src
     } = props;
+    const dispatch = useDispatch();
+    const handleAddToCart = () => {
+        dispatch(putProductInCart({
+            id,
+            image: src,
+            name: name,
+            price
+        }));
+    };
     const [sortBy, setSortBy] = useState('');
     const paramsForVariant = options.map((option, index) => {
         return {
@@ -49,7 +62,7 @@ const MainBlock = (props) => {
             </div>
 
             <div className={classes.buyContainer}>
-                <PrimaryButton>Купити</PrimaryButton>
+                <PrimaryButton onClick={handleAddToCart}>Купити</PrimaryButton>
                 <TertiaryButton
                     params={paramsForVariant}
                     onChange={setSortBy}

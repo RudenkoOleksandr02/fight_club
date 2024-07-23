@@ -39,7 +39,7 @@ const CardItem = ({
 
                 <div className={classes.box}>
                     <div className={classes.price}>
-                        <p>{price}₴</p>
+                        <p>{Math.round(price)}₴</p>
                         <p>{inStock ? 'В наявності' : 'Немає в наявності'}</p>
                     </div>
                     <div className={classes.btnContainer}>

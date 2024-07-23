@@ -6,29 +6,9 @@
     font-weight: 700;
     font-size: 24px;
 }
-.sendEmail {
-    display: flex;
-    align-items: center;
-    margin: 25px 0 15px;
-}
-.sendEmail > input {
-    padding: 8px 20px;
-    font-size: 20px;
-    outline: none;
-    border: 1px solid var(--white);
-    background: transparent;
+.form > form > input::placeholder {
     color: var(--white);
-    height: 40px;
-    width: 100%;
 }
-.sendEmail > input::placeholder {
-    color: #92AA9A;
-}
-.sendEmail > button {
-    padding: 10px;
-    border: none;
-    display: inline-flex;
-    align-items: center;
-    background: var(--white);
-    height: 40px;
+.form {
+    margin: 25px 0 15px;
 }

@@ -3,15 +3,15 @@
     display: grid;
     grid-template-areas:
         'topPanel'
-        'productsInCart'
+        'placing'
         'informationPanel';
     grid-gap: 10px;
 }
 .topPanel {
     grid-area: topPanel;
 }
-.productsInCart {
-    grid-area: productsInCart;
+.placing {
+    grid-area: placing;
 }
 .informationPanel {
     grid-area: informationPanel;
@@ -21,7 +21,7 @@
     .wrapper {
         grid-template-areas:
             'topPanel informationPanel'
-            'productsInCart informationPanel';
+            'placing informationPanel';
         grid-template-columns: 1fr 500px;
         grid-template-rows: auto 1fr;
     }
@@ -30,7 +30,7 @@
     .wrapper {
         grid-template-areas:
             'topPanel informationPanel'
-            'productsInCart informationPanel';
+            'placing informationPanel';
         grid-template-columns: 1fr 325px;
         grid-template-rows: auto 1fr;
     }

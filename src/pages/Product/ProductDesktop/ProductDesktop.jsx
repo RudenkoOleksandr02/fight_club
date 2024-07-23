@@ -30,6 +30,8 @@ const ProductDesktop = ({product}) => {
             </div>
             <div className="rightPanel">
                 <RightPanel
+                    src={product.images[0]}
+                    id={product.id}
                     name={product.name}
                     nameEng={product.nameEng}
                     rating={product.rating}

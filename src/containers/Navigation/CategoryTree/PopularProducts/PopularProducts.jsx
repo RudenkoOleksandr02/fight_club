@@ -5,8 +5,16 @@ import {FreeMode} from "swiper/modules";
 import 'swiper/css/free-mode';
 import 'swiper/css';
 import {v4 as uuidv4} from 'uuid';
+import {useNavigate} from "react-router-dom";
 
-const PopularProducts = ({mainCategoryName, popularProducts, loading}) => {
+const PopularProducts = ({mainCategoryName, popularProducts, loading, setShowCategoryTree}) => {
+    const navigate = useNavigate()
+
+    const handleClick = (productId) => {
+        navigate(`/product/${productId}`)
+        setShowCategoryTree(false)
+    }
+
     const popularProductsJSX = (
         <div className={classes.popularProducts}>
             <Swiper
@@ -19,7 +27,7 @@ const PopularProducts = ({mainCategoryName, popularProducts, loading}) => {
             >
                 {popularProducts.map(product => {
                     return <SwiperSlide key={uuidv4()}>
-                        <div className={classes.product}>
+                        <div className={classes.product} onClick={() => handleClick(product.id)}>
                             <img src={product.images[0]} alt={mainCategoryName}/>
                             <h4>{product.name}</h4>
                         </div>

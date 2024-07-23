@@ -15,6 +15,8 @@ const ProductMobile = ({product}) => {
             </div>
             <div className={classes.rightPanel}>
                 <RightPanel
+                    src={product.images[0]}
+                    id={product.id}
                     name={product.name}
                     nameEng={product.nameEng}
                     rating={product.rating}

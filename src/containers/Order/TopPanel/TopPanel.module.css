@@ -9,9 +9,26 @@
 .wrapper > div {
     display: flex;
     flex-direction: column;
+    gap: 10px;
+}
+.wrapper > div > span {
+    transition: .3s;
 }
 .line {
     width: 100%; height: 6px;
     background: var(--green);
     opacity: 30%;
+    transition: .3s;
+}
+.cart.active .line, .checkout.active .line {
+    opacity: 1;
+}
+.cart:not(.active), .checkout:not(.active) {
+    cursor: pointer;
+}
+.cart:not(.active):hover .line, .checkout:not(.active):hover .line {
+    opacity: 60%;
+}
+.cart:not(.active):hover span, .checkout:not(.active):hover span {
+    color: var(--green);
 }

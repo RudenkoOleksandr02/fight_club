@@ -8,7 +8,7 @@ const ProductsInCart = ({productsInCart, handleAddToCart, handleDeleteFromCart, 
         return <div key={uuidv4()} className={classes.productInCart}>
             <div className={classes.inner}>
                 <img src={product.image} alt="product" className={classes.image}/>
-                <p>{product.name}</p>
+                <p className={classes.name}>{product.name}</p>
             </div>
             <div className={classes.inner}>
                 <div className={classes.quantity}>
@@ -21,7 +21,7 @@ const ProductsInCart = ({productsInCart, handleAddToCart, handleDeleteFromCart, 
                         <span></span>
                     </button>
                 </div>
-                <span className={classes.price}>{product.price * product.quantity}</span>
+                <span className={classes.price}>{Math.round(product.price * product.quantity)}$</span>
                 <button className={classes.delete} onClick={() => handleDeleteFromCart(product.id)}>
                     <IcoTrash/>
                 </button>

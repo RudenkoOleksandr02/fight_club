@@ -1,0 +1,19 @@
+.modal {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 5px;
+    background: white;
+}
+
+.modalContent {
+    position: relative;
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    max-height: 300px;
+    overflow: auto;
+}
+

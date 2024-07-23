@@ -1,0 +1,42 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.wrapper > div {
+    background: var(--white);
+    padding: 25px;
+}
+.wrapper h3 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+/* --recipientDetails-- */
+.form {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 38px 38px;
+    margin-top: 20px;
+}
+.form > input {
+    padding: 0 20px;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid var(--black);
+    color: var(--black);
+    background: transparent;
+}
+.form > input::placeholder {
+    opacity: 40%;
+    color: var(--black);
+}
+@media (max-width: 767px) {
+    .form {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 38px);
+    }
+}
+
+/* */

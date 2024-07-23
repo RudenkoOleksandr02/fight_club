@@ -1,0 +1,22 @@
+.form {
+    display: flex;
+    align-items: center;
+}
+.form > input {
+    padding: 8px 20px;
+    font-size: 20px;
+    outline: none;
+    background: transparent;
+    height: 40px;
+    width: 100%;
+}
+.form > input::placeholder {
+    opacity: 40%;
+}
+.form > button {
+    padding: 10px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+}

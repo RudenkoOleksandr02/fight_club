@@ -1,10 +1,22 @@
 import React from 'react';
 import classes from './Header.module.css';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import User from "../User/User";
 import {ReactComponent as IcoCart} from "../../../assets/images/header/ico_cart.svg";
+import {useSelector} from "react-redux";
 
 const Header = () => {
+    const productsInCart = useSelector(state => state.cart.productsInCart);
+    const navigate = useNavigate();
+
+    const handleClickCart = () => {
+        if (productsInCart.length !== 0) {
+            navigate('/cart')
+        } else {
+            return false
+        }
+    }
+
     return (
         <header>
             <div className={classes.wrapper}>
@@ -25,8 +37,8 @@ const Header = () => {
                         <div className={classes.sum}>
                             200₴
                         </div>
-                        <div className={classes.icoBasket}>
-                            <Link to='/cart'><IcoCart/></Link>
+                        <div className={`${classes.icoBasket} ${productsInCart.length !== 0 ? classes.pointer : ''}`} onClick={handleClickCart}>
+                            <IcoCart/>
                         </div>
                     </div>
                     <User/>

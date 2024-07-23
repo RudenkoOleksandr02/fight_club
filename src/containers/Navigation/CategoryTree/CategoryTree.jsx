@@ -55,6 +55,7 @@ const CategoryTree = ({categoryTree, setShowCategoryTree}) => {
                 mainCategoryName={categoryTree.name}
                 popularProducts={popularProducts}
                 loading={loading}
+                setShowCategoryTree={setShowCategoryTree}
             />
         </div>
     </div>
