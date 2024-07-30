@@ -43,7 +43,7 @@ const Root = () => {
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path='/fight_club' element={<Root/>}>
+        <Route path='/' element={<Root/>}>
             <Route index element={<Home/>}/>
             <Route path='/blog' element={<Blog/>}/>
             <Route path='/brands' element={<Brands/>}/>
