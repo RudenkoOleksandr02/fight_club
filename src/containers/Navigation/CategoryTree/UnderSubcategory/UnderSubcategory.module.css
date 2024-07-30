@@ -1,15 +1,47 @@
 .underSubcategories {
-    display: flex;
-    flex-direction: column;
     background: rgba(241, 241, 241, 1);
-    border-radius: 20px;
-    padding: 10px;
+    border-radius: 30px;
+    overflow: hidden;
+    transition: height 0.5s ease;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.underSubcategories.isOpen {
     margin-bottom: 10px;
+    padding: 10px;
 }
-.underSubcategories a {
-    color: var(--black) !important;
-    border: none !important;
+
+.underSubcategories button {
+    transition: .3s;
+    width: auto;
+    margin-bottom: 0;
 }
-.underSubcategories a:not(:last-child) {
-    margin-bottom: 5px;
+
+.underSubcategories button:hover {
+    color: var(--white);
+    background: var(--black);
+}
+
+.underSubcategoryEnter {
+    opacity: 0;
+    transform: translateX(-150px);
+}
+
+.underSubcategoryEnterActive {
+    opacity: 1;
+    transition: all 300ms ease-in;
+    transform: translateX(0);
+}
+
+.underSubcategoryExit {
+    opacity: 1;
+}
+
+.underSubcategoryExitActive {
+    opacity: 0;
+    transition: all 300ms ease-in;
+    transform: translateX(-150px);
 }

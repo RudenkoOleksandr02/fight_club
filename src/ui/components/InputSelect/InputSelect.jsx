@@ -2,7 +2,7 @@ import Modal from './Modal/Modal';
 import React, {useEffect, useState} from 'react';
 import classes from './InputSelect.module.css';
 
-const InputSelect = ({value, onInputChange, onOptionClick, placeholder, options, disabled = false}) => {
+const InputSelect = ({value, onInputChange, onOptionClick, placeholder, options, errors, disabled = false}) => {
     const [showModal, setShowModal] = useState(options.length !== 0);
     const [focus, setFocus] = useState(false)
 
@@ -24,17 +24,20 @@ const InputSelect = ({value, onInputChange, onOptionClick, placeholder, options,
         setTimeout(() => {
             setShowModal(false);
             setFocus(false);
-        }, 100);
+        }, 200);
     };
 
     return (
         <div className={classes.wrapper}>
+            {errors.length !== 0 && errors.map((error, index) => (
+                <p className={classes.error} key={index}>{error}</p>
+            ))}
             <input
                 type="text"
                 value={value}
                 onChange={handleInputChange}
                 placeholder={placeholder}
-                className={classes.inputSelect}
+                className={`${classes.inputSelect} ${errors.length !== 0 ? classes.errorInput : ''}`}
                 disabled={disabled}
                 onFocus={() => setFocus(true)}
                 onBlur={handleBlur}

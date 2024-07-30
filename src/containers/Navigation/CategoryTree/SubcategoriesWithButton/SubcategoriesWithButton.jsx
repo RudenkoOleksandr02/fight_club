@@ -1,44 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import classes from "./SubcategoriesWithButton.module.css";
 import SecondaryButton from "../../../../ui/components/Buttons/SecondaryButton/SecondaryButton";
-import {useNavigate} from "react-router-dom";
-import {v4 as uuidv4} from 'uuid';
+import PlusButton from "./PlusButton/PlusButton";
 
-const SubcategoriesWithButton = ({
-                                     categoryTree,
-                                     handleButtonClick,
-                                     selectedUnderSubcategory,
-                                     setShowCategoryTree
-                                 }) => {
+const SubcategoriesWithButton = ({ subcategories, setShowCategoryTree, handlePlusButtonClick, selectedUnderSubcategories }) => {
     const navigate = useNavigate();
 
-    const subcategoriesWithButtonJSX = categoryTree?.children?.map(subcategory => {
-        return <div className={classes.subcategoryWithButton} key={uuidv4()}>
+    const subcategoriesWithButtonJSX = subcategories.map(subcategory => (
+        <div className={classes.subcategoryWithButton} key={subcategory.subcategoryId}>
             <SecondaryButton
                 handleClick={() => {
-                    setShowCategoryTree(false)
-                    navigate(`/category/${subcategory.categoryId}`)
-                }}>
-                {subcategory.name}
+                    setShowCategoryTree(false);
+                    navigate(`/category/${subcategory.subcategoryId}`);
+                }}
+            >
+                {subcategory.subcategoryName}
             </SecondaryButton>
-            {subcategory.children.length !== 0 && (
-                <button
-                    onClick={() => handleButtonClick(subcategory)}
-                    className={classes.showMore}>
-                    <span
-                        className={`${classes.verticalLine} ${subcategory.categoryId === selectedUnderSubcategory.subcategoryId ? classes.rotated : ''}`}>
-                    </span>
-                    <span className={classes.horizontalLine}></span>
-                </button>
+            {subcategory.underSubcategories.length !== 0 && (
+                <PlusButton
+                    handleClick={() => handlePlusButtonClick(subcategory.subcategoryId)}
+                    isOpen={subcategory.isOpen}
+                />
             )}
         </div>
-    });
+    ));
 
-    return (
-        <div>
-            {subcategoriesWithButtonJSX}
-        </div>
-    );
+    return <div>{subcategoriesWithButtonJSX}</div>;
 };
 
 export default SubcategoriesWithButton;

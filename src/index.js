@@ -27,6 +27,8 @@ import Product from "./pages/Product/Product";
 import Home from "./pages/Home/Home";
 import Cart from "./pages/Cart/Cart";
 import Checkout from "./pages/Checkout/Checkout";
+import UserPage from "./pages/UserPage/UserPage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
 
 const Root = () => {
     return <div className="app-container">
@@ -48,6 +50,8 @@ const router = createBrowserRouter(
             <Route path='/about' element={<About/>}/>
             <Route path='/cart' element={<Cart/>}/>
             <Route path='/checkout' element={<Checkout/>}/>
+            <Route path='/register' element={<RegisterPage/>}/>
+            <Route path='/user' element={<UserPage/>}/>
             <Route path='/category/:id' element={<Catalog/>} errorElement={<ErrorPage/>}/>
             <Route path='product/:id' element={<Product/>} errorElement={<ErrorPage/>}/>/>
             <Route path='*' element={<ErrorPage/>}/>

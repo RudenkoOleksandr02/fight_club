@@ -7,16 +7,25 @@ import productSlice from "./productSlice";
 import filterPanelSlice from "./filterPanelSlice";
 import homePageSlice from "./homePageSlice";
 import searchSlice from "./searchSlice";
-import cartSlice from "./cartSlice";
+import cartForGuestSlice from "./forGuest/cartForGuestSlice";
+import authSlice from "./authSlice";
+import checkoutForGuestSlice from "./forGuest/checkoutForGuestSlice";
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist/es/constants';
+import cartForUserSlice from "./forUser/cartForUserSlice";
+import checkoutForUserSlice from "./forUser/checkoutForUserSlice";
+import promocodesSlice from "./promocodesSlice";
 
-// Конфигурация persist для корзины
-const cartPersistConfig = {
-    key: 'cart',
-    storage,
+const cartForGuestPersistConfig = {
+    key: 'cartForGuest',
+    storage
 };
+const authPersistConfig = {
+    key: 'auth',
+    storage
+}
 
-const persistedCartReducer = persistReducer(cartPersistConfig, cartSlice);
+const persistedCartForGuestReducer = persistReducer(cartForGuestPersistConfig, cartForGuestSlice);
+const persistedAuthReducer = persistReducer(authPersistConfig, authSlice);
 
 const store = configureStore({
     reducer: {
@@ -26,7 +35,12 @@ const store = configureStore({
         filterPanelData: filterPanelSlice,
         homePageData: homePageSlice,
         searchData: searchSlice,
-        cart: persistedCartReducer,
+        cartForGuest: persistedCartForGuestReducer,
+        checkoutForGuest: checkoutForGuestSlice,
+        cartForUser: cartForUserSlice,
+        checkoutForUser: checkoutForUserSlice,
+        promocodes: promocodesSlice,
+        auth: persistedAuthReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

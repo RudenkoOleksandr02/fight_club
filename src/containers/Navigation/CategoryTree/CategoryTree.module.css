@@ -17,4 +17,6 @@
 .rightSide {
     margin-left: 10px;
     overflow: hidden;
+    position: relative;
 }
+

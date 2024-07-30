@@ -1,23 +1,27 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './Navigation.module.css';
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import SearchDesktop from "../Search/Desctop/SearchDesktop";
 import linksToCategories from '../../data/linksToCategories.json';
-import {useDispatch, useSelector} from "react-redux";
-import {getCategoryTree} from "../../store/categorySlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategoryTree } from "../../store/categorySlice";
 import CategoryTree from "./CategoryTree/CategoryTree";
 
 const Navigation = () => {
     const [currentCategoryId, setCurrentCategoryId] = useState(null);
     const [showCategoryTree, setShowCategoryTree] = useState(false);
+    const [loading, setLoading] = useState(true);
     const categoryTree = useSelector((state) => state.categoryData.categoryTree);
     const dispatch = useDispatch();
+    const [selectedSubcategoryId, setSelectedSubcategoryId] = useState(null);
 
     useEffect(() => {
         if (currentCategoryId) {
-            dispatch(getCategoryTree(currentCategoryId));
+            setLoading(true)
+            dispatch(getCategoryTree(currentCategoryId))
+                .then(() => setLoading(false));
         }
-    }, [currentCategoryId]);
+    }, [currentCategoryId, dispatch]);
 
     const handleSetCategoryTree = (categoryId) => {
         setCurrentCategoryId(categoryId);
@@ -36,6 +40,7 @@ const Navigation = () => {
                     key={link.id}
                     to={'/category/' + link.id}
                     onMouseEnter={() => handleSetCategoryTree(link.id)}
+                    onClick={() => setShowCategoryTree(false)}
                 >
                     {link.name}
                 </NavLink>
@@ -49,16 +54,18 @@ const Navigation = () => {
             onMouseLeave={handleDellCategoryTree}
         >
             <div className={classes.mainCategoriesAndSearch}>
-                <SearchDesktop/>
+                <SearchDesktop />
                 {linksToCategoriesJSX}
             </div>
-            <div
-                className={`${classes.categoryTree} ${showCategoryTree ? classes.visible : ''}`}
-            >
-                <CategoryTree
-                    categoryTree={categoryTree}
-                    setShowCategoryTree={setShowCategoryTree}
-                />
+            <div className={`${classes.categoryTree} ${showCategoryTree ? classes.visible : ''}`}>
+                {!loading && (
+                    <CategoryTree
+                        selectedSubcategoryId={selectedSubcategoryId}
+                        setSelectedSubcategoryId={setSelectedSubcategoryId}
+                        categoryTree={categoryTree}
+                        setShowCategoryTree={setShowCategoryTree}
+                    />
+                )}
             </div>
         </nav>
     );

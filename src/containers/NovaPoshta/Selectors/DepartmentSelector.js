@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { fetchDepartments } from '../fetchs/fetchDepartments';
 import InputSelect from '../../../ui/components/InputSelect/InputSelect';
 
-const DepartmentSelector = ({ cityRef }) => {
+const DepartmentSelector = ({ cityRef, handleSetDeliveryInfo, errorsDepartment }) => {
     const [departments, setDepartments] = useState([]);
     const [searchText, setSearchText] = useState('');
+    useEffect(() => {
+        handleSetDeliveryInfo(searchText, 'department')
+    }, [searchText])
 
     useEffect(() => {
         const fetchDeps = async () => {
@@ -33,6 +36,7 @@ const DepartmentSelector = ({ cityRef }) => {
                 onOptionClick={handleOptionClick}
                 options={departments}
                 disabled={cityRef === null}
+                errors={errorsDepartment}
             />
         </div>
     );

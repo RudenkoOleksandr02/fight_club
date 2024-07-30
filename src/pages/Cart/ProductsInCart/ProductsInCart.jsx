@@ -12,7 +12,7 @@ const ProductsInCart = ({productsInCart, handleAddToCart, handleDeleteFromCart, 
             </div>
             <div className={classes.inner}>
                 <div className={classes.quantity}>
-                    <button className={classes.remove} onClick={() => handleRemoveFromCart(product.id)}>
+                    <button className={classes.remove} onClick={() => handleRemoveFromCart(product.id, product.quantity)}>
                         <span></span>
                     </button>
                     <span>{product.quantity}</span>

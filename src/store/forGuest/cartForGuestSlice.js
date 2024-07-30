@@ -4,8 +4,8 @@ const initialState = {
     productsInCart: [] // {id: 1, image: "img", name: "name", price: "price", quantity: 2}
 };
 
-const cartSlice = createSlice({
-    name: 'cart',
+const cartForGuestSlice = createSlice({
+    name: 'cartForGuest',
     initialState,
     reducers: {
         putProductInCart: (state, action) => {
@@ -37,12 +37,12 @@ const cartSlice = createSlice({
     }
 });
 
-export const { putProductInCart, removeProductFromCart, deleteProductFromCart } = cartSlice.actions;
+export const { putProductInCart, removeProductFromCart, deleteProductFromCart } = cartForGuestSlice.actions;
 
 export const selectTotalPrice = (state) => {
-    return state.cart.productsInCart.reduce((total, product) => {
+    return state.cartForGuest.productsInCart.reduce((total, product) => {
         return total + (product.price * product.quantity);
     }, 0);
 };
 
-export default cartSlice.reducer;
+export default cartForGuestSlice.reducer;

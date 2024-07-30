@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './InformationPanel.module.css';
 import {v4 as uuidv4} from 'uuid'
 import FormSelect from "../../../ui/components/FormSelect/FormSelect";
-import {useSelector} from "react-redux";
-import {selectTotalPrice} from "../../../store/cartSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {selectTotalPrice} from "../../../store/forGuest/cartForGuestSlice";
 import PrimaryButton from "../../../ui/components/Buttons/PrimaryButton/PrimaryButton";
 import {useNavigate} from "react-router-dom";
+import {setAdditionalInfo} from "../../../store/forGuest/checkoutForGuestSlice";
+import {getPromocodesCheck} from "../../../store/promocodesSlice";
 
 // --DATA--
 const loyaltyProgram = [
@@ -18,6 +20,29 @@ const loyaltyProgram = [
 const InformationPanel = ({orderParams}) => {
     const navigate = useNavigate();
     const totalPrice = useSelector(selectTotalPrice);
+    const user = useSelector(state => state.auth.user);
+    /*const additionalInfo = useSelector(state => {
+        if (user === null) {
+            return state.checkoutForGuest.params.additionalInfo;
+        } else {
+            return true
+        }
+    });*/
+    const additionalInfo = useSelector(state => state.checkoutForGuest.params.additionalInfo);
+    const dispatch = useDispatch();
+    const handleChangeAdditionalInfo = (value, key) => {
+        dispatch(setAdditionalInfo({ key, value }));
+    }
+
+    const [promocode, setPromocode] = useState('');
+    const discount = useSelector(state => state.promocodes.discount);
+    const handleSendPromocode = () => {
+        dispatch(getPromocodesCheck(promocode))
+            .then(response => {
+                console.log(response)
+            })
+    }
+
 
     const loyaltyProgramJSX = (
         <div className={classes.loyaltyProgram}>
@@ -33,7 +58,7 @@ const InformationPanel = ({orderParams}) => {
     )
     const promotionalJSX = (
         <div className={classes.promotional}>
-            <FormSelect type='text' text='Промокод' color='secondary'/>
+            <FormSelect type='text' text='Промокод' color='secondary' handleSend={handleSendPromocode} value={promocode} onChange={e => setPromocode(e.target.value)}/>
         </div>
     )
     const ecoFriendlyPackagingJSX = (
@@ -41,7 +66,7 @@ const InformationPanel = ({orderParams}) => {
             <h3>Екологічна упаковка</h3>
             <p>Зберегти екологічність нашого світу та купи екологічно чисту упаковку</p>
             <div className={classes.check}>
-                <input type='checkbox' id='check'/>
+                <input type='checkbox' id='check' checked={additionalInfo.ecoPackaging} onChange={e => handleChangeAdditionalInfo(e.target.checked, 'ecoPackaging')}/>
                 <label htmlFor='check'>
                     Додати Опцію
                 </label>
@@ -74,7 +99,7 @@ const InformationPanel = ({orderParams}) => {
     )
     const callMeJSX = (
         <div className={classes.check}>
-            <input type='checkbox' id='call'/>
+            <input type='checkbox' id='call' checked={additionalInfo.dontCallMe} onChange={e => handleChangeAdditionalInfo(e.target.checked, 'dontCallMe')}/>
             <label htmlFor='call'>
                 Не дзвоніть мені
             </label>

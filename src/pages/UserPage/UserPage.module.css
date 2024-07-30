@@ -1,0 +1,40 @@
+.wrapper {
+    display: grid;
+    grid-gap: 10px;
+    grid-auto-rows: 1fr;
+    margin-top: 60px;
+}
+.leftPanel > div, .rightPanel > div {
+    padding: 25px;
+    background: var(--white);
+    margin-bottom: 10px;
+}
+.form {
+    display: grid;
+    grid-gap: 10px;
+    grid-auto-rows: 38px;
+    margin-top: 20px;
+}
+.form > input {
+    padding: 0 20px;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid var(--black);
+    color: var(--black);
+    background: transparent;
+}
+.form > input::placeholder {
+    opacity: 40%;
+    color: var(--black);
+}
+
+@media (min-width: 1360px) {
+    .wrapper {
+        grid-template-columns: 395px 1fr;
+    }
+}
+.logout > button {
+    margin-bottom: 0;
+    border-radius: 0;
+    justify-content: center;
+}

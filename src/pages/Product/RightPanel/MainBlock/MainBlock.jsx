@@ -5,7 +5,7 @@ import Rating from "../../../../ui/components/Rating/Rating";
 import TertiaryButton from "../../../../ui/components/Buttons/TertiaryButton/TertiaryButton";
 import PrimaryButton from "../../../../ui/components/Buttons/PrimaryButton/PrimaryButton";
 import {useDispatch} from "react-redux";
-import {putProductInCart} from "../../../../store/cartSlice";
+import {putProductInCart} from "../../../../store/forGuest/cartForGuestSlice";
 
 const MainBlock = (props) => {
     const {

@@ -1,12 +1,19 @@
 import React from 'react';
 import classes from './Header.module.css';
 import {Link, useNavigate} from "react-router-dom";
-import User from "../User/User";
+import User from "../../../containers/User/User";
 import {ReactComponent as IcoCart} from "../../../assets/images/header/ico_cart.svg";
 import {useSelector} from "react-redux";
 
 const Header = () => {
-    const productsInCart = useSelector(state => state.cart.productsInCart);
+    const user = useSelector(state => state.auth.user);
+    const productsInCart = useSelector(state => {
+        if (user === null) {
+            return state.cartForGuest.productsInCart;
+        } else {
+            return true
+        }
+    });
     const navigate = useNavigate();
 
     const handleClickCart = () => {

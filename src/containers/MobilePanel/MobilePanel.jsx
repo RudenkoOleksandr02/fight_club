@@ -12,11 +12,28 @@ import {v4 as uuidv4} from 'uuid'
 
 // --DATA--
 import linksToCategories from './../../data/linksToCategories.json'
+import {getCategoryTree} from "../../store/categorySlice";
+import {useDispatch, useSelector} from "react-redux";
 
 const MobilePanel = () => {
     const [open, setOpen] = useState(false);
     const [contentKey, setContentKey] = useState(null);
     const [contentSheet, setContentSheet] = useState(null);
+    const dispatch = useDispatch();
+    const categoryTree = useSelector((state) => state.categoryData.categoryTree);
+    const [currentCategoryId, setCurrentCategoryId] = useState(null);
+    const [contentLinks, setContentLinks] = useState(
+        linksToCategories.map(link => {
+            return <SecondaryButton
+                handleClick={() => handleMainCategoryClick(link.id)}
+                putIcoArrow={true}
+                key={uuidv4()}
+            >
+                {link.name}
+            </SecondaryButton>
+        })
+    );
+
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 999);
     useEffect(() => {
         const handleResize = () => {
@@ -29,18 +46,29 @@ const MobilePanel = () => {
         };
     }, []);
 
-    const contentSearch = (
+    useEffect(() => {
+        if (currentCategoryId) {
+            dispatch(getCategoryTree(currentCategoryId))
+                .then(() => {
+                    if (categoryTree && categoryTree.children) {
+                        setContentLinks(categoryTree.children.map(link => {
+                            return <SecondaryButton key={uuidv4()} handleClick={() => {}}>
+                                {link.name}
+                            </SecondaryButton>
+                        }));
+                    }
+                })
+        }
+    }, [currentCategoryId, categoryTree]);
+
+    const handleMainCategoryClick = (categoryId) => {
+        setCurrentCategoryId(categoryId);
+    }
+
+    const linksWithSearch = (
         <>
             <SearchMobile setOpen={setOpen}/>
-            {linksToCategories.map(link => {
-                return <SecondaryButton
-                    handleClick={() => {}}
-                    putIcoArrow={true}
-                    key={uuidv4()}
-                >
-                    {link.name}
-                </SecondaryButton>
-            })}
+            {contentLinks}
         </>
     )
     const contentMenu = (
@@ -74,7 +102,7 @@ const MobilePanel = () => {
         <div className={classes.wrapper}>
             <div className={classes.panel}>
                 <div className={classes.btns}>
-                    <button onClick={() => handleClickPanel('search', contentSearch)}>
+                    <button onClick={() => handleClickPanel('search', linksWithSearch)}>
                         <IcoSearch/>
                     </button>
                     <button><IcoCart/></button>

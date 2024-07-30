@@ -1,0 +1,14 @@
+.form {
+    display: grid;
+    grid-gap: 10px;
+    margin: 20px auto;
+    background: var(--white);
+    padding: 25px;
+    width: 500px;
+}
+.form > button {
+    border-radius: 0;
+    justify-content: center;
+    height: 38px;
+    margin-bottom: 10px;
+}

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const instance = axios.create({
-    baseURL: 'http://localhost:8001/api/',
+    baseURL: 'https://blossomapi-production.up.railway.app/api/',
     headers: {
         'Content-Type': 'application/json'
     }
@@ -39,6 +39,26 @@ export const FilterPanelUrls = {
 export const SearchUrls = {
     GetSearchByQuery(query) {
         return `Search/products?query=${query}`
+    }
+}
+export const AuthorizationUrls = {
+    Register: 'Account/Register',
+    Login: 'Account/Login',
+    Logout: 'Account/Logout'
+}
+export const ShoppingCartOrderUrls = {
+    CreateOrderForGuest: 'ShoppingCartOrder/CreateOrderForGuest',
+    CreateOrderForUser: 'ShoppingCartOrder/CreateOrderForUser'
+}
+export const ShoppingCartUrls = {
+    GetUserShoppingCart: 'ShoppingCart/GetUserShoppingCart',
+    AddProduct: 'ShoppingCart/AddProduct',
+    ChangeProductAmount: 'ShoppingCart/ChangeProductAmount',
+    RemoveProduct: 'ShoppingCart/RemoveProduct'
+}
+export const PromocodesUrls = {
+    GetPromocodesCheck(code) {
+        return `Promocodes/check/${code}`
     }
 }
 export const bannerApi = {

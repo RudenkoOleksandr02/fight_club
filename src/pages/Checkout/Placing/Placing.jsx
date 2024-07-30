@@ -1,23 +1,48 @@
 import React from 'react';
 import classes from './Placing.module.css';
 import NovaPoshta from "../../../containers/NovaPoshta/NovaPoshta";
+import Input from "../../../ui/components/Input/Input";
 
-const Placing = () => {
+const Placing = ({userInfo, handleSetUserInfo, handleSetDeliveryInfo, errors}) => {
     const recipientDetails = (
         <div className={classes.recipientDetails}>
             <h3>Дані одержувача</h3>
             <form className={classes.form}>
-                <input type='text' placeholder="Ваше ім'я"/>
-                <input type='text' placeholder="Телефон"/>
-                <input type='text' placeholder="Ваше прізвище"/>
-                <input type='email' placeholder="E-mail"/>
+                <Input
+                    type='text'
+                    placeholder="Ваше ім'я"
+                    value={userInfo.name}
+                    onChange={e => handleSetUserInfo(e.target.value, 'name')}
+                    errors={errors.name}
+                />
+                <Input
+                    type='text'
+                    placeholder="Телефон"
+                    value={userInfo.phone}
+                    onChange={e => handleSetUserInfo(e.target.value, 'phone')}
+                    errors={errors.phone}
+                />
+                <Input
+                    type='text'
+                    placeholder="Ваше прізвище"
+                    value={userInfo.surname}
+                    onChange={e => handleSetUserInfo(e.target.value, 'surname')}
+                    errors={errors.surname}
+                />
+                <Input
+                    type='email'
+                    placeholder="E-mail"
+                    value={userInfo.email}
+                    onChange={e => handleSetUserInfo(e.target.value, 'email')}
+                    errors={errors.email}
+                />
             </form>
         </div>
     )
     const deliveryMethodJSX = (
         <div className={classes.deliveryMethod}>
             <h3>Спосіб доставки</h3>
-            <NovaPoshta/>
+            <NovaPoshta handleSetDeliveryInfo={handleSetDeliveryInfo} errorsCity={errors.city} errorsDepartment={errors.department} />
         </div>
     )
     const paymentMethod = (

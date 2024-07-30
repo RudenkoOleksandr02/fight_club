@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { fetchCities } from '../fetchs/fetchCities';
 import InputSelect from '../../../ui/components/InputSelect/InputSelect';
 
-const CitySelector = ({ setCity }) => {
+const CitySelector = ({ setCity, errorsCity }) => {
     const [cities, setCities] = useState([]);
     const [searchText, setSearchText] = useState('');
 
@@ -29,6 +29,7 @@ const CitySelector = ({ setCity }) => {
                 onInputChange={handleInputChange}
                 onOptionClick={handleOptionClick}
                 options={cities.map(city => city.name)}
+                errors={errorsCity}
             />
         </div>
     );

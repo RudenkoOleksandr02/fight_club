@@ -7,7 +7,7 @@ import 'swiper/css';
 import {v4 as uuidv4} from 'uuid';
 import {useNavigate} from "react-router-dom";
 
-const PopularProducts = ({mainCategoryName, popularProducts, loading, setShowCategoryTree}) => {
+const PopularProducts = ({mainCategoryName, popularProducts, setShowCategoryTree}) => {
     const navigate = useNavigate()
 
     const handleClick = (productId) => {
@@ -36,10 +36,6 @@ const PopularProducts = ({mainCategoryName, popularProducts, loading, setShowCat
             </Swiper>
         </div>
     )
-
-    if (loading) {
-        return <div>preloader...</div>
-    }
 
     return (
         <div className={classes.wrapper}>

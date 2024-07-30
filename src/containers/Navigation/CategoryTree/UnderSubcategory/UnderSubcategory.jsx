@@ -1,31 +1,58 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import classes from "./UnderSubcategory.module.css";
-import {Link} from "react-router-dom";
-import {v4 as uuidv4} from 'uuid';
+import SecondaryButton from "../../../../ui/components/Buttons/SecondaryButton/SecondaryButton";
+import {useNavigate} from "react-router-dom";
+import {CSSTransition, TransitionGroup} from "react-transition-group";
 
-const UnderSubcategory = ({selectedUnderSubcategory, mainCategoryId}) => {
-    const hasUnderSubcategories = (
-        mainCategoryId === selectedUnderSubcategory.mainCategoryId
-        && selectedUnderSubcategory
-        && Object.keys(selectedUnderSubcategory).length > 0
-    )
+const UnderSubcategory = ({subcategories, setShowCategoryTree}) => {
+    const navigate = useNavigate();
 
-    const underSubcategoryJSX = (
-        selectedUnderSubcategory?.underSubcategory?.map(underSubcategory => {
-            return <Link key={uuidv4()} to={`/category/${underSubcategory.categoryId}`}>
-                {underSubcategory.name}
-            </Link>
-        })
-    )
+    const generateRef = () => React.createRef();
 
-    if (!hasUnderSubcategories) {
-        return null;
-    }
+    const underSubcategoriesJSX = (
+        <TransitionGroup component={null}>
+            {subcategories.flatMap(subcategory => {
+                if (subcategory.isOpen && subcategory.underSubcategories) {
+                    return subcategory.underSubcategories.map(underSubcategory => {
+                        const nodeRef = generateRef();
+                        return (
+                            <CSSTransition
+                                key={underSubcategory.underSubcategoryId}
+                                nodeRef={nodeRef}
+                                timeout={300}
+                                classNames={{
+                                    enter: classes.underSubcategoryEnter,
+                                    enterActive: classes.underSubcategoryEnterActive,
+                                    exit: classes.underSubcategoryExit,
+                                    exitActive: classes.underSubcategoryExitActive
+                                }}
+                            >
+                                <div ref={nodeRef}>
+                                    <SecondaryButton
+                                        handleClick={() => {
+                                            setShowCategoryTree(false);
+                                            navigate(`/category/${underSubcategory.underSubcategoryId}`);
+                                        }}
+                                    >
+                                        {underSubcategory.underSubcategoryName}
+                                    </SecondaryButton>
+                                </div>
+                            </CSSTransition>
+                        );
+                    });
+                }
+                return [];
+            })}
+        </TransitionGroup>
+    );
 
     return (
-        <div className={classes.underSubcategories}>
-            {underSubcategoryJSX}
+        <div
+            className={`${classes.underSubcategories} ${subcategories.some(subcategory => subcategory.isOpen) ? classes.isOpen : ''}`}
+        >
+            {underSubcategoriesJSX}
         </div>
     );
-}
+};
+
 export default UnderSubcategory;
