@@ -61,7 +61,7 @@ const LoginPanel = ({ openLoginPanel, setOpenLoginPanel }) => {
 
 
     return (
-        <div>
+        <div className={classes.wrapper}>
             {openLoginPanel && <div className={`${classes.overlay} ${openLoginPanel ? classes.open : ''}`} />}
             <div
                 className={

@@ -20,3 +20,7 @@
     position: relative;
 }
 
+.preloader {
+    padding: 10px;
+    text-align: center;
+}

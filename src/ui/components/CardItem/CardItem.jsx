@@ -1,7 +1,7 @@
 import React from 'react';
 import PrimaryButton from "../Buttons/PrimaryButton/PrimaryButton";
 import classes from './CardItem.module.css'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {putProductInCart} from '../../../store/forGuest/cartForGuestSlice';
 import {useDispatch, useSelector} from "react-redux";
 import {addProduct} from "../../../store/forUser/cartForUserSlice";
@@ -16,6 +16,9 @@ const CardItem = ({
                       extraClass = ''
                   }) => {
     const user = useSelector(state => state.auth.user);
+    const productsInCart = useSelector(state => state.cartForGuest.productsInCart);
+    const inCart = productsInCart.some(product => product.id === id);
+    const navigate = useNavigate()
     const dispatch = useDispatch();
     /*const handleAddToCart = () => {
         if (user === null) {
@@ -38,6 +41,7 @@ const CardItem = ({
         }))
     }
 
+
         return (
             <div className={`${classes.wrapper} ${extraClass}`}>
                 <div className={classes.image}>
@@ -57,7 +61,15 @@ const CardItem = ({
                             <p>{inStock ? 'В наявності' : 'Немає в наявності'}</p>
                         </div>
                         <div className={classes.btnContainer}>
-                            <PrimaryButton disabled={!inStock} onClick={handleAddToCart}>Купить</PrimaryButton>
+                            <PrimaryButton disabled={!inStock} onClick={() => {
+                                if (inCart) {
+                                    navigate('/cart')
+                                } else {
+                                    handleAddToCart()
+                                }
+                            }}>
+                                {inCart ? 'Перейти до кошика' : 'Додати до кошика'}
+                            </PrimaryButton>
                         </div>
                     </div>
                 </div>

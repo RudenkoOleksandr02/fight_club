@@ -1,14 +1,19 @@
 .form {
     display: grid;
-    grid-gap: 10px;
-    margin: 20px auto;
+    grid-gap: 15px;
+    margin: 60px auto;
     background: var(--white);
     padding: 25px;
-    width: 500px;
+    width: 620px;
 }
 .form > button {
     border-radius: 0;
     justify-content: center;
     height: 38px;
     margin-bottom: 10px;
+}
+@media (max-width: 768px) {
+    .form {
+        width: 100%;
+    }
 }

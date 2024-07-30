@@ -4,8 +4,9 @@ import {ReactComponent as IcoHeart} from "../../../../assets/images/ico_heart.sv
 import Rating from "../../../../ui/components/Rating/Rating";
 import TertiaryButton from "../../../../ui/components/Buttons/TertiaryButton/TertiaryButton";
 import PrimaryButton from "../../../../ui/components/Buttons/PrimaryButton/PrimaryButton";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {putProductInCart} from "../../../../store/forGuest/cartForGuestSlice";
+import {useNavigate} from "react-router-dom";
 
 const MainBlock = (props) => {
     const {
@@ -39,6 +40,10 @@ const MainBlock = (props) => {
         }
     })
 
+    const productsInCart = useSelector(state => state.cartForGuest.productsInCart);
+    const inCart = productsInCart.some(product => product.id === id);
+    const navigate = useNavigate()
+
     return (
         <div className={classes.wrapper}>
             <h3>{nameEng}</h3>
@@ -62,7 +67,15 @@ const MainBlock = (props) => {
             </div>
 
             <div className={classes.buyContainer}>
-                <PrimaryButton onClick={handleAddToCart}>Купити</PrimaryButton>
+                <PrimaryButton onClick={() => {
+                    if (inCart) {
+                        navigate('/cart')
+                    } else {
+                        handleAddToCart()
+                    }
+                }} disabled={!inStock}>
+                    {inCart ? 'Перейти до кошика' : 'Додати до кошика'}
+                </PrimaryButton>
                 <TertiaryButton
                     params={paramsForVariant}
                     onChange={setSortBy}

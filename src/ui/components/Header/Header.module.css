@@ -36,18 +36,38 @@
     opacity: 30%;
 }
 .basket {
-    display: flex;
-    align-items: center;
     margin-right: 15px;
 }
-.basket > .sum {
-    margin-bottom: 5px;
-    font-family: 'Ahsing', sans-serif;
-    font-weight: 100;
-    margin-right: 12px;
+.icoBasket {
+    opacity: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 .icoBasket.pointer {
     cursor: pointer;
+    opacity: 1;
+    animation: scaleCycle 1.2s infinite;
+    border: 2px solid var(--white);
+    border-radius: 50%;
+    width: auto;
+    height: auto;
+}
+.icoBasket.pointer > svg > rect, .icoBasket.pointer > svg > path[id="path2"] {
+    fill: var(--green);
+}
+.icoBasket.pointer > svg > path[id="path3"] {
+    fill: var(--white);
+}
+
+@keyframes scaleCycle {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
 }
 @media (max-width: 767px) {
     .wrapper {

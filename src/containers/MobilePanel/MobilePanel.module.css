@@ -61,3 +61,12 @@
     transition: opacity 300ms ease-in, transform 300ms ease-in;
 }
 
+.cart {
+    opacity: 40%;
+}
+.cart.active {
+    opacity: 1;
+}
+.cart.active path {
+    stroke: var(--green)
+}

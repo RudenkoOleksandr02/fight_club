@@ -125,7 +125,7 @@ const MobilePanel = ({setOpenLoginPanel, openLoginPanel}) => {
                     <button onClick={() => handleClickPanel('search', linksWithSearch)}>
                         <IcoSearch/>
                     </button>
-                    <button onClick={() => {
+                    <button disabled={cartForGuest.length === 0} className={`${classes.cart} ${cartForGuest.length !== 0 ? classes.active : ''}`} onClick={() => {
                         if (cartForGuest.length !== 0) {
                             navigate('/cart');
                             setOpen(false);

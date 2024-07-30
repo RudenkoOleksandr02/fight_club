@@ -10,11 +10,10 @@ const CategoryTree = ({
                           categoryTree,
                           setShowCategoryTree,
                           selectedSubcategoryId,
-                          setSelectedSubcategoryId
+                          setSelectedSubcategoryId,
+                          popularProducts,
                       }) => {
     const dispatch = useDispatch();
-    const popularProducts = useSelector((state) => state.homePageData.popularProductsByCategory);
-    const [loading, setLoading] = useState(false);
     const [subcategories, setSubcategories] = useState(categoryTree.children.map(subcategory => {
         return {
             subcategoryId: subcategory.categoryId,
@@ -67,14 +66,14 @@ const CategoryTree = ({
         }))
     }
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (categoryTree.categoryId) {
             setLoading(true);
             dispatch(getPopularProductsByCategory(categoryTree.categoryId)).finally(() => {
                 setLoading(false);
             });
         }
-    }, [categoryTree.categoryId]);
+    }, [categoryTree.categoryId]);*/
 
     return (
         <div className={classes.wrapper} onMouseEnter={() => setShowCategoryTree(true)}>
@@ -93,9 +92,9 @@ const CategoryTree = ({
                 <PopularProducts
                     mainCategoryName={categoryTree.name}
                     popularProducts={popularProducts}
-                    loading={loading}
                     setShowCategoryTree={setShowCategoryTree}
                 />
+
             </div>
         </div>
     )

@@ -95,3 +95,12 @@
     }
 }
 
+
+.preloader {
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    background: var(--white);
+    position: absolute;
+    z-index: 50;
+}

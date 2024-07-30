@@ -6,20 +6,25 @@ import linksToCategories from '../../data/linksToCategories.json';
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoryTree } from "../../store/categorySlice";
 import CategoryTree from "./CategoryTree/CategoryTree";
+import { getPopularProductsByCategory } from "../../store/homePageSlice";
 
 const Navigation = () => {
     const [currentCategoryId, setCurrentCategoryId] = useState(null);
     const [showCategoryTree, setShowCategoryTree] = useState(false);
     const [loading, setLoading] = useState(true);
     const categoryTree = useSelector((state) => state.categoryData.categoryTree);
+    const popularProducts = useSelector((state) => state.homePageData.popularProductsByCategory);
     const dispatch = useDispatch();
     const [selectedSubcategoryId, setSelectedSubcategoryId] = useState(null);
 
     useEffect(() => {
         if (currentCategoryId) {
-            setLoading(true)
+            setLoading(true);
             dispatch(getCategoryTree(currentCategoryId))
-                .then(() => setLoading(false));
+                .then(() => {
+                    dispatch(getPopularProductsByCategory(currentCategoryId))
+                        .finally(() => setLoading(false));
+                });
         }
     }, [currentCategoryId, dispatch]);
 
@@ -58,14 +63,15 @@ const Navigation = () => {
                 {linksToCategoriesJSX}
             </div>
             <div className={`${classes.categoryTree} ${showCategoryTree ? classes.visible : ''}`}>
-                {!loading && (
+                {!loading ? (
                     <CategoryTree
                         selectedSubcategoryId={selectedSubcategoryId}
                         setSelectedSubcategoryId={setSelectedSubcategoryId}
                         categoryTree={categoryTree}
                         setShowCategoryTree={setShowCategoryTree}
+                        popularProducts={popularProducts}
                     />
-                )}
+                ) : <div className={classes.preloader}>preloader...</div>}
             </div>
         </nav>
     );

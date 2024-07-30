@@ -18,7 +18,7 @@ import linksToSocials from '../../../data/linksToSocials.json';
 const Footer = () => {
     const linksToCategoriesJSX = <div className={classes.links}>
         {linksToCategories.map(link => {
-            return <Link key={uuidv4()} to={link.id}>{link.name}</Link>
+            return <Link key={uuidv4()} to={'/category/' + link.id}>{link.name}</Link>
         })}
     </div>
     const linksToInformationJSX = <div className={classes.links}>

@@ -7,14 +7,15 @@ import {useSelector} from "react-redux";
 
 const Header = ({openLoginPanel, setOpenLoginPanel}) => {
     const user = useSelector(state => state.auth.user);
-    const productsInCart = useSelector(state => {
+    /*const productsInCart = useSelector(state => {
         if (user === null) {
             return state.cartForGuest.productsInCart;
         } else {
             return true
         }
-    });
+    });*/
     const navigate = useNavigate();
+    const productsInCart = useSelector(state => state.cartForGuest.productsInCart);
 
     const handleClickCart = () => {
         if (productsInCart.length !== 0) {
@@ -41,9 +42,6 @@ const Header = ({openLoginPanel, setOpenLoginPanel}) => {
                         </div>
                     </div>
                     <div className={classes.basket}>
-                        <div className={classes.sum}>
-                            200₴
-                        </div>
                         <div className={`${classes.icoBasket} ${productsInCart.length !== 0 ? classes.pointer : ''}`} onClick={handleClickCart}>
                             <IcoCart/>
                         </div>
