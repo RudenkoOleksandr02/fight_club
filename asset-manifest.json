@@ -1,0 +1,43 @@
+{
+  "files": {
+    "main.css": "/fightclub/static/css/main.71dd1dae.css",
+    "main.js": "/fightclub/static/js/main.d5c85491.js",
+    "static/media/background2.webp": "/fightclub/static/media/background2.ff9f62a5973f96de6185.webp",
+    "static/media/banner_img1.jpg": "/fightclub/static/media/banner_img1.8bd6af0daa72c9840a31.jpg",
+    "static/media/banner_img5.png": "/fightclub/static/media/banner_img5.f45939fab253ef527fd0.png",
+    "static/media/banner_img3.png": "/fightclub/static/media/banner_img3.6dea5c3373acf978a724.png",
+    "static/media/banner_img2.png": "/fightclub/static/media/banner_img2.fabf2ae89f834dc48edd.png",
+    "static/media/banner_img4.png": "/fightclub/static/media/banner_img4.bac7217c0d20d2785244.png",
+    "static/media/Ahsing-Regular.otf": "/fightclub/static/media/Ahsing-Regular.5afe208226cd572d39a8.otf",
+    "static/media/background1.png": "/fightclub/static/media/background1.92c5d4e937670cc877cc.png",
+    "static/media/ico_cart.svg": "/fightclub/static/media/ico_cart.e34f1225ba052f162bfd2ce3031b30e7.svg",
+    "static/media/ico_instagram.svg": "/fightclub/static/media/ico_instagram.da15f2e86eac723de15d5a054089378f.svg",
+    "static/media/ico_del1.svg": "/fightclub/static/media/ico_del1.e0f4f3054ae3a5d08fb0b5724dbee350.svg",
+    "static/media/ico_like.svg": "/fightclub/static/media/ico_like.0cf4d56c0841fd67bbf1fa29d57df352.svg",
+    "static/media/ico_del3.svg": "/fightclub/static/media/ico_del3.e8b6a1252791d166765b1971fb532110.svg",
+    "static/media/ico_heart.svg": "/fightclub/static/media/ico_heart.c1691b4e85e6f0026379cee456b7fc97.svg",
+    "static/media/ico_user.svg": "/fightclub/static/media/ico_user.7e582eb05624862bd4814e6dd44e1e1e.svg",
+    "static/media/ico_del4.svg": "/fightclub/static/media/ico_del4.702ed3466eaf07d1239d91a94abe4a3f.svg",
+    "static/media/ico_trash.svg": "/fightclub/static/media/ico_trash.2bc17d225071c8899300075c1338b1f5.svg",
+    "static/media/ico_del2.svg": "/fightclub/static/media/ico_del2.835b142d824212cfc87f800dce71fb36.svg",
+    "static/media/ico_search.svg": "/fightclub/static/media/ico_search.82ad0cc6e6094aff423a01c161180308.svg",
+    "static/media/ico_del5.svg": "/fightclub/static/media/ico_del5.8b4100b78e3d635c2f9c6c7e0afb1c08.svg",
+    "index.html": "/fightclub/index.html",
+    "static/media/Star3.svg": "/fightclub/static/media/Star3.327d51acebccfa91ddaceca74b9d4feb.svg",
+    "static/media/ico_telegram.svg": "/fightclub/static/media/ico_telegram.bd4f76e757c66eae6af8dfce3c7c20b3.svg",
+    "static/media/ico_facebook.svg": "/fightclub/static/media/ico_facebook.be49509d50007672dfdbc3c6a968dc38.svg",
+    "static/media/ico_menu.svg": "/fightclub/static/media/ico_menu.31f4767c2dd7b2b434471f32eecf5fba.svg",
+    "static/media/ico_home.svg": "/fightclub/static/media/ico_home.0fa1424d3ed7ebbf3690e06b0f969953.svg",
+    "static/media/Star1.svg": "/fightclub/static/media/Star1.d0959f00f30c5e4665e945805b236ccb.svg",
+    "static/media/Star2.svg": "/fightclub/static/media/Star2.ccad78b867abfe8b83a2e9037ef13d90.svg",
+    "static/media/ico_arrow2.svg": "/fightclub/static/media/ico_arrow2.be2d406dba92fb6a99d57027c2055525.svg",
+    "static/media/ico_arrow1.svg": "/fightclub/static/media/ico_arrow1.f2c897f21889f0d3cea479d9b386acc6.svg",
+    "static/media/ico_arrow3.svg": "/fightclub/static/media/ico_arrow3.cebacfbbb8d9a68ad6e4cdebfa3ec66d.svg",
+    "main.71dd1dae.css.map": "/fightclub/static/css/main.71dd1dae.css.map",
+    "main.d5c85491.js.map": "/fightclub/static/js/main.d5c85491.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.71dd1dae.css",
+    "static/js/main.d5c85491.js"
+  ]
+}
