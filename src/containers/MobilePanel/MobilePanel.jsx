@@ -14,25 +14,30 @@ import {v4 as uuidv4} from 'uuid'
 import linksToCategories from './../../data/linksToCategories.json'
 import {getCategoryTree} from "../../store/categorySlice";
 import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import LoginPanel from "../LoginPanel/LoginPanel";
 
-const MobilePanel = () => {
+const MobilePanel = ({setOpenLoginPanel, openLoginPanel}) => {
     const [open, setOpen] = useState(false);
     const [contentKey, setContentKey] = useState(null);
     const [contentSheet, setContentSheet] = useState(null);
+    const cartForGuest = useSelector(state => state.cartForGuest.productsInCart);
+    const user = useSelector(state => state.auth.user);
     const dispatch = useDispatch();
     const categoryTree = useSelector((state) => state.categoryData.categoryTree);
     const [currentCategoryId, setCurrentCategoryId] = useState(null);
-    const [contentLinks, setContentLinks] = useState(
+    /*const [contentLinks, setContentLinks] = useState(
         linksToCategories.map(link => {
             return <SecondaryButton
-                handleClick={() => handleMainCategoryClick(link.id)}
+                handleClick={handleMainCategoryClick}
                 putIcoArrow={true}
                 key={uuidv4()}
             >
                 {link.name}
             </SecondaryButton>
         })
-    );
+    );*/
+    const navigate = useNavigate()
 
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 999);
     useEffect(() => {
@@ -46,7 +51,7 @@ const MobilePanel = () => {
         };
     }, []);
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (currentCategoryId) {
             dispatch(getCategoryTree(currentCategoryId))
                 .then(() => {
@@ -59,11 +64,21 @@ const MobilePanel = () => {
                     }
                 })
         }
-    }, [currentCategoryId, categoryTree]);
-
+    }, [currentCategoryId, categoryTree]);*/
     const handleMainCategoryClick = (categoryId) => {
-        setCurrentCategoryId(categoryId);
+        navigate(`/category/${categoryId}`);
+        setOpen(false);
+        /*setCurrentCategoryId(categoryId);*/
     }
+    const contentLinks = linksToCategories.map(link => {
+        return <SecondaryButton
+            handleClick={() => handleMainCategoryClick(link.id)}
+            putIcoArrow={true}
+            key={uuidv4()}
+        >
+            {link.name}
+        </SecondaryButton>
+    })
 
     const linksWithSearch = (
         <>
@@ -73,11 +88,16 @@ const MobilePanel = () => {
     )
     const contentMenu = (
         <>
-            <SecondaryButton>Мой кабинет</SecondaryButton>
-            <SecondaryButton>Избранное</SecondaryButton>
-            <SecondaryButton>Контакты</SecondaryButton>
-            <SecondaryButton>Информация</SecondaryButton>
-            <SecondaryButton>О нас</SecondaryButton>
+            <SecondaryButton handleClick={() => {
+                setOpen(false);
+                if (user !== null) {
+                    navigate('/user');
+                } else if (!openLoginPanel) {
+                    setOpenLoginPanel(true);
+                } else {
+                    setOpenLoginPanel(false);
+                }
+            }}>Мій Кабінет</SecondaryButton>
         </>
     )
 
@@ -105,8 +125,18 @@ const MobilePanel = () => {
                     <button onClick={() => handleClickPanel('search', linksWithSearch)}>
                         <IcoSearch/>
                     </button>
-                    <button><IcoCart/></button>
-                    <button><IcoHome/></button>
+                    <button onClick={() => {
+                        if (cartForGuest.length !== 0) {
+                            navigate('/cart');
+                            setOpen(false);
+                        } else {
+                            setOpen(false);
+                        }
+                    }}><IcoCart/></button>
+                    <button onClick={() => {
+                        setOpen(false);
+                        navigate('/')}}
+                    ><IcoHome/></button>
                     <button onClick={() => handleClickPanel('menu', contentMenu)}>
                         <IcoMenu/>
                     </button>

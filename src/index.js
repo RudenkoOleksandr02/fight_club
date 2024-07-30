@@ -29,15 +29,21 @@ import Cart from "./pages/Cart/Cart";
 import Checkout from "./pages/Checkout/Checkout";
 import UserPage from "./pages/UserPage/UserPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import LoginPanel from "./containers/LoginPanel/LoginPanel";
 
 const Root = () => {
+    const [openLoginPanel, setOpenLoginPanel] = React.useState(false);
     return <div className="app-container">
         <ScrollToTop/>
-        <Header/>
+        <Header setOpenLoginPanel={setOpenLoginPanel} openLoginPanel={openLoginPanel}/>
         <Navigation/>
         <Outlet/>
         <Footer/>
-        <MobilePanel/>
+        <MobilePanel setOpenLoginPanel={setOpenLoginPanel} openLoginPanel={openLoginPanel}/>
+        <LoginPanel
+            openLoginPanel={openLoginPanel}
+            setOpenLoginPanel={setOpenLoginPanel}
+        />
     </div>
 }
 

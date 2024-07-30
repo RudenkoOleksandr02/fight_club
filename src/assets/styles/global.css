@@ -30,6 +30,7 @@ button {
   padding: 0 40px;
   max-width: 1360px;
   overflow: hidden;
+  position: relative;
 }
 @media (max-width: 767px) {
   .app-container {

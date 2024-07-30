@@ -5,7 +5,7 @@ import User from "../../../containers/User/User";
 import {ReactComponent as IcoCart} from "../../../assets/images/header/ico_cart.svg";
 import {useSelector} from "react-redux";
 
-const Header = () => {
+const Header = ({openLoginPanel, setOpenLoginPanel}) => {
     const user = useSelector(state => state.auth.user);
     const productsInCart = useSelector(state => {
         if (user === null) {
@@ -48,7 +48,7 @@ const Header = () => {
                             <IcoCart/>
                         </div>
                     </div>
-                    <User/>
+                    <User openLoginPanel={openLoginPanel} setOpenLoginPanel={setOpenLoginPanel}/>
                 </div>
             </div>
         </header>
