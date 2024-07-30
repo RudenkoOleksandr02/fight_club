@@ -23,7 +23,7 @@ const FormSelect = ({type, text, color, value, onChange, handleSend = () => {}})
                 value={value}
                 onChange={onChange}
             />
-            <button onClick={handleSendPromocode} style={{
+            <button onClick={handleSend} style={{
                 background: setColor()
             }}>
                 <IcoArrow/>
