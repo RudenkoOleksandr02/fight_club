@@ -25,6 +25,12 @@ const Header = ({openLoginPanel, setOpenLoginPanel}) => {
         }
     }
 
+    const productsQuantity = useSelector(state => {
+        return state.cartForGuest.productsInCart.reduce((total, product) => {
+            return total + product.quantity;
+        }, 0);
+    });
+
     return (
         <header>
             <div className={classes.wrapper}>
@@ -42,7 +48,9 @@ const Header = ({openLoginPanel, setOpenLoginPanel}) => {
                         </div>
                     </div>
                     <div className={classes.basket}>
-                        <div className={`${classes.icoBasket} ${productsInCart.length !== 0 ? classes.pointer : ''}`} onClick={handleClickCart}>
+                        <div className={`${classes.icoBasket} ${productsInCart.length !== 0 ? classes.pointer : ''}`}
+                             onClick={handleClickCart}>
+                            <span className={classes.count}>{productsQuantity}</span>
                             <IcoCart/>
                         </div>
                     </div>

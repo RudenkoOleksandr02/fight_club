@@ -37,6 +37,19 @@
 }
 .basket {
     margin-right: 15px;
+    position: relative;
+}
+.icoBasket .count {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    z-index: 1;
+    display: flex;
+    background: var(--orange);
+    color: var(--white);
+    min-width: 20px; min-height: 20px;
+    border-radius: 50%;
+    justify-content: center; align-items: center;
 }
 .icoBasket {
     opacity: 40%;
@@ -44,7 +57,6 @@
     align-items: center;
     justify-content: center;
 }
-
 .icoBasket.pointer {
     cursor: pointer;
     opacity: 1;
