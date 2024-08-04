@@ -7,12 +7,12 @@ const ProductsInCart = ({productsInCart, handleAddToCart, handleDeleteFromCart, 
     const productsInCartJSX = productsInCart.map(product => {
         return <div key={uuidv4()} className={classes.productInCart}>
             <div className={classes.inner}>
-                <img src={product.image} alt="product" className={classes.image}/>
+                <img src={product.image ? product.image : product.images[0]} alt="product" className={classes.image}/>
                 <p className={classes.name}>{product.name}</p>
             </div>
             <div className={classes.inner}>
                 <div className={classes.quantity}>
-                    <button className={classes.remove} onClick={() => handleRemoveFromCart(product.id, product.quantity)}>
+                    <button className={classes.remove} onClick={() => handleRemoveFromCart(product.id ? product.id : product.productId, product.quantity - 1)}>
                         <span></span>
                     </button>
                     <span>{product.quantity}</span>
@@ -22,7 +22,7 @@ const ProductsInCart = ({productsInCart, handleAddToCart, handleDeleteFromCart, 
                     </button>
                 </div>
                 <span className={classes.price}>{Math.round(product.price * product.quantity)}$</span>
-                <button className={classes.delete} onClick={() => handleDeleteFromCart(product.id)}>
+                <button className={classes.delete} onClick={() => handleDeleteFromCart(product.id || product.productId)}>
                     <IcoTrash/>
                 </button>
             </div>

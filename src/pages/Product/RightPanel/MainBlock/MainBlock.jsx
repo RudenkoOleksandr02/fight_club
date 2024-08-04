@@ -5,7 +5,7 @@ import Rating from "../../../../ui/components/Rating/Rating";
 import TertiaryButton from "../../../../ui/components/Buttons/TertiaryButton/TertiaryButton";
 import PrimaryButton from "../../../../ui/components/Buttons/PrimaryButton/PrimaryButton";
 import {useDispatch, useSelector} from "react-redux";
-import {putProductInCart} from "../../../../store/forGuest/cartForGuestSlice";
+import {addProduct} from "../../../../store/cartSlice";
 import {useNavigate} from "react-router-dom";
 
 const MainBlock = (props) => {
@@ -25,8 +25,8 @@ const MainBlock = (props) => {
     } = props;
     const dispatch = useDispatch();
     const handleAddToCart = () => {
-        dispatch(putProductInCart({
-            id,
+        dispatch(addProduct({
+            productId: id,
             image: src,
             name: name,
             price
@@ -40,8 +40,8 @@ const MainBlock = (props) => {
         }
     })
 
-    const productsInCart = useSelector(state => state.cartForGuest.productsInCart);
-    const inCart = productsInCart.some(product => product.id === id);
+    const productsInCart = useSelector(state => state.cart.productsInCart);
+    const inCart = productsInCart.some(product => product.productId === id);
     const navigate = useNavigate()
 
     return (

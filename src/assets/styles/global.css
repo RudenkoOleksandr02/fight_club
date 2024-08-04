@@ -12,7 +12,8 @@
   box-sizing: border-box;
 }
 body {
-  background: url("../images/background/background2.webp") center center / contain;
+  background: url("../images/background/background2.svg");
+  background-size: cover;
 }
 header a, nav a {
   color: var(--white);
@@ -25,15 +26,20 @@ button, input, a, p, h1, h2, h3, h4, h5, h6, span {
 button {
   cursor: pointer;
 }
-.app-container {
+.app-container, .login-container {
   margin: 0 auto;
   padding: 0 40px;
   max-width: 1360px;
   overflow: hidden;
-  position: relative;
+}
+.login-container {
+  position: absolute;
+  left: 0; right: 0;
+  height: 100%;
+  pointer-events: none;
 }
 @media (max-width: 767px) {
-  .app-container {
+  .app-container, .login-container {
     padding: 0 15px;
   }
 }

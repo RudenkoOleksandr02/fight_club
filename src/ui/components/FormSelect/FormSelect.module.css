@@ -20,3 +20,21 @@
     align-items: center;
     height: 40px;
 }
+
+.form.error > input {
+    border-color: #C13E3E !important;
+}
+.form.error > input::placeholder {
+    color: #C13E3E;
+}
+.form.error > button {
+    background: #C13E3E !important;
+}
+.error {
+    margin-top: 5px;
+    color: #C13E3E;
+}
+.success {
+    margin-top: 5px;
+    color: var(--green);
+}

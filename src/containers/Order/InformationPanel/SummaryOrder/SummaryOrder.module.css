@@ -1,0 +1,7 @@
+.inner {
+    display: flex;
+    justify-content: space-between;
+}
+.discount {
+    margin-top: 25px;
+}

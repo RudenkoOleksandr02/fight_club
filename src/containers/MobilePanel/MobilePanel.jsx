@@ -8,67 +8,27 @@ import {ReactComponent as IcoCart} from '../../assets/images/mobilePanel/ico_car
 import {ReactComponent as IcoMenu} from '../../assets/images/mobilePanel/ico_menu.svg';
 import SecondaryButton from "../../ui/components/Buttons/SecondaryButton/SecondaryButton";
 import SearchMobile from "../Search/Mobile/SearchMobile";
-import {v4 as uuidv4} from 'uuid'
+import {v4 as uuidv4} from 'uuid';
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 // --DATA--
 import linksToCategories from './../../data/linksToCategories.json'
-import {getCategoryTree} from "../../store/categorySlice";
-import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
-import LoginPanel from "../LoginPanel/LoginPanel";
+import useScreen from "../../common/hooks/useScreen/useScreen";
+
 
 const MobilePanel = ({setOpenLoginPanel, openLoginPanel}) => {
     const [open, setOpen] = useState(false);
     const [contentKey, setContentKey] = useState(null);
     const [contentSheet, setContentSheet] = useState(null);
-    const cartForGuest = useSelector(state => state.cartForGuest.productsInCart);
-    const user = useSelector(state => state.auth.user);
-    const dispatch = useDispatch();
-    const categoryTree = useSelector((state) => state.categoryData.categoryTree);
-    const [currentCategoryId, setCurrentCategoryId] = useState(null);
-    /*const [contentLinks, setContentLinks] = useState(
-        linksToCategories.map(link => {
-            return <SecondaryButton
-                handleClick={handleMainCategoryClick}
-                putIcoArrow={true}
-                key={uuidv4()}
-            >
-                {link.name}
-            </SecondaryButton>
-        })
-    );*/
+    const cartForGuest = useSelector(state => state.cart.productsInCart);
+    const isAuth = useSelector(state => state.auth.isAuth);
     const navigate = useNavigate()
+    const isSmallScreen = useScreen(999)
 
-    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 999);
-    useEffect(() => {
-        const handleResize = () => {
-            setIsSmallScreen(window.innerWidth <= 999);
-        };
-
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-    /*useEffect(() => {
-        if (currentCategoryId) {
-            dispatch(getCategoryTree(currentCategoryId))
-                .then(() => {
-                    if (categoryTree && categoryTree.children) {
-                        setContentLinks(categoryTree.children.map(link => {
-                            return <SecondaryButton key={uuidv4()} handleClick={() => {}}>
-                                {link.name}
-                            </SecondaryButton>
-                        }));
-                    }
-                })
-        }
-    }, [currentCategoryId, categoryTree]);*/
     const handleMainCategoryClick = (categoryId) => {
         navigate(`/category/${categoryId}`);
         setOpen(false);
-        /*setCurrentCategoryId(categoryId);*/
     }
     const contentLinks = linksToCategories.map(link => {
         return <SecondaryButton
@@ -90,7 +50,7 @@ const MobilePanel = ({setOpenLoginPanel, openLoginPanel}) => {
         <>
             <SecondaryButton handleClick={() => {
                 setOpen(false);
-                if (user !== null) {
+                if (isAuth) {
                     navigate('/user');
                 } else if (!openLoginPanel) {
                     setOpenLoginPanel(true);

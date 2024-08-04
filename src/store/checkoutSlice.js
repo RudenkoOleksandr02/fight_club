@@ -1,11 +1,27 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { shoppingCartOrderApi } from '../../api/shoppingCartOrderApi';
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {shoppingCartOrderApi} from '../api/shoppingCartOrderApi';
+import {clearCart} from './cartSlice'
 
-const checkoutForUserLoading = createAsyncThunk(
-    'checkout/checkoutForUserLoading',
-    async (params, { rejectWithValue }) => {
+const checkoutLoading = createAsyncThunk(
+    'checkout/checkoutLoading',
+    async (params, {getState, rejectWithValue}) => {
+        const state = getState();
+        const isAuth = state.auth.isAuth;
+
         try {
-            return await shoppingCartOrderApi.createOrderForGuest(params);
+            if (isAuth) {
+                return await shoppingCartOrderApi.createOrderForUser(params);
+            } else {
+                return await shoppingCartOrderApi.createOrderForGuest({
+                    ...params,
+                    products: state.cart.productsInCart.map(product => {
+                        return {
+                            productId: product.productId,
+                            productAmount: product.quantity
+                        }
+                    })
+                });
+            }
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
@@ -34,30 +50,33 @@ const initialState = {
     error: null
 };
 
-const checkoutForUserSlice = createSlice({
-    name: 'checkoutForUser',
+const checkoutSlice = createSlice({
+    name: 'checkout',
     initialState,
     reducers: {
+        setUsedPromocode(state, action) {
+            state.params.usedPromocode = action.payload;
+        },
         setUserInfo(state, action) {
-            const { key, value } = action.payload;
+            const {key, value} = action.payload;
             state.params.userInfo[key] = value;
         },
         setDeliveryInfo(state, action) {
-            const { key, value } = action.payload;
+            const {key, value} = action.payload;
             state.params.deliveryInfo[key] = value;
         },
         setAdditionalInfo(state, action) {
-            const { key, value } = action.payload;
+            const {key, value} = action.payload;
             state.params.additionalInfo[key] = value;
         }
     },
     extraReducers: (builder) => {
         builder
-            .addCase(checkoutForUserLoading.pending, (state) => {
+            .addCase(checkoutLoading.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(checkoutForUserLoading.fulfilled, (state, action) => {
+            .addCase(checkoutLoading.fulfilled, (state) => {
                 state.loading = false;
                 state.params = {
                     usedPromocode: "",
@@ -77,7 +96,7 @@ const checkoutForUserSlice = createSlice({
                     }
                 };
             })
-            .addCase(checkoutForUserLoading.rejected, (state, action) => {
+            .addCase(checkoutLoading.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });
@@ -85,14 +104,15 @@ const checkoutForUserSlice = createSlice({
 });
 
 export const {
+    setUsedPromocode,
     setUserInfo,
     setDeliveryInfo,
     setAdditionalInfo
-} = checkoutForUserSlice.actions;
+} = checkoutSlice.actions;
 
-export default checkoutForUserSlice.reducer;
+export default checkoutSlice.reducer;
 
-export const checkoutForUser = () => async (dispatch, getState) => {
+export const checkout = () => async (dispatch, getState) => {
     const state = getState();
-    return await dispatch(checkoutForUserLoading(state.checkoutForUser.params));
+    return await dispatch(checkoutLoading(state.checkout.params));
 };

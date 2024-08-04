@@ -1,74 +1,47 @@
 import React, {useEffect} from 'react';
 import classes from './Cart.module.css';
-import { putProductInCart, removeProductFromCart, deleteProductFromCart } from '../../store/forGuest/cartForGuestSlice';
 import {useDispatch, useSelector} from "react-redux";
 import ProductsInCart from "./ProductsInCart/ProductsInCart";
 import TopPanel from "../../containers/Order/TopPanel/TopPanel";
 import {useNavigate} from "react-router-dom";
 import InformationPanel from "../../containers/Order/InformationPanel/InformationPanel";
 import {
-    addProduct,
-    changeProductAmount,
-    getUserShoppingCart,
-    removeProduct
-} from "../../store/forUser/cartForUserSlice";
+    addProduct, changeProductAmount,
+    getUserShoppingCart, removeProduct,
+
+} from "../../store/cartSlice";
 
 const Cart = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
-    const user = useSelector(state => state.auth.user);
 
-    /*const productsInCart = useSelector(state => {
-        if (user === null) {
-            return state.cartForGuest.productsInCart;
-        } else {
-            return state.cartForUser.productsInCart;
-        }
-    });*/
+    const productsInCart = useSelector(state => state.cart.productsInCart)
+    const loading = useSelector(state => state.cart.loading);
+    const isAuth = useSelector(state => state.auth.isAuth)
 
-    /*useEffect(() => {
-        if (user !== null) {
+    useEffect(() => {
+        if (isAuth) {
             dispatch(getUserShoppingCart())
         }
-    }, [productsInCart]);*/
-
-    const productsInCart = useSelector(state => state.cartForGuest.productsInCart)
+    }, [isAuth]);
 
     const handleAddToCart = (product) => {
-        /*if (user === null) {
-            dispatch(putProductInCart(product));
-        } else {
-            dispatch(addProduct(product.id))
-        }*/
-
-        dispatch(putProductInCart(product));
+        dispatch(addProduct(product))
     };
 
     const handleRemoveFromCart = (productId, quantity) => {
-        /*if (user === null) {
-            dispatch(removeProductFromCart(productId));
-        } else {
-            dispatch(changeProductAmount({productId, quantity}));
-        }*/
-
-        dispatch(removeProductFromCart(productId));
+        dispatch(changeProductAmount({productId, quantity}));
     };
 
     const handleDeleteFromCart = (productId) => {
-        /*if (user === null) {
-            dispatch(deleteProductFromCart(productId));
-        } else {
-            dispatch(removeProduct(productId));
-        }*/
-
-        dispatch(deleteProductFromCart(productId));
+        dispatch(removeProduct(productId));
     };
 
     useEffect(() => {
-        if (productsInCart.length === 0) {
+        if (!loading && productsInCart.length === 0) {
             navigate('/')
         }
-    }, [productsInCart.length]);
+    }, [productsInCart.length, loading]);
 
 
     return (

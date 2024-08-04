@@ -7,7 +7,7 @@ import SecondaryButton from "../../ui/components/Buttons/SecondaryButton/Seconda
 import {register} from "../../store/authSlice";
 
 const RegisterPage = () => {
-    const user = useSelector(state => state.auth.user);
+    const isAuth = useSelector(state => state.auth.isAuth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [params, setParams] = useState({
@@ -48,11 +48,9 @@ const RegisterPage = () => {
             })
     }
 
-
-
     useEffect(() => {
-        if (user !== null) navigate('/')
-    }, [user])
+        if (isAuth) navigate('/')
+    }, [isAuth])
 
     return (
         <div className={classes.wrapper}>

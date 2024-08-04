@@ -5,6 +5,11 @@
     grid-template-columns: 1fr 1fr;
     grid-gap: 10px;
     padding: 10px;
+    box-shadow: 0 16px 35px 0 #0000001A,
+                0 64px 64px 0 #00000017,
+                0 144px 86px 0 #0000000D,
+                0 256px 102px 0 #00000003,
+                0 400px 112px 0 #00000000;
 }
 .wrapper > div {
     display: flex;

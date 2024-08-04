@@ -5,6 +5,7 @@ import ProductMobile from "./ProductMobile/ProductMobile";
 import {useDispatch, useSelector} from "react-redux";
 import {getProductById} from "../../store/productSlice";
 import {useParams} from "react-router-dom";
+import useScreen from "../../common/hooks/useScreen/useScreen";
 
 const Product = () => {
     const productId = useParams()
@@ -13,16 +14,7 @@ const Product = () => {
     useEffect(() => {
         dispatch(getProductById(productId.id));
     }, [productId])
-    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 999);
-    useEffect(() => {
-        const handleResize = () => {
-            setIsSmallScreen(window.innerWidth <= 999);
-        };
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+    const isSmallScreen = useScreen(999);
 
     if (!productData) {
         return <div>preloader...</div>;

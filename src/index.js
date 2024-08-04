@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
 import './assets/styles/global.css';
 import './assets/styles/variables.css';
@@ -9,7 +9,7 @@ import {
     Route,
     Outlet
 } from "react-router-dom";
-import {Provider} from "react-redux";
+import {Provider, useDispatch, useSelector} from "react-redux";
 import {PersistGate} from 'redux-persist/integration/react';
 import store, {persistor} from './store/store';
 
@@ -30,20 +30,36 @@ import Checkout from "./pages/Checkout/Checkout";
 import UserPage from "./pages/UserPage/UserPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import LoginPanel from "./containers/LoginPanel/LoginPanel";
+import {getIsAuth} from "./store/authSlice";
+import {getUserShoppingCart} from "./store/cartSlice";
 
 const Root = () => {
     const [openLoginPanel, setOpenLoginPanel] = React.useState(false);
-    return <div className="app-container">
-        <ScrollToTop/>
-        <Header setOpenLoginPanel={setOpenLoginPanel} openLoginPanel={openLoginPanel}/>
-        <Navigation/>
-        <Outlet/>
-        <Footer/>
-        <MobilePanel setOpenLoginPanel={setOpenLoginPanel} openLoginPanel={openLoginPanel}/>
-        <LoginPanel
-            openLoginPanel={openLoginPanel}
-            setOpenLoginPanel={setOpenLoginPanel}
-        />
+    const isAuth = useSelector(state => state.auth.isAuth);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getIsAuth());
+    }, []);
+    useEffect(() => {
+        dispatch(getUserShoppingCart());
+    }, [isAuth])
+
+    return <div>
+        <div className={"login-container"}>
+            <LoginPanel
+                openLoginPanel={openLoginPanel}
+                setOpenLoginPanel={setOpenLoginPanel}
+            />
+        </div>
+        <div className="app-container">
+            <Header setOpenLoginPanel={setOpenLoginPanel} openLoginPanel={openLoginPanel}/>
+            <Navigation/>
+            <Outlet/>
+            <Footer/>
+            <ScrollToTop/>
+            <MobilePanel setOpenLoginPanel={setOpenLoginPanel} openLoginPanel={openLoginPanel}/>
+        </div>
     </div>
 }
 

@@ -6,15 +6,19 @@ import {logout} from "../../store/authSlice";
 import classes from "./UserPage.module.css";
 
 const UserPage = () => {
-    const user = useSelector((state) => state.auth.user);
+    const { isAuth, loading } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (user === null) {
-            navigate('/')
+        if (!loading && !isAuth) {
+            navigate('/');
         }
-    }, [user])
+    }, [isAuth, loading]);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className={classes.wrapper}>

@@ -2,7 +2,7 @@ import React from 'react';
 import classes from "./FormSelect.module.css";
 import {ReactComponent as IcoArrow} from "../../../assets/images/arrows/ico_arrow1.svg";
 
-const FormSelect = ({type, text, color, value, onChange, handleSend = () => {}}) => {
+const FormSelect = ({type, text, color, value, onChange, handleSend = () => {}, error = '', success = ''}) => {
     const setColor = () => {
         if (color === 'primary') {
             return 'rgba(249, 249, 249, 1)';
@@ -11,8 +11,8 @@ const FormSelect = ({type, text, color, value, onChange, handleSend = () => {}})
         }
     }
 
-    return (
-        <form className={classes.form} onSubmit={e => e.preventDefault()}>
+    return <>
+        <form className={`${classes.form} ${error !== '' ? classes.error : ''}`} onSubmit={e => e.preventDefault()}>
             <input
                 type={type}
                 placeholder={text}
@@ -29,7 +29,9 @@ const FormSelect = ({type, text, color, value, onChange, handleSend = () => {}})
                 <IcoArrow/>
             </button>
         </form>
-    );
+        {error !== '' && <p className={classes.error}>{error}</p>}
+        {success !== '' && <p className={classes.success}>{success}</p>}
+    </>;
 };
 
 export default FormSelect;

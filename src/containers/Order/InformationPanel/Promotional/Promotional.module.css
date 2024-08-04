@@ -1,0 +1,3 @@
+.wrapper svg > path {
+    stroke: var(--white)
+}

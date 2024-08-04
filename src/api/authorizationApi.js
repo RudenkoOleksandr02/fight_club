@@ -7,12 +7,18 @@ export const authorizationApi = {
     },
     login(params) {
         return instance.post(AuthorizationUrls.Login, params)
-            .then(response => response.data)
+            .then(response => {
+                return response.data
+            })
     },
     logout() {
         return instance.post(AuthorizationUrls.Logout, null)
             .then(response => {
                 return response.data
             })
+    },
+    getAuth() {
+        return instance.get(AuthorizationUrls.GetAuth)
+            .then(response => response.data)
     }
 }

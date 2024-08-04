@@ -11,10 +11,6 @@ const Home = () => {
     const discountsProducts = useSelector(state => state.homePageData.discountsProducts);
     const popularProducts = useSelector(state => state.homePageData.popularProducts);
     const dispatch = useDispatch();
-    const productsInCart = useSelector(state => {
-        return state.cartForUser.productsInCart;
-    });
-    console.log(productsInCart);
 
     useEffect(() => {
         dispatch(getNewProducts());

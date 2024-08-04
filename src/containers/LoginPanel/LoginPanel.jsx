@@ -1,13 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import classes from "./LoginPanel.module.css";
 import Input from "../../ui/components/Input/Input";
 import PrimaryButton from "../../ui/components/Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../ui/components/Buttons/SecondaryButton/SecondaryButton";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../store/authSlice";
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {login} from "../../store/authSlice";
+import Popup from "../../ui/components/Popup/Popup";
+import useScreen from "../../common/hooks/useScreen/useScreen";
 
-const LoginPanel = ({ openLoginPanel, setOpenLoginPanel }) => {
+const LoginPanel = ({openLoginPanel, setOpenLoginPanel}) => {
     const navigate = useNavigate();
     const [paramsLogin, setParamsLogin] = useState({
         email: '',
@@ -18,9 +20,9 @@ const LoginPanel = ({ openLoginPanel, setOpenLoginPanel }) => {
         password: []
     });
     const [errorMessage, setErrorMessage] = useState('');
-    const user = useSelector(state => state.auth.user);
     const dispatch = useDispatch();
     const panelRef = useRef(null);
+    const isSmallScreen = useScreen(768);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -58,37 +60,51 @@ const LoginPanel = ({ openLoginPanel, setOpenLoginPanel }) => {
             });
     };
 
+    const contentLoginJSX = <>
+        <h3>Вхід до особистого кабінету</h3>
+        <form className={classes.form} onSubmit={e => e.preventDefault()}>
+            {errorMessage.length !== 0 && <p className={classes.errorMessage}>{errorMessage}</p>}
+            <Input errors={errors.email} type='email' placeholder="E-mail" value={paramsLogin.email}
+                   onChange={(e) => setParamsLogin({email: e.target.value, password: paramsLogin.password})}/>
+            <Input errors={errors.password} type='password' placeholder="Пароль" value={paramsLogin.password}
+                   onChange={(e) => setParamsLogin({email: paramsLogin.email, password: e.target.value})}/>
+        </form>
+        <PrimaryButton onClick={handleLoginClick}>Увійти</PrimaryButton>
+        <SecondaryButton
+            handleClick={() => {
+                setOpenLoginPanel(false);
+                navigate('/register');
+            }}
+        >Реєстрація</SecondaryButton>
+    </>
 
-
-    return (
-        <div className={classes.wrapper}>
-            {openLoginPanel && <div className={`${classes.overlay} ${openLoginPanel ? classes.open : ''}`} />}
+    return <div className={classes.wrapper}>
+        {!isSmallScreen && (
             <div
                 className={
                     openLoginPanel
-                        ? `${classes.userPanel} ${classes.open}`
-                        : classes.userPanel
+                        ? `${classes.desktopLogin} ${classes.open}`
+                        : classes.desktopLogin
                 }
                 ref={panelRef}
             >
-                <h3>Вхід до особистого кабінету</h3>
-                <form className={classes.form} onSubmit={e => e.preventDefault()}>
-                    {errorMessage.length !== 0 && <p className={classes.errorMessage}>{errorMessage}</p>}
-                    <Input errors={errors.email} type='email' placeholder="E-mail" value={paramsLogin.email}
-                           onChange={(e) => setParamsLogin({ email: e.target.value, password: paramsLogin.password })} />
-                    <Input errors={errors.password} type='password' placeholder="Пароль" value={paramsLogin.password}
-                           onChange={(e) => setParamsLogin({ email: paramsLogin.email, password: e.target.value })} />
-                </form>
-                <PrimaryButton onClick={handleLoginClick}>Увійти</PrimaryButton>
-                <SecondaryButton
-                    handleClick={() => {
-                        setOpenLoginPanel(false);
-                        navigate('/register');
-                    }}
-                >Реєстрація</SecondaryButton>
+                {contentLoginJSX}
             </div>
-        </div>
-    );
+        )}
+        {isSmallScreen && (
+            <div
+                className={
+                    openLoginPanel
+                        ? `${classes.mobileLogin} ${classes.open}`
+                        : classes.mobileLogin
+                }
+            >
+                <div className={classes.content} ref={panelRef}>
+                    {contentLoginJSX}
+                </div>
+            </div>
+        )}
+    </div>
 };
 
 export default LoginPanel;

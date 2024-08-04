@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const instance = axios.create({
     baseURL: 'https://blossomapi-production.up.railway.app/api/',
+    withCredentials: true,
     headers: {
         'Content-Type': 'application/json'
     }
@@ -44,7 +45,8 @@ export const SearchUrls = {
 export const AuthorizationUrls = {
     Register: 'Account/Register',
     Login: 'Account/Login',
-    Logout: 'Account/Logout'
+    Logout: 'Account/Logout',
+    GetAuth: 'Account/GetAuth',
 }
 export const ShoppingCartOrderUrls = {
     CreateOrderForGuest: 'ShoppingCartOrder/CreateOrderForGuest',

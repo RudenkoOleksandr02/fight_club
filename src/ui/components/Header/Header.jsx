@@ -6,16 +6,9 @@ import {ReactComponent as IcoCart} from "../../../assets/images/header/ico_cart.
 import {useSelector} from "react-redux";
 
 const Header = ({openLoginPanel, setOpenLoginPanel}) => {
-    const user = useSelector(state => state.auth.user);
-    /*const productsInCart = useSelector(state => {
-        if (user === null) {
-            return state.cartForGuest.productsInCart;
-        } else {
-            return true
-        }
-    });*/
+    const productsInCart = useSelector(state => state.cart.productsInCart);
+
     const navigate = useNavigate();
-    const productsInCart = useSelector(state => state.cartForGuest.productsInCart);
 
     const handleClickCart = () => {
         if (productsInCart.length !== 0) {
@@ -25,11 +18,9 @@ const Header = ({openLoginPanel, setOpenLoginPanel}) => {
         }
     }
 
-    const productsQuantity = useSelector(state => {
-        return state.cartForGuest.productsInCart.reduce((total, product) => {
-            return total + product.quantity;
-        }, 0);
-    });
+    const productsQuantity = productsInCart.reduce((total, product) => {
+        return total + product.quantity;
+    }, 0);
 
     return (
         <header>
@@ -50,7 +41,9 @@ const Header = ({openLoginPanel, setOpenLoginPanel}) => {
                     <div className={classes.basket}>
                         <div className={`${classes.icoBasket} ${productsInCart.length !== 0 ? classes.pointer : ''}`}
                              onClick={handleClickCart}>
-                            <span className={classes.count}>{productsQuantity}</span>
+                            {productsInCart.length !== 0 && (
+                                <span className={classes.count}>{productsQuantity}</span>
+                            )}
                             <IcoCart/>
                         </div>
                     </div>
