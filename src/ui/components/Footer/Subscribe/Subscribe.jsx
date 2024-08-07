@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Subscribe.module.css';
-import FormSelect from "../../FormSelect/FormSelect";
+import FormSelect from "../../inputs/FormSelect/FormSelect";
 
 const Subscribe = () => {
     return (

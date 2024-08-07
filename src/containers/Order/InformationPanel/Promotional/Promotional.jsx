@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Die from "../../../../ui/components/Die/Die";
-import FormSelect from "../../../../ui/components/FormSelect/FormSelect";
+import FormSelect from "../../../../ui/components/inputs/FormSelect/FormSelect";
 import {getPromocodesCheck} from "../../../../store/promocodesSlice";
 import {useDispatch} from "react-redux";
 import classes from './Promotional.module.css'

@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from "./FormSelect.module.css";
-import {ReactComponent as IcoArrow} from "../../../assets/images/arrows/ico_arrow1.svg";
+import {ReactComponent as IcoArrow} from "../../../../assets/images/arrows/ico_arrow1.svg";
 
 const FormSelect = ({type, text, color, value, onChange, handleSend = () => {}, error = '', success = ''}) => {
     const setColor = () => {

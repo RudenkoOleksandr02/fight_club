@@ -17,7 +17,7 @@ const Checkout = () => {
     // --popup--
     const [openPopup, setOpenPopup] = useState(false);
     const [orderId, setOrderId] = useState(null);
-    const [time, setTime] = useState(10);
+    const [time, setTime] = useState(30);
     const [email, setEmail] = useState('');
     useEffect(() => {
         if (orderId !== null) {
@@ -114,7 +114,7 @@ const Checkout = () => {
                         <div className={classes.links}>
                             <SecondaryButton handleClick={() => {
                                 setOpenPopup(false);
-                                setTime(10);
+                                setTime(30);
                                 navigate('/category/1')
                                 dispatch(clearCart());
                             }}>
@@ -122,7 +122,7 @@ const Checkout = () => {
                             </SecondaryButton>
                             <Link to='/' onClick={() => {
                                 setOpenPopup(false);
-                                setTime(10);
+                                setTime(30);
                                 dispatch(clearCart());
                             }}>
                                 На головну сторінку

@@ -15,6 +15,9 @@
     opacity: 40%;
     color: var(--black);
 }
+.inputSelect:disabled {
+    border-color: rgba(0,0,0,0.3);
+}
 .option {
     padding: 5px;
     transition: .3s;
@@ -31,6 +34,9 @@
 }
 .inputSelect.errorInput {
     border: 1px solid #C13E3E;
+}
+.inputSelect.errorInput:disabled {
+    border-color: rgba(193,62,62,0.4);
 }
 .inputSelect.errorInput::placeholder {
     color: #C13E3E;

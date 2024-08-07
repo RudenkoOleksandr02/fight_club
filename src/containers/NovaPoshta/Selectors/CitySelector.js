@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { fetchCities } from '../fetchs/fetchCities';
-import InputSelect from '../../../ui/components/InputSelect/InputSelect';
+import InputSelect from '../../../ui/components/inputs/InputSelect/InputSelect';
 
 const CitySelector = ({ setCity, errorsCity }) => {
     const [cities, setCities] = useState([]);
@@ -24,7 +24,7 @@ const CitySelector = ({ setCity, errorsCity }) => {
     return (
         <div>
             <InputSelect
-                placeholder="Город"
+                placeholder="Город*"
                 value={searchText}
                 onInputChange={handleInputChange}
                 onOptionClick={handleOptionClick}

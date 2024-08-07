@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import classes from "./LoginPanel.module.css";
-import Input from "../../ui/components/Input/Input";
+import Input from "../../ui/components/inputs/Input/Input";
 import PrimaryButton from "../../ui/components/Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../ui/components/Buttons/SecondaryButton/SecondaryButton";
 import {useNavigate} from "react-router-dom";

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchDepartments } from '../fetchs/fetchDepartments';
-import InputSelect from '../../../ui/components/InputSelect/InputSelect';
+import InputSelect from '../../../ui/components/inputs/InputSelect/InputSelect';
 
 const DepartmentSelector = ({ cityRef, handleSetDeliveryInfo, errorsDepartment }) => {
     const [departments, setDepartments] = useState([]);
@@ -30,7 +30,7 @@ const DepartmentSelector = ({ cityRef, handleSetDeliveryInfo, errorsDepartment }
     return (
         <div>
             <InputSelect
-                placeholder="Відділення"
+                placeholder="Відділення*"
                 value={searchText}
                 onInputChange={handleInputChange}
                 onOptionClick={handleOptionClick}
