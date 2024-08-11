@@ -34,7 +34,7 @@ const Header = ({openLoginPanel, setOpenLoginPanel}) => {
                     <div className={classes.navigate}>
                         <div className={classes.links}>
                             <Link to='/blog'>Блог</Link>
-                            <Link to='/brands'>Бренды</Link>
+                            <Link to='/contacts'>Контакти</Link>
                             <Link to='/about'>О нас</Link>
                         </div>
                     </div>

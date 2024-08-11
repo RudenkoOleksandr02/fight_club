@@ -1,0 +1,65 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+}
+.quantity {
+    border: 1px solid rgba(217, 217, 217, 1);
+    border-radius: 44px;
+    padding: 1px;
+    display: flex;
+    align-items: center;
+    width: 107px; height: 32px;
+    position: relative;
+}
+.quantity > span {
+    text-align: center;
+    width: 33px;
+    margin: 0 6.89px;
+}
+.remove, .add {
+    border: none; border-radius: 50%;
+    display: flex;
+    justify-content: center; align-items: center;
+    position: relative;
+}
+.remove {
+    height: 28px; width: 28px;
+    background: rgba(217, 217, 217, 1);
+}
+.remove > span, .add > span {
+    width: 14px; height: 2px;
+    background: var(--white);
+    border-radius: 15px;
+}
+.add {
+    position: absolute;
+    right: 0;
+    width: 34px; height: 34px;
+    background: var(--green);
+}
+.add > span:last-child {
+    position: absolute;
+    transform: rotate(90deg);
+}
+.price {
+    margin: 0 20px;
+}
+.quantityInput {
+    max-width: 41px;
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    background: transparent;
+    outline: none;
+}
+.delete {
+    background: transparent;
+    border: none;
+}
+@media (max-width: 767px) {
+    .wrapper {
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+}

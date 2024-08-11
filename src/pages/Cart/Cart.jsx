@@ -29,7 +29,7 @@ const Cart = () => {
         dispatch(addProduct(product))
     };
 
-    const handleRemoveFromCart = (productId, quantity) => {
+    const handleChangeProductsInCart = (productId, quantity) => {
         dispatch(changeProductAmount({productId, quantity}));
     };
 
@@ -53,7 +53,7 @@ const Cart = () => {
                 <ProductsInCart
                     productsInCart={productsInCart}
                     handleAddToCart={handleAddToCart}
-                    handleRemoveFromCart={handleRemoveFromCart}
+                    handleChangeProductsInCart={handleChangeProductsInCart}
                     handleDeleteFromCart={handleDeleteFromCart}
                 />
             </div>

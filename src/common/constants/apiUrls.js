@@ -63,6 +63,12 @@ export const PromocodesUrls = {
         return `Promocodes/check/${code}`
     }
 }
+export const AdminUrls = {
+    GetAdminAuth: 'Account/GetAdminAuth',
+    GetOrders: 'Orders',
+    GetProductsByFilter: 'Product/GetProductsByFilter',
+    ImportFromExcel: 'Product/ImportFromExcel'
+}
 export const bannerApi = {
     getBannerData(data) {
 

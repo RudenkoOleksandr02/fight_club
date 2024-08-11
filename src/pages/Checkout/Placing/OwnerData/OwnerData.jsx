@@ -5,8 +5,6 @@ import Input from "../../../../ui/components/inputs/Input/Input";
 import InputMobile from "../../../../ui/components/inputs/Input/InputMobile";
 
 const OwnerData = ({userInfo, handleSetUserInfo, errors}) => {
-    console.log(userInfo)
-
     return (
         <Die title='Дані одержувача'>
             <form className={classes.form}>

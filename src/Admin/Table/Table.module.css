@@ -1,0 +1,29 @@
+.tr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #D8DFD9;
+    color: var(--green);
+}
+.checkbox, .th1, .th2, .th3, .td1, .td2, .td3 {
+    border-right: 1px solid #D8DFD9;
+}
+.checkbox, .th1, .th2, .th3, .th4 {
+    font-weight: 700;
+}
+.checkbox, .th1, .th2, .th3, .th4, .td1, .td2, .td3, .td4 {
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+
+}
+.checkbox {
+    width: 5%;
+}
+.th1, .td1 {
+    width: 60%;
+}
+.th4, .th3, .th2, .td4, .td3, .td2 {
+    width: 15%;
+}
+

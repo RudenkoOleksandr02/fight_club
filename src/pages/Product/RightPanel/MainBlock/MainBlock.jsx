@@ -32,13 +32,6 @@ const MainBlock = (props) => {
             price
         }));
     };
-    const [sortBy, setSortBy] = useState('');
-    const paramsForVariant = options.map((option, index) => {
-        return {
-            name: option,
-            value: index
-        }
-    })
 
     const productsInCart = useSelector(state => state.cart.productsInCart);
     const inCart = productsInCart.some(product => product.productId === id);
@@ -76,12 +69,6 @@ const MainBlock = (props) => {
                 }} disabled={!inStock}>
                     {inCart ? 'Перейти до кошика' : 'Додати до кошика'}
                 </PrimaryButton>
-                <TertiaryButton
-                    params={paramsForVariant}
-                    onChange={setSortBy}
-                >
-                    Варіант
-                </TertiaryButton>
             </div>
 
             <div className={classes.inStockContainer}>

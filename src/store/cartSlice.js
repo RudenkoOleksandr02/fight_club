@@ -12,47 +12,59 @@ const getUserShoppingCartLoading = createAsyncThunk(
     }
 );
 
-const addProductLoading = createAsyncThunk(
-    'cart/addProductLoading',
-    async (productId, { dispatch, rejectWithValue }) => {
+const addProductOptimistic = createAsyncThunk(
+    'cart/addProductOptimistic',
+    async (productId, { dispatch, getState, rejectWithValue }) => {
         try {
             const response = await shoppingCartApi.addProduct(productId);
-            await dispatch(getUserShoppingCartLoading());
             return response;
         } catch (error) {
+            const productsInCart = getState().cart.productsInCart;
+            const existingProduct = productsInCart.find(item => item.productId === productId);
+            if (existingProduct) {
+                dispatch(changeProductAmountInCart({ productId, quantity: existingProduct.quantity - 1 }));
+            } else {
+                dispatch(deleteProductFromCart(productId));
+            }
             return rejectWithValue(error.response.data);
         }
     }
 );
 
-const changeProductAmountLoading = createAsyncThunk(
-    'cart/changeProductAmountLoading',
+const changeProductAmountOptimistic = createAsyncThunk(
+    'cart/changeProductAmountOptimistic',
     async (params, { dispatch, rejectWithValue }) => {
         try {
+            const { productId, quantity } = params;
             const response = await shoppingCartApi.changeProductAmount(params);
-            await dispatch(getUserShoppingCartLoading());
             return response;
         } catch (error) {
+            const { productId, originalQuantity } = params;
+            dispatch(changeProductAmountInCart({ productId, quantity: originalQuantity }));
             return rejectWithValue(error.response.data);
         }
     }
 );
 
-const removeProductLoading = createAsyncThunk(
-    'cart/removeProductLoading',
-    async (productId, { dispatch, rejectWithValue }) => {
+const removeProductOptimistic = createAsyncThunk(
+    'cart/removeProductOptimistic',
+    async (productId, { dispatch, getState, rejectWithValue }) => {
         try {
             const response = await shoppingCartApi.removeProduct(productId);
-            await dispatch(getUserShoppingCartLoading());
             return response;
         } catch (error) {
+            const productsInCart = getState().cart.productsInCart;
+            const originalProduct = productsInCart.find(item => item.productId === productId);
+            if (originalProduct) {
+                dispatch(putProductInCart({ ...originalProduct, quantity: originalProduct.quantity }));
+            }
             return rejectWithValue(error.response.data);
         }
     }
 );
 
 const initialState = {
-    productsInCart: [], // {productId: 1, image: "img", name: "name", price: "price", quantity: 2}
+    productsInCart: [],
     loading: true,
     error: null
 };
@@ -72,14 +84,14 @@ const cartSlice = createSlice({
             }
         },
         changeProductAmountInCart: (state, action) => {
-            const productId = action.payload;
-            const existingProduct = state.productsInCart.find(item => item.productId === productId);
+            const product = action.payload;
+            const existingProduct = state.productsInCart.find(item => item.productId === product.productId);
 
             if (existingProduct) {
-                if (existingProduct.quantity > 1) {
-                    existingProduct.quantity -= 1;
+                if (existingProduct.quantity >= 1 && product.quantity !== 0) {
+                    existingProduct.quantity = product.quantity;
                 } else {
-                    state.productsInCart = state.productsInCart.filter(item => item.productId !== productId);
+                    state.productsInCart = state.productsInCart.filter(item => item.productId !== product.productId);
                 }
             }
         },
@@ -105,36 +117,36 @@ const cartSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             })
-            .addCase(addProductLoading.pending, (state) => {
+            .addCase(addProductOptimistic.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(addProductLoading.fulfilled, (state) => {
+            .addCase(addProductOptimistic.fulfilled, (state) => {
                 state.loading = false;
             })
-            .addCase(addProductLoading.rejected, (state, action) => {
+            .addCase(addProductOptimistic.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })
-            .addCase(changeProductAmountLoading.pending, (state) => {
+            .addCase(changeProductAmountOptimistic.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(changeProductAmountLoading.fulfilled, (state) => {
+            .addCase(changeProductAmountOptimistic.fulfilled, (state) => {
                 state.loading = false;
             })
-            .addCase(changeProductAmountLoading.rejected, (state, action) => {
+            .addCase(changeProductAmountOptimistic.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })
-            .addCase(removeProductLoading.pending, (state) => {
+            .addCase(removeProductOptimistic.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(removeProductLoading.fulfilled, (state) => {
+            .addCase(removeProductOptimistic.fulfilled, (state) => {
                 state.loading = false;
             })
-            .addCase(removeProductLoading.rejected, (state, action) => {
+            .addCase(removeProductOptimistic.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });
@@ -152,7 +164,7 @@ export const selectTotalPrice = (state) => {
 };
 
 export const getUserShoppingCart = () => async (dispatch, getState) => {
-    const isAuth = getState().auth.isAuth
+    const isAuth = getState().auth.isAuth;
     if (isAuth) {
         return await dispatch(getUserShoppingCartLoading());
     }
@@ -160,11 +172,12 @@ export const getUserShoppingCart = () => async (dispatch, getState) => {
 };
 
 export const addProduct = (product) => async (dispatch, getState) => {
-    const isAuth = getState().auth.isAuth
+    const isAuth = getState().auth.isAuth;
     if (!isAuth) {
         return dispatch(putProductInCart(product));
     } else {
-        return await dispatch(addProductLoading(product.productId));
+        dispatch(putProductInCart(product));
+        return await dispatch(addProductOptimistic(product.productId));
     }
 };
 
@@ -173,24 +186,27 @@ export const changeProductAmount = (params) => async (dispatch, getState) => {
     const isAuth = getState().auth.isAuth;
 
     if (!isAuth) {
-        return dispatch(changeProductAmountInCart(productId));
+        return dispatch(changeProductAmountInCart({ productId, quantity }));
     } else {
         const existingProduct = getState().cart.productsInCart.find(item => item.productId === productId);
         if (existingProduct) {
-            if (existingProduct.quantity > 1) {
-                return await dispatch(changeProductAmountLoading({productId, quantity}));
+            if (existingProduct.quantity >= 1) {
+                dispatch(changeProductAmountInCart({ productId, quantity }));
+                await dispatch(changeProductAmountOptimistic({ productId, quantity, originalQuantity: existingProduct.quantity }));
             } else {
-                return await dispatch(removeProductLoading(productId));
+                dispatch(deleteProductFromCart(productId));
+                await dispatch(removeProductOptimistic(productId));
             }
         }
     }
 };
 
 export const removeProduct = (productId) => async (dispatch, getState) => {
-    const isAuth = getState().auth.isAuth
+    const isAuth = getState().auth.isAuth;
     if (!isAuth) {
         return dispatch(deleteProductFromCart(productId));
     } else {
-        return await dispatch(removeProductLoading(productId));
+        dispatch(deleteProductFromCart(productId));
+        return await dispatch(removeProductOptimistic(productId));
     }
 };

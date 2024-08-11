@@ -13,7 +13,7 @@ import {Provider, useDispatch, useSelector} from "react-redux";
 import {PersistGate} from 'redux-persist/integration/react';
 import store, {persistor} from './store/store';
 
-import ScrollToTop from './common/utils/ScrollToTop'
+import ScrollToTop from './common/utils/ScrollToTop';
 import Header from "./ui/components/Header/Header";
 import Navigation from "./containers/Navigation/Navigation";
 import Footer from "./ui/components/Footer/Footer";
@@ -32,6 +32,9 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import LoginPanel from "./containers/LoginPanel/LoginPanel";
 import {getIsAuth} from "./store/authSlice";
 import {getUserShoppingCart} from "./store/cartSlice";
+import Contacts from "./pages/Contacts/Contacts";
+import ScrollToTopButton from "./containers/ScrollToTopButton/ScrollToTopButton";
+import Admin from "./Admin/Admin";
 
 const Root = () => {
     const [openLoginPanel, setOpenLoginPanel] = React.useState(false);
@@ -43,43 +46,50 @@ const Root = () => {
     }, []);
     useEffect(() => {
         dispatch(getUserShoppingCart());
-    }, [isAuth])
+    }, [isAuth]);
 
-    return <div>
-        <div className={"login-container"}>
-            <LoginPanel
-                openLoginPanel={openLoginPanel}
-                setOpenLoginPanel={setOpenLoginPanel}
-            />
+    return (
+        <div>
+            <div className="login-container">
+                <LoginPanel
+                    openLoginPanel={openLoginPanel}
+                    setOpenLoginPanel={setOpenLoginPanel}
+                />
+            </div>
+            <div className="app-container">
+                <Header setOpenLoginPanel={setOpenLoginPanel} openLoginPanel={openLoginPanel}/>
+                <Navigation/>
+                <Outlet/>
+                <Footer/>
+                <ScrollToTopButton/>
+                <ScrollToTop/>
+                <MobilePanel setOpenLoginPanel={setOpenLoginPanel} openLoginPanel={openLoginPanel}/>
+            </div>
         </div>
-        <div className="app-container">
-            <Header setOpenLoginPanel={setOpenLoginPanel} openLoginPanel={openLoginPanel}/>
-            <Navigation/>
-            <Outlet/>
-            <Footer/>
-            <ScrollToTop/>
-            <MobilePanel setOpenLoginPanel={setOpenLoginPanel} openLoginPanel={openLoginPanel}/>
-        </div>
-    </div>
-}
+    );
+};
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path='/' element={<Root/>}>
-            <Route index element={<Home/>}/>
-            <Route path='/blog' element={<Blog/>}/>
-            <Route path='/brands' element={<Brands/>}/>
-            <Route path='/about' element={<About/>}/>
-            <Route path='/cart' element={<Cart/>}/>
-            <Route path='/checkout' element={<Checkout/>}/>
-            <Route path='/register' element={<RegisterPage/>}/>
-            <Route path='/user' element={<UserPage/>}/>
-            <Route path='/category/:id' element={<Catalog/>} errorElement={<ErrorPage/>}/>
-            <Route path='product/:id' element={<Product/>} errorElement={<ErrorPage/>}/>/>
-            <Route path='*' element={<ErrorPage/>}/>
-        </Route>
+        <>
+            <Route path='/' element={<Root/>}>
+                <Route index element={<Home/>}/>
+                <Route path='/contacts' element={<Contacts/>}/>
+                <Route path='/blog' element={<Blog/>}/>
+                <Route path='/brands' element={<Brands/>}/>
+                <Route path='/about' element={<About/>}/>
+                <Route path='/cart' element={<Cart/>}/>
+                <Route path='/checkout' element={<Checkout/>}/>
+                <Route path='/register' element={<RegisterPage/>}/>
+                <Route path='/user' element={<UserPage/>}/>
+                <Route path='/category/:id' element={<Catalog/>} errorElement={<ErrorPage/>}/>
+                <Route path='/product/:id' element={<Product />} errorElement={<ErrorPage/>}/>
+                <Route path='*' element={<ErrorPage/>}/>
+            </Route>
+            <Route path="/admin" element={<Admin />}/>
+        </>
     )
-)
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -1,0 +1,52 @@
+.wrapper > div > div {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+.wrapper h3 {
+    font-size: 24px;
+    font-weight: 700;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.submit {
+    display: flex;
+    justify-content: space-between; align-items: center;
+}
+.socials {
+    display: flex;
+    gap: 5px;
+}
+.socials > a {
+    display: block;
+    height: 46px;
+}
+@media (max-width: 1359px) {
+    .submit {
+        flex-direction: column;
+        height: 100%;
+        gap: 10px;
+    }
+    .submit > button {
+        width: 100%;
+    }
+    .submit > span {
+        display: flex;
+        align-items: center;
+    }
+    .submit > * {
+        height: 46px;
+    }
+}
+@media (min-width: 1360px) {
+    .submit {
+        flex-direction: row;
+        height: 46px;
+    }
+    .submit > button {
+        width: 232px;
+    }
+}

@@ -1,0 +1,17 @@
+.wrapper {
+    display: grid;
+    margin-top: 60px;
+    grid-template-rows: auto;
+    grid-gap: 10px;
+}
+@media (max-width: 999px) {
+    .wrapper {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 469px 469px;
+    }
+}
+@media (min-width: 1000px) {
+    .wrapper {
+        grid-template-columns: 280px 1fr 1fr;
+    }
+}

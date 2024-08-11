@@ -4,9 +4,9 @@ import {v4 as uuidv4} from 'uuid';
 import {Link} from "react-router-dom";
 import Subscribe from "./Subscribe/Subscribe";
 // --ICONS--
-import {ReactComponent as IcoInstagram} from "../../../assets/images/socials/ico_instagram.svg";
-import {ReactComponent as IcoFacebook} from "../../../assets/images/socials/ico_facebook.svg";
-import {ReactComponent as IcoTelegram} from "../../../assets/images/socials/ico_telegram.svg";
+import {ReactComponent as IcoInstagram} from "../../../assets/images/socials_footer/ico_instagram.svg";
+import {ReactComponent as IcoFacebook} from "../../../assets/images/socials_footer/ico_facebook.svg";
+import {ReactComponent as IcoTelegram} from "../../../assets/images/socials_footer/ico_telegram.svg";
 // --DATA--
 import linksToCategories from '../../../data/linksToCategories.json';
 import linksToInformation from '../../../data/linksToInformation.json';

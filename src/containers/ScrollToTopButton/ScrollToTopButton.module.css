@@ -1,0 +1,36 @@
+.button {
+    position: fixed;
+    bottom: 60px; right: 20px;
+    width: 56px; height: 56px;
+    border-radius: 50%; border: none;
+    background: var(--white);
+    box-shadow: 0 16px 35px 0 #0000001A,
+    0 64px 64px 0 #00000017,
+    0 144px 86px 0 #0000000D,
+    0 256px 102px 0 #00000003,
+    0 400px 112px 0 #00000000;
+    z-index: 99;
+    opacity: 0;
+    cursor: default;
+    transition: 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button.show {
+    opacity: 1;
+    cursor: pointer;
+}
+.button.show:hover {
+    background: var(--black);
+}
+.button.show:hover > svg g {
+    fill: var(--white);
+}
+
+@media (max-width: 767px) {
+    .button {
+        right: 0;
+    }
+}

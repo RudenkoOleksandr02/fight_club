@@ -1,0 +1,15 @@
+.rightPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+}
+.rightPanel > div > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.rightPanel h3 {
+    font-weight: 500;
+    font-size: 20px;
+}
