@@ -1,6 +1,6 @@
 import React from 'react';
-import Die from "../../../../ui/components/Die/Die";
-import NovaPoshta from "../../../../containers/NovaPoshta/NovaPoshta";
+import Die from "../../../../components/ui/Die/Die";
+import NovaPoshta from "../../../../components/containers/NovaPoshta/NovaPoshta";
 
 const DeliveryMethod = ({handleSetDeliveryInfo, errors}) => {
     return (

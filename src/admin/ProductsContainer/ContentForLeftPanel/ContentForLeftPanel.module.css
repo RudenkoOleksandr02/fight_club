@@ -1,0 +1,47 @@
+.inner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.folding {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    width: 100%;
+}
+.folding .title {
+    font-weight: 500;
+    font-size: 20px;
+}
+.folding path {
+    stroke: var(--green);
+}
+.ico {
+    transition: .2s;
+}
+.ico.isOpen {
+    transform: rotate(-180deg);
+}
+.parentCategories {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.parentCategories .folding .title {
+    font-size: 16px;
+}
+.childrenCategories {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.childrenCategories > div {
+    margin-left: 25px;
+    display: flex;
+    gap: 5px;
+}
+.wrappFolding {
+    display: flex;
+    gap: 10px;
+}

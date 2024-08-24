@@ -1,36 +1,33 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import homePageApi from "../api/homePageApi";
+import {delay, handleFulfilled, handlePending, handleRejected, initialObject} from "../common/utils/forSlice";
 
 const initialState = {
-    newProducts: [],
-    discountsProducts: [],
-    popularProducts: [],
-    popularProductsByCategory: []
+    newProducts: initialObject,
+    discountsProducts: initialObject,
+    popularProducts: initialObject
 }
 const loadNewProducts = createAsyncThunk(
     'homePage/loadNewProducts',
     async () => {
+        await delay(500);
         return homePageApi.getNewProducts();
     }
 );
 const loadDiscountsProducts = createAsyncThunk(
     'homePage/loadDiscountsProducts',
     async () => {
+        await delay(500);
         return homePageApi.getDiscountsProducts();
     }
 );
 const loadPopularProducts = createAsyncThunk(
     'homePage/loadPopularProducts',
     async () => {
+        await delay(500);
         return homePageApi.getPopularProducts();
     }
 );
-const loadPopularProductsByCategory = createAsyncThunk(
-    'homePage/loadPopularProductsById',
-    async (categoryId) => {
-        return homePageApi.getPopularProductsByCategory(categoryId);
-    }
-)
 
 export const homePageSlice = createSlice({
     name: 'homePageData',
@@ -38,19 +35,33 @@ export const homePageSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(loadNewProducts.fulfilled, (state, action) => {
-                state.newProducts = action.payload;
-            })
-            .addCase(loadDiscountsProducts.fulfilled, (state, action) => {
-                state.discountsProducts = action.payload;
-            })
-            .addCase(loadPopularProducts.fulfilled, (state, action) => {
-                state.popularProducts = action.payload;
-            })
-            .addCase(loadPopularProductsByCategory.fulfilled, (state, action) => {
-                state.popularProductsByCategory = action.payload;
-            })
-
+            .addCase(loadNewProducts.pending, (state) => (
+                handlePending(state, 'newProducts'))
+            )
+            .addCase(loadNewProducts.fulfilled, (state, action) => (
+                handleFulfilled(state, action, 'newProducts'))
+            )
+            .addCase(loadNewProducts.rejected, (state, action) => (
+                handleRejected(state, action, 'newProducts'))
+            )
+            .addCase(loadDiscountsProducts.pending, (state) => (
+                handlePending(state, 'discountsProducts'))
+            )
+            .addCase(loadDiscountsProducts.fulfilled, (state, action) => (
+                handleFulfilled(state, action, 'discountsProducts'))
+            )
+            .addCase(loadDiscountsProducts.rejected, (state, action) => (
+                handleRejected(state, action, 'discountsProducts'))
+            )
+            .addCase(loadPopularProducts.pending, (state) => (
+                handlePending(state, 'popularProducts'))
+            )
+            .addCase(loadPopularProducts.fulfilled, (state, action) => (
+                handleFulfilled(state, action, 'popularProducts'))
+            )
+            .addCase(loadPopularProducts.rejected, (state, action) => (
+                handleRejected(state, action, 'popularProducts'))
+            )
     }
 })
 
@@ -66,6 +77,3 @@ export const getDiscountsProducts = () => async (dispatch) => {
 export const getPopularProducts = () => async (dispatch) => {
     return await dispatch(loadPopularProducts());
 };
-export const getPopularProductsByCategory = (categoryId) => async (dispatch) => {
-    return await dispatch(loadPopularProductsByCategory(categoryId))
-}

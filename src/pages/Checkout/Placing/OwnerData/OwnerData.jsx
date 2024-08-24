@@ -1,8 +1,8 @@
 import React from 'react';
-import Die from "../../../../ui/components/Die/Die";
+import Die from "../../../../components/ui/Die/Die";
 import classes from "./OwnerData.module.css";
-import Input from "../../../../ui/components/inputs/Input/Input";
-import InputMobile from "../../../../ui/components/inputs/Input/InputMobile";
+import Input from "../../../../components/ui/inputs/Input/Input";
+import InputMobile from "../../../../components/ui/inputs/Input/InputMobile";
 
 const OwnerData = ({userInfo, handleSetUserInfo, errors}) => {
     return (

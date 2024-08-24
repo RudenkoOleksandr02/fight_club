@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {authorizationApi} from '../api/authorizationApi';
-import {clearCart} from './cartSlice';
+import {clearCart} from './cartPageSlice';
 
 const registerUser = createAsyncThunk(
     'auth/register',

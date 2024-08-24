@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './TopPanel.module.css';
-import TertiaryButton from "../../../ui/components/Buttons/TertiaryButton/TertiaryButton";
-import Pagination from "../../../ui/components/Pagination/Pagination";
+import TertiaryButton from "../../../components/ui/Buttons/TertiaryButton/TertiaryButton";
+import Pagination from "../../../components/ui/Pagination/Pagination";
 
 const TopPanel = ({ totalCount, currentPage, amount, handleChangePage, setSortBy, onOpenFilterPanelInMobile}) => {
     return (

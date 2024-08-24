@@ -1,4 +1,4 @@
-import {instance, PromocodesUrls} from '../common/constants/apiUrls'
+import {instance, PromocodesUrls} from './urls/apiUrls'
 
 const promocodesApi = {
     getPromocodesCheck(code) {

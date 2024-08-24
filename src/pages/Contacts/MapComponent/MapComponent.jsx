@@ -1,7 +1,7 @@
 import React from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import classes from './MapComponent.module.css';
-import PrimaryButton from "../../../ui/components/Buttons/PrimaryButton/PrimaryButton";
+import PrimaryButton from "../../../components/ui/Buttons/PrimaryButton/PrimaryButton";
 
 const center = {
     lat: 50.2288216,

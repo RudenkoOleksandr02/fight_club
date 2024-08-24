@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Characteristics.module.css';
-import ShowMore from "../../../ui/components/ShowMore/ShowMore";
+import ShowMore from "../../../components/ui/ShowMore/ShowMore";
 import {v4 as uuidv4} from 'uuid'
 
 const Characteristics = ({characteristics}) => {

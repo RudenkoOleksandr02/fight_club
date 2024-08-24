@@ -26,6 +26,7 @@ const ProductMobile = ({product}) => {
                     article={product.article}
                     options={product.options}
                     price={product.price}
+                    discount={product.discount}
                     inStock={product.inStock}
                     dieNumbers={product.dieNumbers}
                 />

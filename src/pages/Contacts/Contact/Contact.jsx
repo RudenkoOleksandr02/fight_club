@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from "./Contact.module.css";
-import Die from "../../../ui/components/Die/Die";
-import Input from "../../../ui/components/inputs/Input/Input";
-import InputMobile from "../../../ui/components/inputs/Input/InputMobile";
-import PrimaryButton from "../../../ui/components/Buttons/PrimaryButton/PrimaryButton";
+import Die from "../../../components/ui/Die/Die";
+import Input from "../../../components/ui/inputs/Input/Input";
+import InputMobile from "../../../components/ui/inputs/Input/InputMobile";
+import PrimaryButton from "../../../components/ui/Buttons/PrimaryButton/PrimaryButton";
 import {ReactComponent as IcoFacebook} from '../../../assets/images/socials_contacts/ico_facebook.svg';
 import {ReactComponent as IcoTelegram} from '../../../assets/images/socials_contacts/ico_telegram.svg';
 import {ReactComponent as IcoInstagram} from '../../../assets/images/socials_contacts/ico_instagram.svg';

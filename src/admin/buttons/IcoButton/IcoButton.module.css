@@ -1,0 +1,10 @@
+.button {
+    display: flex;
+    justify-content: center; align-items: center;
+    background: var(--white);
+    border: none;
+    transition: .1s;
+}
+.button:hover {
+    opacity: 70%;
+}

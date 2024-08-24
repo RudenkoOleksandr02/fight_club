@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import classes from './Catalog.module.css';
-import Breadcrumbs from "../../ui/components/Breadcrumbs/Breadcrumbs";
-import FilterPanel from "./../../containers/FilterPanel/FilterPanel";
+import FilterPanel from "./FilterPanel/FilterPanel";
 import TopPanel from "./TopPanel/TopPanel";
-import CardListContainer from "../../containers/CardListContainer/CardListContainer";
+import CardListContainer from "../../components/containers/CardListContainer/CardListContainer";
 import {useDispatch, useSelector} from "react-redux";
-import {getProductsByFilter} from "../../store/productSlice";
 import {useParams} from "react-router-dom";
 import useBodyOverflowHidden from "../../common/hooks/useBodyOverflowHidden/useBodyOverflowHidden";
+import {getFilterPanelById, getProductsByFilter} from "../../store/catalogPageSlice";
+import Preloader from "../../components/ui/Preloader/Preloader";
 
 const Catalog = () => {
-    const {id: categoryId} = useParams();
-    const productsData = useSelector(state => state.productData.catalog);
+    const {data: catalogData, loading: catalogLoading} = useSelector(state => state.catalogPage.catalog);
+    const {loading: filterPanelLoading} = useSelector(state => state.catalogPage.filterPanel);
     const dispatch = useDispatch();
+    const {id: categoryId} = useParams();
     const [currentPage, setCurrentPage] = useState(1);
     const amount = 15;
     const [sortBy, setSortBy] = useState("");
@@ -52,14 +53,22 @@ const Catalog = () => {
         setCurrentPage(pageNumber);
     };
 
-    if (!productsData) {
-        return <div>Loading...</div>;
+    // FILTER PANEL
+    useEffect(() => {
+        dispatch(getFilterPanelById(categoryId));
+        setSelectedCharacteristics([]);
+    }, [categoryId]);
+
+    if (catalogLoading || filterPanelLoading) {
+        return <Preloader color='secondary' cover={true}/>
+    }
+    if (!catalogData.totalCount) {
+        return <div>error</div>
     }
 
     return (
         <section>
             <div className={classes.wrapper}>
-                {/*<Breadcrumbs links={[]}/>*/}
                 <div className={classes.main}>
                     <div className={`${classes.filterPanel} ${isVisibleFilterPanelInMobile ? classes.visible : ''}`}>
                         <FilterPanel
@@ -73,14 +82,14 @@ const Catalog = () => {
                         />
                     </div>
                     <TopPanel
-                        totalCount={productsData.totalCount}
+                        totalCount={catalogData.totalCount}
                         currentPage={currentPage}
                         amount={amount}
                         handleChangePage={handleChangePage}
                         setSortBy={setSortBy}
                         onOpenFilterPanelInMobile={() => setIsVisibleFilterPanelInMobile(true)}
                     />
-                    <CardListContainer productsData={productsData}/>
+                    <CardListContainer productsData={catalogData}/>
                 </div>
             </div>
         </section>

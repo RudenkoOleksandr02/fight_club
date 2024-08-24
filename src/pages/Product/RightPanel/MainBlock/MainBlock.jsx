@@ -1,12 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './MainBlock.module.css'
 import {ReactComponent as IcoHeart} from "../../../../assets/images/ico_heart.svg";
-import Rating from "../../../../ui/components/Rating/Rating";
-import TertiaryButton from "../../../../ui/components/Buttons/TertiaryButton/TertiaryButton";
-import PrimaryButton from "../../../../ui/components/Buttons/PrimaryButton/PrimaryButton";
+import {ReactComponent as IcoHeartFilled} from './../../../../assets/images/IcoHeartFilled.svg'
+import Rating from "../../../../components/ui/Rating/Rating";
+import TertiaryButton from "../../../../components/ui/Buttons/TertiaryButton/TertiaryButton";
+import PrimaryButton from "../../../../components/ui/Buttons/PrimaryButton/PrimaryButton";
 import {useDispatch, useSelector} from "react-redux";
-import {addProduct} from "../../../../store/cartSlice";
+import {addProduct} from "../../../../store/cartPageSlice";
 import {useNavigate} from "react-router-dom";
+import {roundNumber} from "../../../../common/utils/roundNumber";
+import {priceWithDiscount} from "../../../../common/utils/priceWithDiscount";
+import {deleteFavorite, getFavorite, addFavorite} from "../../../../store/userPageSlice";
 
 const MainBlock = (props) => {
     const {
@@ -18,7 +22,7 @@ const MainBlock = (props) => {
         numberOfPurchases,
         numberOfViews,
         article,
-        options,
+        discount,
         price,
         inStock,
         src
@@ -33,9 +37,24 @@ const MainBlock = (props) => {
         }));
     };
 
-    const productsInCart = useSelector(state => state.cart.productsInCart);
+    const productsInCart = useSelector(state => state.cartPage.productsInCart);
     const inCart = productsInCart.some(product => product.productId === id);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    // FAVORITE
+    const {data: favoriteData, loading: favoriteLoading} = useSelector(state => state.userPage.favorite);
+    const [isFavorite, setIsFavorite] = useState(favoriteData.find(favorite => favorite.id === id)?.id === id)
+    useEffect(() => {
+        dispatch(getFavorite())
+    }, [])
+    const handleAddFavorite = (productId) => {
+        setIsFavorite(true)
+        dispatch(addFavorite(productId))
+    }
+    const handleRemoveFavorite = (productId) => {
+        setIsFavorite(false)
+        dispatch(deleteFavorite(productId))
+    }
 
     return (
         <div className={classes.wrapper}>
@@ -52,10 +71,21 @@ const MainBlock = (props) => {
             </div>
 
             <div className={classes.priceContainer}>
-                <span>{price}₴</span>
-                <div>
+                <div className={classes.price}>
+                    <span>{roundNumber(price)}</span>
+                    <span>{roundNumber(priceWithDiscount(price, discount))}₴</span>
+                </div>
+                <div className={classes.selected}>
                     <span>У обране</span>
-                    <IcoHeart/>
+                    {isFavorite ? (
+                        <IcoHeartFilled
+                            onClick={() => handleRemoveFavorite(id)}
+                            className={classes.icoFavorite}
+                        />
+                    ) : <IcoHeart
+                        onClick={() => handleAddFavorite(id)}
+                        className={classes.icoFavorite}
+                    />}
                 </div>
             </div>
 

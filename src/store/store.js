@@ -2,38 +2,40 @@ import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import bannerSlice from "./bannerSlice";
-import categorySlice from "./categorySlice";
-import productSlice from "./productSlice";
-import filterPanelSlice from "./filterPanelSlice";
+import navigationSlice from "./navigationSlice";
+import productPageSlice from "./productPageSlice";
+import catalogPageSlice from "./catalogPageSlice";
 import homePageSlice from "./homePageSlice";
 import searchSlice from "./searchSlice";
 import authSlice from "./authSlice";
 import promocodesSlice from "./promocodesSlice";
-import checkoutSlice from "./checkoutSlice";
+import checkoutPageSlice from "./checkoutPageSlice";
 import adminSlice from "./adminSlice";
+import cartPageSlice from './cartPageSlice';
+import userPageSlice from "./userPageSlice";
 
 
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist/es/constants';
-import cartSlice from './cartSlice';
 const cartPersistConfig = {
     key: 'cart',
     storage
 };
-const persistedCartReducer = persistReducer(cartPersistConfig, cartSlice);
+const persistedCartReducer = persistReducer(cartPersistConfig, cartPageSlice);
 
 const store = configureStore({
     reducer: {
-        bannerData: bannerSlice,
-        categoryData: categorySlice,
-        productData: productSlice,
-        filterPanelData: filterPanelSlice,
-        homePageData: homePageSlice,
-        searchData: searchSlice,
+        banner: bannerSlice,
+        navigation: navigationSlice,
+        productPage: productPageSlice,
+        catalogPage: catalogPageSlice,
+        homePage: homePageSlice,
+        search: searchSlice,
         promocodes: promocodesSlice,
         auth: authSlice,
         admin: adminSlice,
-        cart: persistedCartReducer,
-        checkout: checkoutSlice,
+        cartPage: persistedCartReducer,
+        checkoutPage: checkoutPageSlice,
+        userPage: userPageSlice
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

@@ -1,4 +1,4 @@
-import {AuthorizationUrls, instance} from "../common/constants/apiUrls";
+import {AuthorizationUrls, instance} from "./urls/apiUrls";
 
 export const authorizationApi = {
     register(params) {

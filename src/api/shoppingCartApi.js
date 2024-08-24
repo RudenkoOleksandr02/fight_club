@@ -1,4 +1,4 @@
-import {ShoppingCartUrls, instance} from "../common/constants/apiUrls";
+import {ShoppingCartUrls, instance} from "./urls/apiUrls";
 
 export const shoppingCartApi = {
     addProduct(productId) {

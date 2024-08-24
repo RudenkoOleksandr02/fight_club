@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './RightPanel.module.css'
-import Die from "../../../ui/components/Die/Die";
+import Die from "../../../components/ui/Die/Die";
 import contacts from "../../../data/contacts.json";
 
 const RightPanel = () => {

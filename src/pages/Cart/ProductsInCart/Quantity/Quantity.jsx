@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import classes from './Quantity.module.css';
 import {ReactComponent as IcoTrash} from "../../../../assets/images/ico_trash.svg";
+import {roundNumber} from "../../../../common/utils/roundNumber";
 
 const Quantity = ({product, productId, quantity, price, handleAddToCart, handleChangeProductsInCart, handleDeleteFromCart}) => {
     const [localQuantity, setLocalQuantity] = useState(quantity);
@@ -38,7 +39,7 @@ const Quantity = ({product, productId, quantity, price, handleAddToCart, handleC
                     <span></span>
                 </button>
             </div>
-            <span className={classes.price}>{Math.round(price * quantity)}$</span>
+            <span className={classes.price}>{roundNumber(price * quantity)}$</span>
             <button className={classes.delete} onClick={() => handleDeleteFromCart(productId)}>
                 <IcoTrash/>
             </button>

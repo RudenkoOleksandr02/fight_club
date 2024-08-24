@@ -1,0 +1,63 @@
+.wrapper {
+    position: relative;
+}
+.button {
+    padding: 0 17px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--green);
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 60px;
+    border: 1px solid var(--green);
+    background: var(--white);
+    transition: .2s;
+}
+.button:hover {
+    color: var(--white);
+    background: var(--green);
+}
+.button:hover path {
+    stroke: var(--white);
+}
+.arrow {
+    transition: .2s;
+}
+.arrow.rotated {
+    transform: rotate(-180deg);
+}
+.modal {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: .1s;
+    margin-top: 5px;
+}
+.modal.isOpen {
+    opacity: 1;
+    pointer-events: all;
+}
+.modal > .content {
+    background: var(--white);
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 5px 0;
+}
+.modal > .content button {
+    font-weight: 500;
+    color: var(--green);
+    font-size: 16px;
+    background: transparent; border: none;
+    text-align: left;
+    padding: 5px 10px;
+}
+.modal > .content button:hover {
+    background: #e0e0e0;
+}

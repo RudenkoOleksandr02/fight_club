@@ -6,7 +6,7 @@ import Characteristics from "../Characteristics/Characteristics";
 import Description from "../Description/Description";
 import AboutMoreBrand from "../AboutMoreBrand/AboutMoreBrand";
 import Reviews from "../Reviews/Reviews";
-import AlsoBuy from "../../../containers/AlsoBuy/AlsoBuy";
+import AlsoBuy from "../AlsoBuy/AlsoBuy";
 
 const ProductDesktop = ({product}) => {
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1359);
@@ -41,6 +41,7 @@ const ProductDesktop = ({product}) => {
                     article={product.article}
                     options={product.options}
                     price={product.price}
+                    discount={product.discount}
                     inStock={product.inStock}
                     dieNumbers={product.dieNumbers}
                 />

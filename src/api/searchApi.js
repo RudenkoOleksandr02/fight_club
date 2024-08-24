@@ -1,4 +1,4 @@
-import {instance, SearchUrls} from '../common/constants/apiUrls'
+import {instance, SearchUrls} from './urls/apiUrls'
 
 const searchApi = {
     getSearchByQuery(query) {

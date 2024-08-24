@@ -38,3 +38,44 @@
     border-radius: 0;
     justify-content: center;
 }
+
+.favoriteContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.favorite {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.product img {
+    width: 73px; height: 73px;
+}
+.product .information {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+}
+.product .information p {
+    font-size: 18px;
+}
+.product .btns {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.product .btns button:first-child {
+    height: 24px; width: 24px;
+    border: none; background: var(--white);
+}
+.product .btns button:last-child {
+    height: 36px;
+    width: 190px;
+}

@@ -1,0 +1,102 @@
+.filesContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 340px;
+}
+.filesContainer > button {
+    text-align: center;
+}
+.filesDropzone {
+    width: 340px; height: 205px;
+    cursor: pointer;
+    border: 1px dashed var(--orange);
+}
+.filesDropzoneActive {
+    background: var(--orange);
+    border: none;
+}
+.filesDropzoneActive  p {
+    color: var(--white) !important;
+}
+.filesDropzoneActive svg > path {
+    stroke: var(--white) !important;
+}
+.dropzoneContent {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.dropzoneContent * {
+    pointer-events: none;
+}
+.dropzoneContent > p {
+    width: 180px;
+    text-align: center;
+    color: var(--orange);
+    font-weight: 500;
+}
+.dropzoneContent > svg > path {
+    stroke: var(--orange);
+}
+.filesList > ul {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+.filesList ul > li {
+    min-height: 50px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #DDE4DE;
+}
+.filesList ul > li:last-child {
+    border-bottom: none;
+}
+.filesList ul > li .inner1 {
+    display: flex;
+    align-items: center;
+}
+.filesList ul > li .inner2 {
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #DDE4DE;
+}
+.previewExtension {
+    height: 40px; width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    background-color: #D3D3D3;
+}
+.contentItem {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 10px;
+    max-width: 255px;
+    color: var(--green);
+}
+.itemRemove {
+    height: 24px; width: 24px;
+    display: flex;
+    justify-content: center; align-items: center;
+    border: none;
+    background: var(--white);
+}
+.success, .error {
+    font-weight: 500;
+}
+.success {
+    color: var(--green);
+}
+.error {
+    color: #C13E3E;
+}

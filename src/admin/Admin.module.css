@@ -1,0 +1,35 @@
+.main {
+    background: var(--white);
+    color: var(--green);
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+.main * {
+    font-family: 'Montserrat', sans-serif;
+}
+.aside, .section {
+    padding: 25px;
+}
+.aside {
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.1),
+                0 19px 19px 0 rgba(0, 0, 0, 0.09),
+                0 44px 26px 0 rgba(0, 0, 0, 0.05),
+                0 77px 31px 0 rgba(0, 0, 0, 0.01),
+                0 121px 34px 0 rgba(0, 0, 0, 0);
+    width: 300px;
+}
+.aside p {
+    font-size: 18px;
+    text-align: center;
+    color: var(--green);
+}
+.aside .content {
+    position: fixed;
+}
+.navigation {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

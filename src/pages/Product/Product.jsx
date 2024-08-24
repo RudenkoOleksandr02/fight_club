@@ -3,29 +3,30 @@ import classes from './Product.module.css'
 import ProductDesktop from "./ProductDesktop/ProductDesktop";
 import ProductMobile from "./ProductMobile/ProductMobile";
 import {useDispatch, useSelector} from "react-redux";
-import {getProductById} from "../../store/productSlice";
+import {getProductById} from "../../store/productPageSlice";
 import {useParams} from "react-router-dom";
 import useScreen from "../../common/hooks/useScreen/useScreen";
+import Preloader from "../../components/ui/Preloader/Preloader";
 
 const Product = () => {
     const productId = useParams()
-    const productData = useSelector(state => state.productData.product);
+    const {data, loading} = useSelector(state => state.productPage.product);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getProductById(productId.id));
-    }, [productId])
+    }, [productId]);
     const isSmallScreen = useScreen(999);
 
-    if (!productData) {
-        return <div>preloader...</div>;
+    if (loading) {
+        return <Preloader color='secondary' cover={true}/>;
     }
 
     return (
         <section>
             <div className={classes.wrapper}>
                 {isSmallScreen
-                    ? <ProductMobile product={productData}/>
-                    : <ProductDesktop product={productData}/>
+                    ? <ProductMobile product={data}/>
+                    : <ProductDesktop product={data}/>
                 }
             </div>
         </section>

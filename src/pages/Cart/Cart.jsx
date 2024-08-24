@@ -2,21 +2,21 @@ import React, {useEffect} from 'react';
 import classes from './Cart.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import ProductsInCart from "./ProductsInCart/ProductsInCart";
-import TopPanel from "../../containers/Order/TopPanel/TopPanel";
 import {useNavigate} from "react-router-dom";
-import InformationPanel from "../../containers/Order/InformationPanel/InformationPanel";
+import TopPanel from "../../components/containers/Order/TopPanel/TopPanel";
+import InformationPanel from "../../components/containers/Order/InformationPanel/InformationPanel";
+
 import {
     addProduct, changeProductAmount,
     getUserShoppingCart, removeProduct,
 
-} from "../../store/cartSlice";
+} from "../../store/cartPageSlice";
 
 const Cart = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
-    const productsInCart = useSelector(state => state.cart.productsInCart)
-    const loading = useSelector(state => state.cart.loading);
+    const {productsInCart, loading} = useSelector(state => state.cartPage)
     const isAuth = useSelector(state => state.auth.isAuth)
 
     useEffect(() => {

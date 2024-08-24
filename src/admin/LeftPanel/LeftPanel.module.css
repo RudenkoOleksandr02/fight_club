@@ -1,0 +1,16 @@
+.wrapper {
+    position: fixed;
+    left: 0; top: 0;
+    width: 300px;
+    height: 100%;
+    z-index: 50;
+    background: var(--white);
+    opacity: 0;
+    pointer-events: none;
+    padding: 25px;
+    overflow: auto;
+}
+.wrapper.isOpen {
+    pointer-events: all;
+    opacity: 1;
+}

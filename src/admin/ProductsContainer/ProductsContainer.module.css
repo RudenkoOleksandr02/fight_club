@@ -1,0 +1,114 @@
+.wrapper {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+/* TABLE */
+.icoBtns {
+    display: flex;
+    gap: 10px;
+}
+.bold {
+    font-weight: 700;
+}
+.information {
+    color: var(--black);
+    font-size: 14px;
+}
+.svgGray * {
+    fill: #B2B2B2;
+}
+
+/* EDIT CONTAINER*/
+.editWrapper {
+    height: 100%;
+    width: 740px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.editWrapper .top {
+    display: flex;
+    justify-content: space-between; align-items: center;
+}
+.editWrapper .productId {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--green);
+}
+.editWrapper .mainInformation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 10px;
+    width: 100%;
+}
+.editWrapper .secondaryInformation {
+    display: flex;
+    gap: 10px;
+}
+
+.del, .close {
+    border: none;
+    background: var(--white);
+    display: flex; align-items: center; justify-content: center;
+}
+.die span {
+    color: var(--green);
+}
+.die .inner {
+    border: 1px solid var(--green);
+    padding: 10px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.die .btns {
+    display: flex;
+    gap: 10px;
+}
+.die .btns button {
+    display: flex;
+    align-items: center; justify-content: center;
+    gap: 10px;
+}
+
+.alsoBuy .images {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 135px;
+    grid-gap: 10px;
+}
+.alsoBuy .imageContainer > img {
+    height: 100%;
+}
+.seo input {
+    width: 100%;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--green);
+    border: none;
+    outline: none;
+}
+.save {
+    width: 200px;
+    align-self: flex-end;
+}
+.save > button {
+    text-align: center;
+}
+.putProduct {
+    width: 175px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.putProduct > button {
+    text-align: center;
+}
+.putProduct > button:last-child {
+    background: var(--orange);
+    border: none;
+}

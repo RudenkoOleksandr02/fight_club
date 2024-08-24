@@ -3,6 +3,7 @@ import classes from './ProductsInCart.module.css';
 import {v4 as uuidv4} from 'uuid';
 import Quantity from "./Quantity/Quantity";
 import {useNavigate} from "react-router-dom";
+import {roundNumber} from "../../../common/utils/roundNumber";
 
 const ProductsInCart = ({productsInCart, handleAddToCart, handleDeleteFromCart, handleChangeProductsInCart}) => {
     const navigate = useNavigate();

@@ -1,13 +1,6 @@
-import {instance, ProductsUrls} from '../common/constants/apiUrls'
+import {instance, ProductsUrls} from './urls/apiUrls'
 
 const productApi = {
-    getProductsByFilter(params) {
-        return instance.post(ProductsUrls.GetProductsByFilter, params)
-            .then(response => {
-                    return response.data
-                }
-            )
-    },
     getProductById(productId) {
         return instance.get(ProductsUrls.GetProductById(productId))
             .then(response => {

@@ -1,8 +1,0 @@
-.search {
-    height: 38px; width: 38px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid var(--green);
-    border-radius: 50%;
-}

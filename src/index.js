@@ -7,21 +7,21 @@ import {
     createRoutesFromElements,
     RouterProvider,
     Route,
-    Outlet
+    Outlet, useParams, useLocation
 } from "react-router-dom";
 import {Provider, useDispatch, useSelector} from "react-redux";
 import {PersistGate} from 'redux-persist/integration/react';
 import store, {persistor} from './store/store';
 
 import ScrollToTop from './common/utils/ScrollToTop';
-import Header from "./ui/components/Header/Header";
-import Navigation from "./containers/Navigation/Navigation";
-import Footer from "./ui/components/Footer/Footer";
+import Header from "./components/containers/Header/Header";
+import Navigation from "./components/containers/Navigation/Navigation";
+import Footer from "./components/containers/Footer/Footer";
 import Blog from "./pages/Blog/Blog";
 import Brands from "./pages/Brands/Brands";
 import About from "./pages/About/About";
 import ErrorPage from "./pages/Error/Error";
-import MobilePanel from "./containers/MobilePanel/MobilePanel";
+import MobilePanel from "./components/containers/MobilePanel/MobilePanel";
 import Catalog from "./pages/Catalog/Catalog";
 import Product from "./pages/Product/Product";
 import Home from "./pages/Home/Home";
@@ -29,15 +29,18 @@ import Cart from "./pages/Cart/Cart";
 import Checkout from "./pages/Checkout/Checkout";
 import UserPage from "./pages/UserPage/UserPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
-import LoginPanel from "./containers/LoginPanel/LoginPanel";
+import LoginPanel from "./components/containers/LoginPanel/LoginPanel";
 import {getIsAuth} from "./store/authSlice";
-import {getUserShoppingCart} from "./store/cartSlice";
+import {getUserShoppingCart} from "./store/cartPageSlice";
 import Contacts from "./pages/Contacts/Contacts";
-import ScrollToTopButton from "./containers/ScrollToTopButton/ScrollToTopButton";
-import Admin from "./Admin/Admin";
+import ScrollToTopButton from "./components/ui/ScrollToTopButton/ScrollToTopButton";
+import Admin from "./admin/Admin";
+import {getCategory} from "./store/navigationSlice";
+import Preloader from "./components/ui/Preloader/Preloader";
 
 const Root = () => {
     const [openLoginPanel, setOpenLoginPanel] = React.useState(false);
+    const {loading: categoryLoading} = useSelector((state) => state.navigation.categories);
     const isAuth = useSelector(state => state.auth.isAuth);
     const dispatch = useDispatch();
 
@@ -47,6 +50,13 @@ const Root = () => {
     useEffect(() => {
         dispatch(getUserShoppingCart());
     }, [isAuth]);
+    useEffect(() => {
+        dispatch(getCategory())
+    }, [])
+
+    if (categoryLoading) {
+        return <Preloader color='secondary' cover={true}/>
+    }
 
     return (
         <div>

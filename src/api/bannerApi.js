@@ -1,4 +1,4 @@
-import {instance, CatalogUrls} from '../common/constants/apiUrls'
+import {instance, CatalogUrls} from './urls/apiUrls'
 
 const categoryApi = {
     getCategoryTree(categoryName) {

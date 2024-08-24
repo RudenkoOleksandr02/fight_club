@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import classes from './RegisterPage.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import Input from "../../ui/components/inputs/Input/Input";
-import SecondaryButton from "../../ui/components/Buttons/SecondaryButton/SecondaryButton";
+import Input from "../../components/ui/inputs/Input/Input";
+import SecondaryButton from "../../components/ui/Buttons/SecondaryButton/SecondaryButton";
 import {register} from "../../store/authSlice";
-import InputMobile from "../../ui/components/inputs/Input/InputMobile";
+import InputMobile from "../../components/ui/inputs/Input/InputMobile";
 
 const RegisterPage = () => {
     const isAuth = useSelector(state => state.auth.isAuth);

@@ -3,7 +3,7 @@ import classes from './ImagesBlock.module.css';
 import {v4 as uuidv4} from 'uuid';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {FreeMode} from "swiper/modules";
-import ModalImage from "../../../ui/components/ModalImage/ModalImage";
+import ModalImage from "../../../components/ui/ModalImage/ModalImage";
 
 const ImagesBlock = ({images}) => {
     const [selectedImage, setSelectedImage] = useState([]);

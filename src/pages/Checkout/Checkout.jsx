@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import TopPanel from "../../containers/Order/TopPanel/TopPanel";
-import InformationPanel from "../../containers/Order/InformationPanel/InformationPanel";
 import Placing from "./Placing/Placing";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
 import classes from './Checkout.module.css';
-import Popup from "../../ui/components/Popup/Popup";
-import SecondaryButton from "../../ui/components/Buttons/SecondaryButton/SecondaryButton";
-import {checkout, setDeliveryInfo, setUserInfo} from "../../store/checkoutSlice";
-import {clearCart} from "../../store/cartSlice";
+import Popup from "../../components/ui/Popup/Popup";
+import SecondaryButton from "../../components/ui/Buttons/SecondaryButton/SecondaryButton";
+import {checkout, setDeliveryInfo, setUserInfo} from "../../store/checkoutPageSlice";
+import {clearCart} from "../../store/cartPageSlice";
+import InformationPanel from "../../components/containers/Order/InformationPanel/InformationPanel";
+import TopPanel from "../../components/containers/Order/TopPanel/TopPanel";
 
 const Checkout = () => {
     const navigate = useNavigate();
@@ -41,7 +41,7 @@ const Checkout = () => {
     }, [orderId]);
 
     // --productsInCart--
-    const productsInCart = useSelector(state => state.cart.productsInCart);
+    const productsInCart = useSelector(state => state.cartPage.productsInCart);
     useEffect(() => {
         if (productsInCart.length === 0) {
             navigate('/');
@@ -50,7 +50,7 @@ const Checkout = () => {
 
     // --Checkout--
     const checkoutData = useSelector(state => {
-        return state.checkout.params;
+        return state.checkoutPage.params;
     });
     const [errors, setErrors] = useState({
         city: [],

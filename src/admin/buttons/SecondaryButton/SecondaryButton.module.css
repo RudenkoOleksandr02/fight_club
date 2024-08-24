@@ -1,0 +1,16 @@
+.button {
+    background: var(--white);
+    color: var(--green);
+    border: 1px solid var(--green);
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    height: 38px;
+    padding: 0 17px;
+    border-radius: 60px;
+    transition: .2s;
+}
+.button:hover {
+    background: var(--green);
+    color: var(--white);
+}

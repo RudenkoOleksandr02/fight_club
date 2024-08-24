@@ -1,0 +1,25 @@
+.wrapper {
+    width: 100%;
+}
+.tr {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40px, auto));
+    grid-auto-rows: minmax(38px, auto);
+    border-bottom: 1px solid #D8DFD9;
+    color: var(--green);
+}
+.wrapper .tr:last-child {
+    border-bottom: none;
+}
+.td {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+.wrapper .tr .td {
+    border-right: 1px solid #D8DFD9;
+}
+.wrapper .tr .td:last-child {
+    border-right: none;
+}
+

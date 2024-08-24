@@ -1,0 +1,22 @@
+.toggleBtn {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-weight: 700;
+    color: var(--green);
+    border: none;
+    background: var(--white);
+    transition: .2s;
+    font-size: 16px;
+}
+.arrow {
+    transition: .2s;
+}
+.arrow.rotated {
+    transform: rotate(-180deg);
+}
+.line {
+    width: 10px;
+    height: 1px;
+    background: var(--green);
+}

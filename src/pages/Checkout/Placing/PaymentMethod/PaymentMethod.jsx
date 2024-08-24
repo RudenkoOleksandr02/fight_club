@@ -1,5 +1,5 @@
 import React from 'react';
-import Die from "../../../../ui/components/Die/Die";
+import Die from "../../../../components/ui/Die/Die";
 
 const PaymentMethod = () => {
     return (

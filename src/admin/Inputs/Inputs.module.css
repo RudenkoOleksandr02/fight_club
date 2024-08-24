@@ -1,0 +1,41 @@
+.inputWrapp {
+    position: relative;
+    margin-top: 10px;
+}
+.inputWrapp input {
+    border-color: var(--green) !important;
+    color: var(--green) !important;
+}
+.inputWrapp textarea {
+    border-color: var(--green) !important;
+    color: var(--green) !important;
+    width: 100%;
+    height: 150px;
+    padding: 8px 20px;
+    overflow: auto;
+    font-size: 16px;
+    resize: none;
+    outline: none;
+}
+.placeholder {
+    position: absolute;
+    background: var(--white);
+    font-size: 14px;
+    padding: 0 5px;
+    top: -10px;
+    left: 15px;
+    color: #BAC8BE;
+}
+
+/* CHECKBOX */
+.wrappCheckbox {
+
+}
+.checkboxInput {
+    display: none;
+}
+.customCheckbox {
+    width: 20px; height: 20px;
+    border: 1px solid var(--green);
+    display: inline-block;
+}
