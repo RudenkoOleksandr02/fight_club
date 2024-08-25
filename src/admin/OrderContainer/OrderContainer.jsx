@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import TopPanel from "../TopPanel/TopPanel";
-import {getOrders, getPromocodeById} from "../../store/adminSlice";
+import {getOrderById, getOrders, getPromocodeById} from "../../store/adminSlice";
 import {useDispatch, useSelector} from "react-redux";
 import BottomPanel from "../BottomPanel/BottomPanel";
 import classes from './OrderContainer.module.css'
@@ -12,8 +12,9 @@ import PopupAdmin from "../PopupAdmin/PopupAdmin";
 import Preloader from "../../components/ui/Preloader/Preloader";
 
 const OrderContainer = ({currentPage, setCurrentPage, setAmount, amount}) => {
-    const {orders, promocode} = useSelector(state => state.admin);
+    const {orders, promocode, orderById} = useSelector(state => state.admin);
     const dispatch = useDispatch();
+
 
     useEffect(() => {
         dispatch(getOrders());
@@ -30,7 +31,8 @@ const OrderContainer = ({currentPage, setCurrentPage, setAmount, amount}) => {
     }, [orderId, dispatch]);
 
     const handleClickEdit = (orderId) => {
-        setOrderId(orderId);
+        /*setOrderId(orderId);*/
+        dispatch(getOrderById(orderId))
         setIsOpenPopupEdit(true);
     }
 
@@ -55,11 +57,13 @@ const OrderContainer = ({currentPage, setCurrentPage, setAmount, amount}) => {
                 ) : (
                     <div className={classes.popupFix}>
                         <PopupAdmin>
-                            <OrderEditContainer
-                                order={orders.data.find(order => order.orderId === orderId)}
-                                handleClose={() => setIsOpenPopupEdit(false)}
-                                promocodes={promocode.data}
-                            />
+                            {orderById.loading ? <Preloader cover={true} color='secondary'/> : (
+                                <OrderEditContainer
+                                    order={orderById.data}
+                                    handleClose={() => setIsOpenPopupEdit(false)}
+                                    promocodes={promocode.data}
+                                />
+                            )}
                         </PopupAdmin>
                     </div>
                 )

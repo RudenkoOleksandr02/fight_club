@@ -205,7 +205,7 @@ const ContentForLeftPanel = ({
         const value = Number(e.target.value);
         if (value <= initialMaxPriceValue && value >= minPriceValue) {
             setMaxPriceValue(value);
-            setMaxPrice(value); // Обновление состояния в ProductsContainer
+            setMaxPrice(value);
         } else if (value > initialMaxPriceValue) {
             setMaxPriceValue(initialMaxPriceValue);
             setMaxPrice(initialMaxPriceValue);
@@ -216,14 +216,14 @@ const ContentForLeftPanel = ({
     };
 
     const minPriceJSX = (
-        <div>
+        <div className={classes.minMaxPrice}>
             <input
                 type='number'
                 value={minPriceValue}
                 onChange={handleChangeMinPrice}
                 min={initialMinPriceValue}
                 max={initialMaxPriceValue}
-            />
+            /><span>-</span>
             <input
                 type='number'
                 value={maxPriceValue}

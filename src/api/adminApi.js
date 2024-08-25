@@ -103,7 +103,7 @@ export const adminApi = {
             .then(response => response.data)
     },
     updateOrderById(orderId, status) {
-        return instance.get(AdminUrls.UpdateStatusOrderById(orderId), status)
+        return instance.put(AdminUrls.UpdateStatusOrderById(orderId), status)
             .then(response => response.data)
     },
 }

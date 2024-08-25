@@ -424,5 +424,5 @@ export const getOrderById = (orderId) => (dispatch) => {
     return dispatch(getOrderByIdLoading(orderId))
 }
 export const updateOrderById = (orderId, status) => (dispatch) => {
-    return dispatch(updateOrderByIdLoading(orderId))
+    return dispatch(updateOrderByIdLoading({orderId, status}))
 }
