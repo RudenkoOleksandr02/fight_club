@@ -1,3 +1,8 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+}
 .inner {
     display: flex;
     flex-direction: column;

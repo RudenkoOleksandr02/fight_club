@@ -77,5 +77,33 @@ export const adminApi = {
     getCategory() {
         return instance.get(AdminUrls.GetCategory)
             .then(response => response.data)
-    }
+    },
+    getCharacteristicSearch(values) {
+      return instance.get(AdminUrls.GetCharacteristicSearch(values))
+          .then(response => response.data)
+    },
+    getCharacteristicValues(values) {
+        return instance.get(AdminUrls.GetCharacteristicValues(values))
+            .then(response => response.data)
+    },
+    getCharacteristicById(characteristicId) {
+        return instance.get(AdminUrls.GetCharacteristicById(characteristicId))
+            .then(response => response.data)
+    },
+    searchCategories(searchTerm) {
+        return instance.get(AdminUrls.SearchCategories(searchTerm))
+            .then(response => response.data)
+    },
+    getAdminFilterPanel() {
+        return instance.get(AdminUrls.GetAdminFilterPanel)
+            .then(response => response.data)
+    },
+    getOrderById(orderId) {
+        return instance.get(AdminUrls.GetOrderById(orderId))
+            .then(response => response.data)
+    },
+    updateOrderById(orderId, status) {
+        return instance.get(AdminUrls.UpdateStatusOrderById(orderId), status)
+            .then(response => response.data)
+    },
 }

@@ -18,6 +18,18 @@ const userApi = {
             .then(response => {
                 return response.data
             })
+    },
+    getUser() {
+        return instance.get(UserUrls.GetUser)
+            .then(response => {
+                return response.data
+            })
+    },
+    updateUser() {
+        return instance.get(UserUrls.UpdateUser)
+            .then(response => {
+                return response.data
+            })
     }
 }
 

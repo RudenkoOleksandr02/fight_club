@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './PopupForProduct.module.css'
 import IcoButton from "../../buttons/IcoButton/IcoButton";
 import {ReactComponent as IcoClose} from './../../images/icoClose.svg'
@@ -16,27 +16,15 @@ import {
     postImagesByProductId,
 } from "../../../store/adminSlice";
 import {useDispatch} from "react-redux";
-import {checkSameObject} from "../../../common/utils/checkSameObject";
+import Characteristics from "./Characteristics";
+import MainCategory from "./MainCategory";
+import AdditionalCategories from "./AdditionalCategories";
 
-const PopupForProduct = ({productData, handleClosePopup, mode = 'edit'}) => {
+const PopupForProduct = ({productData, setProductData, handleClosePopup, handleSaveProduct, mode = 'edit'}) => {
     const dispatch = useDispatch()
-    const initialProductData = {
-        id: productData.id,
-        name: productData.name,
-        nameEng: productData.nameEng,
-        price: productData.price,
-        discount: productData.discount,
-        amount: productData.amount,
-        article: productData.article,
-        description: productData.description,
-        characteristics: productData.characteristics,
-        images: productData.images,
-        mainCategory: productData.mainCategory,
-        additionalCategories: productData.additionalCategories,
-    }
-    const [localProductData, setLocalProductData] = useState(initialProductData);
+
     const handleChangeInput = (key, value) => {
-        setLocalProductData(prevState => ({...prevState, [key]: value}));
+        setProductData(prevState => ({...prevState, [key]: value}));
     }
 
     const [isOpenPopupImportImages, setIsOpenPopupImportImages] = useState(false);
@@ -44,7 +32,7 @@ const PopupForProduct = ({productData, handleClosePopup, mode = 'edit'}) => {
     const [isSuccessImport, setIsSuccessImport] = useState(false);
     const handlePostImages = (files) => {
         if (files.length !== 0) {
-            dispatch(postImagesByProductId(initialProductData.id, files))
+            dispatch(postImagesByProductId(productData.id, files))
                 .then(response => {
                     if (response.meta.requestStatus === 'fulfilled') {
                         setIsSuccessImport(true);
@@ -60,41 +48,39 @@ const PopupForProduct = ({productData, handleClosePopup, mode = 'edit'}) => {
         }
     }
 
-    const [isOpenPopupPutProduct, setIsOpenPopupPutProduct] = useState(false);
-    const handlePutProduct = () => {
-
+    const [isOpenPopupSaveProduct, setIsOpenPopupSaveProduct] = useState(false);
+    const onClickSave = () => {
+        handleSaveProduct(productData, productData)
     }
 
     return (
         <div className={classes.wrapper}>
             <div className={classes.top}>
-                <span className={classes.productId}>№{localProductData.id}</span>
+                <span className={classes.productId}>№{productData.id}</span>
                 <div className={classes.close}>
                     <IcoButton svgIco={<IcoClose/>} onClick={handleClosePopup}/>
                 </div>
             </div>
             <div className={classes.mainInformation}>
-                <InputAdmin onChange={e => handleChangeInput('name', e.target.value)} value={localProductData.name}
+                <InputAdmin onChange={e => handleChangeInput('name', e.target.value)} value={productData.name}
                             type='text' errors={[]} placeholder='Назва товару'/>
                 <InputAdmin onChange={e => handleChangeInput('nameEng', e.target.value)}
-                            value={localProductData.nameEng} type='text' errors={[]} placeholder='Найменування товару'/>
-                <InputAdmin onChange={() => {
-                }} value={localProductData.mainCategory}
-                            type='text' errors={[]} placeholder='Категорія'/>
+                            value={productData.nameEng} type='text' errors={[]} placeholder='Найменування товару'/>
+                <MainCategory productData={productData} setProductData={setProductData}/>
                 <InputAdmin onChange={e => handleChangeInput('article', e.target.value)}
-                            value={localProductData.article} type='text' errors={[]} placeholder='Артикул'/>
+                            value={productData.article} type='text' errors={[]} placeholder='Артикул'/>
             </div>
             <div className={classes.secondaryInformation}>
                 <InputAdmin onChange={e => handleChangeInput('price', e.target.value)}
-                            value={localProductData.price} type='number' errors={[]} placeholder='Ціна'/>
+                            value={productData.price} type='number' errors={[]} placeholder='Ціна'/>
                 <InputAdmin onChange={e => handleChangeInput('discount', e.target.value)}
-                            value={localProductData.discount} type='number' errors={[]}
+                            value={productData.discount} type='number' errors={[]}
                             placeholder='Відсоток акції'/>
                 <InputAdmin onChange={e => handleChangeInput('amount', e.target.value)}
-                            value={localProductData.amount} type='number' errors={[]} placeholder='Залишок'/>
+                            value={productData.amount} type='number' errors={[]} placeholder='Залишок'/>
             </div>
             <div className={classes.descriptionWrapper}>
-                <TextAreaAdmin placeholder='Опис товару' value={localProductData.description}
+                <TextAreaAdmin placeholder='Опис товару' value={productData.description}
                                onChange={e => handleChangeInput('description', e.target.value)}/>
             </div>
             <div className={classes.warehouseWrapper}>
@@ -102,45 +88,8 @@ const PopupForProduct = ({productData, handleClosePopup, mode = 'edit'}) => {
                                onChange={() => {
                                }}/>
             </div>
-            <div className={classes.characteristicsWrapper + ' ' + classes.die}>
-                <span>Характеристики</span>
-                <div className={classes.inner}>
-                    <div className={classes.btns}>
-                        <PrimaryButton>Додати характеристику <IcoPlus/></PrimaryButton>
-                        <PrimaryButton>Додати існуючу <IcoPlus/></PrimaryButton>
-                    </div>
-                    <Table>
-                        {!!localProductData.characteristics ? localProductData.characteristics.map((characteristic, index) => (
-                            <Tr key={index} templateColumns='360px 1fr 44px'>
-                                <Td justifyContent='left'>{characteristic.title}</Td>
-                                <Td justifyContent='left'>{characteristic.desc}</Td>
-                                <Td>
-                                    <IcoButton svgIco={<IcoDelete/>}/>
-                                </Td>
-                            </Tr>
-                        )) : null}
-                    </Table>
-                </div>
-            </div>
-            <div className={classes.additionalCategoriesWrapper + ' ' + classes.die}>
-                <span>Під категорії</span>
-                <div className={classes.inner}>
-                    <div className={classes.btns}>
-                        <PrimaryButton>Додати категорію <IcoPlus/></PrimaryButton>
-                        <PrimaryButton>Додати існуючу <IcoPlus/></PrimaryButton>
-                    </div>
-                    <Table>
-                        {!!localProductData.additionalCategories ? localProductData.additionalCategories.map((category, index) => (
-                            <Tr key={index} templateColumns='1fr 44px'>
-                                <Td justifyContent='left'>{category.name + ` (id:${category.categoryId})`}</Td>
-                                <Td>
-                                    <IcoButton svgIco={<IcoDelete/>}/>
-                                </Td>
-                            </Tr>
-                        )) : null}
-                    </Table>
-                </div>
-            </div>
+            <Characteristics productData={productData} setProductData={setProductData}/>
+            <AdditionalCategories productData={productData} setProductData={setProductData}/>
             {mode === 'edit' ? <div className={classes.imagesWrapper + ' ' + classes.die}>
                 <span>Зображення</span>
                 <div className={classes.inner}>
@@ -148,7 +97,7 @@ const PopupForProduct = ({productData, handleClosePopup, mode = 'edit'}) => {
                         <PrimaryButton handleClick={() => setIsOpenPopupImportImages(true)}>Додати Зображення <IcoPlus/></PrimaryButton>
                     </div>
                     <div className={classes.images}>
-                        {!!localProductData.images ? localProductData.images.map((image, index) => (
+                        {!!productData.images.length ? productData.images.map((image, index) => (
                             <div className={classes.imageContainer} key={index}>
                                 <img src={image} alt='img'/>
                             </div>
@@ -193,14 +142,14 @@ const PopupForProduct = ({productData, handleClosePopup, mode = 'edit'}) => {
             </div>
             <div className={classes.save}>
                 <PrimaryButton
-                    handleClick={() => setIsOpenPopupPutProduct(true)}
-                    disabled={checkSameObject(localProductData, initialProductData)}
+                    handleClick={() => setIsOpenPopupSaveProduct(true)}
+                    disabled={false}
                 >Зберегти зміни</PrimaryButton>
-                {isOpenPopupPutProduct && (
+                {isOpenPopupSaveProduct && (
                     <Popup>
                         <div className={classes.putProduct}>
-                            <PrimaryButton handleClick={handlePutProduct}>Зберегти зміни</PrimaryButton>
-                            <PrimaryButton handleClick={() => setIsOpenPopupPutProduct(false)}>Редагувати
+                            <PrimaryButton handleClick={onClickSave}>Зберегти зміни</PrimaryButton>
+                            <PrimaryButton handleClick={() => setIsOpenPopupSaveProduct(false)}>Редагувати
                                 далі</PrimaryButton>
                         </div>
                     </Popup>

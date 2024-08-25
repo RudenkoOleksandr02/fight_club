@@ -9,16 +9,19 @@ import {checkout, setDeliveryInfo, setUserInfo} from "../../store/checkoutPageSl
 import {clearCart} from "../../store/cartPageSlice";
 import InformationPanel from "../../components/containers/Order/InformationPanel/InformationPanel";
 import TopPanel from "../../components/containers/Order/TopPanel/TopPanel";
+import {getUser} from "../../store/userPageSlice";
 
 const Checkout = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const isAuth = useSelector(state => state.auth.isAuth);
 
     // --popup--
     const [openPopup, setOpenPopup] = useState(false);
     const [orderId, setOrderId] = useState(null);
     const [time, setTime] = useState(30);
     const [email, setEmail] = useState('');
+
     useEffect(() => {
         if (orderId !== null) {
             setOpenPopup(true);
@@ -38,7 +41,7 @@ const Checkout = () => {
             }, 1000);
             return () => clearInterval(intervalId);
         }
-    }, [orderId]);
+    }, [orderId, navigate, dispatch]);
 
     // --productsInCart--
     const productsInCart = useSelector(state => state.cartPage.productsInCart);
@@ -46,12 +49,10 @@ const Checkout = () => {
         if (productsInCart.length === 0) {
             navigate('/');
         }
-    }, [productsInCart.length]);
+    }, [productsInCart.length, navigate]);
 
     // --Checkout--
-    const checkoutData = useSelector(state => {
-        return state.checkoutPage.params;
-    });
+    const checkoutData = useSelector(state => state.checkoutPage.params);
     const [errors, setErrors] = useState({
         city: [],
         department: [],
@@ -59,13 +60,33 @@ const Checkout = () => {
         surname: [],
         phone: [],
         email: []
-    })
+    });
+
+    useEffect(() => {
+        if (isAuth) {
+            dispatch(getUser())
+                .then((response) => {
+                    if (response.meta.requestStatus === 'fulfilled') {
+                        const user = response.payload;
+                        console.log(user)
+                        dispatch(setUserInfo({ key: 'name', value: user.username }));
+                        dispatch(setUserInfo({ key: 'surname', value: user.surname }));
+                        dispatch(setUserInfo({ key: 'phone', value: user.phoneNumber }));
+                        dispatch(setUserInfo({ key: 'email', value: user.email }));
+                    }
+                });
+        }
+    }, [isAuth, dispatch]);
+
+
     const handleSetUserInfo = (value, key) => {
         dispatch(setUserInfo({key, value}));
     };
+
     const handleSetDeliveryInfo = (value, key) => {
         dispatch(setDeliveryInfo({key, value}));
-    }
+    };
+
     const handleCheckoutForGuest = () => {
         dispatch(checkout(checkoutData))
             .then(response => {
@@ -81,10 +102,10 @@ const Checkout = () => {
                         surname: errors["UserInfo.Surname"] || [],
                         phone: errors["UserInfo.Phone"] || [],
                         email: errors["UserInfo.Email"] || []
-                    })
+                    });
                 }
-            })
-    }
+            });
+    };
 
     return (
         <div className={classes.wrapper}>
@@ -92,15 +113,19 @@ const Checkout = () => {
                 <TopPanel/>
             </div>
             <div className={classes.placing}>
-                <Placing userInfo={checkoutData.userInfo} handleSetUserInfo={handleSetUserInfo}
-                         handleSetDeliveryInfo={handleSetDeliveryInfo} errors={errors}/>
+                <Placing
+                    userInfo={checkoutData.userInfo}
+                    handleSetUserInfo={handleSetUserInfo}
+                    handleSetDeliveryInfo={handleSetDeliveryInfo}
+                    errors={errors}
+                />
             </div>
             <div className={classes.informationPanel}>
                 <InformationPanel
                     orderParams={{
                         text: 'Купити',
                         handleClick: () => {
-                            handleCheckoutForGuest()
+                            handleCheckoutForGuest();
                         }
                     }}
                 />
@@ -115,7 +140,7 @@ const Checkout = () => {
                             <SecondaryButton handleClick={() => {
                                 setOpenPopup(false);
                                 setTime(30);
-                                navigate('/category/1')
+                                navigate('/category/1');
                                 dispatch(clearCart());
                             }}>
                                 Продовжити покупки

@@ -87,3 +87,6 @@
     background: var(--orange);
     border: none;
 }
+.selectedOption {
+    cursor: pointer;
+}

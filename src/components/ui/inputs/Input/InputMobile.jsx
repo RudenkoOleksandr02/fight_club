@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from "./Input.module.css";
 import {useMask} from "@react-input/mask";
 
-const InputMobile = ({placeholder = 'Телефон', handleSetPhoneInUserInfo, errors}) => {
+const InputMobile = ({placeholder = 'Телефон', handleSetPhoneInUserInfo, errors, value}) => {
     const [mask, setMask] = useState('');
 
     const inputRef = useMask(
@@ -10,6 +10,7 @@ const InputMobile = ({placeholder = 'Телефон', handleSetPhoneInUserInfo, 
             mask: '+38 (XXX) XXX XX XX',
             replacement: { 'X': /\d/ },
         });
+
     const handleFocus = () => {
         if (mask.length === 0) {
             setMask('+38');

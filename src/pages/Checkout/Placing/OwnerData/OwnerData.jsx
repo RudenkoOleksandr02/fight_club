@@ -19,6 +19,7 @@ const OwnerData = ({userInfo, handleSetUserInfo, errors}) => {
                     placeholder="Телефон*"
                     handleSetPhoneInUserInfo={value => handleSetUserInfo(value, 'phone')}
                     errors={errors.phone}
+                    value={userInfo.phone}
                 />
                 <Input
                     type='text'

@@ -108,13 +108,89 @@ const getCategoryLoading = createAsyncThunk(
         }
     }
 )
+const getCharacteristicSearchLoading = createAsyncThunk(
+    'admin/getCharacteristicSearchLoading',
+    async (values, {rejectWithValue}) => {
+        try {
+            return await adminApi.getCharacteristicSearch(values);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+const getCharacteristicValuesLoading = createAsyncThunk(
+    'admin/getCharacteristicValuesLoading',
+    async (values, {rejectWithValue}) => {
+        try {
+            return await adminApi.getCharacteristicValues(values);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+const getCharacteristicByIdLoading = createAsyncThunk(
+    'admin/getCharacteristicByIdLoading',
+    async (characteristicId, {rejectWithValue}) => {
+        try {
+            return await adminApi.getCharacteristicById(characteristicId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+const searchCategoriesLoading = createAsyncThunk(
+    'admin/searchCategoriesLoading',
+    async (searchTerm, {rejectWithValue}) => {
+        try {
+            return await adminApi.searchCategories(searchTerm);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+const getAdminFilterPanelLoading = createAsyncThunk(
+    'admin/getAdminFilterPanelLoading',
+    async (_, {rejectWithValue}) => {
+        try {
+            return await adminApi.getAdminFilterPanel();
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+const getOrderByIdLoading = createAsyncThunk(
+    'admin/getOrderByIdLoading',
+    async (orderId, {rejectWithValue}) => {
+        try {
+            return await adminApi.getOrderById(orderId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+const updateOrderByIdLoading = createAsyncThunk(
+    'admin/updateOrderByIdLoading',
+    async ({orderId, status}, {rejectWithValue}) => {
+        try {
+            return await adminApi.updateOrderById(orderId, status);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
 const initialState = {
     adminAuth: {...initialObject, data: false},
     orders: initialObject,
     products: initialObject,
     product: initialObject,
     promocode: initialObject,
-    category: initialObject
+    category: initialObject,
+    characteristicsValues: initialObject,
+    characteristicsOptions: initialObject,
+    characteristicById: initialObject,
+    categoriesSearch: initialObject,
+    adminFilterPanel: initialObject,
+    orderById: initialObject
 };
 
 const adminSlice = createSlice({
@@ -123,6 +199,24 @@ const adminSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
+            .addCase(getOrderByIdLoading.pending, (state) => (
+                handlePending(state, 'orderById'))
+            )
+            .addCase(getOrderByIdLoading.fulfilled, (state, action) => (
+                handleFulfilled(state, action, 'orderById'))
+            )
+            .addCase(getOrderByIdLoading.rejected, (state, action) => (
+                handleRejected(state, action, 'orderById'))
+            )
+            .addCase(updateOrderByIdLoading.pending, (state) => (
+                handlePending(state, 'orderById'))
+            )
+            .addCase(updateOrderByIdLoading.fulfilled, (state, action) => {
+                state.orderById.loading = false;
+            })
+            .addCase(updateOrderByIdLoading.rejected, (state, action) => (
+                handleRejected(state, action, 'orderById'))
+            )
             .addCase(getIsAdminAuthLoading.pending, (state) => (
                 handlePending(state, 'adminAuth'))
             )
@@ -206,6 +300,51 @@ const adminSlice = createSlice({
             .addCase(getCategoryLoading.rejected, (state, action) => (
                 handleRejected(state, action, 'category'))
             )
+            .addCase(getCharacteristicSearchLoading.pending, (state) => {
+                handlePending(state, 'characteristicsValues');
+            })
+            .addCase(getCharacteristicSearchLoading.fulfilled, (state, action) => (
+                handleFulfilled(state, action, 'characteristicsValues'))
+            )
+            .addCase(getCharacteristicSearchLoading.rejected, (state, action) => (
+                handleRejected(state, action, 'characteristicsValues'))
+            )
+            .addCase(getCharacteristicValuesLoading.pending, (state) => {
+                handlePending(state, 'characteristicsOptions');
+            })
+            .addCase(getCharacteristicValuesLoading.fulfilled, (state, action) => (
+                handleFulfilled(state, action, 'characteristicsOptions'))
+            )
+            .addCase(getCharacteristicValuesLoading.rejected, (state, action) => (
+                handleRejected(state, action, 'characteristicsOptions'))
+            )
+            .addCase(getCharacteristicByIdLoading.pending, (state) => {
+                handlePending(state, 'characteristicById');
+            })
+            .addCase(getCharacteristicByIdLoading.fulfilled, (state, action) => (
+                handleFulfilled(state, action, 'characteristicById'))
+            )
+            .addCase(getCharacteristicByIdLoading.rejected, (state, action) => (
+                handleRejected(state, action, 'characteristicById'))
+            )
+            .addCase(searchCategoriesLoading.pending, (state) => {
+                handlePending(state, 'categoriesSearch');
+            })
+            .addCase(searchCategoriesLoading.fulfilled, (state, action) => (
+                handleFulfilled(state, action, 'categoriesSearch'))
+            )
+            .addCase(searchCategoriesLoading.rejected, (state, action) => (
+                handleRejected(state, action, 'categoriesSearch'))
+            )
+            .addCase(getAdminFilterPanelLoading.pending, (state) => {
+                handlePending(state, 'adminFilterPanel');
+            })
+            .addCase(getAdminFilterPanelLoading.fulfilled, (state, action) => (
+                handleFulfilled(state, action, 'adminFilterPanel'))
+            )
+            .addCase(getAdminFilterPanelLoading.rejected, (state, action) => (
+                handleRejected(state, action, 'adminFilterPanel'))
+            )
     }
 });
 
@@ -265,4 +404,25 @@ export const toggleIsHit = (productId, boolean) => async (dispatch) => {
 };
 export const getCategory = () => (dispatch) => {
     return dispatch(getCategoryLoading())
+}
+export const getCharacteristicSearch = (values) => (dispatch) => {
+    return dispatch(getCharacteristicSearchLoading(values))
+}
+export const getCharacteristicValues = (values) => (dispatch) => {
+    return dispatch(getCharacteristicValuesLoading(values))
+}
+export const getCharacteristicById = (characteristicId) => (dispatch) => {
+    return dispatch(getCharacteristicByIdLoading(characteristicId))
+}
+export const searchCategories = (searchTerm) => (dispatch) => {
+    return dispatch(searchCategoriesLoading(searchTerm))
+}
+export const getAdminFilterPanel = () => (dispatch) => {
+    return dispatch(getAdminFilterPanelLoading())
+}
+export const getOrderById = (orderId) => (dispatch) => {
+    return dispatch(getOrderByIdLoading(orderId))
+}
+export const updateOrderById = (orderId, status) => (dispatch) => {
+    return dispatch(updateOrderByIdLoading(orderId))
 }

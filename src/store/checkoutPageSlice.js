@@ -1,6 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {shoppingCartOrderApi} from '../api/shoppingCartOrderApi';
-import {clearCart} from './cartPageSlice'
 
 const checkoutLoading = createAsyncThunk(
     'checkout/checkoutLoading',
@@ -114,5 +113,5 @@ export default checkoutPageSlice.reducer;
 
 export const checkout = () => async (dispatch, getState) => {
     const state = getState();
-    return await dispatch(checkoutLoading(state.checkout.params));
+    return await dispatch(checkoutLoading(state.checkoutPage.params));
 };

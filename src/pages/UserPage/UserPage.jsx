@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import SecondaryButton from "../../components/ui/Buttons/SecondaryButton/SecondaryButton";
 import {logout} from "../../store/authSlice";
 import classes from "./UserPage.module.css";
-import {deleteFavorite, getFavorite} from "../../store/userPageSlice";
+import {deleteFavorite, getFavorite, getUser} from "../../store/userPageSlice";
 import Preloader from "../../components/ui/Preloader/Preloader";
 import {ReactComponent as IcoTrash} from './../../assets/images/ico_trash.svg'
 import PrimaryButton from "../../components/ui/Buttons/PrimaryButton/PrimaryButton";
@@ -13,6 +13,7 @@ import {addProduct} from "../../store/cartPageSlice";
 const UserPage = () => {
     const { isAuth, loading } = useSelector((state) => state.auth);
     const {data: favoriteData, loading: favoriteLoading} = useSelector(state => state.userPage.favorite);
+    const {data: userInformation, loading: userLoading} = useSelector(state => state.userPage.userInformation)
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -36,9 +37,11 @@ const UserPage = () => {
             price
         }));
     };
-
-    if (loading) {
-        return <div>Loading...</div>;
+    useEffect(() => {
+        dispatch(getUser())
+    }, [])
+    if (userLoading) {
+        return <Preloader color='secondary' cover={true}/>;
     }
 
     return (
@@ -47,10 +50,10 @@ const UserPage = () => {
                 <div className={classes.myDetails}>
                     <h3>Мої дані</h3>
                     <form className={classes.form}>
-                        <input type='text' placeholder="Ваше ім'я"/>
-                        <input type='text' placeholder="Ваше прізвище"/>
-                        <input type='text' placeholder="Телефон"/>
-                        <input type='email' placeholder="E-mail"/>
+                        <input type='text' placeholder="Ваше ім'я" value={userInformation.username}/>
+                        <input type='text' placeholder="Ваше прізвище" value={userInformation.surname}/>
+                        <input type='text' placeholder="Телефон" value={userInformation.phoneNumber}/>
+                        <input type='email' placeholder="E-mail" value={userInformation.email}/>
                     </form>
                 </div>
                 <div className={classes.purchaseHistory}>

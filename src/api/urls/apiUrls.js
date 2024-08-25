@@ -74,6 +74,12 @@ export const AdminUrls = {
       return `AdminProduct/ToggleIsShown/${productId}`
     },
     GetOrders: 'Orders',
+    GetOrderById(orderId) {
+      return `Orders/${orderId}`
+    },
+    UpdateStatusOrderById(orderId) {
+        return `Orders/${orderId}/status`
+    },
     ImportFromExcel: 'Product/ImportFromExcel',
     GetProductById(productId) {
         return `Product/${productId}`
@@ -87,7 +93,20 @@ export const AdminUrls = {
     PostImagesByProductId(productId) {
         return `Product/${productId}/images`
     },
-    GetCategory: 'Category'
+    GetCategory: 'Category',
+    GetCharacteristicSearch(values) {
+        return `Characteristic/search?name=${values}`
+    },
+    GetCharacteristicValues(values) {
+        return `Characteristic/${values}/values`
+    },
+    GetCharacteristicById(characteristicId) {
+        return `Characteristic/${characteristicId}`
+    },
+    SearchCategories(searchTerm) {
+        return `Category/Search?searchTerm=${searchTerm}`
+    },
+    GetAdminFilterPanel: 'AdminFilterPanel'
 }
 export const UserUrls = {
     GetFavorite: 'Favorite',
@@ -96,7 +115,9 @@ export const UserUrls = {
     },
     DeleteFavorite(productId) {
         return `Favorite/Remove/${productId}`
-    }
+    },
+    GetUser: 'User',
+    UpdateUser: 'User'
 }
 export const bannerApi = {
     getBannerData(data) {
