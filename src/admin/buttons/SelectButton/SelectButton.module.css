@@ -2,7 +2,6 @@
     position: relative;
 }
 .button {
-    padding: 0 17px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -12,19 +11,19 @@
     font-size: 16px;
     font-weight: 500;
     border-radius: 60px;
-    border: 1px solid var(--green);
     background: var(--white);
     transition: .2s;
 }
-.button:hover {
+.button.outlined:hover {
     color: var(--white);
     background: var(--green);
 }
-.button:hover path {
+.button.outlined:hover path {
     stroke: var(--white);
 }
 .arrow {
     transition: .2s;
+    display: flex; align-items: center; justify-content: center;
 }
 .arrow.rotated {
     transform: rotate(-180deg);
@@ -36,6 +35,7 @@
     pointer-events: none;
     transition: .1s;
     margin-top: 5px;
+    z-index: 10;
 }
 .modal.isOpen {
     opacity: 1;
@@ -45,10 +45,13 @@
     background: var(--white);
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.1);
     display: flex;
+    gap: 10px;
+    cursor: pointer;
     flex-direction: column;
     justify-content: center;
     width: 100%;
     padding: 5px 0;
+    font-size: 16px;
 }
 .modal > .content button {
     font-weight: 500;

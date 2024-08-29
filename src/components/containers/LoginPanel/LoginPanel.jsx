@@ -6,7 +6,7 @@ import SecondaryButton from "../../ui/Buttons/SecondaryButton/SecondaryButton";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {login} from "../../../store/authSlice";
-import useScreen from "../../../common/hooks/useScreen/useScreen";
+import useScreen from "../../../common/hooks/useScreen";
 
 const LoginPanel = ({openLoginPanel, setOpenLoginPanel}) => {
     const navigate = useNavigate();

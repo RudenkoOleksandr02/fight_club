@@ -162,6 +162,7 @@ const getOrderByIdLoading = createAsyncThunk(
     'admin/getOrderByIdLoading',
     async (orderId, {rejectWithValue}) => {
         try {
+            await delay(500);
             return await adminApi.getOrderById(orderId);
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -172,6 +173,7 @@ const updateOrderByIdLoading = createAsyncThunk(
     'admin/updateOrderByIdLoading',
     async ({orderId, status}, {rejectWithValue}) => {
         try {
+            await delay(500);
             return await adminApi.updateOrderById(orderId, status);
         } catch (error) {
             return rejectWithValue(error.response.data);

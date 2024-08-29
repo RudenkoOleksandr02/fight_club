@@ -26,16 +26,3 @@
     left: 15px;
     color: #BAC8BE;
 }
-
-/* CHECKBOX */
-.wrappCheckbox {
-
-}
-.checkboxInput {
-    display: none;
-}
-.customCheckbox {
-    width: 20px; height: 20px;
-    border: 1px solid var(--green);
-    display: inline-block;
-}

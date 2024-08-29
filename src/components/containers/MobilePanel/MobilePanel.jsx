@@ -13,7 +13,7 @@ import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
 // --DATA--
-import useScreen from "../../../common/hooks/useScreen/useScreen";
+import useScreen from "../../../common/hooks/useScreen";
 import {getParentCategories} from "../../../common/utils/getParentCategory";
 
 

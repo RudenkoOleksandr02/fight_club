@@ -5,7 +5,7 @@ import TopPanel from "./TopPanel/TopPanel";
 import CardListContainer from "../../components/containers/CardListContainer/CardListContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import useBodyOverflowHidden from "../../common/hooks/useBodyOverflowHidden/useBodyOverflowHidden";
+import useBodyOverflowHidden from "../../common/hooks/useBodyOverflowHidden";
 import {getFilterPanelById, getProductsByFilter} from "../../store/catalogPageSlice";
 import Preloader from "../../components/ui/Preloader/Preloader";
 

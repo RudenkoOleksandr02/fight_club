@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import classes from './ContentForLeftPanel.module.css';
+import classes from './FilterPanel.module.css';
 import {ReactComponent as IcoArrow} from './../../images/icoArrow.svg';
 import {useDispatch} from "react-redux";
 import {getAdminFilterPanel} from "../../../store/adminSlice";
+import Checkbox from "../../../components/ui/inputs/Checkbox/Checkbox";
 
-const ContentForLeftPanel = ({
+const FilterPanel = ({
                                  setCategoryIds,
                                  categoryIds,
                                  setCharacteristicIds,
@@ -152,13 +153,12 @@ const ContentForLeftPanel = ({
                                 <div className={classes.options}>
                                     {characteristic.options.map(option => (
                                         <div key={option.id} className={classes.option}>
-                                            <input
-                                                type='checkbox'
-                                                name='checkbox'
+                                            <Checkbox
                                                 checked={characteristicIds.includes(option.id)}
                                                 onChange={e => handleChangeCharacteristic(e, option.id)}
+                                                style='_'
+                                                text={`${option.option} (${option.productsAmount})`}
                                             />
-                                            <span>{option.option} ({option.productsAmount})</span>
                                         </div>
                                     ))}
                                 </div>
@@ -244,4 +244,4 @@ const ContentForLeftPanel = ({
     );
 };
 
-export default ContentForLeftPanel;
+export default FilterPanel;

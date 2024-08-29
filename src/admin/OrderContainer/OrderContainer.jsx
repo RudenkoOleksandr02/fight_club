@@ -31,7 +31,6 @@ const OrderContainer = ({currentPage, setCurrentPage, setAmount, amount}) => {
     }, [orderId, dispatch]);
 
     const handleClickEdit = (orderId) => {
-        /*setOrderId(orderId);*/
         dispatch(getOrderById(orderId))
         setIsOpenPopupEdit(true);
     }
@@ -52,20 +51,16 @@ const OrderContainer = ({currentPage, setCurrentPage, setAmount, amount}) => {
                 <OrderTable displayedOrders={displayedOrders} handleClickEdit={handleClickEdit}/>
             )}
             {isOpenPopupEdit && (
-                promocode.loading ? (
+                promocode.loading || orderById.loading ? (
                     <Preloader color='secondary' cover={true}/>
                 ) : (
-                    <div className={classes.popupFix}>
-                        <PopupAdmin>
-                            {orderById.loading ? <Preloader cover={true} color='secondary'/> : (
-                                <OrderEditContainer
-                                    order={orderById.data}
-                                    handleClose={() => setIsOpenPopupEdit(false)}
-                                    promocodes={promocode.data}
-                                />
-                            )}
-                        </PopupAdmin>
-                    </div>
+                    <PopupAdmin>
+                        <OrderEditContainer
+                            orderData={orderById.data}
+                            handleClose={() => setIsOpenPopupEdit(false)}
+                            promocodes={promocode.data}
+                        />
+                    </PopupAdmin>
                 )
             )}
             <BottomPanel

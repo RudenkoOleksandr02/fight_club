@@ -18,7 +18,7 @@ import PopupAdmin from "../PopupAdmin/PopupAdmin";
 import Preloader from "../../components/ui/Preloader/Preloader";
 import SelectButton from "../buttons/SelectButton/SelectButton";
 import LeftPanel from "../LeftPanel/LeftPanel";
-import ContentForLeftPanel from "./ContentForLeftPanel/ContentForLeftPanel";
+import FilterPanel from "./FilterPanel/FilterPanel";
 import PopupForProduct from "./PopupForProduct/PopupForProduct";
 import classes from './ProductsContainer.module.css';
 
@@ -308,7 +308,7 @@ const ProductsContainer = ({ currentPage, setCurrentPage, amount, setAmount }) =
                 amountTitle='Кількість показаного товару'
             />
             <LeftPanel isOpen={isOpenLeftPanel}>
-                <ContentForLeftPanel
+                <FilterPanel
                     categoryIds={categoryIds}
                     setCategoryIds={setCategoryIds}
                     adminFilterPanel={adminFilterPanel}

@@ -22,10 +22,14 @@
     align-items: center; justify-content: center;
     background: var(--white);
 }
+.icoBtns {
+    display: flex;
+    gap: 10px;
+}
 
 /* orderEdit */
 .editContainer {
-    width: 550px;
+    width: 1200px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -33,84 +37,51 @@
 .editContainer .close {
     align-self: flex-end;
 }
-.icoBtns {
-    display: flex;
-    gap: 10px;
-}
-.mainInformation {
+.editContainer .firstInformation {
     display: flex;
     justify-content: space-between; align-items: center;
 }
-.mainInformation .orderId {
+.editContainer .firstInformation .orderId {
     font-size: 64px;
     font-weight: 700;
 }
-.userInformation {
+.editContainer .firstInformation .statusAndTime {
     display: flex;
     flex-direction: column;
+    align-items: end;
+    position: relative;
     gap: 10px;
 }
-.promo {
+.editContainer .firstInformation .dateAndTime {
+    display: flex;
+    gap: 23px;
+    justify-content: flex-end;
+}
+.editContainer .secondaryInformation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+}
+.editContainer .secondaryInformation .promo {
     display: grid; gap: 10px;
     grid-template-columns: 1fr 104px;
 }
-
-.priceContainer {
+.editContainer .products {
+    padding: 10px;
+    border: 1px solid var(--green);
+}
+.editContainer .result {
     display: flex;
     flex-direction: column;
     grid-gap: 10px;
 }
-.priceContainer > p {
+.editContainer .result > p {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.totalPriceWithDiscount {
+.editContainer .result .totalPriceWithDiscount {
     font-weight: 600;
-}
-.save {
-    align-self: flex-end;
-}
-.save > button {
-    width: 200px;
-    text-align: center;
-}
-.statusAndTime {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
-.status {
-    font-weight: 600;
-    font-size: 24px;
-    align-self: flex-end;
-    cursor: pointer;
-}
-.dropdown {
-    position: absolute;
-    background: var(--white);
-    z-index: 10;
-    top: 32px; right: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    font-size: 18px;
-    font-weight: 500;
-    padding: 10px;
-    box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.1),
-                0px 22px 22px 0px rgba(0, 0, 0, 0.09),
-                0px 50px 30px 0px rgba(0, 0, 0, 0.05),
-                0px 90px 36px 0px rgba(0, 0, 0, 0.01),
-                0px 140px 39px 0px rgba(0, 0, 0, 0);
-
-}
-.dropdown div {
-    cursor: pointer;
-}
-.dateAndTime {
-    display: flex;
-    gap: 23px;
-    justify-content: flex-end;
 }
 
 

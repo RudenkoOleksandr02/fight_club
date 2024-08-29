@@ -1,0 +1,25 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.wrapper .save {
+    align-self: flex-end;
+}
+.wrapper .save > button {
+    width: 200px;
+    text-align: center;
+}
+.wrapper .popup {
+    width: 175px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.wrapper .popup > button {
+    text-align: center;
+}
+.wrapper .popup > button:last-child {
+    background: var(--orange);
+    border: none;
+}

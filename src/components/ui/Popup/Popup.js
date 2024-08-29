@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Popup.module.css';
-import useBodyOverflowHidden from "../../../common/hooks/useBodyOverflowHidden/useBodyOverflowHidden";
+import useBodyOverflowHidden from "../../../common/hooks/useBodyOverflowHidden";
 
 const Popup = ({children, onClose = () => {}}) => {
     useBodyOverflowHidden(true);

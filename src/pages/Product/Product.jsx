@@ -5,7 +5,7 @@ import ProductMobile from "./ProductMobile/ProductMobile";
 import {useDispatch, useSelector} from "react-redux";
 import {getProductById} from "../../store/productPageSlice";
 import {useParams} from "react-router-dom";
-import useScreen from "../../common/hooks/useScreen/useScreen";
+import useScreen from "../../common/hooks/useScreen";
 import Preloader from "../../components/ui/Preloader/Preloader";
 
 const Product = () => {

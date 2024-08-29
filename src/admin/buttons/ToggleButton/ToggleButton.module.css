@@ -10,13 +10,25 @@
     font-size: 16px;
 }
 .arrow {
-    transition: .2s;
+    display: flex;
+    align-items: center;
+    transition: .1s;
 }
-.arrow.rotated {
-    transform: rotate(-180deg);
-}
-.line {
+.arrow .line {
     width: 10px;
     height: 1px;
     background: var(--green);
+    transition: .1s;
+}
+.arrow .line:last-child {
+    margin-left: -3px;
+}
+.arrow.isShowArrow .line:first-child {
+    transform: rotate(45deg);
+}
+.arrow.isShowArrow .line:last-child {
+    transform: rotate(-45deg);
+}
+.arrow.rotated {
+    transform: rotate(-180deg);
 }

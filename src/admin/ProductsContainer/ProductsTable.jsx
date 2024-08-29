@@ -75,8 +75,7 @@ const ProductsTable = ({handleClickEdit, sortOption, handleSortOption}) => {
 
     return (
         <Table>
-            <Tr templateColumns='40px 1fr 109px 157px 109px 151px 161px'>
-                <Td><input type='checkbox'/></Td>
+            <Tr templateColumns='1fr 109px 157px 109px 151px 161px'>
                 <Td justifyContent='left'>
                     <ToggleButton
                         handleClick={() => handleSortOption('name')}
@@ -125,8 +124,7 @@ const ProductsTable = ({handleClickEdit, sortOption, handleSortOption}) => {
             </Tr>
             {loading ? <Preloader color='primary'/> : (
                 products.products.map(product => (
-                    <Tr key={product.id} templateColumns='40px 1fr 109px 157px 109px 151px 161px'>
-                        <Td><input type='checkbox'/></Td>
+                    <Tr key={product.id} templateColumns='1fr 109px 157px 109px 151px 161px'>
                         <Td justifyContent='left'>{product.name}</Td>
                         <Td>{roundNumber(product.discount)}%</Td>
                         <Td>Категорії</Td>

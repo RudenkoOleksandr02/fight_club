@@ -1,5 +1,5 @@
 import cl from './Modal.module.css';
-import useBodyOverflowHidden from "../../../../../common/hooks/useBodyOverflowHidden/useBodyOverflowHidden";
+import useBodyOverflowHidden from "../../../../../common/hooks/useBodyOverflowHidden";
 
 const Modal = ({active, setActive, children}) => {
     useBodyOverflowHidden(active)

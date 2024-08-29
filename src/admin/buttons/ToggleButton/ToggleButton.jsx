@@ -1,16 +1,18 @@
 import React from 'react';
 import classes from './ToggleButton.module.css';
-import {ReactComponent as IcoArrow} from './../../images/icoArrow.svg'
 
 const ToggleButton = ({text, handleClick, rotated, isShowArrow}) => {
     return (
         <button className={classes.toggleBtn} onClick={handleClick}>
             <span>{text}</span>
-            {isShowArrow ? (<span className={`${classes.arrow} ${rotated ? classes.rotated : ''}`}>
-                <IcoArrow/>
-            </span>) : (
+            <div className={`
+                ${classes.arrow} 
+                ${isShowArrow ? classes.isShowArrow : ''}
+                ${rotated ? classes.rotated : ''}
+            `}>
                 <span className={classes.line}></span>
-            )}
+                <span className={classes.line}></span>
+            </div>
         </button>
     );
 };

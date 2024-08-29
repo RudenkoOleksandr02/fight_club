@@ -2,7 +2,7 @@ import React from 'react';
 import Lottie from 'lottie-react';
 import preloaderAnimation from './preloaderAnimation.json';
 import classes from './Preloader.module.css';
-import useBodyOverflowHidden from "../../../common/hooks/useBodyOverflowHidden/useBodyOverflowHidden";
+import useBodyOverflowHidden from "../../../common/hooks/useBodyOverflowHidden";
 
 const Preloader = ({ color, cover = false, overflowHidden = true }) => {
     const modifiedAnimation = JSON.parse(JSON.stringify(preloaderAnimation));

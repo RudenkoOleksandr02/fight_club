@@ -14,18 +14,16 @@ import IcoButton from "../buttons/IcoButton/IcoButton";
 const OrderTable = ({displayedOrders, handleClickEdit}) => {
     return (
         <Table>
-            <Tr templateColumns='40px 1fr 120px 251px 109px 151px 131px'>
-                <Td><input type='checkbox'/></Td>
+            <Tr templateColumns='1fr 120px 251px 109px 170px 131px'>
                 <Td justifyContent='left'>Номер</Td>
                 <Td>Дата</Td>
                 <Td>Адреса</Td>
                 <Td>Ціна</Td>
                 <Td>Статус</Td>
-                <Td>Дії</Td>
+                <Td fontWeight='700'>Дії</Td>
             </Tr>
             {displayedOrders.map(order => (
-                <Tr key={order.orderId} templateColumns='40px 1fr 120px 251px 109px 151px 131px'>
-                    <Td><input type='checkbox'/></Td>
+                <Tr key={order.orderId} templateColumns='1fr 120px 251px 109px 170px 131px'>
                     <Td justifyContent='left'>
                         <div className={classes.orderIdAndPhone}>
                             <span>{order.orderId}</span>
