@@ -1,0 +1,36 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.wrapper .button {
+    background: var(--white);
+    border: none;
+    color: var(--black);
+    width: 100%;
+    margin-bottom: 10px;
+}
+.wrapper.modificationColor .button {
+    color: var(--green);
+}
+.wrapper.modificationColor .arrow svg path {
+    stroke: var(--green);
+}
+.wrapper .contentBtn {
+    display: flex; justify-content: space-between; align-items: center;
+}
+.wrapper .contentBtn .arrow {
+    display: flex; align-items: center; justify-content: center;
+    transition: .2s;
+}
+.wrapper .contentBtn .arrow.isOpen {
+    transform: rotate(-180deg);
+}
+.wrapper .dropdown {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+.dropdownAnimationEnterActive,
+.dropdownAnimationExitActive {
+    transition: height 200ms ease;
+}

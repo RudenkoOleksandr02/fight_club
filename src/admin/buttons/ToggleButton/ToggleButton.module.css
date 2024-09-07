@@ -12,13 +12,13 @@
 .arrow {
     display: flex;
     align-items: center;
-    transition: .1s;
+    transition: .2s;
 }
 .arrow .line {
     width: 10px;
     height: 1px;
     background: var(--green);
-    transition: .1s;
+    transition: .2s;
 }
 .arrow .line:last-child {
     margin-left: -3px;

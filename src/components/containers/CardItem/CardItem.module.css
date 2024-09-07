@@ -21,7 +21,7 @@
 .image > a {
     display: block;
 }
-.image img {
+.image img, .image svg {
     width: 100%;
     height: 100%;
     object-fit: cover;

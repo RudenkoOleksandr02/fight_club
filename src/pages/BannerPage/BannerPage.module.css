@@ -1,0 +1,98 @@
+.wrapper {
+    margin-top: 60px;
+}
+.main {
+    display: grid;
+    grid-template-areas:
+        'filterPanel'
+        'paginationPanel'
+        'cardList';
+    grid-gap: 10px;
+    grid-auto-rows: auto 1fr;
+    margin-top: 10px;
+}
+.main > div:nth-child(1) {
+    grid-area: filterPanel;
+}
+.main > div:nth-child(2) {
+    grid-area: paginationPanel;
+}
+.main > div:nth-child(3) {
+    grid-area: cardList;
+}
+@media (min-width: 1000px) {
+    .main {
+        grid-template-areas:
+            'filterPanel paginationPanel'
+            'filterPanel cardList';
+        grid-template-columns: 348px auto;
+    }
+}
+@media (max-width: 999px) {
+    .main {
+        grid-template-areas:
+            'paginationPanel'
+            'cardList';
+    }
+}
+
+/* --FILTER MOBILE-- */
+
+@media (max-width: 999px) {
+    .filterPanel {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        z-index: 150;
+        opacity: 0;
+        pointer-events: none;
+        transition: .3s;
+    }
+    .filterPanel.visible {
+        opacity: 1;
+        pointer-events: all;
+    }
+}
+
+.bannerContainer {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+    background: var(--white);
+    margin-bottom: 10px;
+}
+.imageWrapper {
+    height: 370px;
+    position: relative;
+}
+.imageWrapper img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.description {
+    font-family: "Caveat", cursive;
+}
+@media (max-width: 767px) {
+    .description {
+        font-size: 18px;
+        line-height: 22px;
+    }
+}
+@media (min-width: 768px) and (max-width: 999px) {
+    .description {
+        font-size: 24px;
+        line-height: 24px;
+    }
+}
+@media (min-width: 1000px) {
+    .description {
+        font-size: 32px;
+        line-height: 32px;
+    }
+}
+
+.absence {
+    margin-top: 10px;
+}

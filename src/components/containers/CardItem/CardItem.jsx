@@ -3,9 +3,10 @@ import PrimaryButton from "../../ui/Buttons/PrimaryButton/PrimaryButton";
 import classes from './CardItem.module.css'
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {addProduct} from "../../../store/cartPageSlice";
+import {addProduct} from "../../../store/pageSlices/cartPageSlice";
 import {roundNumber} from "../../../common/utils/roundNumber";
 import {priceWithDiscount} from "../../../common/utils/priceWithDiscount";
+import {ReactComponent as IcoAbsence} from "./../../../assets/images/ico_absence.svg";
 
 const CardItem = ({
                       id,
@@ -30,11 +31,16 @@ const CardItem = ({
             price
         }));
     };
+
     return (
         <div className={`${classes.wrapper} ${extraClass}`}>
             <div className={classes.image}>
                 <Link to={path}>
-                    <img src={src} alt='card-image'/>
+                    {src ? (
+                        <img src={src} alt='card-image'/>
+                    ) : (
+                        <IcoAbsence/>
+                    )}
                 </Link>
             </div>
             <div className={classes.inner}>

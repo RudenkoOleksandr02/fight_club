@@ -7,8 +7,8 @@ import EcoFriendlyPackaging from "./EcoFriendlyPackaging/EcoFriendlyPackaging";
 import SummaryOrder from "./SummaryOrder/SummaryOrder";
 import CallMe from "./CallMe/CallMe";
 import BuyBlock from "./BuyBlock/BuyBlock";
-import {setAdditionalInfo} from "../../../../store/checkoutPageSlice";
-import {selectTotalPrice} from "../../../../store/cartPageSlice";
+import {setAdditionalInfo} from "../../../../store/pageSlices/checkoutPageSlice";
+import {selectTotalPrice} from "../../../../store/pageSlices/cartPageSlice";
 
 const InformationPanel = ({orderParams}) => {
     const totalPrice = useSelector(selectTotalPrice);

@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import classes from './Pagination.module.css';
 import { ReactComponent as IcoArrow } from '../../../assets/images/arrows/ico_arrow3.svg';
 
 const Pagination = ({ currentPage, amount, totalCount, onPageChange }) => {
     const totalPages = Math.ceil(totalCount / amount);
 
-    const handleClick = (page) => {
-        onPageChange(page);
-    };
+    useEffect(() => {
+        if (currentPage !== 1) {
+            onPageChange(1);
+        }
+    }, [amount, totalCount]);
 
     const renderPageNumbers = () => {
         let showPages = [];
@@ -17,7 +19,7 @@ const Pagination = ({ currentPage, amount, totalCount, onPageChange }) => {
                 showPages.push(
                     <button
                         key={i}
-                        onClick={() => handleClick(i)}
+                        onClick={() => onPageChange(i)}
                         disabled={currentPage === i}
                         className={i === currentPage ? `${classes.page} ${classes.active}` : classes.page}
                     >
@@ -30,7 +32,7 @@ const Pagination = ({ currentPage, amount, totalCount, onPageChange }) => {
                 showPages.push(
                     <button
                         key={i}
-                        onClick={() => handleClick(i)}
+                        onClick={() => onPageChange(i)}
                         disabled={currentPage === i}
                         className={i === currentPage ? `${classes.page} ${classes.active}` : classes.page}
                     >
@@ -44,7 +46,7 @@ const Pagination = ({ currentPage, amount, totalCount, onPageChange }) => {
             showPages.push(
                 <button
                     key={totalPages}
-                    onClick={() => handleClick(totalPages)}
+                    onClick={() => onPageChange(totalPages)}
                     disabled={currentPage === totalPages}
                     className={totalPages === currentPage ? `${classes.page} ${classes.active}` : classes.page}
                 >
@@ -55,7 +57,7 @@ const Pagination = ({ currentPage, amount, totalCount, onPageChange }) => {
             showPages.push(
                 <button
                     key={1}
-                    onClick={() => handleClick(1)}
+                    onClick={() => onPageChange(1)}
                     disabled={currentPage === 1}
                     className={1 === currentPage ? `${classes.page} ${classes.active}` : classes.page}
                 >
@@ -70,7 +72,7 @@ const Pagination = ({ currentPage, amount, totalCount, onPageChange }) => {
                 showPages.push(
                     <button
                         key={i}
-                        onClick={() => handleClick(i)}
+                        onClick={() => onPageChange(i)}
                         disabled={currentPage === i}
                         className={i === currentPage ? `${classes.page} ${classes.active}` : classes.page}
                     >
@@ -85,7 +87,7 @@ const Pagination = ({ currentPage, amount, totalCount, onPageChange }) => {
             showPages.push(
                 <button
                     key={totalPages}
-                    onClick={() => handleClick(totalPages)}
+                    onClick={() => onPageChange(totalPages)}
                     disabled={currentPage === totalPages}
                     className={totalPages === currentPage ? `${classes.page} ${classes.active}` : classes.page}
                 >
@@ -96,7 +98,7 @@ const Pagination = ({ currentPage, amount, totalCount, onPageChange }) => {
             showPages.push(
                 <button
                     key={1}
-                    onClick={() => handleClick(1)}
+                    onClick={() => onPageChange(1)}
                     disabled={currentPage === 1}
                     className={1 === currentPage ? `${classes.page} ${classes.active}` : classes.page}
                 >
@@ -111,7 +113,7 @@ const Pagination = ({ currentPage, amount, totalCount, onPageChange }) => {
                 showPages.push(
                     <button
                         key={i}
-                        onClick={() => handleClick(i)}
+                        onClick={() => onPageChange(i)}
                         disabled={currentPage === i}
                         className={i === currentPage ? `${classes.page} ${classes.active}` : classes.page}
                     >
@@ -127,7 +129,7 @@ const Pagination = ({ currentPage, amount, totalCount, onPageChange }) => {
     return (
         <div className="pagination">
             <button
-                onClick={() => handleClick(currentPage - 1)}
+                onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
                 className={classes.prev}
             >
@@ -135,7 +137,7 @@ const Pagination = ({ currentPage, amount, totalCount, onPageChange }) => {
             </button>
             {renderPageNumbers()}
             <button
-                onClick={() => handleClick(currentPage + 1)}
+                onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
                 className={classes.next}
             >

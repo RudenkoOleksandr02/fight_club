@@ -62,6 +62,7 @@ export const PromocodesUrls = {
     }
 }
 export const AdminUrls = {
+    // PRODUCTS
     GetAdminAuth: 'Account/GetAdminAuth',
     GetProductsByAdminFilter: 'AdminProduct/GetProductsByAdminFilter',
     ToggleIsNew(productId) {
@@ -73,13 +74,6 @@ export const AdminUrls = {
     ToggleIsShow(productId) {
       return `AdminProduct/ToggleIsShown/${productId}`
     },
-    GetOrders: 'Orders',
-    GetOrderById(orderId) {
-      return `Orders/${orderId}`
-    },
-    UpdateStatusOrderById(orderId) {
-        return `Orders/${orderId}/status`
-    },
     ImportFromExcel: 'Product/ImportFromExcel',
     GetProductById(productId) {
         return `Product/${productId}`
@@ -87,18 +81,18 @@ export const AdminUrls = {
     PutProductById(productId) {
         return `Product/${productId}`
     },
-    GetPromocodesById(promoId) {
-        return `Promocodes/${promoId}`
-    },
     PostImagesByProductId(productId) {
         return `Product/${productId}/images`
     },
-    GetCategory: 'Category',
-    GetCharacteristicSearch(values) {
-        return `Characteristic/search?name=${values}`
+    RemoveImagesByProductId(productId) {
+        return `Product/RemoveImage/${productId}`
     },
-    GetCharacteristicValues(values) {
-        return `Characteristic/${values}/values`
+    GetCategory: 'Category',
+    GetCharacteristicSearch(searchTerm) {
+        return `Characteristic/search?name=${searchTerm}`
+    },
+    GetCharacteristicValues(characteristicTitle) {
+        return `Characteristic/${characteristicTitle}/values`
     },
     GetCharacteristicById(characteristicId) {
         return `Characteristic/${characteristicId}`
@@ -106,7 +100,43 @@ export const AdminUrls = {
     SearchCategories(searchTerm) {
         return `Category/Search?searchTerm=${searchTerm}`
     },
-    GetAdminFilterPanel: 'AdminFilterPanel'
+    GetAdminFilterPanel: 'AdminFilterPanel',
+
+    // PROMOCODE
+    GetPromocodesById(promoId) {
+        return `Promocodes/${promoId}`
+    },
+
+    // ORDERS
+    GetOrders: 'Orders',
+    GetOrderById(orderId) {
+        return `Orders/${orderId}`
+    },
+    UpdateStatusOrderById(orderId) {
+        return `Orders/${orderId}/status`
+    },
+    GetAdminOrderFilterPanel: 'AdminOrderFilter/GetAdminOrderFilterPanel',
+    GetOrdersByAdminFilter: 'AdminOrderFilter/GetOrdersByAdminFilter',
+
+    // BLOGS
+    GetBlogs: 'Blogs',
+    GetBlogById(blogId) {
+        return `Blogs/${blogId}`
+    },
+    UpdateBlogById(blogId) {
+        return `Blogs/${blogId}`
+    },
+    AddBlog: 'Blogs',
+
+    // BANNER
+    GetBanners: 'Banners',
+    GetBannerById(bannerId) {
+        return `Banners/${bannerId}`;
+    },
+    UpdateBannerById(bannerId) {
+        return `Banners/${bannerId}`
+    },
+    AddBanner: 'Banners'
 }
 export const UserUrls = {
     GetFavorite: 'Favorite',
@@ -119,8 +149,20 @@ export const UserUrls = {
     GetUser: 'User',
     UpdateUser: 'User'
 }
-export const bannerApi = {
-    getBannerData(data) {
-
+export const BlogUrls = {
+    GetBlogs: 'Blogs',
+    GetBlogById(blogId) {
+        return `Blogs/${blogId}`
     }
 }
+export const BannerUrls = {
+    GetBanners: 'Banners',
+    GetBannerById(bannerId) {
+        return `Banners/${bannerId}`
+    },
+    GetProductsByBannerFilter: 'Banners/GetProductsByBannerFilter',
+    GetFilterPanelBannerById(bannerId) {
+        return `FilterPanel/Banner/${bannerId}`
+    }
+}
+

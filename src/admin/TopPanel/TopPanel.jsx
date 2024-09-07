@@ -10,7 +10,9 @@ const TopPanel = ({children, setCurrentPage, currentPage, amount, totalCount}) =
             <div className={classes.inner}>
                 {children}
             </div>
-            <Pagination currentPage={currentPage} amount={amount} totalCount={totalCount} onPageChange={handlePageChange}/>
+            <div className={classes.pagination}>
+                <Pagination currentPage={currentPage} amount={amount} totalCount={totalCount} onPageChange={handlePageChange}/>
+            </div>
         </div>
     );
 };

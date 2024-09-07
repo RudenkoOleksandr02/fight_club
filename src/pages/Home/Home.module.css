@@ -8,6 +8,9 @@
         }
     }
 }
+.main {
+    margin-top: 60px;
+}
 .inner {
     min-height: 1500px;
 }

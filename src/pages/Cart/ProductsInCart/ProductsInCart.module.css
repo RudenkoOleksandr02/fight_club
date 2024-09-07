@@ -14,19 +14,22 @@
     display: flex;
     align-items: center;
 }
-.productInCart .inner > p {
+.productInCart .inner .name {
     font-size: 18px;
     margin: 0 20px;
     cursor: pointer;
     transition: .2s;
 }
-.productInCart .inner > p:hover {
+.productInCart .inner .name:hover {
     color: var(--green);
 }
-.productInCart .image {
+.productInCart .inner .imageContainer {
     width: 114px; height: 114px;
-    object-fit: cover;
     cursor: pointer;
+}
+.productInCart .inner .imageContainer img, .productInCart .inner .imageContainer svg {
+    object-fit: cover;
+    width: 100%; height: 100%;
 }
 
 

@@ -1,16 +1,27 @@
 .wrapper {
     position: fixed;
     left: 0; top: 0;
+    transform: translateX(-300px);
+    transition: .2s;
     width: 300px;
     height: 100%;
     z-index: 50;
     background: var(--white);
-    opacity: 0;
     pointer-events: none;
     padding: 25px;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 .wrapper.isOpen {
     pointer-events: all;
-    opacity: 1;
+    transform: translateX(0);
+}
+.wrapper .close {
+    align-self: flex-end;
+}
+.wrapper .content {
+    border-top: 1px solid var(--lightGreen);
+    padding-top: 10px;
 }

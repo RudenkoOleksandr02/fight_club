@@ -1,0 +1,35 @@
+.wrapper input, .wrapper textarea {
+    width: 100%;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    color: var(--green);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+}
+.wrapper textarea {
+    height: 80px;
+    resize: none;
+}
+.inner {
+    width: 100%;
+    display: flex;
+    align-items: center;justify-content: space-between;
+}
+.inner span {
+    width: 50%;
+}
+.inner span:last-child {
+    font-size: 14px;
+    opacity: 70%;
+}
+.count {
+    color: #D3C900 !important;
+}
+.count.good {
+    color: var(--green) !important;
+}
+.count.bad {
+    color: #C13E3E !important;
+}

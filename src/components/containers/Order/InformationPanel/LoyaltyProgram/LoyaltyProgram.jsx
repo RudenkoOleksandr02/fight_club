@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from "./LoyaltyProgram.module.css";
-import Die from "../../../../ui/Die/Die";
+import DieBlock from "../../../../ui/blocks/DieBlock/DieBlock";
 
 const loyaltyProgram = [
     {id: 1, content: 'Промокод на знижку 7%'},
@@ -11,13 +11,13 @@ const loyaltyProgram = [
 
 const LoyaltyProgram = () => {
     return (
-        <Die title='Програма лояльності'>
+        <DieBlock title='Програма лояльності'>
             {loyaltyProgram.map(item => {
                 return <div className={classes.item} key={item.id}>
                     {item.content}
                 </div>
             })}
-        </Die>
+        </DieBlock>
     );
 };
 

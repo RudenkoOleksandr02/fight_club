@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import classes from './CategoryTree.module.css';
-import {getPopularProductsByCategory} from '../../../../store/homePageSlice';
+import {getPopularProductsByCategory} from '../../../../store/pageSlices/homePageSlice';
 import PopularProducts from "./PopularProducts/PopularProducts";
 import SubcategoriesWithButton from "./SubcategoriesWithButton/SubcategoriesWithButton";
 import UnderSubcategory from "./UnderSubcategory/UnderSubcategory";

@@ -1,0 +1,67 @@
+.wrapper {
+    height: 100%;
+    width: 740px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.top {
+    display: flex;
+    justify-content: space-between; align-items: center;
+}
+.productId {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--green);
+}
+.mainInformation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 10px;
+    width: 100%;
+}
+.secondaryInformation {
+    display: flex;
+    gap: 10px;
+}
+.secondaryInformation > * {
+    flex-grow: 1;
+}
+.del, .close {
+    border: none;
+    background: var(--white);
+    display: flex; align-items: center; justify-content: center;
+}
+
+.seo input {
+    width: 100%;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--green);
+    border: none;
+    outline: none;
+}
+.save {
+    width: 200px;
+    align-self: flex-end;
+}
+.save > button {
+    text-align: center;
+}
+.putProduct {
+    width: 175px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.putProduct > button {
+    text-align: center;
+}
+.putProduct > button:last-child {
+    background: var(--orange);
+    border: none;
+}
+.selectedOption {
+    cursor: pointer;
+}

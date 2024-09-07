@@ -1,0 +1,55 @@
+.bannerContainer {
+    background: var(--white);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.imageWrapper {
+    position: relative;
+}
+.imageWrapper img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.text {
+    font-family: "Caveat", cursive;
+}
+
+@media (max-width: 767px) {
+    .text {
+        font-size: 18px;
+        line-height: 22px;
+    }
+    .imageWrapper {
+        height: 342px;
+    }
+}
+@media (min-width: 768px) and (max-width: 999px) {
+    .text {
+        font-size: 24px;
+        line-height: 24px;
+    }
+    .imageWrapper {
+        height: 368px;
+    }
+}
+@media (min-width: 1000px) and (max-width: 1359px) {
+    .text {
+        font-size: 32px;
+        line-height: 32px;
+    }
+    .imageWrapper {
+        height: 349px;
+    }
+}
+@media (min-width: 1360px) {
+    .text {
+        font-size: 32px;
+        line-height: 32px;
+    }
+    .imageWrapper {
+        height: 467px;
+    }
+}

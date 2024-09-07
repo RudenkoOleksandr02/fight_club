@@ -1,0 +1,28 @@
+.wrapper {
+    margin-top: 60px;
+}
+.blogList {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+}
+/*@media (min-width: 1360px) {
+    .blogList {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media (min-width: 1000px) and (max-width: 1359px) {
+    .blogList {
+
+    }
+}
+@media (min-width: 768px) and (max-width: 999px) {
+    .blogList {
+
+    }
+}*/
+@media (max-width: 767px) {
+    .blogList {
+        grid-template-columns: 1fr;
+    }
+}

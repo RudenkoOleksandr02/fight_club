@@ -4,11 +4,11 @@ import {useNavigate} from "react-router-dom";
 import SecondaryButton from "../../components/ui/Buttons/SecondaryButton/SecondaryButton";
 import {logout} from "../../store/authSlice";
 import classes from "./UserPage.module.css";
-import {deleteFavorite, getFavorite, getUser} from "../../store/userPageSlice";
+import {deleteFavorite, getFavorite, getUser} from "../../store/pageSlices/userPageSlice";
 import Preloader from "../../components/ui/Preloader/Preloader";
 import {ReactComponent as IcoTrash} from './../../assets/images/ico_trash.svg'
 import PrimaryButton from "../../components/ui/Buttons/PrimaryButton/PrimaryButton";
-import {addProduct} from "../../store/cartPageSlice";
+import {addProduct} from "../../store/pageSlices/cartPageSlice";
 
 const UserPage = () => {
     const { isAuth, loading } = useSelector((state) => state.auth);

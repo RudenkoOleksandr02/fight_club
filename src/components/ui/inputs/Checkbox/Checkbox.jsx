@@ -19,20 +19,21 @@ const Checkbox = ({
                 checked={checked}
                 className={classes.checkboxInput}
                 id={uniqueId}
+                onClick={(e) => e.stopPropagation()}
             />
-            <div className={classes.wrapper}>
+            <div className={classes.wrapper} onClick={(e) => e.stopPropagation()}>
                 <label className={`
                     ${classes.customCheckbox} 
                     ${style === 'primary' ? classes.primary : ''}
                     ${disabled ? classes.disabled : ''}
-                `} htmlFor={uniqueId}>
+                `} htmlFor={uniqueId} onClick={(e) => e.stopPropagation()}>
                     {checked ? <IcoCheck/> : null}
                 </label>
                 {!!text ? <label className={`
                     ${classes.text} 
                     ${style === 'primary' ? classes.primary : ''}
                     ${disabled ? classes.disabled : ''}
-                `} htmlFor={uniqueId}>{text}</label> : null}
+                `} htmlFor={uniqueId} onClick={(e) => e.stopPropagation()}>{text}</label> : null}
             </div>
         </>
     );

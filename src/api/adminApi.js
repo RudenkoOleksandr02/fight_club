@@ -5,10 +5,6 @@ export const adminApi = {
         return instance.get(AdminUrls.GetAdminAuth)
             .then(response => response.data)
     },
-    getOrders() {
-        return instance.get(AdminUrls.GetOrders)
-            .then(response => response.data)
-    },
     getProductsByAdminFilter(params) {
         return instance.post(AdminUrls.GetProductsByAdminFilter, params)
             .then(response => response.data)
@@ -50,10 +46,6 @@ export const adminApi = {
         return instance.put(AdminUrls.PutProductById(productId), params)
             .then(response => response.data)
     },
-    getPromocodesById(promoId) {
-        return instance.get(AdminUrls.GetPromocodesById(promoId))
-            .then(response => response.data)
-    },
     postImagesByProductId(productId, files) {
         const formData = new FormData();
 
@@ -74,16 +66,16 @@ export const adminApi = {
                 throw error;
             });
     },
-    getCategory() {
-        return instance.get(AdminUrls.GetCategory)
+    removeImagesByProductId(productId, url) {
+        return instance.post(AdminUrls.RemoveImagesByProductId(productId), url)
             .then(response => response.data)
     },
-    getCharacteristicSearch(values) {
-      return instance.get(AdminUrls.GetCharacteristicSearch(values))
-          .then(response => response.data)
+    getCharacteristicSearch(searchTerm) {
+        return instance.get(AdminUrls.GetCharacteristicSearch(searchTerm))
+            .then(response => response.data)
     },
-    getCharacteristicValues(values) {
-        return instance.get(AdminUrls.GetCharacteristicValues(values))
+    getCharacteristicValues(characteristicTitle) {
+        return instance.get(AdminUrls.GetCharacteristicValues(characteristicTitle))
             .then(response => response.data)
     },
     getCharacteristicById(characteristicId) {
@@ -98,12 +90,165 @@ export const adminApi = {
         return instance.get(AdminUrls.GetAdminFilterPanel)
             .then(response => response.data)
     },
+
+    // PROMOCODE
+    getPromocodesById(promoId) {
+        return instance.get(AdminUrls.GetPromocodesById(promoId))
+            .then(response => {
+                return response.data
+            })
+    },
+
+    // ORDERS
+    getOrders() {
+        return instance.get(AdminUrls.GetOrders)
+            .then(response => response.data)
+    },
     getOrderById(orderId) {
         return instance.get(AdminUrls.GetOrderById(orderId))
             .then(response => response.data)
     },
-    updateOrderById(orderId, status) {
-        return instance.put(AdminUrls.UpdateStatusOrderById(orderId), status)
+    updateOrderById(orderId, params) {
+        return instance.put(AdminUrls.UpdateStatusOrderById(orderId), params)
             .then(response => response.data)
     },
+    getAdminOrderFilterPanel() {
+        return instance.get(AdminUrls.GetAdminOrderFilterPanel)
+            .then(response => response.data)
+    },
+    getOrdersByAdminFilterPanel(params) {
+        return instance.post(AdminUrls.GetOrdersByAdminFilter, params)
+            .then(response => response.data)
+    },
+
+    // SEARCH PRODUCTS
+    getProductsBySearch(searchTerm) {
+        return instance.post(AdminUrls.GetProductsByAdminFilter, {start: 0, amount: 40, searchTerm: searchTerm})
+            .then(response => response.data)
+    },
+
+    // BLOGS
+    getBlogs() {
+        return instance.get(AdminUrls.GetBlogs)
+            .then(response => response.data)
+    },
+    getBlogById(blogId) {
+        return instance.get(AdminUrls.GetBlogById(blogId))
+            .then(response => response.data)
+    },
+    updateBlogById(blogId, params) {
+        const formData = new FormData();
+
+        if (params.title) formData.append('Title', params.title);
+        if (params.description) formData.append('Description', params.description);
+        if (params.metaKeywords) formData.append('MetaKeywords', params.metaKeywords);
+        if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
+        if (params.desktopImage) formData.append('DesktopImage', params.desktopImage);
+        if (params.laptopImage) formData.append('LaptopImage', params.laptopImage);
+        if (params.tabletImage) formData.append('TabletImage', params.tabletImage);
+        if (params.phoneImage) formData.append('PhoneImage', params.phoneImage);
+        if (params.desktopAltText) formData.append('DesktopAltText', params.desktopAltText);
+        if (params.laptopAltText) formData.append('LaptopAltText', params.laptopAltText);
+        if (params.tabletAltText) formData.append('TabletAltText', params.tabletAltText);
+        if (params.phoneAltText) formData.append('PhoneAltText', params.phoneAltText);
+        if (params.productIds && params.productIds.length > 0) {
+            params.productIds.forEach(id => formData.append('ProductIds', id));
+        }
+
+        return instance.put(AdminUrls.UpdateBlogById(blogId), formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then(response => response.data)
+    },
+    addBlog(params) {
+        const formData = new FormData();
+
+        if (params.title) formData.append('Title', params.title);
+        if (params.description) formData.append('Description', params.description);
+        if (params.metaKeywords) formData.append('MetaKeywords', params.metaKeywords);
+        if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
+        if (params.desktopImageUrl) formData.append('DesktopImage', params.desktopImageUrl);
+        if (params.laptopImageUrl) formData.append('LaptopImage', params.laptopImageUrl);
+        if (params.tabletImageUrl) formData.append('TabletImage', params.tabletImageUrl);
+        if (params.phoneImageUrl) formData.append('PhoneImage', params.phoneImageUrl);
+        formData.append('DesktopAltText', "test");
+        formData.append('LaptopAltText', "test");
+        formData.append('TabletAltText', "test");
+        formData.append('PhoneAltText', "test");
+        if (params.productIds && params.productIds.length > 0) {
+            params.productIds.forEach(id => formData.append('ProductIds', id));
+        }
+        console.log(params)
+
+        return instance.post(AdminUrls.AddBlog, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then(response => response.data)
+    },
+
+    // BANNER
+    getBanners() {
+        return instance.get(AdminUrls.GetBanners)
+            .then(response => response.data)
+    },
+    getBannerById(bannerId) {
+        return instance.get(AdminUrls.GetBannerById(bannerId))
+            .then(response => response.data)
+    },
+    updateBannerById(bannerId, params) {
+        const formData = new FormData();
+
+        if (params.title) formData.append('Title', params.title);
+        if (params.description) formData.append('Description', params.description);
+        if (params.metaKeywords) formData.append('MetaKeywords', params.metaKeywords);
+        if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
+        if (params.desktopImage) formData.append('DesktopImage', params.desktopImage);
+        if (params.laptopImage) formData.append('LaptopImage', params.laptopImage);
+        if (params.tabletImage) formData.append('TabletImage', params.tabletImage);
+        if (params.phoneImage) formData.append('PhoneImage', params.phoneImage);
+        if (params.desktopAltText) formData.append('DesktopAltText', params.desktopAltText);
+        if (params.laptopAltText) formData.append('LaptopAltText', params.laptopAltText);
+        if (params.tabletAltText) formData.append('TabletAltText', params.tabletAltText);
+        if (params.phoneAltText) formData.append('PhoneAltText', params.phoneAltText);
+        if (params.productIds && params.productIds.length > 0) {
+            params.productIds.forEach(id => formData.append('ProductIds', id));
+        }
+
+        return instance.put(AdminUrls.UpdateBannerById(bannerId), formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then(response => response.data)
+    },
+    addBanner(params) {
+        const formData = new FormData();
+
+        if (params.title) formData.append('Title', params.title);
+        if (params.description) formData.append('Description', params.description);
+        if (params.metaKeywords) formData.append('MetaKeywords', params.metaKeywords);
+        if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
+        if (params.desktopImageUrl) formData.append('DesktopImage', params.desktopImageUrl);
+        if (params.laptopImageUrl) formData.append('LaptopImage', params.laptopImageUrl);
+        if (params.tabletImageUrl) formData.append('TabletImage', params.tabletImageUrl);
+        if (params.phoneImageUrl) formData.append('PhoneImage', params.phoneImageUrl);
+        formData.append('DesktopAltText', "test");
+        formData.append('LaptopAltText', "test");
+        formData.append('TabletAltText', "test");
+        formData.append('PhoneAltText', "test");
+        if (params.productIds && params.productIds.length > 0) {
+            params.productIds.forEach(id => formData.append('ProductIds', id));
+        }
+
+        return instance.post(AdminUrls.AddBanner, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then(response => response.data)
+    }
 }

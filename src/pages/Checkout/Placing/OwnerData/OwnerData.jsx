@@ -1,12 +1,12 @@
 import React from 'react';
-import Die from "../../../../components/ui/Die/Die";
+import DieBlock from "../../../../components/ui/blocks/DieBlock/DieBlock";
 import classes from "./OwnerData.module.css";
 import Input from "../../../../components/ui/inputs/Input/Input";
 import InputMobile from "../../../../components/ui/inputs/Input/InputMobile";
 
 const OwnerData = ({userInfo, handleSetUserInfo, errors}) => {
     return (
-        <Die title='Дані одержувача'>
+        <DieBlock title='Дані одержувача'>
             <form className={classes.form}>
                 <Input
                     type='text'
@@ -36,7 +36,7 @@ const OwnerData = ({userInfo, handleSetUserInfo, errors}) => {
                     errors={errors.email}
                 />
             </form>
-        </Die>
+        </DieBlock>
     );
 };
 

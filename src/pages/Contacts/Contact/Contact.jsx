@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from "./Contact.module.css";
-import Die from "../../../components/ui/Die/Die";
+import DieBlock from "../../../components/ui/blocks/DieBlock/DieBlock";
 import Input from "../../../components/ui/inputs/Input/Input";
 import InputMobile from "../../../components/ui/inputs/Input/InputMobile";
 import PrimaryButton from "../../../components/ui/Buttons/PrimaryButton/PrimaryButton";
@@ -13,7 +13,7 @@ import {Link} from "react-router-dom";
 const Contact = () => {
     return (
         <div className={classes.wrapper}>
-            <Die>
+            <DieBlock>
                 <h3>Зворотній зв'язок</h3>
                 <form onSubmit={e => e.preventDefault()} className={classes.form}>
                     <Input value='' onChange={() => {}} type='text' placeholder="Ім'я*" errors={[]}/>
@@ -36,7 +36,7 @@ const Contact = () => {
                         </Link>
                     </div>
                 </div>
-            </Die>
+            </DieBlock>
         </div>
     );
 };

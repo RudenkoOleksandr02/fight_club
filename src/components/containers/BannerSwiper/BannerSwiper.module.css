@@ -1,0 +1,24 @@
+.wrapper {
+    box-shadow:
+            0 6px 13px rgba(0, 0, 0, 0.03),
+            0 24px 24px rgba(0, 0, 0, 0.03);
+    :global(.swiper-pagination) {
+        bottom: 0 !important;
+        top: 320px !important;
+    }
+    :global(.swiper-pagination-bullet) {
+        height: 17px;
+        border-radius: 0;
+        width: 6px;
+        background: #fff;
+        margin: 0 5px !important;
+    }
+
+}
+@media (min-width: 1360px) {
+    .wrapper {
+        :global(.swiper-pagination) {
+            top: 440px !important;
+        }
+    }
+}

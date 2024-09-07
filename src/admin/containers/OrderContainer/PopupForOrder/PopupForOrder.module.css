@@ -1,0 +1,55 @@
+.editContainer {
+    width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.editContainer .close {
+    align-self: flex-end;
+}
+.editContainer .firstInformation {
+    display: flex;
+    justify-content: space-between; align-items: center;
+}
+.editContainer .firstInformation .orderId {
+    font-size: 64px;
+    font-weight: 700;
+}
+.editContainer .firstInformation .statusAndTime {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    position: relative;
+    gap: 10px;
+}
+.editContainer .firstInformation .dateAndTime {
+    display: flex;
+    gap: 23px;
+    justify-content: flex-end;
+}
+.editContainer .secondaryInformation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+}
+.editContainer .secondaryInformation .promo {
+    display: grid; gap: 10px;
+    grid-template-columns: 1fr 104px;
+}
+.editContainer .products {
+    padding: 10px;
+    border: 1px solid var(--green);
+}
+.editContainer .result {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 10px;
+}
+.editContainer .result > p {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.editContainer .result .totalPriceWithDiscount {
+    font-weight: 600;
+}

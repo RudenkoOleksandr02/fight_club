@@ -4,14 +4,17 @@ import Logo from './images/Blossom.png';
 import PrimaryButton from "./buttons/PrimaryButton/PrimaryButton";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {getIsAdminAuth} from "../store/adminSlice";
-import ProductsContainer from "./ProductsContainer/ProductsContainer";
-import OrderContainer from "./OrderContainer/OrderContainer";
+import ProductsContainer from "./containers/ProductsContainer/ProductsContainer";
+import OrderContainer from "./containers/OrderContainer/OrderContainer";
 import Preloader from "../components/ui/Preloader/Preloader";
+import {getIsAdminAuth} from "../store/adminSlices/adminAuthSlice";
+import BlogsContainer from "./containers/BlogsContainer/BlogsContainer";
+import BannerContainer from "./containers/BannerContainer/BannerContainer";
+import PromocodeContainer from "./containers/PromocodeContainer/PromocodeContainer";
 
 const Admin = () => {
     const navigate = useNavigate();
-    const {data, loading} = useSelector(state => state.admin.adminAuth);
+    const {adminAuth: {data, loading}} = useSelector(state => state.admin.adminAuth);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -27,18 +30,22 @@ const Admin = () => {
     // ASIDE
     const [navigation, setNavigation] = useState({
         isOpenProducts: true,
-        isOpenOrder: false,
-        isOpenFilter: false,
-        isOpenBlog: false,
+        isOpenBanner: false,
+        isOpenPromocode: false,
+        isOpenOrders: false,
+        isOpenCharacteristics: false,
+        isOpenBlogs: false,
         isOpenUsers: false,
         isOpenParams: false
     });
     const handleOpen = (key) => {
         setNavigation({
             isOpenProducts: false,
-            isOpenOrder: false,
-            isOpenFilter: false,
-            isOpenBlog: false,
+            isOpenBanner: false,
+            isOpenPromocode: false,
+            isOpenOrders: false,
+            isOpenCharacteristics: false,
+            isOpenBlogs: false,
             isOpenUsers: false,
             isOpenParams: false,
             [key]: true
@@ -53,6 +60,18 @@ const Admin = () => {
     const [currentPageOrder, setCurrentPageOrder] = useState(1);
     const [amountOrder, setAmountOrder] = useState(10);
 
+    // BLOGS
+    const [currentPageBlogs, setCurrentPageBlogs] = useState(1);
+    const [amountBlogs, setAmountBlogs] = useState(10);
+
+    // BANNER
+    const [currentPageBanner, setCurrentPageBanner] = useState(1);
+    const [amountBanner, setAmountBanner] = useState(10);
+
+    // PROMOCODE
+    const [currentPagePromocode, setCurrentPagePromocode] = useState(1);
+    const [amountPromocode, setAmountPromocode] = useState(10);
+
     return (
         <main className={classes.main}>
             {loading ? <Preloader cover={true} color='secondary'/> : (
@@ -64,16 +83,18 @@ const Admin = () => {
                             <nav className={classes.navigation}>
                                 <PrimaryButton handleClick={() => handleOpen('isOpenProducts')}
                                                isOpen={navigation.isOpenProducts}>Товари</PrimaryButton>
-                                <PrimaryButton handleClick={() => handleOpen('isOpenOrder')}
-                                               isOpen={navigation.isOpenOrder}>Замовлення</PrimaryButton>
-                                <PrimaryButton handleClick={() => handleOpen('isOpenFilter')}
-                                               isOpen={navigation.isOpenFilter}>Фільтрування</PrimaryButton>
-                                <PrimaryButton handleClick={() => handleOpen('isOpenBlog')}
-                                               isOpen={navigation.isOpenBlog}>Блог</PrimaryButton>
-                                <PrimaryButton handleClick={() => handleOpen('isOpenUsers')}
-                                               isOpen={navigation.isOpenUsers}>Користувачі</PrimaryButton>
-                                <PrimaryButton handleClick={() => handleOpen('isOpenParams')}
-                                               isOpen={navigation.isOpenParams}>Налаштування</PrimaryButton>
+                                <PrimaryButton handleClick={() => handleOpen('isOpenOrders')}
+                                               isOpen={navigation.isOpenOrders}>Замовлення</PrimaryButton>
+                                {/*<PrimaryButton handleClick={() => handleOpen('isOpenCharacteristics')}
+                                               isOpen={navigation.isOpenCharacteristics}>Характеристики</PrimaryButton>*/}
+                                <PrimaryButton handleClick={() => handleOpen('isOpenBlogs')}
+                                               isOpen={navigation.isOpenBlogs}>Блог</PrimaryButton>
+                                {/*<PrimaryButton handleClick={() => handleOpen('isOpenUsers')}
+                                               isOpen={navigation.isOpenUsers}>Користувачі</PrimaryButton>*/}
+                                <PrimaryButton handleClick={() => handleOpen('isOpenBanner')}
+                                               isOpen={navigation.isOpenBanner}>Банер</PrimaryButton>
+                                <PrimaryButton handleClick={() => handleOpen('isOpenPromocode')}
+                                               isOpen={navigation.isOpenPromocode}>Промокод</PrimaryButton>
                             </nav>
                         </div>
                     </aside>
@@ -86,12 +107,36 @@ const Admin = () => {
                                 setAmount={setAmountProducts}
                             />
                         )}
-                        {navigation.isOpenOrder && (
+                        {navigation.isOpenOrders && (
                             <OrderContainer
                                 currentPage={currentPageOrder}
                                 setCurrentPage={setCurrentPageOrder}
                                 amount={amountOrder}
                                 setAmount={setAmountOrder}
+                            />
+                        )}
+                        {navigation.isOpenBlogs && (
+                            <BlogsContainer
+                                currentPage={currentPageBlogs}
+                                setCurrentPage={setCurrentPageBlogs}
+                                amount={amountBlogs}
+                                setAmount={setAmountBlogs}
+                            />
+                        )}
+                        {navigation.isOpenBanner && (
+                            <BannerContainer
+                                currentPage={currentPageBanner}
+                                setCurrentPage={setCurrentPageBanner}
+                                amount={amountBanner}
+                                setAmount={setAmountBanner}
+                            />
+                        )}
+                        {navigation.isOpenPromocode && (
+                            <PromocodeContainer
+                                currentPage={currentPagePromocode}
+                                setCurrentPage={setCurrentPagePromocode}
+                                amount={amountPromocode}
+                                setAmount={setAmountPromocode}
                             />
                         )}
                     </section>

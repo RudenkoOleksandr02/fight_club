@@ -3,7 +3,7 @@ import {Pagination} from "swiper/modules";
 import classes from './AlsoBuy.module.css'
 import SwiperList from "../../../components/containers/SwiperList/SwiperList";
 import {useDispatch, useSelector} from "react-redux";
-import {getAlsoBoughtById} from '../../../store/productPageSlice'
+import {getAlsoBoughtById} from '../../../store/pageSlices/productPageSlice'
 import Preloader from "../../../components/ui/Preloader/Preloader";
 
 

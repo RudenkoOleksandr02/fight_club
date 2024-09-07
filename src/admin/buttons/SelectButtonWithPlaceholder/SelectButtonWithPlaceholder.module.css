@@ -1,0 +1,26 @@
+.wrapper {
+    height: 38px;
+    width: 100%;
+    display: flex;
+    position: relative;
+    border: 1px solid var(--green);
+    margin-top: 10px;
+}
+.wrapper > div {
+    width: 100%;
+}
+.wrapper > div > button {
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 20px !important;
+}
+.placeholder {
+    position: absolute;
+    background: var(--white);
+    font-size: 14px;
+    padding: 0 5px;
+    top: -10px;
+    left: 15px;
+    color: #BAC8BE;
+    z-index: 5;
+}

@@ -10,7 +10,7 @@ import {
     addProduct, changeProductAmount,
     getUserShoppingCart, removeProduct,
 
-} from "../../store/cartPageSlice";
+} from "../../store/pageSlices/cartPageSlice";
 
 const Cart = () => {
     const navigate = useNavigate()

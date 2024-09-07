@@ -5,11 +5,11 @@ import {Link, useNavigate} from "react-router-dom";
 import classes from './Checkout.module.css';
 import Popup from "../../components/ui/Popup/Popup";
 import SecondaryButton from "../../components/ui/Buttons/SecondaryButton/SecondaryButton";
-import {checkout, setDeliveryInfo, setUserInfo} from "../../store/checkoutPageSlice";
-import {clearCart} from "../../store/cartPageSlice";
+import {checkout, setDeliveryInfo, setUserInfo} from "../../store/pageSlices/checkoutPageSlice";
+import {clearCart} from "../../store/pageSlices/cartPageSlice";
 import InformationPanel from "../../components/containers/Order/InformationPanel/InformationPanel";
 import TopPanel from "../../components/containers/Order/TopPanel/TopPanel";
-import {getUser} from "../../store/userPageSlice";
+import {getUser} from "../../store/pageSlices/userPageSlice";
 
 const Checkout = () => {
     const navigate = useNavigate();

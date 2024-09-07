@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import classes from './Promotional.module.css'
 import {getPromocodesCheck} from "../../../../../store/promocodesSlice";
-import {setUsedPromocode} from "../../../../../store/checkoutPageSlice";
+import {setUsedPromocode} from "../../../../../store/pageSlices/checkoutPageSlice";
 import FormSelect from "../../../../ui/inputs/FormSelect/FormSelect";
-import Die from "../../../../ui/Die/Die";
+import DieBlock from "../../../../ui/blocks/DieBlock/DieBlock";
 
 
 const Promotional = () => {
@@ -29,7 +29,7 @@ const Promotional = () => {
 
     return (
         <div className={classes.wrapper}>
-            <Die>
+            <DieBlock>
                 <FormSelect
                     type='text'
                     text='Промокод'
@@ -40,7 +40,7 @@ const Promotional = () => {
                     error={error}
                     success={success}
                 />
-            </Die>
+            </DieBlock>
         </div>
     );
 };

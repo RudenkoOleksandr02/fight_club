@@ -1,0 +1,52 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.additionalOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.additionalOptions .inner {
+    display: flex;
+    justify-content: space-between; align-items: center;
+}
+.additionalOptions .plus {
+    width: 20px; height: 20px;
+    display: flex;
+    flex-direction: column; justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+.additionalOptions .plus .line {
+    height: 1px;
+    border: 1px solid var(--green);
+}
+.additionalOptions .plus .line:last-child {
+    position: absolute;
+    width: 100%;
+    transform: rotate(-90deg);
+    transition: .2s;
+}
+.additionalOptions .plus.mutated .line:last-child {
+    transform: rotate(0deg);
+}
+.additionalOptions .checkbox {
+    opacity: 100%;
+    transition: .2s;
+    pointer-events: all;
+    font-size: 18px;
+}
+.additionalOptions .checkbox.opacity {
+    opacity: 60%;
+    pointer-events: none;
+}
+
+.minMaxPrice, .reset {
+    margin-top: 10px;
+}
+.reset > button {
+    text-align: center;
+}

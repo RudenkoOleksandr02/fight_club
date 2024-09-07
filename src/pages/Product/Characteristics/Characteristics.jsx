@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Characteristics.module.css';
-import ShowMore from "../../../components/ui/ShowMore/ShowMore";
+import ShowMoreBlock from "../../../components/ui/blocks/ShowMoreBlock/ShowMoreBlock";
 import {v4 as uuidv4} from 'uuid'
 
 const Characteristics = ({characteristics}) => {
@@ -11,9 +11,9 @@ const Characteristics = ({characteristics}) => {
         </div>
     })
 
-    return <ShowMore title='Характеристики'>
+    return <ShowMoreBlock title='Характеристики'>
         {characteristicsJSX}
-    </ShowMore>
+    </ShowMoreBlock>
 };
 
 export default Characteristics;

@@ -7,7 +7,7 @@
     gap: 10px; align-items: center;
 }
 .customCheckbox {
-    width: 20px; height: 20px;
+    min-width: 20px; min-height: 20px;
     border: 1px solid var(--green);
     display: inline-flex;
     align-items: center; justify-content: center;
@@ -15,6 +15,7 @@
 }
 .text {
     cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
 }
 .customCheckbox.disabled, .text.disabled {
     cursor: default;

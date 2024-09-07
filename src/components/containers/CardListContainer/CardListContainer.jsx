@@ -3,13 +3,12 @@ import classes from './CardListContainer.module.css';
 import CardItem from "../CardItem/CardItem";
 
 const CardListContainer = ({ productsData }) => {
-
     const productListJSX = productsData.products.map(product => (
         <div key={product.id}>
             <CardItem
                 id={product.id}
                 path={`/product/${product.id}`}
-                src={product.images[0]}
+                src={product.image}
                 titles={[product.name, product.nameEng]}
                 discount={product.discount}
                 price={product.price}

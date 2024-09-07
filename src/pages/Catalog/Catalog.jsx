@@ -1,96 +1,131 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import classes from './Catalog.module.css';
-import FilterPanel from "./FilterPanel/FilterPanel";
-import TopPanel from "./TopPanel/TopPanel";
+import FilterPanel from "../../components/containers/FilterPanel/FilterPanel";
+import TopPanel from "../../components/ui/TopPanel/TopPanel";
 import CardListContainer from "../../components/containers/CardListContainer/CardListContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import useBodyOverflowHidden from "../../common/hooks/useBodyOverflowHidden";
-import {getFilterPanelById, getProductsByFilter} from "../../store/catalogPageSlice";
+import {getFilterPanelById, getProductsByFilter} from "../../store/pageSlices/catalogPageSlice";
 import Preloader from "../../components/ui/Preloader/Preloader";
+import AbsenceBlock from "../../components/ui/blocks/AbsenceBlock/AbsenceBlock";
 
 const Catalog = () => {
-    const {data: catalogData, loading: catalogLoading} = useSelector(state => state.catalogPage.catalog);
-    const {loading: filterPanelLoading} = useSelector(state => state.catalogPage.filterPanel);
     const dispatch = useDispatch();
     const {id: categoryId} = useParams();
+
+    const {data: catalogData, loading: catalogLoading} = useSelector(state => state.catalogPage.catalog);
+    const {loading: filterPanelLoading, data: filterPanelData} = useSelector(state => state.catalogPage.filterPanel);
+
     const [currentPage, setCurrentPage] = useState(1);
-    const amount = 15;
     const [sortBy, setSortBy] = useState("");
-    const [selectedCharacteristics, setSelectedCharacteristics] = useState([]);
-    const [minMaxPrice, setMinMaxPrice] = useState({
-        minPrice: 0,
-        maxPrice: 0
-    });
+    const [categoryIds, setCategoryIds] = useState([]);
+    const [characteristicIds, setCharacteristicIds] = useState([]);
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(0);
     const [isVisibleFilterPanelInMobile, setIsVisibleFilterPanelInMobile] = useState(false);
-    useBodyOverflowHidden(isVisibleFilterPanelInMobile)
-    const applyFilter = () => {
-        dispatch(getProductsByFilter({
-            categoryId: categoryId,
-            sortBy: sortBy,
-            amount: amount,
-            start: (currentPage - 1) * amount,
-            minPrice: minMaxPrice.minPrice,
-            maxPrice: minMaxPrice.maxPrice,
-            selectedCharacteristics: selectedCharacteristics
-        }));
-    };
+    const [isPageLoading, setIsPageLoading] = useState(false);
 
-    useEffect(() => {
-        applyFilter();
-    }, [categoryId, sortBy, currentPage, minMaxPrice.minPrice, minMaxPrice.maxPrice, selectedCharacteristics]);
+    const amount = 15;
 
+    useBodyOverflowHidden(isVisibleFilterPanelInMobile);
+
+    // CHANGE CATEGORY ID
     useEffect(() => {
-        handleApplyFilter();
+        setIsPageLoading(true);
+
+        setCurrentPage(1);
+        setSortBy("");
+        setCategoryIds([]);
+        setCharacteristicIds([]);
+        setMinPrice(0);
+        setMaxPrice(0);
+
+        dispatch(getFilterPanelById(categoryId))
+            .then(() => fetchProducts(1, [], filterPanelData.maxPrice, filterPanelData.minPrice, ""))
+            .finally(() => setIsPageLoading(false))
     }, [categoryId]);
 
+    // MIN MAX PRICE
+    useEffect(() => {
+        if (filterPanelData) {
+            setMinPrice(filterPanelData.minPrice || 0);
+            setMaxPrice(filterPanelData.maxPrice || 0);
+        }
+    }, [filterPanelData]);
+
+    // LOAD PRODUCTS WITH FILTER AND SORT
+    const fetchProducts = useCallback((
+        actualCurrentPage = currentPage,
+        actualCharacteristicIds = characteristicIds,
+        actualMaxPrice = maxPrice,
+        actualMinPrice = minPrice,
+        actualSortBy = sortBy
+    ) => {
+        dispatch(getProductsByFilter({
+            categoryId,
+            sortBy: actualSortBy,
+            amount,
+            start: (actualCurrentPage - 1) * amount,
+            minPrice: actualMinPrice,
+            maxPrice: actualMaxPrice,
+            selectedCharacteristics: actualCharacteristicIds,
+        }));
+    }, [categoryId, amount, characteristicIds, minPrice, maxPrice, sortBy, currentPage]);
+
+    // APPLY FILTER
     const handleApplyFilter = () => {
         setCurrentPage(1);
-        applyFilter();
+        fetchProducts(1);
     };
 
-    const handleChangePage = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
-
-    // FILTER PANEL
+    // APPLY SORT AND CHANGE PAGE
     useEffect(() => {
-        dispatch(getFilterPanelById(categoryId));
-        setSelectedCharacteristics([]);
-    }, [categoryId]);
+        fetchProducts();
+    }, [currentPage, sortBy]);
 
-    if (catalogLoading || filterPanelLoading) {
-        return <Preloader color='secondary' cover={true}/>
-    }
-    if (!catalogData.totalCount) {
-        return <div>error</div>
-    }
+    if (isPageLoading) return <Preloader color='secondary' cover={true}/>
 
     return (
         <section>
             <div className={classes.wrapper}>
-                <div className={classes.main}>
-                    <div className={`${classes.filterPanel} ${isVisibleFilterPanelInMobile ? classes.visible : ''}`}>
-                        <FilterPanel
-                            categoryId={categoryId}
-                            setSelectedCharacteristics={setSelectedCharacteristics}
-                            selectedCharacteristics={selectedCharacteristics}
-                            minMaxPrice={minMaxPrice}
-                            setMinMaxPrice={setMinMaxPrice}
-                            handleApplyFilter={handleApplyFilter}
-                            onCloseFilterPanelInMobile={() => setIsVisibleFilterPanelInMobile(false)}
-                        />
-                    </div>
-                    <TopPanel
-                        totalCount={catalogData.totalCount}
-                        currentPage={currentPage}
-                        amount={amount}
-                        handleChangePage={handleChangePage}
-                        setSortBy={setSortBy}
-                        onOpenFilterPanelInMobile={() => setIsVisibleFilterPanelInMobile(true)}
+                {!catalogLoading && (!catalogData?.products?.length) ? (
+                    <AbsenceBlock
+                        title='Будь ласка, зайдіть пізніше.'
+                        text='Товари у цій категорії тимчасово відсутні.'
                     />
-                    <CardListContainer productsData={catalogData}/>
-                </div>
+                ) : (
+                    <div className={classes.main}>
+                        <div
+                            className={`${classes.filterPanel} ${isVisibleFilterPanelInMobile ? classes.visible : ''}`}>
+                            <FilterPanel
+                                handleApplyFilter={handleApplyFilter}
+                                onCloseFilterPanelInMobile={() => setIsVisibleFilterPanelInMobile(false)}
+                                forCategories={{setCategoryIds, categoryIds, categories: []}}
+                                forCharacteristics={{
+                                    setCharacteristicIds,
+                                    characteristicIds,
+                                    characteristics: filterPanelData?.characteristics || []
+                                }}
+                                forMinPrice={{minPrice, setMinPrice}}
+                                forMaxPrice={{maxPrice, setMaxPrice}}
+                            />
+                        </div>
+                        <TopPanel
+                            totalCount={catalogData?.totalCount}
+                            currentPage={currentPage}
+                            amount={amount}
+                            handleChangePage={setCurrentPage}
+                            setSortBy={setSortBy}
+                            onOpenFilterPanelInMobile={() => setIsVisibleFilterPanelInMobile(true)}
+                        />
+                        {catalogLoading ? (
+                            <Preloader color='secondary'/>
+                        ) : (
+                            <CardListContainer productsData={catalogData} overflowHidden={false}/>
+                        )}
+                    </div>
+                )}
             </div>
         </section>
     );

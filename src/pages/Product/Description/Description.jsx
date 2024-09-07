@@ -1,10 +1,10 @@
 import React from 'react';
-import ShowMore from "../../../components/ui/ShowMore/ShowMore";
+import ShowMoreBlock from "../../../components/ui/blocks/ShowMoreBlock/ShowMoreBlock";
 
 const Description = ({description}) => {
-    return <ShowMore title='Опис'>
+    return <ShowMoreBlock title='Опис'>
         <p>{description}</p>
-    </ShowMore>
+    </ShowMoreBlock>
 };
 
 export default Description;

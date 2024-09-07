@@ -1,0 +1,15 @@
+.wrapper .btn button {
+    display: flex;
+    align-items: center; justify-content: center;
+    gap: 10px;
+}
+.addCharacteristicsDesc {
+    width: 100%;
+}
+.addCharacteristicsDesc > div > button {
+    width: 100%;
+    justify-content: space-between;
+}
+.addCharacteristicsDesc .option {
+    font-weight: 400 !important;
+}

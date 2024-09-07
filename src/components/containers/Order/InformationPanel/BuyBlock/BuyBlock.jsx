@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from'./BuyBlock.module.css';
 import {useNavigate} from "react-router-dom";
-import Die from "../../../../ui/Die/Die";
+import DieBlock from "../../../../ui/blocks/DieBlock/DieBlock";
 import {roundNumber} from "../../../../../common/utils/roundNumber";
 import PrimaryButton from "../../../../ui/Buttons/PrimaryButton/PrimaryButton";
 
@@ -10,7 +10,7 @@ const BuyBlock = ({totalPrice, orderParams}) => {
     const {text, handleClick} = orderParams;
 
     return (
-        <Die>
+        <DieBlock>
             <div className={classes.buyBlock}>
                 <div className={classes.summaryOrder}>
                     <span>Підсумкова ціна</span>
@@ -25,7 +25,7 @@ const BuyBlock = ({totalPrice, orderParams}) => {
                     </button>
                 </div>
             </div>
-        </Die>
+        </DieBlock>
     );
 };
 

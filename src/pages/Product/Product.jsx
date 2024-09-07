@@ -3,7 +3,7 @@ import classes from './Product.module.css'
 import ProductDesktop from "./ProductDesktop/ProductDesktop";
 import ProductMobile from "./ProductMobile/ProductMobile";
 import {useDispatch, useSelector} from "react-redux";
-import {getProductById} from "../../store/productPageSlice";
+import {getProductById} from "../../store/pageSlices/productPageSlice";
 import {useParams} from "react-router-dom";
 import useScreen from "../../common/hooks/useScreen";
 import Preloader from "../../components/ui/Preloader/Preloader";

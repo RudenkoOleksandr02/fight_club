@@ -1,0 +1,25 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between; align-items: center;
+    gap: 10px;
+}
+.minPrice, .maxPrice {
+    height: 38px;
+    padding: 10px 25px;
+    font-size: 14px; font-weight: 500;
+    background: var(--white);
+    border: 1px solid var(--black);
+    color: var(--black);
+    outline: none;
+}
+.line {
+    min-width: 9px; height: 1px;
+    background: var(--black);
+}
+.wrapper.modification .line {
+    background: var(--green);
+}
+.wrapper.modification .minPrice, .wrapper.modification .maxPrice {
+    border-color: var(--green);
+    color: var(--green);
+}

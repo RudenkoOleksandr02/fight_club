@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import BannerContainer from "../../components/containers/BannerContainer/BannerContainer";
 import CardListWithSwap from "../../components/containers/CardListWithSwap/CardListWithSwap";
 import classes from './Home.module.css'
 import background from '../../assets/images/background/background1.png'
 import {useDispatch, useSelector} from 'react-redux'
-import {getNewProducts, getDiscountsProducts, getPopularProducts} from '../../store/homePageSlice';
+import {getNewProducts, getDiscountsProducts, getPopularProducts} from '../../store/pageSlices/homePageSlice';
 import Preloader from "../../components/ui/Preloader/Preloader";
+import BannerSwiper from "../../components/containers/BannerSwiper/BannerSwiper";
 
 const Home = () => {
     const {data: newProductsData, loading: newProductsLoading} = useSelector(state => state.homePage.newProducts);
@@ -28,7 +28,7 @@ const Home = () => {
             <div className={classes.background}>
                 <img src={background}/>
             </div>
-            <BannerContainer/>
+            <BannerSwiper/>
             <div className={classes.inner}>
                 {!!newProductsData.length && (
                     <CardListWithSwap title='Новинки' products={newProductsData}/>

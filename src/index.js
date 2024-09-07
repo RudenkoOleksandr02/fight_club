@@ -17,7 +17,7 @@ import ScrollToTop from './common/utils/ScrollToTop';
 import Header from "./components/containers/Header/Header";
 import Navigation from "./components/containers/Navigation/Navigation";
 import Footer from "./components/containers/Footer/Footer";
-import Blog from "./pages/Blog/Blog";
+import Blogs from "./pages/Blogs/Blogs";
 import Brands from "./pages/Brands/Brands";
 import About from "./pages/About/About";
 import ErrorPage from "./pages/Error/Error";
@@ -31,12 +31,14 @@ import UserPage from "./pages/UserPage/UserPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import LoginPanel from "./components/containers/LoginPanel/LoginPanel";
 import {getIsAuth} from "./store/authSlice";
-import {getUserShoppingCart} from "./store/cartPageSlice";
+import {getUserShoppingCart} from "./store/pageSlices/cartPageSlice";
 import Contacts from "./pages/Contacts/Contacts";
 import ScrollToTopButton from "./components/ui/ScrollToTopButton/ScrollToTopButton";
 import Admin from "./admin/Admin";
 import {getCategory} from "./store/navigationSlice";
 import Preloader from "./components/ui/Preloader/Preloader";
+import Blog from "./pages/Blog/Blog";
+import BannerPage from "./pages/BannerPage/BannerPage";
 
 const Root = () => {
     const [openLoginPanel, setOpenLoginPanel] = React.useState(false);
@@ -85,7 +87,9 @@ const router = createBrowserRouter(
             <Route path='/' element={<Root/>}>
                 <Route index element={<Home/>}/>
                 <Route path='/contacts' element={<Contacts/>}/>
-                <Route path='/blog' element={<Blog/>}/>
+                <Route path='/blogs' element={<Blogs/>}/>
+                <Route path='/blogs/:id' element={<Blog/>}/>
+                <Route path='/banner/:id' element={<BannerPage/>}/>
                 <Route path='/brands' element={<Brands/>}/>
                 <Route path='/about' element={<About/>}/>
                 <Route path='/cart' element={<Cart/>}/>

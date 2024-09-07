@@ -1,11 +1,11 @@
 import React from 'react';
-import Die from "../../../../components/ui/Die/Die";
+import DieBlock from "../../../../components/ui/blocks/DieBlock/DieBlock";
 
 const PaymentMethod = () => {
     return (
-        <Die title='Спосіб оплати'>
+        <DieBlock title='Спосіб оплати'>
             
-        </Die>
+        </DieBlock>
     );
 };
 

@@ -6,11 +6,11 @@ import Rating from "../../../../components/ui/Rating/Rating";
 import TertiaryButton from "../../../../components/ui/Buttons/TertiaryButton/TertiaryButton";
 import PrimaryButton from "../../../../components/ui/Buttons/PrimaryButton/PrimaryButton";
 import {useDispatch, useSelector} from "react-redux";
-import {addProduct} from "../../../../store/cartPageSlice";
+import {addProduct} from "../../../../store/pageSlices/cartPageSlice";
 import {useNavigate} from "react-router-dom";
 import {roundNumber} from "../../../../common/utils/roundNumber";
 import {priceWithDiscount} from "../../../../common/utils/priceWithDiscount";
-import {deleteFavorite, getFavorite, addFavorite} from "../../../../store/userPageSlice";
+import {deleteFavorite, getFavorite, addFavorite} from "../../../../store/pageSlices/userPageSlice";
 
 const MainBlock = (props) => {
     const {

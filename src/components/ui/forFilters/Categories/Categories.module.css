@@ -1,0 +1,14 @@
+.categories .contentBtn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.categories .childrenCategory {
+    margin-bottom: 10px;
+}
+.categories .parentCategory {
+    margin-bottom: 10px;
+}
+.categories .parentCategory label:last-child {
+    font-size: 18px;
+}

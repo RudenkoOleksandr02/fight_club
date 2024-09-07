@@ -1,11 +1,11 @@
 import React from 'react';
-import Die from "../../../../ui/Die/Die";
+import DieBlock from "../../../../ui/blocks/DieBlock/DieBlock";
 import classes from './EcoFriendlyPackaging.module.css';
 
 const EcoFriendlyPackaging = ({additionalInfo, handleChangeAdditionalInfo}) => {
     return (
         <div className={classes.wrapper}>
-            <Die title='Екологічна упаковка'>
+            <DieBlock title='Екологічна упаковка'>
                 <p>Зберегти екологічність нашого світу та купи екологічно чисту упаковку</p>
                 <div className={classes.check}>
                     <input type='checkbox' id='check' checked={additionalInfo.ecoPackaging}
@@ -14,7 +14,7 @@ const EcoFriendlyPackaging = ({additionalInfo, handleChangeAdditionalInfo}) => {
                         Додати Опцію
                     </label>
                 </div>
-            </Die>
+            </DieBlock>
         </div>
     );
 };

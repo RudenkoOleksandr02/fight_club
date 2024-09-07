@@ -68,7 +68,7 @@ const FileDropzone = ({ accepts, handleSend, maxFiles = 1, isError, isSuccess, s
                                 <div className={classes.inner1}>
                                     <div className={classes.previewExtension}>{file.extension}</div>
                                     <div className={classes.contentItem}>
-                                        <div>{file.name}</div>
+                                        <div className={classes.name}>{file.name}</div>
                                         <div>{file.sizeReadable}</div>
                                     </div>
                                 </div>

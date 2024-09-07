@@ -1,12 +1,12 @@
 import React from 'react';
 import classes from './SummaryOrder.module.css';
 import {roundNumber} from "../../../../../common/utils/roundNumber";
-import Die from "../../../../ui/Die/Die";
+import DieBlock from "../../../../ui/blocks/DieBlock/DieBlock";
 
 
 const SummaryOrder = ({totalPrice, discount}) => {
     return (
-            <Die>
+            <DieBlock>
                 <div className={classes.inner}>
                     <span>Сума замовлення</span>
                     <span>{roundNumber(totalPrice)}$</span>
@@ -17,7 +17,7 @@ const SummaryOrder = ({totalPrice, discount}) => {
                         <span>{discount}%</span>
                     </div>
                 )}
-            </Die>
+            </DieBlock>
     );
 };
 

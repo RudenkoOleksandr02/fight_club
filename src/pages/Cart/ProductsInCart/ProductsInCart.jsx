@@ -3,15 +3,22 @@ import classes from './ProductsInCart.module.css';
 import {v4 as uuidv4} from 'uuid';
 import Quantity from "./Quantity/Quantity";
 import {useNavigate} from "react-router-dom";
+import {ReactComponent as IcoAbsence} from "./../../../assets/images/ico_absence.svg";
 
 const ProductsInCart = ({productsInCart, handleAddToCart, handleDeleteFromCart, handleChangeProductsInCart}) => {
     const navigate = useNavigate();
 
     const productsInCartJSX = productsInCart.map(product => {
         return <div key={uuidv4()} className={classes.productInCart}>
-            <div className={classes.inner} onClick={() => navigate('/product/' +  product.productId)}>
-                <img src={product.image ? product.image : product.images[0]} alt="product" className={classes.image}/>
-                <p className={classes.name} onClick={() => navigate('/product/' +  product.productId)}>{product.name}</p>
+            <div className={classes.inner} onClick={() => navigate('/product/' +  product?.productId)}>
+                <div className={classes.imageContainer}>
+                    {product?.image || (Array.isArray(product?.images) && product?.images.length > 0) ? (
+                        <img src={product?.image ? product?.image : product?.images[0]} alt="product"/>
+                    ) : (
+                        <IcoAbsence/>
+                    )}
+                </div>
+                <p className={classes.name} onClick={() => navigate('/product/' + product.productId)}>{product.name}</p>
             </div>
             <Quantity
                 product={product}
