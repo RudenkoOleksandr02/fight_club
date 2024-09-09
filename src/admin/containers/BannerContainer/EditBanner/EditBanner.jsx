@@ -19,7 +19,7 @@ const EditBanner = ({isOpenPopupEdit, setIsOpenPopupEdit}) => {
     useEffect(() => {
         if (bannerData) {
             setBannerDataForOnlyChange({
-                id: bannerData.blogId || '',
+                id: bannerData.bannerId || '',
                 title: bannerData.title || '',
                 description: bannerData.description || '',
                 metaKeywords: bannerData.metaKeywords || '',
@@ -28,10 +28,7 @@ const EditBanner = ({isOpenPopupEdit, setIsOpenPopupEdit}) => {
                 laptopImageUrl: bannerData.laptopImageUrl || '',
                 tabletImageUrl: bannerData.tabletImageUrl || '',
                 phoneImageUrl : bannerData.phoneImageUrl || '',
-                desktopAltText: bannerData.desktopAltText || '',
-                laptopAltText: bannerData.laptopAltText || '',
-                tabletAltText: bannerData.tabletAltText || '',
-                phoneAltText: bannerData.phoneAltText || '',
+                altText: bannerData.altText || '',
                 products: bannerData.products || [],
             });
         }
@@ -50,10 +47,7 @@ const EditBanner = ({isOpenPopupEdit, setIsOpenPopupEdit}) => {
             laptopImageUrl: bannerDataForOnlyChange.laptopImageUrl,
             tabletImageUrl: bannerDataForOnlyChange.tabletImageUrl,
             phoneImageUrl : bannerDataForOnlyChange.phoneImageUrl,
-            desktopAltText: bannerDataForOnlyChange.desktopAltText,
-            laptopAltText: bannerDataForOnlyChange.laptopAltText,
-            tabletAltText: bannerDataForOnlyChange.tabletAltText,
-            phoneAltText: bannerDataForOnlyChange.phoneAltText,
+            altText: bannerDataForOnlyChange.altText,
             productIds: bannerDataForOnlyChange.products?.map(product => product.id)
         });
     }, [bannerDataForOnlyChange]);

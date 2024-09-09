@@ -37,7 +37,7 @@ const BannerSwiper = () => {
                                     laptopImage: banner.laptopImageUrl,
                                     tabletImage: banner.tabletImageUrl,
                                     phoneImage: banner.phoneImageUrl,
-                                    altText: banner.desktopAltText
+                                    altText: banner.altText
                                 }}
                                 onClick={() => navigate(`/banner/${banner.bannerId}`)}
                                 cursor='pointer'

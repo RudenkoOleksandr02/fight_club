@@ -79,6 +79,7 @@ const EditProduct = ({isOpenPopupProductEdit, setIsOpenPopupProductEdit, amount,
     useEffect(() => {
         if (!!Object.keys(prevProductDataForEditOnlyTrack.current).length) {
             const modifiedFields = getModifiedFields(prevProductDataForEditOnlyTrack.current, productDataForEditOnlyTrack);
+            console.log(modifiedFields)
             if (!Object.keys(modifiedFields).length) {
                 setIsSaveButtonActive(false)
             } else {

@@ -28,10 +28,7 @@ const EditBlog = ({isOpenPopupEdit, setIsOpenPopupEdit}) => {
                 laptopImageUrl: blogData.laptopImageUrl || '',
                 tabletImageUrl: blogData.tabletImageUrl || '',
                 phoneImageUrl : blogData.phoneImageUrl || '',
-                desktopAltText: blogData.desktopAltText || '',
-                laptopAltText: blogData.laptopAltText || '',
-                tabletAltText: blogData.tabletAltText || '',
-                phoneAltText: blogData.phoneAltText || '',
+                altText: blogData.altText || '',
                 products: blogData.products || [],
             });
         }
@@ -50,10 +47,7 @@ const EditBlog = ({isOpenPopupEdit, setIsOpenPopupEdit}) => {
             laptopImageUrl: blogDataForOnlyChange.laptopImageUrl,
             tabletImageUrl: blogDataForOnlyChange.tabletImageUrl,
             phoneImageUrl : blogDataForOnlyChange.phoneImageUrl,
-            desktopAltText: blogDataForOnlyChange.desktopAltText,
-            laptopAltText: blogDataForOnlyChange.laptopAltText,
-            tabletAltText: blogDataForOnlyChange.tabletAltText,
-            phoneAltText: blogDataForOnlyChange.phoneAltText,
+            altText: blogDataForOnlyChange.altText,
             productIds: blogDataForOnlyChange.products?.map(product => product.id)
         });
     }, [blogDataForOnlyChange]);

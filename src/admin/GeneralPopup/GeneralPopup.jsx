@@ -8,6 +8,7 @@ import TextAreaAdmin from "../Inputs/TextAreaAdmin";
 import SeoBlock from "../SeoBlock/SeoBlock";
 
 const GeneralPopup = ({handleClose, data, setData, handleSave, isSaveButtonActive}) => {
+    console.log(data)
     const handleChangeInput = (key, value) => {
         setData(prevState => ({...prevState, [key]: value}));
     }
@@ -43,6 +44,8 @@ const GeneralPopup = ({handleClose, data, setData, handleSave, isSaveButtonActiv
                     tabletImageUrl: data.tabletImageUrl,
                     phoneImageUrl: data.phoneImageUrl
                 }} handleAddImage={handleAddImage} handleRemoveImage={handleRemoveImage}/>
+                <InputAdmin placeholder='Alt' value={data.altText}
+                            onChange={(e) => handleChangeInput('altText', e.target.value)}/>
                 <Products products={data.products} setProductsIds={setProductsIds} delProductsIds={delProductsIds}/>
                 <SeoBlock
                     metaKey={data.metaKeywords}

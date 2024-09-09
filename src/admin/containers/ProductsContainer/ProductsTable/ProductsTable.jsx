@@ -153,12 +153,12 @@ const ProductsTable = ({handleClickEdit, sortOption, handleSortOption}) => {
                         <Td>
                             <div className={classes.icoBtns}>
                                 <IcoButton
-                                    svgIco={<IcoNew className={`${!returnIsNewByProductId(product.id) ? classes.svgGray : ''}`}/>}
-                                    onClick={() => handleClickOnNew(product.id)}
-                                />
-                                <IcoButton
                                     svgIco={<IcoEye className={`${!returnIsShowByProductId(product.id) ? classes.svgGray : ''}`}/>}
                                     onClick={() => handleClickOnShow(product.id)}
+                                />
+                                <IcoButton
+                                    svgIco={<IcoNew className={`${!returnIsNewByProductId(product.id) ? classes.svgGray : ''}`}/>}
+                                    onClick={() => handleClickOnNew(product.id)}
                                 />
                                 <IcoButton
                                     svgIco={<IcoHot className={`${!returnIsHitByProductId(product.id) ? classes.svgGray : ''}`}/>}

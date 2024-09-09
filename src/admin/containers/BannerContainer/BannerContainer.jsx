@@ -21,7 +21,7 @@ const BannerContainer = ({currentPage, setCurrentPage, amount, setAmount}) => {
     }, [])
 
     const startIndex = (currentPage - 1) * amount;
-    const displayedBanners = bannersData.slice(startIndex, startIndex + amount);
+    const displayedBanners = bannersData.slice(startIndex, startIndex + amount)
     const handleClickEdit = (blogId) => {
         dispatch(getAdminBannerById(blogId))
         setIsOpenPopupEdit(true);

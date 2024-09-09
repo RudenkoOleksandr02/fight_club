@@ -18,7 +18,7 @@ const Image = ({title, titleForBtn, image, handleAddImage, handleRemoveImage, im
     } = useImportState();
 
     const setupImage = (files) => {
-        handleAddImage(imageKey, files[0].preview.url);
+        handleAddImage(imageKey, files[0]);
         setIsOpenPopupImportImages(false);
     }
     const deleteImage = () => {
@@ -32,7 +32,7 @@ const Image = ({title, titleForBtn, image, handleAddImage, handleRemoveImage, im
                     <div className={classes.remove}>
                         <IcoButton svgIco={<IcoRemove/>} onClick={deleteImage}/>
                     </div>
-                    <img src={image} alt=''/>
+                    <img src={typeof image === 'object' ? image.preview.url : image} alt=''/>
                 </div>
             ) : "Беззмістовний"}
             {isOpenPopupImportImages && (

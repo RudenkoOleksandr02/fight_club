@@ -11,6 +11,7 @@ import DieBlock from "../../../../DieBlock/DieBlock";
 
 const Characteristics = ({productData, setProductData}) => {
     const [characteristics, setCharacteristics] = useState([]); // [{characteristicId, title, desc}]
+
     useEffect(() => {
         if (Array.isArray(productData?.characteristics)) {
             setCharacteristics(productData.characteristics.map(characteristic => ({

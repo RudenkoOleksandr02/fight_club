@@ -9,7 +9,6 @@ import classes from './Products.module.css'
 import AddProduct from "./AddProduct/AddProduct";
 
 const Products = ({products, setProductsIds, delProductsIds}) => {
-
     return (
         <div className={classes.wrapper}>
             <DieBlock title='Товари' withoutButton={true}>

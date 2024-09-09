@@ -137,25 +137,7 @@ export const adminApi = {
             .then(response => response.data)
     },
     updateBlogById(blogId, params) {
-        const formData = new FormData();
-
-        if (params.title) formData.append('Title', params.title);
-        if (params.description) formData.append('Description', params.description);
-        if (params.metaKeywords) formData.append('MetaKeywords', params.metaKeywords);
-        if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
-        if (params.desktopImage) formData.append('DesktopImage', params.desktopImage);
-        if (params.laptopImage) formData.append('LaptopImage', params.laptopImage);
-        if (params.tabletImage) formData.append('TabletImage', params.tabletImage);
-        if (params.phoneImage) formData.append('PhoneImage', params.phoneImage);
-        if (params.desktopAltText) formData.append('DesktopAltText', params.desktopAltText);
-        if (params.laptopAltText) formData.append('LaptopAltText', params.laptopAltText);
-        if (params.tabletAltText) formData.append('TabletAltText', params.tabletAltText);
-        if (params.phoneAltText) formData.append('PhoneAltText', params.phoneAltText);
-        if (params.productIds && params.productIds.length > 0) {
-            params.productIds.forEach(id => formData.append('ProductIds', id));
-        }
-
-        return instance.put(AdminUrls.UpdateBlogById(blogId), formData, {
+        return instance.put(AdminUrls.UpdateBlogById(blogId), getFormDataForBannerAndBlog(params), {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -163,26 +145,7 @@ export const adminApi = {
             .then(response => response.data)
     },
     addBlog(params) {
-        const formData = new FormData();
-
-        if (params.title) formData.append('Title', params.title);
-        if (params.description) formData.append('Description', params.description);
-        if (params.metaKeywords) formData.append('MetaKeywords', params.metaKeywords);
-        if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
-        if (params.desktopImageUrl) formData.append('DesktopImage', params.desktopImageUrl);
-        if (params.laptopImageUrl) formData.append('LaptopImage', params.laptopImageUrl);
-        if (params.tabletImageUrl) formData.append('TabletImage', params.tabletImageUrl);
-        if (params.phoneImageUrl) formData.append('PhoneImage', params.phoneImageUrl);
-        formData.append('DesktopAltText', "test");
-        formData.append('LaptopAltText', "test");
-        formData.append('TabletAltText', "test");
-        formData.append('PhoneAltText', "test");
-        if (params.productIds && params.productIds.length > 0) {
-            params.productIds.forEach(id => formData.append('ProductIds', id));
-        }
-        console.log(params)
-
-        return instance.post(AdminUrls.AddBlog, formData, {
+        return instance.post(AdminUrls.AddBlog, getFormDataForBannerAndBlog(params), {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -200,25 +163,7 @@ export const adminApi = {
             .then(response => response.data)
     },
     updateBannerById(bannerId, params) {
-        const formData = new FormData();
-
-        if (params.title) formData.append('Title', params.title);
-        if (params.description) formData.append('Description', params.description);
-        if (params.metaKeywords) formData.append('MetaKeywords', params.metaKeywords);
-        if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
-        if (params.desktopImage) formData.append('DesktopImage', params.desktopImage);
-        if (params.laptopImage) formData.append('LaptopImage', params.laptopImage);
-        if (params.tabletImage) formData.append('TabletImage', params.tabletImage);
-        if (params.phoneImage) formData.append('PhoneImage', params.phoneImage);
-        if (params.desktopAltText) formData.append('DesktopAltText', params.desktopAltText);
-        if (params.laptopAltText) formData.append('LaptopAltText', params.laptopAltText);
-        if (params.tabletAltText) formData.append('TabletAltText', params.tabletAltText);
-        if (params.phoneAltText) formData.append('PhoneAltText', params.phoneAltText);
-        if (params.productIds && params.productIds.length > 0) {
-            params.productIds.forEach(id => formData.append('ProductIds', id));
-        }
-
-        return instance.put(AdminUrls.UpdateBannerById(bannerId), formData, {
+        return instance.put(AdminUrls.UpdateBannerById(bannerId), getFormDataForBannerAndBlog(params), {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -226,29 +171,30 @@ export const adminApi = {
             .then(response => response.data)
     },
     addBanner(params) {
-        const formData = new FormData();
-
-        if (params.title) formData.append('Title', params.title);
-        if (params.description) formData.append('Description', params.description);
-        if (params.metaKeywords) formData.append('MetaKeywords', params.metaKeywords);
-        if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
-        if (params.desktopImageUrl) formData.append('DesktopImage', params.desktopImageUrl);
-        if (params.laptopImageUrl) formData.append('LaptopImage', params.laptopImageUrl);
-        if (params.tabletImageUrl) formData.append('TabletImage', params.tabletImageUrl);
-        if (params.phoneImageUrl) formData.append('PhoneImage', params.phoneImageUrl);
-        formData.append('DesktopAltText', "test");
-        formData.append('LaptopAltText', "test");
-        formData.append('TabletAltText', "test");
-        formData.append('PhoneAltText', "test");
-        if (params.productIds && params.productIds.length > 0) {
-            params.productIds.forEach(id => formData.append('ProductIds', id));
-        }
-
-        return instance.post(AdminUrls.AddBanner, formData, {
+        return instance.post(AdminUrls.AddBanner, getFormDataForBannerAndBlog(params), {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
             .then(response => response.data)
     }
+}
+
+const getFormDataForBannerAndBlog = (params) => {
+    const formData = new FormData();
+
+    if (params.title) formData.append('Title', params.title);
+    if (params.description) formData.append('Description', params.description);
+    if (params.metaKeywords) formData.append('MetaKeywords', params.metaKeywords);
+    if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
+    if (params.desktopImageUrl) formData.append('DesktopImage', params.desktopImageUrl);
+    if (params.laptopImageUrl) formData.append('LaptopImage', params.laptopImageUrl);
+    if (params.tabletImageUrl) formData.append('TabletImage', params.tabletImageUrl);
+    if (params.phoneImageUrl) formData.append('PhoneImage', params.phoneImageUrl);
+    if (params.altText) formData.append('AltText', params.altText)
+    if (params.productIds && params.productIds.length > 0) {
+        params.productIds.forEach(id => formData.append('ProductIds', id));
+    }
+
+    return formData;
 }

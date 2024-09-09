@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {getModifiedFields} from "../../../../common/utils/getModifiedFields";
 import PopupAdmin from "../../../PopupAdmin/PopupAdmin";
 import {useDispatch} from "react-redux";
-import {addBlog} from "../../../../store/adminSlices/adminBlogSlice";
+import {addBlog, getAdminBlogs} from "../../../../store/adminSlices/adminBlogSlice";
 import GeneralPopup from "../../../GeneralPopup/GeneralPopup";
 
 const AddBlog = ({isOpenPopupAdd, setIsOpenPopupAdd}) => {
@@ -17,10 +17,7 @@ const AddBlog = ({isOpenPopupAdd, setIsOpenPopupAdd}) => {
         laptopImageUrl: '',
         tabletImageUrl: '',
         phoneImageUrl: '',
-        desktopAltText: '1',
-        laptopAltText: '2',
-        tabletAltText: '3',
-        phoneAltText: '4',
+        altText: '',
         products: [],
     });
     const [blogDataForOnlyTrack, setBlogDataForOnlyTrack] = useState({});
@@ -38,10 +35,7 @@ const AddBlog = ({isOpenPopupAdd, setIsOpenPopupAdd}) => {
             laptopImageUrl: blogDataForOnlyChange.laptopImageUrl,
             tabletImageUrl: blogDataForOnlyChange.tabletImageUrl,
             phoneImageUrl: blogDataForOnlyChange.phoneImageUrl,
-            desktopAltText: blogDataForOnlyChange.desktopAltText,
-            laptopAltText: blogDataForOnlyChange.laptopAltText,
-            tabletAltText: blogDataForOnlyChange.tabletAltText,
-            phoneAltText: blogDataForOnlyChange.phoneAltText,
+            altText: blogDataForOnlyChange.altText,
             productIds: blogDataForOnlyChange.products?.map(product => product.id)
         });
     }, [blogDataForOnlyChange]);
@@ -69,6 +63,7 @@ const AddBlog = ({isOpenPopupAdd, setIsOpenPopupAdd}) => {
     const handleSave = () => {
         const modifiedData = getModifiedFields(prevBlogDataForOnlyTrack.current, blogDataForOnlyTrack);
         dispatch(addBlog(modifiedData))
+            .then(() => dispatch(getAdminBlogs()))
         setIsOpenPopupAdd(false)
     }
 

@@ -13,14 +13,15 @@ const PopupForProduct = ({productData, setProductData, handleClosePopup, handleS
     const handleChangeInput = (key, value) => {
         setProductData(prevState => ({...prevState, [key]: value}));
     }
-    console.log(productData)
 
     return (
         <EditContainer handleSave={() => handleSaveProduct()}
                        isDisabledSave={!isSaveButtonActive} handleClose={handleClosePopup}>
             <div className={classes.wrapper}>
                 <div className={classes.top}>
-                    <span className={classes.productId}>№{productData.id}</span>
+                    {mode === 'edit' ? (
+                        <span className={classes.productId}>№{productData.id}</span>
+                    ) : null}
                 </div>
                 <div className={classes.mainInformation}>
                     <InputAdmin onChange={e => handleChangeInput('name', e.target.value)} value={productData.name}

@@ -30,7 +30,7 @@ const Blogs = () => {
                             laptopImage: blog.laptopImageUrl,
                             tabletImage: blog.tabletImageUrl,
                             phoneImage: blog.phoneImageUrl,
-                            altText: blog.desktopAltText
+                            altText: blog.altText
                         }}
                     />
                 ))}

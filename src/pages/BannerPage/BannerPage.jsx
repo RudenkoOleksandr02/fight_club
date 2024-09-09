@@ -94,7 +94,7 @@ const BannerPage = () => {
     }, [currentPage, sortBy]);
 
     if (isPageLoading) return <Preloader color='secondary' cover={true}/>
-
+    console.log(filterPanelData?.categories)
     return (
         <section>
             <div className={classes.wrapper}>
@@ -109,7 +109,7 @@ const BannerPage = () => {
                             laptopImage: bannerData.laptopImageUrl,
                             tabletImage: bannerData.tabletImageUrl,
                             phoneImage: bannerData.phoneImageUrl,
-                            altText: bannerData.desktopAltText
+                            altText: bannerData.altText
                         }}
                     />
                 ) : null}

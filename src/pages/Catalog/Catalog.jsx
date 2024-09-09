@@ -42,7 +42,7 @@ const Catalog = () => {
         setMaxPrice(0);
 
         dispatch(getFilterPanelById(categoryId))
-            .then(() => fetchProducts(1, [], filterPanelData.maxPrice, filterPanelData.minPrice, ""))
+            .then(() => fetchProducts(1, [], [], filterPanelData.maxPrice, filterPanelData.minPrice, ""))
             .finally(() => setIsPageLoading(false))
     }, [categoryId]);
 
@@ -58,6 +58,7 @@ const Catalog = () => {
     const fetchProducts = useCallback((
         actualCurrentPage = currentPage,
         actualCharacteristicIds = characteristicIds,
+        actualCategoryIds = categoryIds,
         actualMaxPrice = maxPrice,
         actualMinPrice = minPrice,
         actualSortBy = sortBy
@@ -70,8 +71,9 @@ const Catalog = () => {
             minPrice: actualMinPrice,
             maxPrice: actualMaxPrice,
             selectedCharacteristics: actualCharacteristicIds,
+            categoryIds: actualCategoryIds
         }));
-    }, [categoryId, amount, characteristicIds, minPrice, maxPrice, sortBy, currentPage]);
+    }, [categoryId, amount, characteristicIds, categoryIds, minPrice, maxPrice, sortBy, currentPage]);
 
     // APPLY FILTER
     const handleApplyFilter = () => {
@@ -83,7 +85,7 @@ const Catalog = () => {
     useEffect(() => {
         fetchProducts();
     }, [currentPage, sortBy]);
-
+    console.log(filterPanelData?.categories?.children)
     if (isPageLoading) return <Preloader color='secondary' cover={true}/>
 
     return (
@@ -98,18 +100,24 @@ const Catalog = () => {
                     <div className={classes.main}>
                         <div
                             className={`${classes.filterPanel} ${isVisibleFilterPanelInMobile ? classes.visible : ''}`}>
-                            <FilterPanel
-                                handleApplyFilter={handleApplyFilter}
-                                onCloseFilterPanelInMobile={() => setIsVisibleFilterPanelInMobile(false)}
-                                forCategories={{setCategoryIds, categoryIds, categories: []}}
-                                forCharacteristics={{
-                                    setCharacteristicIds,
-                                    characteristicIds,
-                                    characteristics: filterPanelData?.characteristics || []
-                                }}
-                                forMinPrice={{minPrice, setMinPrice}}
-                                forMaxPrice={{maxPrice, setMaxPrice}}
-                            />
+                            {filterPanelLoading ? <Preloader color='tertiary'/> : (
+                                <FilterPanel
+                                    handleApplyFilter={handleApplyFilter}
+                                    onCloseFilterPanelInMobile={() => setIsVisibleFilterPanelInMobile(false)}
+                                    forCategories={{
+                                        setCategoryIds,
+                                        categoryIds,
+                                        categories: filterPanelData?.categories?.children || []
+                                    }}
+                                    forCharacteristics={{
+                                        setCharacteristicIds,
+                                        characteristicIds,
+                                        characteristics: filterPanelData?.characteristics || []
+                                    }}
+                                    forMinPrice={{minPrice, setMinPrice}}
+                                    forMaxPrice={{maxPrice, setMaxPrice}}
+                                />
+                            )}
                         </div>
                         <TopPanel
                             totalCount={catalogData?.totalCount}

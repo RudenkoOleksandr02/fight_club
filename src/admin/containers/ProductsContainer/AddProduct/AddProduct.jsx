@@ -82,6 +82,7 @@ const AddProduct = ({isOpenPopupAddProduct, setIsOpenPopupAddProduct}) => {
                             handleClosePopup={() => setIsOpenPopupAddProduct(false)}
                             handleSaveProduct={handleSave}
                             isSaveButtonActive={isSaveButtonActive}
+                            mode='create'
                         />
                     </PopupAdmin>
             )}

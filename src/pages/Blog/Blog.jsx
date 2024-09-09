@@ -28,7 +28,7 @@ const Blog = () => {
                     laptopImage: blogData.laptopImageUrl,
                     tabletImage: blogData.tabletImageUrl,
                     phoneImage: blogData.phoneImageUrl,
-                    altText: blogData.desktopAltText
+                    altText: blogData.altText
                 }}
             />
             <div className={classes.products}>

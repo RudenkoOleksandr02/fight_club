@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {getModifiedFields} from "../../../../common/utils/getModifiedFields";
-import {addBanner} from "../../../../store/adminSlices/adminBannerSlice";
+import {addBanner, getAdminBanners} from "../../../../store/adminSlices/adminBannerSlice";
 import PopupAdmin from "../../../PopupAdmin/PopupAdmin";
 import GeneralPopup from "../../../GeneralPopup/GeneralPopup";
 
@@ -17,10 +17,7 @@ const AddBanner = ({isOpenPopupAdd, setIsOpenPopupAdd}) => {
         laptopImageUrl: '',
         tabletImageUrl: '',
         phoneImageUrl: '',
-        desktopAltText: '1',
-        laptopAltText: '2',
-        tabletAltText: '3',
-        phoneAltText: '4',
+        altText: '',
         products: [],
     });
     const [bannerDataForOnlyTrack, setBannerDataForOnlyTrack] = useState({});
@@ -38,10 +35,7 @@ const AddBanner = ({isOpenPopupAdd, setIsOpenPopupAdd}) => {
             laptopImageUrl: bannerDataForOnlyChange.laptopImageUrl,
             tabletImageUrl: bannerDataForOnlyChange.tabletImageUrl,
             phoneImageUrl : bannerDataForOnlyChange.phoneImageUrl,
-            desktopAltText: bannerDataForOnlyChange.desktopAltText,
-            laptopAltText: bannerDataForOnlyChange.laptopAltText,
-            tabletAltText: bannerDataForOnlyChange.tabletAltText,
-            phoneAltText: bannerDataForOnlyChange.phoneAltText,
+            altText: bannerDataForOnlyChange.altText,
             productIds: bannerDataForOnlyChange.products?.map(product => product.id)
         });
     }, [bannerDataForOnlyChange]);
@@ -69,6 +63,7 @@ const AddBanner = ({isOpenPopupAdd, setIsOpenPopupAdd}) => {
     const handleSave = () => {
         const modifiedData = getModifiedFields(prevBannerDataForOnlyTrack.current, bannerDataForOnlyTrack);
         dispatch(addBanner(modifiedData))
+            .then(() => dispatch(getAdminBanners()))
         setIsOpenPopupAdd(false)
     }
 
