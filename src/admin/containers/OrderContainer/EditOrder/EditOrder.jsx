@@ -30,7 +30,7 @@ const EditOrder = ({isOpenPopupEdit, setIsOpenPopupEdit, amount, currentPage}) =
                 departmentNumber: orderData.departmentNumber || '',
                 promocodeId: orderData.promocodeId || '',
                 promocodeDiscount: orderData.promocodeDiscount || 0,
-                productDiscount: orderData.productDiscount || 0,
+                productsDiscount: orderData.productsDiscount || 0,
                 totalPrice: orderData.totalPrice || 0,
                 totalDiscount: orderData.totalDiscount || 0,
                 totalPriceWithDiscount: orderData.totalPriceWithDiscount || 0,

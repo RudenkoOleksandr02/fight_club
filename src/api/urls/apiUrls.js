@@ -147,6 +147,16 @@ export const AdminUrls = {
         return `Characteristic/${characteristicTitle}/values`
     },
 
+    // BRANDS
+    GetBrands: 'Brands',
+    GetBrandById(brandId) {
+        return `Brands/${brandId}`
+    },
+    AddBrand: 'Brands',
+    UpdateBrandById(brandId) {
+        return `Brands/${brandId}`
+    }
+
 }
 export const UserUrls = {
     GetFavorite: 'Favorite',

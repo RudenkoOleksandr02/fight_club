@@ -235,8 +235,8 @@ export const adminApi = {
 
     // CHARACTERISTICS
     getCharacteristics() {
-      return instance.get(AdminUrls.GetCharacteristics)
-          .then(response => response.data)
+        return instance.get(AdminUrls.GetCharacteristics)
+            .then(response => response.data)
     },
     getCharacteristicById(characteristicId) {
         return instance.get(AdminUrls.GetCharacteristicById(characteristicId))
@@ -258,6 +258,50 @@ export const adminApi = {
         return instance.get(AdminUrls.GetCharacteristicDescsByTitle(characteristicTitle))
             .then(response => response.data)
     },
+
+    // BRANDS
+    getBrands() {
+        return instance.get(AdminUrls.GetBrands)
+            .then(response => response.data)
+    },
+    getBrandById(brandId) {
+        return instance.get(AdminUrls.GetBrandById(brandId))
+            .then(response => response.data)
+    },
+    updateBrandById(brandId, params) {
+        const formData = new FormData();
+
+        if (params.title) formData.append('Title', params.title);
+        if (params.description) formData.append('Description', params.description);
+        if (params.metaKeywords) formData.append('MetaKeywords', params.metaKeywords);
+        if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
+        if (params.imageUrl) formData.append('Image', params.imageUrl);
+        if (params.logoImageUrl) formData.append('LogoImage', params.logoImageUrl);
+
+        return instance.put(AdminUrls.UpdateBrandById(brandId), formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then(response => response.data)
+    },
+    addBrand(params) {
+        const formData = new FormData();
+
+        if (params.title) formData.append('Title', params.title);
+        if (params.description) formData.append('Description', params.description);
+        if (params.metaKeywords) formData.append('MetaKeywords', params.metaKeywords);
+        if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
+        if (params.imageUrl) formData.append('Image', params.imageUrl);
+        if (params.logoImageUrl) formData.append('LogoImage', params.logoImageUrl);
+
+        return instance.post(AdminUrls.AddBrand, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then(response => response.data)
+    }
 }
 
 const getFormDataForBannerAndBlog = (params) => {

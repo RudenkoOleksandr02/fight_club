@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import DieBlock from "../../DieBlock/DieBlock";
-import {useImportState} from "../../../common/hooks/useImportState";
-import classes from "./Images.module.css";
-import IcoButton from "../../buttons/IcoButton/IcoButton";
-import Popup from "../../../components/ui/Popup/Popup";
-import FileDropzone from "../../FileDropzone/FileDropzone";
-import {ReactComponent as IcoRemove} from '../../images/icoDelete.svg'
+import {useImportState} from "../../../../../common/hooks/useImportState";
+import classes from "./Image.module.css";
+import IcoButton from "../../../../buttons/IcoButton/IcoButton";
+import Popup from "../../../../../components/ui/Popup/Popup";
+import FileDropzone from "../../../../FileDropzone/FileDropzone";
+import DieBlock from "../../../../DieBlock/DieBlock";
+import {ReactComponent as IcoRemove} from './../../../../images/icoDelete.svg';
 
-const Image = ({title, titleForBtn, image, handleAddImage, handleRemoveImage, imageKey}) => {
+const Image = ({title, titleForBtn, image, handleAddImage, handleRemoveImage}) => {
     const [isOpenPopupImportImages, setIsOpenPopupImportImages] = useState(false);
     const {
         isErrorImport,
@@ -22,9 +22,8 @@ const Image = ({title, titleForBtn, image, handleAddImage, handleRemoveImage, im
         setIsOpenPopupImportImages(false);
     }
     const deleteImage = () => {
-        handleRemoveImage(imageKey)
+        handleRemoveImage()
     }
-
     return (
         <DieBlock title={title} titleForBtn={titleForBtn} handleClick={() => setIsOpenPopupImportImages(true)}>
             {image ? (

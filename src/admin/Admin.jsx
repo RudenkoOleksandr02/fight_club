@@ -12,6 +12,7 @@ import BlogsContainer from "./containers/BlogsContainer/BlogsContainer";
 import BannerContainer from "./containers/BannerContainer/BannerContainer";
 import PromocodeContainer from "./containers/PromocodeContainer/PromocodeContainer";
 import CharacteristicsContainer from "./containers/CharacteristicsContainer/CharacteristicsContainer";
+import BrandsContainer from "./containers/BrandsContainer/BrandsContainer";
 
 const Admin = () => {
     const navigate = useNavigate();
@@ -36,6 +37,7 @@ const Admin = () => {
         isOpenOrders: false,
         isOpenCharacteristics: false,
         isOpenBlogs: false,
+        isOpenBrands: false,
         isOpenUsers: false,
         isOpenParams: false
     });
@@ -47,6 +49,7 @@ const Admin = () => {
             isOpenOrders: false,
             isOpenCharacteristics: false,
             isOpenBlogs: false,
+            isOpenBrands: false,
             isOpenUsers: false,
             isOpenParams: false,
             [key]: true
@@ -77,6 +80,10 @@ const Admin = () => {
     const [currentPagePromocode, setCurrentPagePromocode] = useState(1);
     const [amountPromocode, setAmountPromocode] = useState(10);
 
+    // BRANDS
+    const [currentPageBrands, setCurrentPageBrands] = useState(1);
+    const [amountBrands, setAmountBrands] = useState(10);
+
     return (
         <main className={classes.main}>
             {loading ? <Preloader cover={true} color='secondary'/> : (
@@ -92,6 +99,8 @@ const Admin = () => {
                                                isOpen={navigation.isOpenOrders}>Замовлення</PrimaryButton>
                                 <PrimaryButton handleClick={() => handleOpen('isOpenCharacteristics')}
                                                isOpen={navigation.isOpenCharacteristics}>Характеристики</PrimaryButton>
+                                <PrimaryButton handleClick={() => handleOpen('isOpenBrands')}
+                                               isOpen={navigation.isOpenBrands}>Бренди</PrimaryButton>
                                 <PrimaryButton handleClick={() => handleOpen('isOpenBlogs')}
                                                isOpen={navigation.isOpenBlogs}>Блог</PrimaryButton>
                                 {/*<PrimaryButton handleClick={() => handleOpen('isOpenUsers')}
@@ -142,6 +151,14 @@ const Admin = () => {
                                 setCurrentPage={setCurrentPageBanner}
                                 amount={amountBanner}
                                 setAmount={setAmountBanner}
+                            />
+                        )}
+                        {navigation.isOpenBrands && (
+                            <BrandsContainer
+                                currentPage={currentPageBrands}
+                                setCurrentPage={setCurrentPageBrands}
+                                amount={amountBrands}
+                                setAmount={setAmountBrands}
                             />
                         )}
                         {navigation.isOpenPromocode && (
