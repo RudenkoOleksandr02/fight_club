@@ -43,7 +43,6 @@ export const adminApi = {
             .then(response => response.data)
     },
     putProductById(productId, params) {
-        console.log(productId, params)
         const formData = new FormData();
 
         if (params.name) formData.append('Name', params.name);
@@ -61,11 +60,11 @@ export const adminApi = {
         if (params.additionalCategoryIds && params.additionalCategoryIds.length > 0) {
             params.additionalCategoryIds.forEach(id => formData.append('AdditionalCategoryIds', id));
         }
-        if (params.images.urls && params.images.urls.length > 0) {
-            params.images.urls.forEach(link => formData.append('ImagesToDelete', link));
+        if (params.imagesToDelete && params.imagesToDelete.length > 0) {
+            params.imagesToDelete.forEach(link => formData.append('ImagesToDelete', link));
         }
-        if (params.images.files && params.images.files.length > 0) {
-            params.images.files.forEach(file => formData.append('ImagesToAdd', file));
+        if (params.imagesToAdd && params.imagesToAdd.length > 0) {
+            params.imagesToAdd.forEach(file => formData.append('ImagesToAdd', file));
         }
         if (params.metaKeys) formData.append('MetaKeys', params.metaKeys);
         if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
@@ -104,7 +103,6 @@ export const adminApi = {
         if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
 
         formData.append('BrandId', 1);
-        /*formData.append('PurchasePrice', 1)*/
 
         return instance.post(AdminUrls.AddProduct, formData, {
             headers: {

@@ -79,6 +79,7 @@ export const AdminUrls = {
         return `Product/${productId}`
     },
     PutProductById(productId) {
+        console.log(productId)
         return `Product/${productId}`
     },
     AddProduct: 'Product',
