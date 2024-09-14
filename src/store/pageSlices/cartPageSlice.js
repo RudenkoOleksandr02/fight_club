@@ -75,6 +75,7 @@ const cartPageSlice = createSlice({
     reducers: {
         putProductInCart: (state, action) => {
             const product = action.payload;
+            console.log(product)
             const existingProduct = state.productsInCart.find(item => item.productId === product.productId);
 
             if (existingProduct) {
@@ -157,11 +158,12 @@ export const { putProductInCart, changeProductAmountInCart, deleteProductFromCar
 
 export default cartPageSlice.reducer;
 
-export const selectTotalPrice = (state) => {
-    return state.cartPage.productsInCart.reduce((total, product) => {
-        return total + (product.price * product.quantity);
+export const selectTotalPrice = (state) => 
+    state.cartPage.productsInCart.reduce((total, product) => {
+        const discountedPrice = product.price * (1 - product.discount / 100);
+        return total + (discountedPrice * product.quantity);
     }, 0);
-};
+
 
 export const getUserShoppingCart = () => async (dispatch, getState) => {
     const isAuth = getState().auth.isAuth;

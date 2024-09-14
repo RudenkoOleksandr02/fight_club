@@ -1,12 +1,18 @@
 import axios from "axios";
 
 export const instance = axios.create({
-    baseURL: 'https://blossomapi-production.up.railway.app/api/',
+    baseURL: 'http://localhost:8001/api/',
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json'
     }
 });
+export const CashbackUrls = {
+    GetBalance: 'Cashback/GetBalance',
+    GetBalanceByPhone(phoneNumber) {
+        return `Cashback/GetBalanceByPhone?phoneNumber=${phoneNumber}`;
+    }
+};
 export const HomePageUrls = {
     GetNewProducts: 'HomePage/New',
     GetDiscountsProducts: 'HomePage/Discounts',

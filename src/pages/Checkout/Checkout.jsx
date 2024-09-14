@@ -1,15 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Placing from "./Placing/Placing";
-import {useDispatch, useSelector} from "react-redux";
-import {Link, useNavigate} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import classes from './Checkout.module.css';
 import Popup from "../../components/ui/Popup/Popup";
 import SecondaryButton from "../../components/ui/Buttons/SecondaryButton/SecondaryButton";
-import {checkout, setDeliveryInfo, setUserInfo} from "../../store/pageSlices/checkoutPageSlice";
-import {clearCart} from "../../store/pageSlices/cartPageSlice";
+import {
+    checkout,
+    setDeliveryInfo,
+    setUserInfo,
+    fetchCashbackBalance
+} from "../../store/pageSlices/checkoutPageSlice";
+import { clearCart } from "../../store/pageSlices/cartPageSlice";
 import InformationPanel from "../../components/containers/Order/InformationPanel/InformationPanel";
 import TopPanel from "../../components/containers/Order/TopPanel/TopPanel";
-import {getUser} from "../../store/pageSlices/userPageSlice";
+import { getUser } from "../../store/pageSlices/userPageSlice";
 
 const Checkout = () => {
     const navigate = useNavigate();
@@ -68,33 +73,33 @@ const Checkout = () => {
                 .then((response) => {
                     if (response.meta.requestStatus === 'fulfilled') {
                         const user = response.payload;
-                        console.log(user)
                         dispatch(setUserInfo({ key: 'name', value: user.username }));
                         dispatch(setUserInfo({ key: 'surname', value: user.surname }));
                         dispatch(setUserInfo({ key: 'phone', value: user.phoneNumber }));
                         dispatch(setUserInfo({ key: 'email', value: user.email }));
                     }
                 });
+
+            dispatch(fetchCashbackBalance());
         }
     }, [isAuth, dispatch]);
 
-
     const handleSetUserInfo = (value, key) => {
-        dispatch(setUserInfo({key, value}));
+        dispatch(setUserInfo({ key, value }));
     };
 
     const handleSetDeliveryInfo = (value, key) => {
-        dispatch(setDeliveryInfo({key, value}));
+        dispatch(setDeliveryInfo({ key, value }));
     };
 
-    const handleCheckoutForGuest = () => {
+    const handleCheckout = () => {
         dispatch(checkout(checkoutData))
             .then(response => {
                 setEmail(checkoutData.userInfo.email);
                 if (response.meta.requestStatus === 'fulfilled') {
                     setOrderId(response.payload.orderId);
                 } else if (response.meta.requestStatus === 'rejected') {
-                    const errors = response.payload.errors;
+                    const errors = response.payload.errors || {};
                     setErrors({
                         city: errors["DeliveryInfo.City"] || [],
                         department: errors["DeliveryInfo.Department"] || [],
@@ -110,7 +115,7 @@ const Checkout = () => {
     return (
         <div className={classes.wrapper}>
             <div className={classes.topPanel}>
-                <TopPanel/>
+                <TopPanel />
             </div>
             <div className={classes.placing}>
                 <Placing
@@ -124,9 +129,7 @@ const Checkout = () => {
                 <InformationPanel
                     orderParams={{
                         text: 'Купити',
-                        handleClick: () => {
-                            handleCheckoutForGuest();
-                        }
+                        handleClick: handleCheckout
                     }}
                 />
             </div>

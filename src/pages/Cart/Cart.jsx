@@ -5,7 +5,9 @@ import ProductsInCart from "./ProductsInCart/ProductsInCart";
 import {useNavigate} from "react-router-dom";
 import TopPanel from "../../components/containers/Order/TopPanel/TopPanel";
 import InformationPanel from "../../components/containers/Order/InformationPanel/InformationPanel";
-
+import {
+    fetchCashbackBalance
+} from "../../store/pageSlices/checkoutPageSlice";
 import {
     addProduct, changeProductAmount,
     getUserShoppingCart, removeProduct,
@@ -41,6 +43,8 @@ const Cart = () => {
         if (!loading && productsInCart.length === 0) {
             navigate('/')
         }
+
+        dispatch(fetchCashbackBalance());
     }, [productsInCart.length, loading]);
 
 
