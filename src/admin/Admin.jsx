@@ -11,6 +11,7 @@ import {getIsAdminAuth} from "../store/adminSlices/adminAuthSlice";
 import BlogsContainer from "./containers/BlogsContainer/BlogsContainer";
 import BannerContainer from "./containers/BannerContainer/BannerContainer";
 import PromocodeContainer from "./containers/PromocodeContainer/PromocodeContainer";
+import CharacteristicsContainer from "./containers/CharacteristicsContainer/CharacteristicsContainer";
 
 const Admin = () => {
     const navigate = useNavigate();
@@ -60,6 +61,10 @@ const Admin = () => {
     const [currentPageOrder, setCurrentPageOrder] = useState(1);
     const [amountOrder, setAmountOrder] = useState(10);
 
+    // CHARACTERISTICS
+    const [currentPageCharacteristics, setCurrentPageCharacteristics] = useState(1);
+    const [amountCharacteristics, setAmountCharacteristics] = useState(10);
+
     // BLOGS
     const [currentPageBlogs, setCurrentPageBlogs] = useState(1);
     const [amountBlogs, setAmountBlogs] = useState(10);
@@ -85,8 +90,8 @@ const Admin = () => {
                                                isOpen={navigation.isOpenProducts}>Товари</PrimaryButton>
                                 <PrimaryButton handleClick={() => handleOpen('isOpenOrders')}
                                                isOpen={navigation.isOpenOrders}>Замовлення</PrimaryButton>
-                                {/*<PrimaryButton handleClick={() => handleOpen('isOpenCharacteristics')}
-                                               isOpen={navigation.isOpenCharacteristics}>Характеристики</PrimaryButton>*/}
+                                <PrimaryButton handleClick={() => handleOpen('isOpenCharacteristics')}
+                                               isOpen={navigation.isOpenCharacteristics}>Характеристики</PrimaryButton>
                                 <PrimaryButton handleClick={() => handleOpen('isOpenBlogs')}
                                                isOpen={navigation.isOpenBlogs}>Блог</PrimaryButton>
                                 {/*<PrimaryButton handleClick={() => handleOpen('isOpenUsers')}
@@ -113,6 +118,14 @@ const Admin = () => {
                                 setCurrentPage={setCurrentPageOrder}
                                 amount={amountOrder}
                                 setAmount={setAmountOrder}
+                            />
+                        )}
+                        {navigation.isOpenCharacteristics && (
+                            <CharacteristicsContainer
+                                currentPage={currentPageCharacteristics}
+                                setCurrentPage={setCurrentPageCharacteristics}
+                                amount={amountCharacteristics}
+                                setAmount={setAmountCharacteristics}
                             />
                         )}
                         {navigation.isOpenBlogs && (

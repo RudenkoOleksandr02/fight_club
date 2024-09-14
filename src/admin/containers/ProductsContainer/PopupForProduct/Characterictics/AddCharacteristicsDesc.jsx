@@ -2,18 +2,18 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import classes from "./Characterictics.module.css";
 import {v4 as uuidv4} from 'uuid';
-import {getCharacteristicValues} from "../../../../../store/adminSlices/adminProductSlice";
 import SelectButton from "../../../../buttons/SelectButton/SelectButton";
 import Preloader from "../../../../../components/ui/Preloader/Preloader";
+import {getCharacteristicDescsByTitle} from "../../../../../store/adminSlices/adminCharacteristicsSlice";
 
-const AddCharacteristicsDesc = ({characteristic, setCharacteristics, characteristics, handleSaveCharacteristics}) => {
+const AddCharacteristicsDesc = ({characteristic, setCharacteristics, characteristics, handleAddCharacteristics, handleChangeCharacteristics}) => {
     const dispatch = useDispatch()
-    const characteristicsDesc = useSelector(state => state.admin.adminProduct.characteristicsOptions);
+    const characteristicsDesc = useSelector(state => state.admin.adminCharacteristics.characteristicDescs);
     const [isOpenPopupCharacteristicsDesc, setIsOpenPopupCharacteristicsDesc] = useState(false);
 
     useEffect(() => {
         if (isOpenPopupCharacteristicsDesc) {
-            dispatch(getCharacteristicValues(characteristic.title))
+            dispatch(getCharacteristicDescsByTitle(characteristic.title))
         }
     }, [isOpenPopupCharacteristicsDesc])
 
@@ -22,8 +22,14 @@ const AddCharacteristicsDesc = ({characteristic, setCharacteristics, characteris
             if (data.characteristicId === characteristic.characteristicId &&
                 characteristics.every(characteristic => characteristic.characteristicId !== characteristicId)
             ) {
-                handleSaveCharacteristics({characteristicId, title: characteristic.title, desc})
-                return {characteristicId, title: characteristic.title, desc}
+                if (data.desc === null) {
+                    handleAddCharacteristics({characteristicId, title: characteristic.title, desc})
+                    return {characteristicId, title: characteristic.title, desc}
+                } else {
+                    handleChangeCharacteristics({characteristicId, title: characteristic.title, desc}, characteristic.characteristicId);
+                    return { ...data, desc }
+                }
+
             } else {
                 return data
             }
@@ -45,7 +51,8 @@ const AddCharacteristicsDesc = ({characteristic, setCharacteristics, characteris
                         <Preloader overflowHidden={false} color='primary'/>
                     ) : (
                         characteristicsDesc.data.map(option => (
-                            <button className={classes.option} key={uuidv4()} onClick={() => handleSelectCharacteristicDesc(option.desc, option.id)}>
+                            <button className={classes.option} key={uuidv4()}
+                                    onClick={() => handleSelectCharacteristicDesc(option.desc, option.id)}>
                                 {option.desc}
                             </button>
                         )))}

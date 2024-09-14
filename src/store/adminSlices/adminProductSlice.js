@@ -64,41 +64,11 @@ const getAdminFilterPanelLoading = createAsyncThunk(
         }
     }
 )
-const getCharacteristicSearchLoading = createAsyncThunk(
-    'adminProduct/getCharacteristicSearchLoading',
-    async (searchTerm, {rejectWithValue}) => {
-        try {
-            return await adminApi.getCharacteristicSearch(searchTerm);
-        } catch (error) {
-            return rejectWithValue(error.response.data);
-        }
-    }
-)
-const getCharacteristicValuesLoading = createAsyncThunk(
-    'adminProduct/getCharacteristicValuesLoading',
-    async (characteristicTitle, {rejectWithValue}) => {
-        try {
-            return await adminApi.getCharacteristicValues(characteristicTitle);
-        } catch (error) {
-            return rejectWithValue(error.response.data);
-        }
-    }
-)
 const searchCategoriesLoading = createAsyncThunk(
     'adminProduct/searchCategoriesLoading',
     async (searchTerm, {rejectWithValue}) => {
         try {
             return await adminApi.searchCategories(searchTerm);
-        } catch (error) {
-            return rejectWithValue(error.response.data);
-        }
-    }
-)
-const getCharacteristicByIdLoading = createAsyncThunk(
-    'adminProduct/getCharacteristicByIdLoading',
-    async (characteristicId, {rejectWithValue}) => {
-        try {
-            return await adminApi.getCharacteristicById(characteristicId);
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
@@ -114,14 +84,21 @@ const importFromExcelLoading = createAsyncThunk(
         }
     }
 );
+const addProductLoading = createAsyncThunk(
+    'adminProduct/addProductLoading',
+    async (params, {rejectWithValue}) => {
+        try {
+            return await adminApi.addProduct(params);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
 
 const initialState = {
     product: initialObject,
     products: initialObject,
     category: initialObject,
-    characteristicsValues: initialObject,
-    characteristicsOptions: initialObject,
-    characteristicById: initialObject,
     categoriesSearch: initialObject,
     adminFilterPanel: initialObject,
 }
@@ -185,24 +162,6 @@ const adminProductSlice = createSlice({
             .addCase(getAdminFilterPanelLoading.rejected, (state, action) => (
                 handleRejected(state, action, 'adminFilterPanel'))
             )
-            .addCase(getCharacteristicSearchLoading.pending, (state) => {
-                handlePending(state, 'characteristicsValues');
-            })
-            .addCase(getCharacteristicSearchLoading.fulfilled, (state, action) => (
-                handleFulfilled(state, action, 'characteristicsValues'))
-            )
-            .addCase(getCharacteristicSearchLoading.rejected, (state, action) => (
-                handleRejected(state, action, 'characteristicsValues'))
-            )
-            .addCase(getCharacteristicValuesLoading.pending, (state) => {
-                handlePending(state, 'characteristicsOptions');
-            })
-            .addCase(getCharacteristicValuesLoading.fulfilled, (state, action) => (
-                handleFulfilled(state, action, 'characteristicsOptions'))
-            )
-            .addCase(getCharacteristicValuesLoading.rejected, (state, action) => (
-                handleRejected(state, action, 'characteristicsOptions'))
-            )
             .addCase(searchCategoriesLoading.pending, (state) => {
                 handlePending(state, 'categoriesSearch');
             })
@@ -211,15 +170,6 @@ const adminProductSlice = createSlice({
             )
             .addCase(searchCategoriesLoading.rejected, (state, action) => (
                 handleRejected(state, action, 'categoriesSearch'))
-            )
-            .addCase(getCharacteristicByIdLoading.pending, (state) => {
-                handlePending(state, 'characteristicById');
-            })
-            .addCase(getCharacteristicByIdLoading.fulfilled, (state, action) => (
-                handleFulfilled(state, action, 'characteristicById'))
-            )
-            .addCase(getCharacteristicByIdLoading.rejected, (state, action) => (
-                handleRejected(state, action, 'characteristicById'))
             )
             .addCase(importFromExcelLoading.pending, (state) => (
                 handlePending(state, 'products'))
@@ -252,12 +202,6 @@ export const removeImagesByProductId = (productId, url) => (dispatch) => {
 };
 export const getAdminFilterPanel = () => (dispatch) => {
     return dispatch(getAdminFilterPanelLoading())
-}
-export const getCharacteristicSearch = (searchTerm) => (dispatch) => {
-    return dispatch(getCharacteristicSearchLoading(searchTerm))
-}
-export const getCharacteristicValues = (characteristicTitle) => (dispatch) => {
-    return dispatch(getCharacteristicValuesLoading(characteristicTitle))
 }
 export const searchCategories = (searchTerm) => (dispatch) => {
     return dispatch(searchCategoriesLoading(searchTerm))
@@ -308,3 +252,7 @@ export const toggleIsNew = (productId, boolean) => async (dispatch) => {
         });
     }
 };
+export const addProduct = (params) => (dispatch) => {
+    return dispatch(addProductLoading(params));
+};
+

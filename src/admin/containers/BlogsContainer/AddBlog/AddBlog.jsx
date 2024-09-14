@@ -1,13 +1,13 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import {getModifiedFields} from "../../../../common/utils/getModifiedFields";
-import PopupAdmin from "../../../PopupAdmin/PopupAdmin";
 import {useDispatch} from "react-redux";
 import {addBlog, getAdminBlogs} from "../../../../store/adminSlices/adminBlogSlice";
 import GeneralPopup from "../../../GeneralPopup/GeneralPopup";
+import EditableEntity from "../../../EditableEntity/EditableEntity";
 
 const AddBlog = ({isOpenPopupAdd, setIsOpenPopupAdd}) => {
     const dispatch = useDispatch()
-    const [blogDataForOnlyChange, setBlogDataForOnlyChange] = useState({
+    const initialObject = {
         id: '',
         title: '',
         description: '',
@@ -18,69 +18,40 @@ const AddBlog = ({isOpenPopupAdd, setIsOpenPopupAdd}) => {
         tabletImageUrl: '',
         phoneImageUrl: '',
         altText: '',
-        products: [],
-    });
-    const [blogDataForOnlyTrack, setBlogDataForOnlyTrack] = useState({});
-    const prevBlogDataForOnlyTrack = useRef({});
-    const [isSaveButtonActive, setIsSaveButtonActive] = useState(false);
-
-    // Обновление blogDataForOnlyTrack
-    useEffect(() => {
-        setBlogDataForOnlyTrack({
-            title: blogDataForOnlyChange.title,
-            description: blogDataForOnlyChange.description,
-            metaKeywords: blogDataForOnlyChange.metaKeywords,
-            metaDescription: blogDataForOnlyChange.metaDescription,
-            desktopImageUrl: blogDataForOnlyChange.desktopImageUrl,
-            laptopImageUrl: blogDataForOnlyChange.laptopImageUrl,
-            tabletImageUrl: blogDataForOnlyChange.tabletImageUrl,
-            phoneImageUrl: blogDataForOnlyChange.phoneImageUrl,
-            altText: blogDataForOnlyChange.altText,
-            productIds: blogDataForOnlyChange.products?.map(product => product.id)
-        });
-    }, [blogDataForOnlyChange]);
-
-    // Обновление prevBlogDataForOnlyTrack.current
-    useEffect(() => {
-        if (!Object.keys(prevBlogDataForOnlyTrack.current).length
-            && Object.keys(blogDataForOnlyTrack).every(key => blogDataForOnlyTrack[key] !== undefined)) {
-            prevBlogDataForOnlyTrack.current = blogDataForOnlyTrack;
+        products: []
+    }
+    const trackerFields = (obj = {}) => {
+        return {
+            title: obj.title,
+            description: obj.description,
+            metaKeywords: obj.metaKeywords,
+            metaDescription: obj.metaDescription,
+            desktopImageUrl: obj.desktopImageUrl,
+            laptopImageUrl: obj.laptopImageUrl,
+            tabletImageUrl: obj.tabletImageUrl,
+            phoneImageUrl: obj.phoneImageUrl,
+            altText: obj.altText,
+            productIds: obj.products?.map(product => product.id)
         }
-    }, [blogDataForOnlyTrack]);
+    }
 
-    // Проверка изменений и активация кнопки сохранения
-    useEffect(() => {
-        if (!!Object.keys(prevBlogDataForOnlyTrack.current).length) {
-            const modifiedFields = getModifiedFields(prevBlogDataForOnlyTrack.current, blogDataForOnlyTrack);
-            if (!Object.keys(modifiedFields).length) {
-                setIsSaveButtonActive(false)
-            } else {
-                setIsSaveButtonActive(true)
-            }
-        }
-    }, [blogDataForOnlyTrack]);
-
-    const handleSave = () => {
-        const modifiedData = getModifiedFields(prevBlogDataForOnlyTrack.current, blogDataForOnlyTrack);
+    const handleSave = (prevDataForOnlyTrack, dataForOnlyTrack) => {
+        const modifiedData = getModifiedFields(prevDataForOnlyTrack, dataForOnlyTrack);
         dispatch(addBlog(modifiedData))
             .then(() => dispatch(getAdminBlogs()))
         setIsOpenPopupAdd(false)
     }
 
     return (
-        <>
-            {isOpenPopupAdd && (
-                <PopupAdmin>
-                    <GeneralPopup
-                        handleClose={() => setIsOpenPopupAdd(false)}
-                        data={blogDataForOnlyChange}
-                        setData={setBlogDataForOnlyChange}
-                        isSaveButtonActive={isSaveButtonActive}
-                        handleSave={handleSave}
-                    />
-                </PopupAdmin>
-            )}
-        </>
+        <EditableEntity
+            isOpenPopup={isOpenPopupAdd}
+            setIsOpenPopup={setIsOpenPopupAdd}
+            handleSave={handleSave}
+            initialObject={initialObject}
+            loading={false}
+            trackerFields={trackerFields}
+            Component={GeneralPopup}
+        />
     );
 };
 

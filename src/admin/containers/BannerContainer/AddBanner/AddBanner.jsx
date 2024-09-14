@@ -1,13 +1,13 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import {useDispatch} from "react-redux";
 import {getModifiedFields} from "../../../../common/utils/getModifiedFields";
 import {addBanner, getAdminBanners} from "../../../../store/adminSlices/adminBannerSlice";
-import PopupAdmin from "../../../PopupAdmin/PopupAdmin";
 import GeneralPopup from "../../../GeneralPopup/GeneralPopup";
+import EditableEntity from "../../../EditableEntity/EditableEntity";
 
 const AddBanner = ({isOpenPopupAdd, setIsOpenPopupAdd}) => {
     const dispatch = useDispatch()
-    const [bannerDataForOnlyChange, setBannerDataForOnlyChange] = useState({
+    const initialObject = {
         id: '',
         title: '',
         description: '',
@@ -18,69 +18,40 @@ const AddBanner = ({isOpenPopupAdd, setIsOpenPopupAdd}) => {
         tabletImageUrl: '',
         phoneImageUrl: '',
         altText: '',
-        products: [],
-    });
-    const [bannerDataForOnlyTrack, setBannerDataForOnlyTrack] = useState({});
-    const prevBannerDataForOnlyTrack = useRef({});
-    const [isSaveButtonActive, setIsSaveButtonActive] = useState(false);
-
-    // Обновление bannerDataForOnlyTrack
-    useEffect(() => {
-        setBannerDataForOnlyTrack({
-            title: bannerDataForOnlyChange.title,
-            description: bannerDataForOnlyChange.description,
-            metaKeywords: bannerDataForOnlyChange.metaKeywords,
-            metaDescription: bannerDataForOnlyChange.metaDescription,
-            desktopImageUrl: bannerDataForOnlyChange.desktopImageUrl,
-            laptopImageUrl: bannerDataForOnlyChange.laptopImageUrl,
-            tabletImageUrl: bannerDataForOnlyChange.tabletImageUrl,
-            phoneImageUrl : bannerDataForOnlyChange.phoneImageUrl,
-            altText: bannerDataForOnlyChange.altText,
-            productIds: bannerDataForOnlyChange.products?.map(product => product.id)
-        });
-    }, [bannerDataForOnlyChange]);
-
-    // Обновление prevBannerDataForOnlyTrack.current
-    useEffect(() => {
-        if (!Object.keys(prevBannerDataForOnlyTrack.current).length
-            && Object.keys(bannerDataForOnlyTrack).every(key => bannerDataForOnlyTrack[key] !== undefined)) {
-            prevBannerDataForOnlyTrack.current = bannerDataForOnlyTrack;
+        products: []
+    }
+    const trackerFields = (obj = {}) => {
+        return {
+            title: obj.title,
+            description: obj.description,
+            metaKeywords: obj.metaKeywords,
+            metaDescription: obj.metaDescription,
+            desktopImageUrl: obj.desktopImageUrl,
+            laptopImageUrl: obj.laptopImageUrl,
+            tabletImageUrl: obj.tabletImageUrl,
+            phoneImageUrl : obj.phoneImageUrl,
+            altText: obj.altText,
+            productIds: obj.products?.map(product => product.id)
         }
-    }, [bannerDataForOnlyTrack]);
+    }
 
-    // Проверка изменений и активация кнопки сохранения
-    useEffect(() => {
-        if (!!Object.keys(prevBannerDataForOnlyTrack.current).length) {
-            const modifiedFields = getModifiedFields(prevBannerDataForOnlyTrack.current, bannerDataForOnlyTrack);
-            if (!Object.keys(modifiedFields).length) {
-                setIsSaveButtonActive(false)
-            } else {
-                setIsSaveButtonActive(true)
-            }
-        }
-    }, [bannerDataForOnlyTrack]);
-
-    const handleSave = () => {
-        const modifiedData = getModifiedFields(prevBannerDataForOnlyTrack.current, bannerDataForOnlyTrack);
+    const handleSave = (prevDataForOnlyTrack, dataForOnlyTrack) => {
+        const modifiedData = getModifiedFields(prevDataForOnlyTrack, dataForOnlyTrack);
         dispatch(addBanner(modifiedData))
             .then(() => dispatch(getAdminBanners()))
         setIsOpenPopupAdd(false)
     }
 
     return (
-        <>
-            {isOpenPopupAdd && (
-                <PopupAdmin>
-                    <GeneralPopup
-                        handleClose={() => setIsOpenPopupAdd(false)}
-                        data={bannerDataForOnlyChange}
-                        setData={setBannerDataForOnlyChange}
-                        isSaveButtonActive={isSaveButtonActive}
-                        handleSave={handleSave}
-                    />
-                </PopupAdmin>
-            )}
-        </>
+        <EditableEntity
+            isOpenPopup={isOpenPopupAdd}
+            setIsOpenPopup={setIsOpenPopupAdd}
+            handleSave={handleSave}
+            initialObject={initialObject}
+            loading={false}
+            trackerFields={trackerFields}
+            Component={GeneralPopup}
+        />
     );
 };
 

@@ -7,7 +7,6 @@ import SecondaryButton from "../../buttons/SecondaryButton/SecondaryButton";
 import OrderTable from "./OrderTable/OrderTable";
 import EditOrder from "./EditOrder/EditOrder";
 import {getOrderById, getOrdersByAdminFilterPanel} from "../../../store/adminSlices/adminOrderSlice";
-import SortButton from "../ProductsContainer/SortButton/SortButton";
 import SearchAdmin from "../../SearchAdmin/SearchAdmin";
 import LeftPanel from "../../LeftPanel/LeftPanel";
 import FilterPanel from "./FilterPanel/FilterPanel";
@@ -31,20 +30,45 @@ const OrderContainer = ({currentPage, setCurrentPage, setAmount, amount}) => {
     const [minOrderDate, setMinOrderDate] = useState(null);
     const [maxOrderDate, setMaxOrderDate] = useState(null);
     const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(10000000);
+    const [maxPrice, setMaxPrice] = useState(0);
     const [sortOption, setSortOption] = useState('');
+    const handleSortOption = (option) => {
+        if (sortOption === `${option}_asc`) {
+            setSortOption(`${option}_desc`);
+        } else {
+            setSortOption(`${option}_asc`);
+        }
+    };
+
+    const formatDateStartOfDayToISO = (dateStr) => {
+        if (!dateStr) return null;
+        const [year, month, day] = dateStr.split('-').map(Number);
+        const date = new Date(Date.UTC(year, month - 1, day, 0, 0, 0, 0));
+        return date.toISOString();
+    };
+
+    const formatDateEndOfDayToISO = (dateStr) => {
+        if (!dateStr) return null;
+        const [year, month, day] = dateStr.split('-').map(Number);
+        const date = new Date(Date.UTC(year, month - 1, day, 23, 59, 59, 999));
+        return date.toISOString();
+    };
+
     useEffect(() => {
+        const minOrderDateISO = formatDateStartOfDayToISO(minOrderDate);
+        const maxOrderDateISO = formatDateEndOfDayToISO(maxOrderDate);
+
         dispatch(getOrdersByAdminFilterPanel({
             searchTerm,
             statuses: statusIds,
-            minOrderDate,
-            maxOrderDate,
+            minOrderDate: minOrderDateISO,
+            maxOrderDate: maxOrderDateISO,
             minTotalPrice: minPrice,
             maxTotalPrice: maxPrice,
             sortOption,
             start: (currentPage - 1) * amount,
             amount
-        }))
+        }));
     }, [currentPage, amount, sortOption, maxPrice, minPrice, maxOrderDate, minOrderDate, statusIds, searchTerm]);
 
     const handleClickEdit = (orderId) => {
@@ -60,13 +84,6 @@ const OrderContainer = ({currentPage, setCurrentPage, setAmount, amount}) => {
                 totalCount={orders.data.totalCount || 0}
                 setCurrentPage={setCurrentPage}
             >
-                {/* SORT */}
-                <SortButton
-                    sortOption={sortOption}
-                    setSortOption={setSortOption}
-                    handleSortOption={() => {}}
-                />
-
                 {/* FILTER */}
                 <SecondaryButton handleClick={() => setIsOpenLeftPanel(true)}>Фільтрувати</SecondaryButton>
                 <LeftPanel isOpen={isOpenLeftPanel} onClose={() => setIsOpenLeftPanel(false)}>
@@ -95,6 +112,8 @@ const OrderContainer = ({currentPage, setCurrentPage, setAmount, amount}) => {
             </TopPanel>
             <OrderTable
                 handleClickEdit={handleClickEdit}
+                sortOption={sortOption}
+                handleSortOption={handleSortOption}
             />
             <EditOrder
                 isOpenPopupEdit={isOpenPopupEdit}

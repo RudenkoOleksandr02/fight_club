@@ -81,6 +81,7 @@ export const AdminUrls = {
     PutProductById(productId) {
         return `Product/${productId}`
     },
+    AddProduct: 'Product',
     PostImagesByProductId(productId) {
         return `Product/${productId}/images`
     },
@@ -88,15 +89,6 @@ export const AdminUrls = {
         return `Product/RemoveImage/${productId}`
     },
     GetCategory: 'Category',
-    GetCharacteristicSearch(searchTerm) {
-        return `Characteristic/search?name=${searchTerm}`
-    },
-    GetCharacteristicValues(characteristicTitle) {
-        return `Characteristic/${characteristicTitle}/values`
-    },
-    GetCharacteristicById(characteristicId) {
-        return `Characteristic/${characteristicId}`
-    },
     SearchCategories(searchTerm) {
         return `Category/Search?searchTerm=${searchTerm}`
     },
@@ -136,7 +128,24 @@ export const AdminUrls = {
     UpdateBannerById(bannerId) {
         return `Banners/${bannerId}`
     },
-    AddBanner: 'Banners'
+    AddBanner: 'Banners',
+
+    // CHARACTERISTICS
+    GetCharacteristics: 'Characteristic',
+    GetCharacteristicById(characteristicId) {
+        return `Characteristic/${characteristicId}`;
+    },
+    UpdateCharacteristicById(characteristicId) {
+        return `Characteristic/${characteristicId}`
+    },
+    AddCharacteristic: 'Characteristic',
+    GetCharacteristicTitlesBySearchTerm(searchTerm) {
+        return `Characteristic/search?name=${searchTerm}`
+    },
+    GetCharacteristicDescsByTitle(characteristicTitle) {
+        return `Characteristic/${characteristicTitle}/values`
+    },
+
 }
 export const UserUrls = {
     GetFavorite: 'Favorite',

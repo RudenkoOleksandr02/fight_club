@@ -21,8 +21,20 @@ const Characteristics = ({productData, setProductData}) => {
             })));
         }
     }, [productData]);
-    const handleSaveCharacteristics = (characteristic) => {
+    const handleAddCharacteristics = (characteristic) => {
         setProductData(prevState => ({...prevState, characteristics: [...prevState.characteristics, characteristic]}))
+    }
+    const handleChangeCharacteristics = (newCharacteristic, characteristicId) => {
+        setProductData(prevState => ({
+            ...prevState,
+            characteristics: prevState.characteristics.map(characteristic => {
+                if (characteristic.characteristicId === characteristicId) {
+                    return newCharacteristic
+                } else {
+                    return characteristic
+                }
+            })
+        }))
     }
     const handleDellCharacteristics = (characteristicId) => {
         const updatedCharacteristics = characteristics.filter(characteristic => characteristic.characteristicId !== characteristicId);
@@ -45,7 +57,8 @@ const Characteristics = ({productData, setProductData}) => {
                                     characteristic={characteristic}
                                     setCharacteristics={setCharacteristics}
                                     characteristics={characteristics}
-                                    handleSaveCharacteristics={handleSaveCharacteristics}
+                                    handleAddCharacteristics={handleAddCharacteristics}
+                                    handleChangeCharacteristics={handleChangeCharacteristics}
                                 />
                             </Td>
                             <Td>

@@ -154,6 +154,9 @@ const ProductsContainer = ({ currentPage, setCurrentPage, amount, setAmount }) =
                 <AddProduct
                     isOpenPopupAddProduct={isOpenPopupAddProduct}
                     setIsOpenPopupAddProduct={setIsOpenPopupAddProduct}
+                    currentPage={currentPage}
+                    amount={amount}
+                    searchTerm={searchTerm}
                 />
 
                 {/* SEARCH */}
@@ -177,6 +180,7 @@ const ProductsContainer = ({ currentPage, setCurrentPage, amount, setAmount }) =
                 setIsOpenPopupProductEdit={setIsOpenPopupProductEdit}
                 currentPage={currentPage}
                 amount={amount}
+                searchTerm={searchTerm}
             />
             {/* BOTTOM PANEL */}
             <BottomPanel

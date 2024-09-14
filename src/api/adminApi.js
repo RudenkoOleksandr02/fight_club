@@ -43,7 +43,74 @@ export const adminApi = {
             .then(response => response.data)
     },
     putProductById(productId, params) {
-        return instance.put(AdminUrls.PutProductById(productId), params)
+        console.log(productId, params)
+        const formData = new FormData();
+
+        if (params.name) formData.append('Name', params.name);
+        if (params.nameEng) formData.append('NameEng', params.nameEng);
+        if (params.mainCategoryId) formData.append('MainCategoryId', params.mainCategoryId);
+        if (params.article) formData.append('Article', params.article);
+        if (params.price) formData.append('Price', Number(params.price));
+        if (params.discount) formData.append('Discount', Number(params.discount));
+        if (params.amount) formData.append('AvailableAmount', Number(params.amount));
+        if (params.description) formData.append('Description', params.description);
+        if (params.ingridients) formData.append('Ingridients', params.ingridients);
+        if (params.characteristicIds && params.characteristicIds.length > 0) {
+            params.characteristicIds.forEach(id => formData.append('CharacteristicIds', id));
+        }
+        if (params.additionalCategoryIds && params.additionalCategoryIds.length > 0) {
+            params.additionalCategoryIds.forEach(id => formData.append('AdditionalCategoryIds', id));
+        }
+        if (params.images.urls && params.images.urls.length > 0) {
+            params.images.urls.forEach(link => formData.append('ImagesToDelete', link));
+        }
+        if (params.images.files && params.images.files.length > 0) {
+            params.images.files.forEach(file => formData.append('ImagesToAdd', file));
+        }
+        if (params.metaKeys) formData.append('MetaKeys', params.metaKeys);
+        if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
+
+        formData.append('BrandId', 1);
+
+        return instance.put(AdminUrls.PutProductById(productId), formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+            .then(response => response.data)
+    },
+    addProduct(params) {
+        const formData = new FormData();
+
+        if (params.name) formData.append('Name', params.name);
+        if (params.nameEng) formData.append('NameEng', params.nameEng);
+        if (params.mainCategoryId) formData.append('MainCategoryId', params.mainCategoryId);
+        if (params.article) formData.append('Article', params.article);
+        if (params.price) formData.append('Price', Number(params.price));
+        if (params.discount) formData.append('Discount', Number(params.discount));
+        if (params.amount) formData.append('AvailableAmount', Number(params.amount));
+        if (params.description) formData.append('Description', params.description);
+        if (params.ingridients) formData.append('Ingridients', params.ingridients);
+        if (params.characteristicIds && params.characteristicIds.length > 0) {
+            params.characteristicIds.forEach(id => formData.append('CharacteristicIds', id));
+        }
+        if (params.additionalCategoryIds && params.additionalCategoryIds.length > 0) {
+            params.additionalCategoryIds.forEach(id => formData.append('AdditionalCategoryIds', id));
+        }
+        if (params.images.files && params.images.files.length > 0) {
+            params.images.files.forEach(file => formData.append('Images', file));
+        }
+        if (params.metaKeys) formData.append('MetaKeys', params.metaKeys);
+        if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
+
+        formData.append('BrandId', 1);
+        /*formData.append('PurchasePrice', 1)*/
+
+        return instance.post(AdminUrls.AddProduct, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
             .then(response => response.data)
     },
     postImagesByProductId(productId, files) {
@@ -68,18 +135,6 @@ export const adminApi = {
     },
     removeImagesByProductId(productId, url) {
         return instance.post(AdminUrls.RemoveImagesByProductId(productId), url)
-            .then(response => response.data)
-    },
-    getCharacteristicSearch(searchTerm) {
-        return instance.get(AdminUrls.GetCharacteristicSearch(searchTerm))
-            .then(response => response.data)
-    },
-    getCharacteristicValues(characteristicTitle) {
-        return instance.get(AdminUrls.GetCharacteristicValues(characteristicTitle))
-            .then(response => response.data)
-    },
-    getCharacteristicById(characteristicId) {
-        return instance.get(AdminUrls.GetCharacteristicById(characteristicId))
             .then(response => response.data)
     },
     searchCategories(searchTerm) {
@@ -117,6 +172,7 @@ export const adminApi = {
             .then(response => response.data)
     },
     getOrdersByAdminFilterPanel(params) {
+        console.log(params)
         return instance.post(AdminUrls.GetOrdersByAdminFilter, params)
             .then(response => response.data)
     },
@@ -177,7 +233,33 @@ export const adminApi = {
             }
         })
             .then(response => response.data)
-    }
+    },
+
+    // CHARACTERISTICS
+    getCharacteristics() {
+      return instance.get(AdminUrls.GetCharacteristics)
+          .then(response => response.data)
+    },
+    getCharacteristicById(characteristicId) {
+        return instance.get(AdminUrls.GetCharacteristicById(characteristicId))
+            .then(response => response.data)
+    },
+    updateCharacteristicById(characteristicId, params) {
+        return instance.put(AdminUrls.UpdateCharacteristicById(characteristicId), params)
+            .then(response => response.data)
+    },
+    addCharacteristic(params) {
+        return instance.post(AdminUrls.AddCharacteristic, params)
+            .then(response => response.data)
+    },
+    getCharacteristicTitlesBySearchTerm(searchTerm) {
+        return instance.get(AdminUrls.GetCharacteristicTitlesBySearchTerm(searchTerm))
+            .then(response => response.data)
+    },
+    getCharacteristicDescsByTitle(characteristicTitle) {
+        return instance.get(AdminUrls.GetCharacteristicDescsByTitle(characteristicTitle))
+            .then(response => response.data)
+    },
 }
 
 const getFormDataForBannerAndBlog = (params) => {

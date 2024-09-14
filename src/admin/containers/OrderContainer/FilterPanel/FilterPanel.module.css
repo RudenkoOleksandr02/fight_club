@@ -1,0 +1,42 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.minMaxPrice, .reset {
+    margin-top: 10px;
+}
+.reset > button {
+    text-align: center;
+}
+.dateContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.date {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.date input {
+    height: 38px;
+    padding: 0 10px;
+    font-size: 16px;
+    color: var(--green);
+    border: 1px solid var(--green);
+    width: 100%;
+    background: var(--white);
+}
+.status {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.status h3 {
+    font-size: 20px;
+    font-weight: 500;
+}
+.status input {
+    margin-left: 10px;
+}

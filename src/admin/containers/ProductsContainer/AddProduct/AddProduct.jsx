@@ -1,92 +1,65 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {useDispatch} from "react-redux";
-import {getModifiedFields} from "../../../../common/utils/getModifiedFields";
-import Preloader from "../../../../components/ui/Preloader/Preloader";
-import PopupAdmin from "../../../PopupAdmin/PopupAdmin";
-import PopupForProduct from "../PopupForProduct/PopupForProduct";
+import React, { useCallback, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
+import { getModifiedFields } from '../../../../common/utils/getModifiedFields';
+import PopupForProduct from '../PopupForProduct/PopupForProduct';
+import {addProduct, getProductsByAdminFilter} from '../../../../store/adminSlices/adminProductSlice';
+import EditableEntity from '../../../EditableEntity/EditableEntity';
 
-const AddProduct = ({isOpenPopupAddProduct, setIsOpenPopupAddProduct}) => {
+const AddProduct = ({ isOpenPopupAddProduct, setIsOpenPopupAddProduct, amount, currentPage, searchTerm }) => {
     const dispatch = useDispatch();
 
-    // инициализация начального состояния
-    const [productDataForOnlyChange, setProductDataForOnlyChange] = useState({
-        id: '',
-        images: {},
+    const initialObject = useMemo(() => ({
         name: '',
         nameEng: '',
+        mainCategory: {},
+        article: '',
         price: '',
         discount: '',
         amount: '',
-        article: '',
         description: '',
         ingridients: '',
-        characteristic: [],
-        mainCategory: {},
+        characteristics: [],
         additionalCategories: [],
+        images: { urls: [], files: [] },
         metaKeys: '',
-        metaDescription: ''
-    });
-    const [productDataForOnlyTrack, setProductDataOnlyTrack] = useState({});
-    const prevProductDataForEditOnlyTrack = useRef({});
-    const [isSaveButtonActive, setIsSaveButtonActive] = useState(false);
+        metaDescription: '',
+    }), []); // Используем useMemo для мемоизации объекта initialObject
 
-    // Обновление productDataForOnlyTrack
-    useEffect(() => {
-        setProductDataOnlyTrack({
-            images: productDataForOnlyChange.images,
-            name: productDataForOnlyChange.name,
-            nameEng: productDataForOnlyChange.nameEng,
-            price: productDataForOnlyChange.price,
-            discount: productDataForOnlyChange.discount,
-            amount: productDataForOnlyChange.amount,
-            article: productDataForOnlyChange.article,
-            description: productDataForOnlyChange.description,
-            ingridients: productDataForOnlyChange.ingridients,
-            mainCategoryId: productDataForOnlyChange.mainCategory?.categoryId,
-            characteristicIds: productDataForOnlyChange?.characteristics?.map(characteristic => characteristic.characteristicId),
-            additionalCategoryIds: productDataForOnlyChange?.additionalCategories?.map(addCategory => addCategory.categoryId),
-            metaKeys: productDataForOnlyChange.metaKeys,
-            metaDescription: productDataForOnlyChange.metaDescription
-        });
-    }, [productDataForOnlyChange]);
+    const trackerFields = useCallback((obj = {}) => ({
+        name: obj.name,
+        nameEng: obj.nameEng,
+        mainCategoryId: obj.mainCategory?.categoryId || {},
+        article: obj.article,
+        price: obj.price,
+        discount: obj.discount,
+        amount: obj.amount,
+        description: obj.description,
+        ingridients: obj.ingridients,
+        characteristicIds: obj?.characteristics?.map(characteristic => characteristic.characteristicId),
+        additionalCategoryIds: obj?.additionalCategories?.map(addCategory => addCategory.categoryId),
+        images: obj.images,
+        metaKeys: obj.metaKeys,
+        metaDescription: obj.metaDescription
+    }), []); // Обернули trackerFields в useCallback для предотвращения пересоздания функции
 
-    // Обновление prevProductDataForEditOnlyTrack.current
-    useEffect(() => {
-        if (!Object.keys(prevProductDataForEditOnlyTrack.current).length
-            && Object.keys(productDataForOnlyTrack).every(key => productDataForOnlyTrack[key] !== undefined)) {
-            prevProductDataForEditOnlyTrack.current = productDataForOnlyTrack;
-        }
-    }, [productDataForOnlyTrack]);
+    const handleSave = useCallback((prevDataForOnlyTrack, dataForOnlyTrack) => {
+        const modifiedData = getModifiedFields(prevDataForOnlyTrack, dataForOnlyTrack);
+        dispatch(addProduct(modifiedData))
+            .then(() => dispatch(getProductsByAdminFilter({amount, start: (currentPage - 1) * amount, searchTerm})));
 
-    // Проверка изменений и активация кнопки сохранения
-    useEffect(() => {
-        if (!!Object.keys(prevProductDataForEditOnlyTrack.current).length) {
-            const modifiedFields = getModifiedFields(prevProductDataForEditOnlyTrack.current, productDataForOnlyTrack);
-            if (!Object.keys(modifiedFields).length) {
-                setIsSaveButtonActive(false)
-            } else {
-                setIsSaveButtonActive(true)
-            }
-        }
-    }, [productDataForOnlyTrack]);
-
-    const handleSave = () => {}
+        setIsOpenPopupAddProduct(false)
+    }, [dispatch]); // Используем useCallback для мемоизации handleSave
 
     return (
-        <>
-            {isOpenPopupAddProduct && (
-                    <PopupAdmin>
-                        <PopupForProduct
-                            productData={productDataForOnlyChange}
-                            setProductData={setProductDataForOnlyChange}
-                            handleClosePopup={() => setIsOpenPopupAddProduct(false)}
-                            handleSaveProduct={handleSave}
-                            isSaveButtonActive={isSaveButtonActive}
-                            mode='create'
-                        />
-                    </PopupAdmin>
-            )}
-        </>
+        <EditableEntity
+            isOpenPopup={isOpenPopupAddProduct}
+            setIsOpenPopup={setIsOpenPopupAddProduct}
+            handleSave={handleSave}
+            initialObject={initialObject}
+            loading={false}
+            trackerFields={trackerFields}
+            Component={PopupForProduct}
+        />
     );
 };
 

@@ -94,7 +94,7 @@ const BannerPage = () => {
     }, [currentPage, sortBy]);
 
     if (isPageLoading) return <Preloader color='secondary' cover={true}/>
-    console.log(filterPanelData?.categories)
+
     return (
         <section>
             <div className={classes.wrapper}>

@@ -9,53 +9,52 @@ import InputAdmin from "../../../Inputs/InputAdmin";
 import TextAreaAdmin from "../../../Inputs/TextAreaAdmin";
 import SeoBlock from "../../../SeoBlock/SeoBlock";
 
-const PopupForProduct = ({productData, setProductData, handleClosePopup, handleSaveProduct, isSaveButtonActive = true, mode = 'edit'}) => {
+const PopupForProduct = ({handleClose, data, setData, handleSave, isSaveButtonActive}) => {
     const handleChangeInput = (key, value) => {
-        setProductData(prevState => ({...prevState, [key]: value}));
+        setData(prevState => ({...prevState, [key]: value}));
     }
 
     return (
-        <EditContainer handleSave={() => handleSaveProduct()}
-                       isDisabledSave={!isSaveButtonActive} handleClose={handleClosePopup}>
+        <EditContainer handleSave={() => handleSave()}
+                       isDisabledSave={!isSaveButtonActive} handleClose={handleClose}>
             <div className={classes.wrapper}>
                 <div className={classes.top}>
-                    {mode === 'edit' ? (
-                        <span className={classes.productId}>№{productData.id}</span>
-                    ) : null}
+                    {data.id && (
+                        <span className={classes.productId}>№{data.id}</span>
+                    )}
                 </div>
                 <div className={classes.mainInformation}>
-                    <InputAdmin onChange={e => handleChangeInput('name', e.target.value)} value={productData.name}
-                                type='text' errors={[]} placeholder='Назва товару'/>
+                    <InputAdmin onChange={e => handleChangeInput('name', e.target.value)} value={data.name}
+                                placeholder='Назва товару'/>
                     <InputAdmin onChange={e => handleChangeInput('nameEng', e.target.value)}
-                                value={productData.nameEng} type='text' errors={[]} placeholder='Найменування товару'/>
-                    <MainCategory productData={productData} setProductData={setProductData}/>
+                                value={data.nameEng} placeholder='Найменування товару'/>
+                    <MainCategory productData={data} setProductData={setData}/>
                     <InputAdmin onChange={e => handleChangeInput('article', e.target.value)}
-                                value={productData.article} type='text' errors={[]} placeholder='Артикул'/>
+                                value={data.article} placeholder='Артикул'/>
                 </div>
                 <div className={classes.secondaryInformation}>
                     <InputAdmin onChange={e => handleChangeInput('price', e.target.value)}
-                                value={productData.price} type='number' errors={[]} placeholder='Ціна'/>
+                                value={data.price} type='number' placeholder='Ціна'/>
                     <InputAdmin onChange={e => handleChangeInput('discount', e.target.value)}
-                                value={productData.discount} type='number' errors={[]}
-                                placeholder='Відсоток акції'/>
+                                value={data.discount} type='number' placeholder='Відсоток акції'/>
                     <InputAdmin onChange={e => handleChangeInput('amount', e.target.value)}
-                                value={productData.amount} type='number' errors={[]} placeholder='Залишок'/>
+                                value={data.amount} type='number' placeholder='Залишок'/>
                 </div>
                 <div className={classes.descriptionWrapper}>
-                    <TextAreaAdmin placeholder='Опис товару' value={productData.description}
+                    <TextAreaAdmin placeholder='Опис товару' value={data.description}
                                    onChange={e => handleChangeInput('description', e.target.value)}/>
                 </div>
                 <div className={classes.warehouseWrapper}>
-                    <TextAreaAdmin placeholder='Склад' value={productData.ingridients}
+                    <TextAreaAdmin placeholder='Склад' value={data.ingridients}
                                    onChange={e => handleChangeInput('ingridients', e.target.value)}/>
                 </div>
-                <Characteristics productData={productData} setProductData={setProductData}/>
-                <AdditionalCategories productData={productData} setProductData={setProductData}/>
-                <Images productData={productData} setProductData={setProductData}/>
+                <Characteristics productData={data} setProductData={setData}/>
+                <AdditionalCategories productData={data} setProductData={setData}/>
+                <Images productData={data} setProductData={setData}/>
                 <SeoBlock
-                    metaKey={productData.metaKeys}
+                    metaKey={data.metaKeys}
                     handleChangeMetaKey={(e) => handleChangeInput('metaKeys', e.target.value)}
-                    metaDesc={productData.metaDescription}
+                    metaDesc={data.metaDescription}
                     handleChangeMetaDesc={(e) => handleChangeInput('metaDescription', e.target.value)}
                 />
             </div>

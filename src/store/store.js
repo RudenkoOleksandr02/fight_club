@@ -18,6 +18,7 @@ import adminBlogSlice from "./adminSlices/adminBlogSlice";
 import adminProductSlice from "./adminSlices/adminProductSlice";
 import blogPageSlice from "./pageSlices/blogPageSlice";
 import adminBannerSlice from "./adminSlices/adminBannerSlice";
+import adminCharacteristicsSlice from "./adminSlices/adminCharacteristicsSlice";
 
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist/es/constants';
 const cartPersistConfig = {
@@ -29,6 +30,7 @@ const persistedCartReducer = persistReducer(cartPersistConfig, cartPageSlice);
 const combinedAdminReducer = combineReducers({
     adminProduct: adminProductSlice,
     adminOrder: adminOrderSlice,
+    adminCharacteristics: adminCharacteristicsSlice,
     adminAuth: adminAuthSlice,
     adminBlog: adminBlogSlice,
     adminBanner: adminBannerSlice

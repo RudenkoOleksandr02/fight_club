@@ -85,7 +85,7 @@ const Catalog = () => {
     useEffect(() => {
         fetchProducts();
     }, [currentPage, sortBy]);
-    console.log(filterPanelData?.categories?.children)
+
     if (isPageLoading) return <Preloader color='secondary' cover={true}/>
 
     return (

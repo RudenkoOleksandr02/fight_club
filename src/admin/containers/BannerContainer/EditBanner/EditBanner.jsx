@@ -1,24 +1,18 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getModifiedFields} from "../../../../common/utils/getModifiedFields";
 import {getAdminBanners, updateAdminBannerById} from "../../../../store/adminSlices/adminBannerSlice";
-import Preloader from "../../../../components/ui/Preloader/Preloader";
-import PopupAdmin from "../../../PopupAdmin/PopupAdmin";
 import GeneralPopup from "../../../GeneralPopup/GeneralPopup";
+import EditableEntity from "../../../EditableEntity/EditableEntity";
 
 const EditBanner = ({isOpenPopupEdit, setIsOpenPopupEdit}) => {
-    const {banner: {data: bannerData, loading: bannerLoading}} = useSelector(state => state.admin.adminBanner);
     const dispatch = useDispatch();
+    const {banner: {data: bannerData, loading: bannerLoading}} = useSelector(state => state.admin.adminBanner);
 
-    const [bannerDataForOnlyChange, setBannerDataForOnlyChange] = useState({});
-    const [bannerDataForOnlyTrack, setBannerDataForOnlyTrack] = useState({});
-    const prevBannerDataForOnlyTrack = useRef({});
-    const [isSaveButtonActive, setIsSaveButtonActive] = useState(false);
-
-    // Обновление bannerDataForOnlyChange и зачистка prevBannerDataForOnlyTrack.current
+    const [initialObject, setInitialObject] = useState({});
     useEffect(() => {
         if (bannerData) {
-            setBannerDataForOnlyChange({
+            setInitialObject({
                 id: bannerData.bannerId || '',
                 title: bannerData.title || '',
                 description: bannerData.description || '',
@@ -32,70 +26,38 @@ const EditBanner = ({isOpenPopupEdit, setIsOpenPopupEdit}) => {
                 products: bannerData.products || [],
             });
         }
-
-        prevBannerDataForOnlyTrack.current = {}
     }, [bannerData]);
-
-    // Обновление bannerDataForOnlyTrack
-    useEffect(() => {
-        setBannerDataForOnlyTrack({
-            title: bannerDataForOnlyChange.title,
-            description: bannerDataForOnlyChange.description,
-            metaKeywords: bannerDataForOnlyChange.metaKeywords,
-            metaDescription: bannerDataForOnlyChange.metaDescription,
-            desktopImageUrl: bannerDataForOnlyChange.desktopImageUrl,
-            laptopImageUrl: bannerDataForOnlyChange.laptopImageUrl,
-            tabletImageUrl: bannerDataForOnlyChange.tabletImageUrl,
-            phoneImageUrl : bannerDataForOnlyChange.phoneImageUrl,
-            altText: bannerDataForOnlyChange.altText,
-            productIds: bannerDataForOnlyChange.products?.map(product => product.id)
-        });
-    }, [bannerDataForOnlyChange]);
-
-    // Обновление prevBannerDataForOnlyTrack.current
-    useEffect(() => {
-        if (!Object.keys(prevBannerDataForOnlyTrack.current).length
-            && Object.keys(bannerDataForOnlyTrack).every(key => bannerDataForOnlyTrack[key] !== undefined)) {
-            prevBannerDataForOnlyTrack.current = bannerDataForOnlyTrack;
+    const trackerFields = (obj = {}) => {
+        return {
+            title: obj.title,
+            description: obj.description,
+            metaKeywords: obj.metaKeywords,
+            metaDescription: obj.metaDescription,
+            desktopImageUrl: obj.desktopImageUrl,
+            laptopImageUrl: obj.laptopImageUrl,
+            tabletImageUrl: obj.tabletImageUrl,
+            phoneImageUrl : obj.phoneImageUrl,
+            altText: obj.altText,
+            productIds: obj.products?.map(product => product.id)
         }
-    }, [bannerDataForOnlyTrack]);
+    }
 
-    // Проверка изменений и активация кнопки сохранения
-    useEffect(() => {
-        if (!!Object.keys(prevBannerDataForOnlyTrack.current).length) {
-            const modifiedFields = getModifiedFields(prevBannerDataForOnlyTrack.current, bannerDataForOnlyTrack);
-            if (!Object.keys(modifiedFields).length) {
-                setIsSaveButtonActive(false)
-            } else {
-                setIsSaveButtonActive(true)
-            }
-        }
-    }, [bannerDataForOnlyTrack]);
-
-    const handleSave = () => {
-        const modifiedData = getModifiedFields(prevBannerDataForOnlyTrack.current, bannerDataForOnlyTrack);
+    const handleSave = (prevDataForOnlyTrack, dataForOnlyTrack) => {
+        const modifiedData = getModifiedFields(prevDataForOnlyTrack, dataForOnlyTrack);
         dispatch(updateAdminBannerById(bannerData.bannerId, modifiedData))
             .then(() => dispatch(getAdminBanners()))
     }
 
     return (
-        <>
-            {isOpenPopupEdit && (
-                bannerLoading ? (
-                    <Preloader color='secondary' cover={true}/>
-                ) : (
-                    <PopupAdmin>
-                        <GeneralPopup
-                            handleClose={() => setIsOpenPopupEdit(false)}
-                            data={bannerDataForOnlyChange}
-                            setData={setBannerDataForOnlyChange}
-                            isSaveButtonActive={isSaveButtonActive}
-                            handleSave={handleSave}
-                        />
-                    </PopupAdmin>
-                )
-            )}
-        </>
+        <EditableEntity
+            isOpenPopup={isOpenPopupEdit}
+            setIsOpenPopup={setIsOpenPopupEdit}
+            handleSave={handleSave}
+            initialObject={initialObject}
+            loading={bannerLoading}
+            trackerFields={trackerFields}
+            Component={GeneralPopup}
+        />
     );
 };
 

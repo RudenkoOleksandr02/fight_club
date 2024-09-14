@@ -56,8 +56,12 @@ const getAdminOrderFilterPanelLoading = createAsyncThunk(
 )
 const getOrdersByAdminFilterPanelLoading = createAsyncThunk(
     'adminOrder/getOrdersByAdminFilterPanelLoading',
-    async (params) => {
-        return adminApi.getOrdersByAdminFilterPanel(params)
+    async (params, {rejectWithValue}) => {
+        try {
+            return adminApi.getOrdersByAdminFilterPanel(params)
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 )
 

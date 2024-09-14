@@ -12,18 +12,40 @@ import {roundNumber} from "../../../../common/utils/roundNumber";
 import IcoButton from "../../../buttons/IcoButton/IcoButton";
 import {useSelector} from "react-redux";
 import Preloader from "../../../../components/ui/Preloader/Preloader";
+import ToggleButton from "../../../buttons/ToggleButton/ToggleButton";
 
-const OrderTable = ({handleClickEdit}) => {
+const OrderTable = ({handleClickEdit, sortOption, handleSortOption}) => {
     const {orders: {data, loading}} = useSelector(state => state.admin.adminOrder);
+
+    const getRotatedFromSortOption = (sortOption, name) => {
+        return sortOption.endsWith('_desc') && sortOption.startsWith(name);
+    };
+    const getBooleanForArrow = (name) => {
+        return sortOption.startsWith(name);
+    }
 
     return (
         <Table>
             <Tr templateColumns='1fr 120px 251px 109px 170px 131px'>
-                <Td justifyContent='left'>Номер</Td>
-                <Td>Дата</Td>
-                <Td>Адреса</Td>
-                <Td>Ціна</Td>
-                <Td>Статус</Td>
+                <Td justifyContent='left' fontWeight='700'>Номер</Td>
+                <Td>
+                    <ToggleButton
+                        handleClick={() => handleSortOption('date')}
+                        text='Дата'
+                        rotated={getRotatedFromSortOption(sortOption, 'date')}
+                        isShowArrow={getBooleanForArrow('date')}
+                    />
+                </Td>
+                <Td fontWeight='700'>Адреса</Td>
+                <Td>
+                    <ToggleButton
+                        handleClick={() => handleSortOption('price')}
+                        text='Ціна'
+                        rotated={getRotatedFromSortOption(sortOption, 'price')}
+                        isShowArrow={getBooleanForArrow('price')}
+                    />
+                </Td>
+                <Td fontWeight='700'>Статус</Td>
                 <Td fontWeight='700'>Дії</Td>
             </Tr>
             {loading ? <Preloader color='primary'/> : (

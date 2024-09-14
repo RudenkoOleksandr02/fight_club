@@ -1,31 +1,22 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getModifiedFields} from "../../../../common/utils/getModifiedFields";
 import {
     getProductsByAdminFilter,
-    postImagesByProductId,
     putProductById,
-    removeImagesByProductId
 } from "../../../../store/adminSlices/adminProductSlice";
 import {getProductById} from "../../../../store/pageSlices/productPageSlice";
-import Preloader from "../../../../components/ui/Preloader/Preloader";
-import PopupAdmin from "../../../PopupAdmin/PopupAdmin";
 import PopupForProduct from "../PopupForProduct/PopupForProduct";
+import EditableEntity from "../../../EditableEntity/EditableEntity";
 
-
-const EditProduct = ({isOpenPopupProductEdit, setIsOpenPopupProductEdit, amount, currentPage}) => {
+const EditProduct = ({isOpenPopupProductEdit, setIsOpenPopupProductEdit, amount, currentPage, searchTerm}) => {
     const dispatch = useDispatch();
     const {product: {data: productData, loading: productLoading}} = useSelector(state => state.admin.adminProduct);
 
-    const [productDataForEditOnlyChange, setProductDataForEditOnlyChange] = useState({});
-    const [productDataForEditOnlyTrack, setProductDataForEditOnlyTrack] = useState({});
-    const prevProductDataForEditOnlyTrack = useRef({});
-    const [isSaveButtonActive, setIsSaveButtonActive] = useState(false);
-
-    // Обновление productDataForEditOnlyChange и зачистка prevProductDataForEditOnlyTrack.current
+    const [initialObject, setInitialObject] = useState({});
     useEffect(() => {
         if (productData) {
-            setProductDataForEditOnlyChange({
+            setInitialObject({
                 id: productData.id || '',
                 images: {urls: productData.images, files: []} || {},
                 name: productData.name || '',
@@ -43,100 +34,43 @@ const EditProduct = ({isOpenPopupProductEdit, setIsOpenPopupProductEdit, amount,
                 metaDescription: productData.metaDescription || ''
             });
         }
-
-        prevProductDataForEditOnlyTrack.current = {}
     }, [productData]);
-
-    // Обновление productDataForEditOnlyTrack
-    useEffect(() => {
-        setProductDataForEditOnlyTrack({
-            images: productDataForEditOnlyChange.images,
-            name: productDataForEditOnlyChange.name,
-            nameEng: productDataForEditOnlyChange.nameEng,
-            price: productDataForEditOnlyChange.price,
-            discount: productDataForEditOnlyChange.discount,
-            amount: productDataForEditOnlyChange.amount,
-            article: productDataForEditOnlyChange.article,
-            description: productDataForEditOnlyChange.description,
-            ingridients: productDataForEditOnlyChange.ingridients,
-            mainCategoryId: productDataForEditOnlyChange.mainCategory?.categoryId,
-            characteristicIds: productDataForEditOnlyChange?.characteristics?.map(characteristic => characteristic.characteristicId),
-            additionalCategoryIds: productDataForEditOnlyChange?.additionalCategories?.map(addCategory => addCategory.categoryId),
-            metaKeys: productDataForEditOnlyChange.metaKeys,
-            metaDescription: productDataForEditOnlyChange.metaDescription
-        });
-    }, [productDataForEditOnlyChange]);
-
-    // Обновление prevProductDataForEditOnlyTrack.current
-    useEffect(() => {
-        if (!Object.keys(prevProductDataForEditOnlyTrack.current).length
-            && Object.keys(productDataForEditOnlyTrack).every(key => productDataForEditOnlyTrack[key] !== undefined)) {
-            prevProductDataForEditOnlyTrack.current = productDataForEditOnlyTrack;
+    const trackerFields = (obj = {}) => {
+        return {
+            images: obj.images,
+            name: obj.name,
+            nameEng: obj.nameEng,
+            price: obj.price,
+            discount: obj.discount,
+            amount: obj.amount,
+            article: obj.article,
+            description: obj.description,
+            ingridients: obj.ingridients,
+            mainCategoryId: obj.mainCategory?.categoryId,
+            characteristicIds: obj?.characteristics?.map(characteristic => characteristic.characteristicId),
+            additionalCategoryIds: obj?.additionalCategories?.map(addCategory => addCategory.categoryId),
+            metaKeys: obj.metaKeys,
+            metaDescription: obj.metaDescription
         }
-    }, [productDataForEditOnlyTrack]);
+    }
 
-    // Проверка изменений и активация кнопки сохранения
-    useEffect(() => {
-        if (!!Object.keys(prevProductDataForEditOnlyTrack.current).length) {
-            const modifiedFields = getModifiedFields(prevProductDataForEditOnlyTrack.current, productDataForEditOnlyTrack);
-            console.log(modifiedFields)
-            if (!Object.keys(modifiedFields).length) {
-                setIsSaveButtonActive(false)
-            } else {
-                setIsSaveButtonActive(true)
-            }
-        }
-    }, [productDataForEditOnlyTrack]);
-
-    // Слежка за удаленными изображениями
-    const [currentImagesUrls, setCurrentImagesUrls] = useState([]);
-    useEffect(() => {
-        if (productDataForEditOnlyTrack.images) {
-            const urls = productDataForEditOnlyTrack.images.urls || [];
-            setCurrentImagesUrls(urls);
-        }
-    }, [productDataForEditOnlyTrack.images]);
-
-    const handlePutProduct = () => {
-        const modifiedData = getModifiedFields(prevProductDataForEditOnlyTrack.current, productDataForEditOnlyTrack);
-        const modifiedDataWithoutImages = Object.keys(modifiedData).reduce((acc, key) => {
-            if (key !== 'images') {
-                acc[key] = modifiedData[key];
-            }
-            return acc;
-        }, {});
-        dispatch(putProductById(productData.id, modifiedDataWithoutImages))
-            .then(() => {
-                productData.images.forEach(image => {
-                    const currentUrls = currentImagesUrls || [];
-                    if (!currentUrls.includes(image)) {
-                        dispatch(removeImagesByProductId(productData.id, image));
-                    }
-                });
-            })
-            .then(() => dispatch(postImagesByProductId(productData.id, productDataForEditOnlyChange.images.files)))
+    const handleSave = (prevDataForOnlyTrack, dataForOnlyTrack) => {
+        const modifiedData = getModifiedFields(prevDataForOnlyTrack, dataForOnlyTrack);
+        dispatch(putProductById(productData.id, modifiedData))
             .then(() => dispatch(getProductById(productData.id)))
-            .then(() => dispatch(getProductsByAdminFilter({amount, start: (currentPage - 1) * amount})));
+            .then(() => dispatch(getProductsByAdminFilter({amount, start: (currentPage - 1) * amount, searchTerm})));
     };
 
     return (
-        <>
-            {isOpenPopupProductEdit && (
-                productLoading ? (
-                    <Preloader color='secondary' cover={true}/>
-                ) : (
-                    <PopupAdmin>
-                        <PopupForProduct
-                            productData={productDataForEditOnlyChange}
-                            setProductData={setProductDataForEditOnlyChange}
-                            handleClosePopup={() => setIsOpenPopupProductEdit(false)}
-                            handleSaveProduct={handlePutProduct}
-                            isSaveButtonActive={isSaveButtonActive}
-                        />
-                    </PopupAdmin>
-                )
-            )}
-        </>
+        <EditableEntity
+            isOpenPopup={isOpenPopupProductEdit}
+            setIsOpenPopup={setIsOpenPopupProductEdit}
+            handleSave={handleSave}
+            initialObject={initialObject}
+            loading={productLoading}
+            trackerFields={trackerFields}
+            Component={PopupForProduct}
+        />
     );
 };
 

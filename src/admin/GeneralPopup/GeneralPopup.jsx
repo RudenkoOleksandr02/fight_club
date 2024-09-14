@@ -8,7 +8,6 @@ import TextAreaAdmin from "../Inputs/TextAreaAdmin";
 import SeoBlock from "../SeoBlock/SeoBlock";
 
 const GeneralPopup = ({handleClose, data, setData, handleSave, isSaveButtonActive}) => {
-    console.log(data)
     const handleChangeInput = (key, value) => {
         setData(prevState => ({...prevState, [key]: value}));
     }
