@@ -69,7 +69,7 @@ const EditProduct = ({
             article: obj.article,
             description: obj.description,
             ingridients: obj.ingridients,
-            mainCategoryId: obj.mainCategory?.categoryId,
+            mainCategoryId: obj.mainCategory?.categoryId || {},
             brandId: obj.brand?.brandId || {},
             characteristicIds: obj?.characteristics?.map((characteristic) => characteristic.characteristicId),
             additionalCategoryIds: obj?.additionalCategories?.map((addCategory) => addCategory.categoryId),

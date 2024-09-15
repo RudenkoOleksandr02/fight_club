@@ -70,8 +70,6 @@ export const adminApi = {
         if (params.metaKeys) formData.append('MetaKeys', params.metaKeys);
         if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
 
-        formData.append('BrandId', 1);
-
         return instance.put(AdminUrls.PutProductById(productId), formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -103,8 +101,6 @@ export const adminApi = {
         }
         if (params.metaKeys) formData.append('MetaKeys', params.metaKeys);
         if (params.metaDescription) formData.append('MetaDescription', params.metaDescription);
-
-        formData.append('BrandId', 1);
 
         return instance.post(AdminUrls.AddProduct, formData, {
             headers: {
