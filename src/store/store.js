@@ -21,6 +21,7 @@ import adminBannerSlice from "./adminSlices/adminBannerSlice";
 import adminCharacteristicsSlice from "./adminSlices/adminCharacteristicsSlice";
 import adminBrandsSlice from "./adminSlices/adminBrandsSlice";
 import brandPageSlice from "./pageSlices/brandPageSlice";
+import cashbackSlice from "./cashbackSlice";
 
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist/es/constants';
 
@@ -51,6 +52,7 @@ const store = configureStore({
         homePage: homePageSlice,
         search: searchSlice,
         promocodes: promocodesSlice,
+        cashback: cashbackSlice,
         auth: authSlice,
         admin: combinedAdminReducer,
         cartPage: persistedCartReducer,

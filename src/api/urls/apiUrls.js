@@ -194,4 +194,9 @@ export const BrandUrls = {
         return `Brands/${brandId}`
     }
 }
-
+export const CashbackUrls = {
+    GetBalance: 'Cashback/GetBalance',
+    GetBalanceByPhone(phoneNumber) {
+        return `Cashback/GetBalanceByPhone?phoneNumber=${phoneNumber}`
+    }
+}

@@ -68,7 +68,6 @@ const Checkout = () => {
                 .then((response) => {
                     if (response.meta.requestStatus === 'fulfilled') {
                         const user = response.payload;
-                        console.log(user)
                         dispatch(setUserInfo({ key: 'name', value: user.username }));
                         dispatch(setUserInfo({ key: 'surname', value: user.surname }));
                         dispatch(setUserInfo({ key: 'phone', value: user.phoneNumber }));

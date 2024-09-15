@@ -42,8 +42,9 @@ const initialState = {
         },
         additionalInfo: {
             dontCallMe: false,
-            ecoPackaging: false
-        }
+            ecoPackaging: false,
+        },
+        cashbackToUse: 0
     },
     loading: false,
     error: null
@@ -67,6 +68,9 @@ const checkoutPageSlice = createSlice({
         setAdditionalInfo(state, action) {
             const {key, value} = action.payload;
             state.params.additionalInfo[key] = value;
+        },
+        setCashbackToUse(state, action) {
+            state.params.cashbackToUse = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -106,7 +110,8 @@ export const {
     setUsedPromocode,
     setUserInfo,
     setDeliveryInfo,
-    setAdditionalInfo
+    setAdditionalInfo,
+    setCashbackToUse
 } = checkoutPageSlice.actions;
 
 export default checkoutPageSlice.reducer;
