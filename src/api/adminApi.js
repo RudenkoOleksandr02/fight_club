@@ -307,7 +307,25 @@ export const adminApi = {
     getBrandsBySearch(searchTerm) {
         return instance.get(AdminUrls.GetBrandsBySearch(searchTerm))
             .then(response => response.data)
-    }
+    },
+
+    // PROMOCODE
+    getPromocodes() {
+        return instance.get(AdminUrls.GetPromocodes)
+            .then(response => response.data)
+    },
+    getPromocodeById(promoId) {
+        return instance.get(AdminUrls.GetPromocodeById(promoId))
+            .then(response => response.data)
+    },
+    updatePromocodeById(promoId, params) {
+        return instance.put(AdminUrls.UpdatePromocodeById(promoId), params)
+            .then(response => response.data)
+    },
+    addPromocode(params) {
+        return instance.post(AdminUrls.AddPromocode, params)
+            .then(response => response.data)
+    },
 }
 
 const getFormDataForBannerAndBlog = (params) => {

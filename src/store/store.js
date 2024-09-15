@@ -22,6 +22,7 @@ import adminCharacteristicsSlice from "./adminSlices/adminCharacteristicsSlice";
 import adminBrandsSlice from "./adminSlices/adminBrandsSlice";
 import brandPageSlice from "./pageSlices/brandPageSlice";
 import cashbackSlice from "./cashbackSlice";
+import adminPromocodeSlice from "./adminSlices/adminPromocodeSlice";
 
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist/es/constants';
 
@@ -39,6 +40,7 @@ const combinedAdminReducer = combineReducers({
     adminBlog: adminBlogSlice,
     adminBanner: adminBannerSlice,
     adminBrands: adminBrandsSlice,
+    adminPromocode: adminPromocodeSlice,
 });
 
 const store = configureStore({

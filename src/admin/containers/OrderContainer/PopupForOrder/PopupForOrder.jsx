@@ -112,6 +112,7 @@ const PopupForOrder = ({handleSave, data, handleClose, setData, isSaveButtonActi
                 </Table>
                 <div className={classes.result}>
                     <p>Знижка від промокоду: <span>{roundNumber(data.promocodeDiscount)}</span></p>
+                    <p>Знижка від кешбеку: <span>{roundNumber(data.discountFromCashback)}</span></p>
                     <p>Знижка від продукції: <span>{roundNumber(data.productsDiscount)}</span></p>
                     <p>Загальна знижка: <span>{roundNumber(data.totalDiscount)}</span></p>
                     <p>Загальна ціна: <span>{roundNumber(data.totalPrice)}</span></p>

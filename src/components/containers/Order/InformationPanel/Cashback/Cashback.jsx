@@ -38,7 +38,7 @@ const Cashback = ({cashbackToUse, handleChangeCashbackToUse}) => {
                 }
             })
     }
-    
+
     return (
         <DieBlock>
             <div className={classes.wrapper}>

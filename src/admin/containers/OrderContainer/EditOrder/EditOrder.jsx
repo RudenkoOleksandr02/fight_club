@@ -15,6 +15,8 @@ const EditOrder = ({isOpenPopupEdit, setIsOpenPopupEdit, amount, currentPage}) =
     const prevOrderDataForOnlyTrack = useRef({});
     const [isSaveButtonActive, setIsSaveButtonActive] = useState(false);
 
+    console.log(orderData)
+
     // Обновление orderDataForOnlyChange и зачистка prevBlogDataForOnlyTrack.current
     useEffect(() => {
         if (orderData) {
@@ -29,6 +31,7 @@ const EditOrder = ({isOpenPopupEdit, setIsOpenPopupEdit, amount, currentPage}) =
                 city: orderData.city || '',
                 departmentNumber: orderData.departmentNumber || '',
                 promocodeId: orderData.promocodeId || '',
+                discountFromCashback: orderData.discountFromCashback || 0,
                 promocodeDiscount: orderData.promocodeDiscount || 0,
                 productsDiscount: orderData.productsDiscount || 0,
                 totalPrice: orderData.totalPrice || 0,

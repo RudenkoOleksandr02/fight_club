@@ -158,8 +158,17 @@ export const AdminUrls = {
     },
     GetBrandsBySearch(searchTerm) {
         return `Brands/Search?searchTerm=${searchTerm}`
-    }
+    },
 
+    // PROMOCODE
+    GetPromocodes: 'Promocodes',
+    GetPromocodeById(promoId) {
+        return `Promocodes/${promoId}`
+    },
+    UpdatePromocodeById(promoId) {
+        return `Promocodes/${promoId}`
+    },
+    AddPromocode: 'Promocodes'
 }
 export const UserUrls = {
     GetFavorite: 'Favorite',
