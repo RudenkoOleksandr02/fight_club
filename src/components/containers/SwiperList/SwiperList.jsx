@@ -28,7 +28,7 @@ const SwiperList = ({
                                     <CardItem
                                         id={product.id}
                                         path={`/product/${product.id}`}
-                                        src={product.image || product.images[0]}
+                                        src={product.images && product.images.length > 0 ? product.images[0] : 'default_image_path'}
                                         titles={[product.name, product.nameEng]}
                                         price={product.price}
                                         discount={product.discount}
