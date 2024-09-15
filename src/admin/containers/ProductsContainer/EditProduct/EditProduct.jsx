@@ -43,12 +43,14 @@ const EditProduct = ({
                 ingridients: productData.ingridients || '',
                 characteristics: productData.characteristics || [],
                 mainCategory: productData.mainCategory || {},
+                brand: productData.brand || {},
                 additionalCategories: productData.additionalCategories || [],
                 metaKeys: productData.metaKeys || '',
                 metaDescription: productData.metaDescription || '',
             });
         }
     }, [productData]);
+    console.log(productData.brand)
 
     const trackerFields = (obj = {}) => {
         const initialUrls = initialImageUrls;
@@ -68,6 +70,7 @@ const EditProduct = ({
             description: obj.description,
             ingridients: obj.ingridients,
             mainCategoryId: obj.mainCategory?.categoryId,
+            brandId: obj.brand?.brandId || {},
             characteristicIds: obj?.characteristics?.map((characteristic) => characteristic.characteristicId),
             additionalCategoryIds: obj?.additionalCategories?.map((addCategory) => addCategory.categoryId),
             metaKeys: obj.metaKeys,

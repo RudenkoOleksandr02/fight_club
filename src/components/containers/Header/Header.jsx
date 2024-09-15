@@ -35,7 +35,7 @@ const Header = ({openLoginPanel, setOpenLoginPanel}) => {
                         <div className={classes.links}>
                             <Link to='/blogs'>Блог</Link>
                             <Link to='/contacts'>Контакти</Link>
-                            <Link to='/about'>О нас</Link>
+                            <Link to='/brands'>Бренди</Link>
                         </div>
                     </div>
                     <div className={classes.basket}>

@@ -21,6 +21,7 @@ const Catalog = () => {
     const [sortBy, setSortBy] = useState("");
     const [categoryIds, setCategoryIds] = useState([]);
     const [characteristicIds, setCharacteristicIds] = useState([]);
+    const [brandIds, setBrandIds] = useState([]);
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(0);
     const [isVisibleFilterPanelInMobile, setIsVisibleFilterPanelInMobile] = useState(false);
@@ -38,11 +39,12 @@ const Catalog = () => {
         setSortBy("");
         setCategoryIds([]);
         setCharacteristicIds([]);
+        setBrandIds([]);
         setMinPrice(0);
         setMaxPrice(0);
 
         dispatch(getFilterPanelById(categoryId))
-            .then(() => fetchProducts(1, [], [], filterPanelData.maxPrice, filterPanelData.minPrice, ""))
+            .then(() => fetchProducts(1, [], [], [], filterPanelData.maxPrice, filterPanelData.minPrice, ""))
             .finally(() => setIsPageLoading(false))
     }, [categoryId]);
 
@@ -58,6 +60,7 @@ const Catalog = () => {
     const fetchProducts = useCallback((
         actualCurrentPage = currentPage,
         actualCharacteristicIds = characteristicIds,
+        actualBrandIds = brandIds,
         actualCategoryIds = categoryIds,
         actualMaxPrice = maxPrice,
         actualMinPrice = minPrice,
@@ -71,9 +74,10 @@ const Catalog = () => {
             minPrice: actualMinPrice,
             maxPrice: actualMaxPrice,
             selectedCharacteristics: actualCharacteristicIds,
+            brandIds: actualBrandIds,
             categoryIds: actualCategoryIds
         }));
-    }, [categoryId, amount, characteristicIds, categoryIds, minPrice, maxPrice, sortBy, currentPage]);
+    }, [categoryId, amount, brandIds, characteristicIds, categoryIds, minPrice, maxPrice, sortBy, currentPage]);
 
     // APPLY FILTER
     const handleApplyFilter = () => {
@@ -113,6 +117,11 @@ const Catalog = () => {
                                         setCharacteristicIds,
                                         characteristicIds,
                                         characteristics: filterPanelData?.characteristics || []
+                                    }}
+                                    forBrands={{
+                                        setBrandIds,
+                                        brandIds,
+                                        brands: filterPanelData?.brands || []
                                     }}
                                     forMinPrice={{minPrice, setMinPrice}}
                                     forMaxPrice={{maxPrice, setMaxPrice}}

@@ -1,30 +1,26 @@
 import React from 'react';
 import classes from './AboutMoreBrand.module.css';
-
-// --DATA--
-import image from '../../../assets/images/other/chanel.png';
 import SecondaryButton from "../../../components/ui/Buttons/SecondaryButton/SecondaryButton";
+import {useNavigate} from "react-router-dom";
 
-const data = {
-    image,
-    title: 'Узнайте больше О бренде',
-    text: 'Шла саша по шоссе и сосал сушку а потом пришел олень и скушал колотушку колотушка непростая спер у бабы ее бабая',
-    links: ['/', '/']
-}
+const AboutMoreBrand = ({brand}) => {
+    const navigate = useNavigate();
 
-const AboutMoreBrand = () => {
+    if (brand === null) return null
+
     return (
         <div className={classes.wrapper}>
             <div className={classes.content}>
                 <div className={classes.inner}>
-                    <h3>{data.title}</h3>
-                    <p>{data.text}</p>
+                    <h3>{brand.title}</h3>
+                    <p>{brand.description}</p>
                 </div>
-                <img src={data.image} alt='company' />
+                <img src={brand.logoImageUrl} alt='company'/>
             </div>
-            <div className={classes.bnts}>
-                <SecondaryButton>Подробнее</SecondaryButton>
-                <SecondaryButton>Другие товары</SecondaryButton>
+            <div className={classes.btn}>
+                <SecondaryButton handleClick={() => navigate(`/brands/${brand.brandId}`)}>
+                    Інші товари
+                </SecondaryButton>
             </div>
         </div>
     );

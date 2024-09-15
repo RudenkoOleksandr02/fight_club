@@ -20,6 +20,7 @@ import blogPageSlice from "./pageSlices/blogPageSlice";
 import adminBannerSlice from "./adminSlices/adminBannerSlice";
 import adminCharacteristicsSlice from "./adminSlices/adminCharacteristicsSlice";
 import adminBrandsSlice from "./adminSlices/adminBrandsSlice";
+import brandPageSlice from "./pageSlices/brandPageSlice";
 
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist/es/constants';
 
@@ -45,6 +46,7 @@ const store = configureStore({
         productPage: productPageSlice,
         catalogPage: catalogPageSlice,
         blogPage: blogPageSlice,
+        brandPage: brandPageSlice,
         bannerPage: bannerPageSlice,
         homePage: homePageSlice,
         search: searchSlice,

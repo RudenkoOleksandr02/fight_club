@@ -8,6 +8,7 @@ import EditContainer from "../../../EditContainer/EditContainer";
 import InputAdmin from "../../../Inputs/InputAdmin";
 import TextAreaAdmin from "../../../Inputs/TextAreaAdmin";
 import SeoBlock from "../../../SeoBlock/SeoBlock";
+import Brand from "./Brand/Brand";
 
 const PopupForProduct = ({handleClose, data, setData, handleSave, isSaveButtonActive}) => {
     const handleChangeInput = (key, value) => {
@@ -29,8 +30,7 @@ const PopupForProduct = ({handleClose, data, setData, handleSave, isSaveButtonAc
                     <InputAdmin onChange={e => handleChangeInput('nameEng', e.target.value)}
                                 value={data.nameEng} placeholder='Найменування товару'/>
                     <MainCategory productData={data} setProductData={setData}/>
-                    <InputAdmin onChange={e => handleChangeInput('article', e.target.value)}
-                                value={data.article} placeholder='Артикул'/>
+                    <Brand productData={data} setProductData={setData}/>
                 </div>
                 <div className={classes.secondaryInformation}>
                     <InputAdmin onChange={e => handleChangeInput('price', e.target.value)}
@@ -39,6 +39,8 @@ const PopupForProduct = ({handleClose, data, setData, handleSave, isSaveButtonAc
                                 value={data.discount} type='number' placeholder='Відсоток акції'/>
                     <InputAdmin onChange={e => handleChangeInput('amount', e.target.value)}
                                 value={data.amount} type='number' placeholder='Залишок'/>
+                    <InputAdmin onChange={e => handleChangeInput('article', e.target.value)}
+                                value={data.article} placeholder='Артикул'/>
                 </div>
                 <div className={classes.descriptionWrapper}>
                     <TextAreaAdmin placeholder='Опис товару' value={data.description}

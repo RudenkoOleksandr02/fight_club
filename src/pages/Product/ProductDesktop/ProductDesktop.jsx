@@ -7,9 +7,15 @@ import Description from "../Description/Description";
 import AboutMoreBrand from "../AboutMoreBrand/AboutMoreBrand";
 import Reviews from "../Reviews/Reviews";
 import AlsoBuy from "../AlsoBuy/AlsoBuy";
+import {useDispatch, useSelector} from "react-redux";
+import {getAlsoBoughtById} from "../../../store/pageSlices/productPageSlice";
+import Ingridients from "../Ingridients/Ingridients";
 
 const ProductDesktop = ({product}) => {
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1359);
+    const {data: alsoBoughtData, loading: alsoBoughtLoading} = useSelector(state => state.productPage.alsoBought);
+    const dispatch = useDispatch();
+
     useEffect(() => {
         const handleResize = () => {
             setIsSmallScreen(window.innerWidth <= 1359);
@@ -20,15 +26,22 @@ const ProductDesktop = ({product}) => {
         };
     }, []);
 
+    useEffect(() => {
+        dispatch(getAlsoBoughtById(product.productId))
+    }, [product.productId]);
+
     return (
         <div className={classes.wrapper}>
-            <div className="leftPanel">
+            <div className={classes.leftPanel}>
                 <ImagesBlock images={product.images}/>
                 <Characteristics characteristics={product.characteristics}/>
                 <Description description={product.description}/>
-                {!isSmallScreen && <AlsoBuy productId={product.id}/>}
+                <Ingridients ingridients={product.ingridients}/>
+                {!!alsoBoughtData.length && (
+                    !isSmallScreen && <AlsoBuy data={alsoBoughtData} loading={alsoBoughtLoading}/>
+                )}
             </div>
-            <div className="rightPanel">
+            <div className={classes.rightPanel}>
                 <RightPanel
                     src={product.images[0]}
                     id={product.id}
@@ -45,11 +58,13 @@ const ProductDesktop = ({product}) => {
                     inStock={product.inStock}
                     dieNumbers={product.dieNumbers}
                 />
-                <AboutMoreBrand/>
+                <AboutMoreBrand brand={product.brand}/>
             </div>
-            {isSmallScreen && <div className={classes.alsoBuy}>
-                <AlsoBuy productId={product.id}/>
-            </div>}
+            {!!alsoBoughtData.length && (
+                isSmallScreen && <div className={classes.alsoBuy}>
+                    <AlsoBuy data={alsoBoughtData} loading={alsoBoughtLoading}/>
+                </div>
+            )}
             <div className={classes.reviews}>
                 <Reviews reviews={product.reviews}/>
             </div>

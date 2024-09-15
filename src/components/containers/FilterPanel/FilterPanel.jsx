@@ -5,12 +5,14 @@ import CloseBtn from "../../ui/Buttons/CloseBtn/CloseBtn";
 import MinMaxPrice from "../../ui/forFilters/MinMaxPrice/MinMaxPrice";
 import Characteristics from "../../ui/forFilters/Characteristics/Characteristics";
 import Categories from "../../ui/forFilters/Categories/Categories";
+import Brands from "../../ui/forFilters/Brands/Brands";
 
 const FilterPanel = ({
                          handleApplyFilter,
                          onCloseFilterPanelInMobile,
                          forCategories: {setCategoryIds, categoryIds, categories},
                          forCharacteristics: {setCharacteristicIds, characteristicIds, characteristics},
+                         forBrands: {setBrandIds, brandIds, brands},
                          forMinPrice: {minPrice, setMinPrice},
                          forMaxPrice: {maxPrice, setMaxPrice}
 
@@ -51,6 +53,17 @@ const FilterPanel = ({
                         fontWeight1: '500',
                         fontWeight2: '400'
 
+                    }}
+                />
+                <Brands
+                    brands={brands}
+                    setBrandIds={setBrandIds}
+                    brandIds={brandIds}
+                    isOpen={true}
+                    modificationStyle={{
+                        color: 'primary',
+                        fontSize: '20px',
+                        fontWeight: '500',
                     }}
                 />
                 <MinMaxPrice

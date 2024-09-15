@@ -8,7 +8,6 @@
 }
 .wrapper {
     display: flex;
-    margin-bottom: 10px;
 }
 /* MAIN STYLES */
 .mainImage {
@@ -43,6 +42,7 @@
 }
 .imageSecondaryWrapper img {
     width: 100%; height: 100%;
+    object-fit: cover;
 }
 
 /* Media */
@@ -88,10 +88,11 @@
 @media (min-width: 768px) {
     .wrapper {
         flex-direction: row;
+        gap: 10px;
     }
     .mainImage {
         order: 1;
-        margin: 0 0 0 10px;
+        margin: 0;
     }
 }
 

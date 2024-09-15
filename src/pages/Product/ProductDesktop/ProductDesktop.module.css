@@ -5,19 +5,27 @@
         'leftPanel'
         'alsoBuy'
         'reviews';
-    grid-gap: 10px;
 }
 .rightPanel {
     grid-area: rightPanel;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
-.leftPanel{
+.leftPanel {
     grid-area: leftPanel;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 .alsoBuy {
     grid-area: alsoBuy;
+    margin-top: 10px;
 }
 .reviews {
     grid-area: reviews;
+    margin-top: 10px;
 }
 @media (min-width: 1000px) and (max-width: 1359px) {
     .wrapper {

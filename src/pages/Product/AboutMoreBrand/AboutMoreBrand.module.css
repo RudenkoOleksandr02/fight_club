@@ -1,18 +1,28 @@
 .wrapper {
     padding: 25px;
     background: var(--white);
-    margin-bottom: 10px;
 }
 .content {
     display: flex;
     justify-content: space-between;
     align-items: start;
 }
-.inner {
+.content img {
+    max-width: 125px; max-height: 125px;
+    object-fit: contain;
+}
+.content .inner {
     margin: 0 60px 60px 0;
 }
-.inner > h3 {
+.content .inner > h3 {
     margin-bottom: 10px;
     font-size: 16px;
     font-weight: 600;
+}
+.btn button {
+    transition: .2s;
+}
+.btn button:hover {
+    background: var(--black);
+    color: var(--white)
 }

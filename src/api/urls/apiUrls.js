@@ -155,6 +155,9 @@ export const AdminUrls = {
     AddBrand: 'Brands',
     UpdateBrandById(brandId) {
         return `Brands/${brandId}`
+    },
+    GetBrandsBySearch(searchTerm) {
+        return `Brands/Search?searchTerm=${searchTerm}`
     }
 
 }
@@ -183,6 +186,12 @@ export const BannerUrls = {
     GetProductsByBannerFilter: 'Banners/GetProductsByBannerFilter',
     GetFilterPanelBannerById(bannerId) {
         return `FilterPanel/Banner/${bannerId}`
+    }
+}
+export const BrandUrls = {
+    GetBrands: 'Brands',
+    GetBrandById(brandId) {
+        return `Brands/${brandId}`
     }
 }
 

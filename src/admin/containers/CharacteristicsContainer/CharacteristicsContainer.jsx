@@ -12,6 +12,7 @@ import AddBlog from "../BlogsContainer/AddBlog/AddBlog";
 import BottomPanel from "../../BottomPanel/BottomPanel";
 import CharacteristicsTable from "./CharacteristicsTable/CharacteristicsTable";
 import EditCharacteristic from "./EditCharacteristic/EditCharacteristic";
+import AddCharacteristic from "./AddCharacteristic/AddCharacteristic";
 
 const CharacteristicsContainer = ({currentPage, setCurrentPage, amount, setAmount}) => {
     const [isOpenPopupEdit, setIsOpenPopupEdit] = useState(false);
@@ -53,7 +54,7 @@ const CharacteristicsContainer = ({currentPage, setCurrentPage, amount, setAmoun
                 setIsOpenPopupEdit={setIsOpenPopupEdit}
 
             />
-            <AddBlog isOpenPopupAdd={isOpenPopupAdd} setIsOpenPopupAdd={setIsOpenPopupAdd}/>
+            <AddCharacteristic isOpenPopupAdd={isOpenPopupAdd} setIsOpenPopupAdd={setIsOpenPopupAdd}/>
             <BottomPanel
                 currentPage={currentPage}
                 amount={amount}

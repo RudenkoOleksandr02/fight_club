@@ -7,6 +7,7 @@ import AdditionalOptions from "./AdditionalOptions";
 import {getAdminFilterPanel} from "../../../../store/adminSlices/adminProductSlice";
 import MinMaxPrice from "../../../../components/ui/forFilters/MinMaxPrice/MinMaxPrice";
 import PrimaryButton from "../../../buttons/PrimaryButton/PrimaryButton";
+import Brands from "../../../../components/ui/forFilters/Brands/Brands";
 
 const FilterPanel = ({
                          categoryIds,
@@ -24,7 +25,9 @@ const FilterPanel = ({
                          setMaxPrice,
                          maxPrice,
                          isNew,
-                         setIsNew
+                         setIsNew,
+                         brandIds,
+                         setBrandIds
                      }) => {
     const {adminFilterPanel} = useSelector(state => state.admin.adminProduct)
     const dispatch = useDispatch();
@@ -38,6 +41,7 @@ const FilterPanel = ({
     const handleReset = () => {
         setCategoryIds([])
         setCharacteristicIds([])
+        setBrandIds([])
         setIsShown(null)
         setIsHit(null)
         setHasDiscount(null)
@@ -59,6 +63,11 @@ const FilterPanel = ({
                 characteristics={adminFilterPanel.data.characteristics}
                 setCharacteristicIds={setCharacteristicIds}
                 characteristicIds={characteristicIds}
+            />
+            <Brands
+                brands={adminFilterPanel.data.brands}
+                setBrandIds={setBrandIds}
+                brandIds={brandIds}
             />
             <AdditionalOptions
                 isShown={isShown}

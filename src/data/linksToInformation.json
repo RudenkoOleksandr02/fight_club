@@ -1,6 +1,7 @@
 [
   {"id": "faq", "name": "FAQ"},
-  {"id": "blog", "name": "Блог"},
+  {"id": "blogs", "name": "Блог"},
+  {"id": "brands", "name": "Бренди"},
   {"id": "support", "name":  "Підтримка"},
   {"id": "shipping_and_payment", "name":  "Доставка і оплата"}
 ]

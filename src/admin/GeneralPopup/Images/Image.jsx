@@ -18,7 +18,7 @@ const Image = ({title, titleForBtn, image, handleAddImage, handleRemoveImage, im
     } = useImportState();
 
     const setupImage = (files) => {
-        handleAddImage(files[0]);
+        handleAddImage(imageKey, files[0]);
         setIsOpenPopupImportImages(false);
     }
     const deleteImage = () => {

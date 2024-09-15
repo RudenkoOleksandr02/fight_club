@@ -47,6 +47,14 @@ const CharacteristicPopup = ({handleClose, data, setData, handleSave, isSaveButt
                 }
             ))
         }
+        const changeCharacteristicTitle = (value) => {
+            setData(prevState => (
+                {
+                    ...prevState,
+                    characteristicTitle: value
+                }
+            ))
+        }
 
         return (
             <EditContainer handleSave={() => handleSave()} isDisabledSave={!isSaveButtonActive} handleClose={handleClose}>
@@ -54,7 +62,7 @@ const CharacteristicPopup = ({handleClose, data, setData, handleSave, isSaveButt
                     <InputAdmin
                         placeholder="Характеристика"
                         value={data.characteristicTitle}
-                        disabled={true}
+                        onChange={e => changeCharacteristicTitle(e.target.value)}
                     />
                     <DieBlock title='Опції' titleForBtn='Додати опцію' handleClick={addCharacteristicOption}>
                         <Table>

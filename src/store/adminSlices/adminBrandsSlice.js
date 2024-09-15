@@ -44,10 +44,21 @@ const addAdminBrandLoading = createAsyncThunk(
         }
     }
 )
+const getAdminBrandsBySearchLoading = createAsyncThunk(
+    'admin/getAdminBrandsBySearchLoading',
+    async (searchTerm, {rejectWithValue}) => {
+        try {
+            return await adminApi.getBrandsBySearch(searchTerm);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
 
 const initialState = {
     brands: initialObject,
-    brand: initialObject
+    brand: initialObject,
+    brandsSearch: initialObject,
 };
 
 const adminBrandsSlice = createSlice({
@@ -73,6 +84,15 @@ const adminBrandsSlice = createSlice({
             .addCase(getAdminBrandByIdLoading.rejected, (state, action) => {
                 handleRejected(state, action, 'brand')
             })
+            .addCase(getAdminBrandsBySearchLoading.pending, (state) => {
+                handlePending(state, 'brandsSearch')
+            })
+            .addCase(getAdminBrandsBySearchLoading.fulfilled, (state, action) => {
+                handleFulfilled(state, action, 'brandsSearch')
+            })
+            .addCase(getAdminBrandsBySearchLoading.rejected, (state, action) => {
+                handleRejected(state, action, 'brandsSearch')
+            })
     }
 });
 
@@ -91,4 +111,7 @@ export const updateAdminBrandById = (brandId, params) => async (dispatch) => {
 }
 export const addAdminBrand = (params) => async (dispatch) => {
     return dispatch(addAdminBrandLoading(params))
+}
+export const getAdminBrandsBySearch = (searchTerm) => async (dispatch) => {
+    return dispatch(getAdminBrandsBySearchLoading(searchTerm))
 }

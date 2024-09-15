@@ -147,7 +147,7 @@ const ProductsTable = ({handleClickEdit, sortOption, handleSortOption}) => {
                     <Tr key={product.id} templateColumns='1fr 109px 157px 109px 151px 175px'>
                         <Td justifyContent='left'>{product.name}</Td>
                         <Td>{roundNumber(product.discount)}%</Td>
-                        <Td>Категорії</Td>
+                        <Td>{product.mainCategory?.name || 'Беззмістовний'}</Td>
                         <Td>{roundNumber(product.price)}</Td>
                         <Td>{product.amount}</Td>
                         <Td>

@@ -1,0 +1,6 @@
+.brands .brand {
+    margin-bottom: 10px;
+}
+.brands .brand label:last-child {
+    font-size: 18px;
+}

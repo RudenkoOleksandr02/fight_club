@@ -39,6 +39,7 @@ import {getCategory} from "./store/navigationSlice";
 import Preloader from "./components/ui/Preloader/Preloader";
 import Blog from "./pages/Blog/Blog";
 import BannerPage from "./pages/BannerPage/BannerPage";
+import Brand from "./pages/Brand/Brand";
 
 const Root = () => {
     const [openLoginPanel, setOpenLoginPanel] = React.useState(false);
@@ -91,6 +92,7 @@ const router = createBrowserRouter(
                 <Route path='/blogs/:id' element={<Blog/>}/>
                 <Route path='/banner/:id' element={<BannerPage/>}/>
                 <Route path='/brands' element={<Brands/>}/>
+                <Route path='/brands/:id' element={<Brand/>}/>
                 <Route path='/about' element={<About/>}/>
                 <Route path='/cart' element={<Cart/>}/>
                 <Route path='/checkout' element={<Checkout/>}/>

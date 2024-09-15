@@ -48,6 +48,7 @@ export const adminApi = {
         if (params.name) formData.append('Name', params.name);
         if (params.nameEng) formData.append('NameEng', params.nameEng);
         if (params.mainCategoryId) formData.append('MainCategoryId', params.mainCategoryId);
+        if (params.brandId) formData.append('BrandId', params.brandId);
         if (params.article) formData.append('Article', params.article);
         if (params.price) formData.append('Price', Number(params.price));
         if (params.discount) formData.append('Discount', Number(params.discount));
@@ -84,6 +85,7 @@ export const adminApi = {
         if (params.name) formData.append('Name', params.name);
         if (params.nameEng) formData.append('NameEng', params.nameEng);
         if (params.mainCategoryId) formData.append('MainCategoryId', params.mainCategoryId);
+        if (params.brandId) formData.append('BrandId', params.brandId);
         if (params.article) formData.append('Article', params.article);
         if (params.price) formData.append('Price', Number(params.price));
         if (params.discount) formData.append('Discount', Number(params.discount));
@@ -300,6 +302,10 @@ export const adminApi = {
                 'Content-Type': 'multipart/form-data'
             }
         })
+            .then(response => response.data)
+    },
+    getBrandsBySearch(searchTerm) {
+        return instance.get(AdminUrls.GetBrandsBySearch(searchTerm))
             .then(response => response.data)
     }
 }

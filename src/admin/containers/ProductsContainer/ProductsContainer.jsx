@@ -46,6 +46,7 @@ const ProductsContainer = ({ currentPage, setCurrentPage, amount, setAmount }) =
     }
     const [categoryIds, setCategoryIds] = useState([]);
     const [characteristicIds, setCharacteristicIds] = useState([]);
+    const [brandIds, setBrandIds] = useState([]);
     const [isShown, setIsShown] = useState(null);
     const [isHit, setIsHit] = useState(null);
     const [hasDiscount, setHasDiscount] = useState(null);
@@ -60,6 +61,7 @@ const ProductsContainer = ({ currentPage, setCurrentPage, amount, setAmount }) =
             searchTerm,
             categoryIds,
             selectedCharacteristics: characteristicIds,
+            brandIds,
             minPrice,
             maxPrice,
             isShown,
@@ -67,7 +69,7 @@ const ProductsContainer = ({ currentPage, setCurrentPage, amount, setAmount }) =
             hasDiscount,
             isNew
         }));
-    }, [currentPage, amount, sortOption, searchTerm, categoryIds, characteristicIds, minPrice, maxPrice, isShown, isHit, hasDiscount, isNew]);
+    }, [currentPage, amount, sortOption, searchTerm, categoryIds, brandIds, characteristicIds, minPrice, maxPrice, isShown, isHit, hasDiscount, isNew]);
 
     // IMPORT FILE
     const {
@@ -120,6 +122,8 @@ const ProductsContainer = ({ currentPage, setCurrentPage, amount, setAmount }) =
                         minPrice={minPrice}
                         setMaxPrice={setMaxPrice}
                         maxPrice={maxPrice}
+                        brandIds={brandIds}
+                        setBrandIds={setBrandIds}
                     />
                 </LeftPanel>
 
