@@ -1,40 +1,45 @@
 import React, {useEffect, useState} from 'react';
 import classes from './Navigation.module.css';
-import {NavLink} from "react-router-dom";
-import SearchDesktop from "../Search/Desctop/SearchDesktop";
+import SearchDesktop from "../Search/Desktop/SearchDesktop";
 import {useDispatch, useSelector} from "react-redux";
-import {getCategory, getCategoryTree, getPopularProductsByCategory} from "../../../store/navigationSlice";
+import {
+    getCategoryTree,
+    getPopularProductsByCategory,
+    removeCategoryTree,
+    removePopularProducts
+} from "../../../store/navigationSlice";
 import CategoryTree from "./CategoryTree/CategoryTree";
 import Preloader from "../../ui/Preloader/Preloader";
 import {getParentCategories} from "../../../common/utils/getParentCategory";
+import {useNavigate} from "react-router-dom";
 
 const Navigation = () => {
-
+    const {data: categories} = useSelector((state) => state.navigation.categories);
     const {
         data: categoryTreeData,
         loading: categoryTreeLoading
     } = useSelector((state) => state.navigation.categoryTree);
     const {
         data: popularProductsByCategoryData,
-        loading: popularProductsByCategoryLoading
+        loading: popularProductsByCategoryLoading,
+        error: popularProductsByCategoryError
     } = useSelector((state) => state.navigation.popularProductsByCategory);
     const dispatch = useDispatch();
+    const navigate = useNavigate()
+
     const [currentCategoryId, setCurrentCategoryId] = useState(null);
     const [showCategoryTree, setShowCategoryTree] = useState(false);
     const [selectedSubcategoryId, setSelectedSubcategoryId] = useState(null);
 
-    // CATEGORY
-    const {data: categories} = useSelector((state) => state.navigation.categories);
-
-    // CATEGORY TREE
     useEffect(() => {
         if (currentCategoryId) {
             dispatch(getCategoryTree(currentCategoryId))
                 .then(() => {
-                    dispatch(getPopularProductsByCategory(currentCategoryId))
+                    dispatch(getPopularProductsByCategory(currentCategoryId));
                 });
         }
-    }, [currentCategoryId, dispatch]);
+    }, [currentCategoryId]);
+
     const handleSetCategoryTree = (categoryId) => {
         setCurrentCategoryId(categoryId);
         setShowCategoryTree(true);
@@ -44,46 +49,53 @@ const Navigation = () => {
         setShowCategoryTree(false);
     };
 
-
     const linksParentCategoriesJSX = (
         <div className={classes.mainCategories}>
             {getParentCategories(categories).map(link => (
-                <NavLink
+                <button
                     key={link.categoryId}
-                    to={'/category/' + link.categoryId}
                     onMouseEnter={() => handleSetCategoryTree(link.categoryId)}
-                    onClick={() => setShowCategoryTree(false)}
+                    onClick={() => navigate('/category/' + link.categoryId)}
                 >
                     {link.name}
-                </NavLink>
+                </button>
             ))}
         </div>
     );
 
     return (
-        <nav
-            className={showCategoryTree ? `${classes.navigation} ${classes.fill}` : classes.navigation}
-            onMouseLeave={handleDellCategoryTree}
-        >
-            <div className={classes.mainCategoriesAndSearch}>
-                <SearchDesktop/>
-                {linksParentCategoriesJSX}
-            </div>
-            <div className={`${classes.categoryTree} ${showCategoryTree ? classes.visible : ''}`}>
-                {categoryTreeLoading
-                    ? <div className={classes.preloader}>
-                        <Preloader color='tertiary' overflowHidden={false}/>
+        <>
+            <nav
+                className={showCategoryTree ? `${classes.navigation} ${classes.fill}` : classes.navigation}
+                onMouseLeave={handleDellCategoryTree}
+            >
+                <div className={classes.mainCategoriesAndSearch}>
+                    <div className={classes.search}>
+                        <SearchDesktop/>
                     </div>
-                    : <CategoryTree
-                        selectedSubcategoryId={selectedSubcategoryId}
-                        setSelectedSubcategoryId={setSelectedSubcategoryId}
-                        categoryTree={categoryTreeData}
-                        setShowCategoryTree={setShowCategoryTree}
-                        popularProductsByCategoryData={popularProductsByCategoryData}
-                        popularProductsByCategoryLoading={popularProductsByCategoryLoading}
-                    />}
-            </div>
-        </nav>
+                    {linksParentCategoriesJSX}
+                </div>
+                <div className={`${classes.categoryTreeContainer} ${showCategoryTree ? classes.visible : ''}`}>
+                    {categoryTreeLoading
+                        ? <div className={classes.preloader}>
+                            <Preloader color='tertiary' overflowHidden={false}/>
+                        </div>
+                        : categoryTreeData && (
+                        <CategoryTree
+                            categoryTree={categoryTreeData}
+                            setShowCategoryTree={setShowCategoryTree}
+                            selectedSubcategoryId={selectedSubcategoryId}
+                            setSelectedSubcategoryId={setSelectedSubcategoryId}
+                            popularProductsByCategoryData={popularProductsByCategoryData}
+                            popularProductsByCategoryLoading={popularProductsByCategoryLoading}
+                            popularProductsByCategoryError={popularProductsByCategoryError}
+                        />
+                    )
+                    }
+                </div>
+            </nav>
+            {showCategoryTree && <div className={classes.overlay} onClick={() => setShowCategoryTree(false)}></div>}
+        </>
     );
 };
 

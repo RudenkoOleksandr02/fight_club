@@ -22,6 +22,7 @@
     width: 100%;
     background: var(--white);
     padding: 10px;
+    z-index: 50;
 }
 .sortByWrapper > div {
     cursor: pointer;

@@ -4,9 +4,9 @@ import DieBlock from "../../../components/ui/blocks/DieBlock/DieBlock";
 import Input from "../../../components/ui/inputs/Input/Input";
 import InputMobile from "../../../components/ui/inputs/Input/InputMobile";
 import PrimaryButton from "../../../components/ui/Buttons/PrimaryButton/PrimaryButton";
-import {ReactComponent as IcoFacebook} from '../../../assets/images/socials_contacts/ico_facebook.svg';
-import {ReactComponent as IcoTelegram} from '../../../assets/images/socials_contacts/ico_telegram.svg';
-import {ReactComponent as IcoInstagram} from '../../../assets/images/socials_contacts/ico_instagram.svg';
+import {ReactComponent as IcoFacebook} from '../../../assets/images/socials_footer/ico_facebook.svg';
+import {ReactComponent as IcoTelegram} from '../../../assets/images/socials_footer/ico_telegram.svg';
+import {ReactComponent as IcoInstagram} from '../../../assets/images/socials_footer/ico_instagram.svg';
 import linksToSocials from './../../../data/linksToSocials.json';
 import {Link} from "react-router-dom";
 
@@ -25,13 +25,13 @@ const Contact = () => {
                     <PrimaryButton>Відправити</PrimaryButton>
                     <span>або</span>
                     <div className={classes.socials}>
-                        <Link to={linksToSocials[0].id}>
+                        <Link to={linksToSocials[0].path}>
                             <IcoInstagram/>
                         </Link>
-                        <Link to={linksToSocials[1].id}>
+                        <Link to={linksToSocials[1].path}>
                             <IcoFacebook/>
                         </Link>
-                        <Link to={linksToSocials[2].id}>
+                        <Link to={linksToSocials[2].path}>
                             <IcoTelegram/>
                         </Link>
                     </div>

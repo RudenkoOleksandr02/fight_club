@@ -66,7 +66,7 @@ const ProductDesktop = ({product}) => {
                 </div>
             )}
             <div className={classes.reviews}>
-                <Reviews reviews={product.reviews}/>
+                <Reviews productId={product.id}/>
             </div>
         </div>
     );

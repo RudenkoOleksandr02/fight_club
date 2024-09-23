@@ -1,23 +1,22 @@
 .underSubcategories {
-    background: rgba(241, 241, 241, 1);
-    border-radius: 30px;
     overflow: hidden;
-    transition: height 0.5s ease;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 10px;
-}
-
-.underSubcategories.isOpen {
-    margin-bottom: 10px;
-    padding: 10px;
+    position: relative;
+    height: auto;
+    width: 100%;
+    margin: 10px 0;
 }
 
 .underSubcategories button {
-    transition: .3s;
-    width: auto;
+    transition: 0.2s;
+    min-width: 150px;
+    justify-content: center;
     margin-bottom: 0;
+    z-index: 1;
+    height: 38px;
 }
 
 .underSubcategories button:hover {
@@ -27,21 +26,28 @@
 
 .underSubcategoryEnter {
     opacity: 0;
-    transform: translateX(-150px);
+    transform: scale(0.95);
+    z-index: 2;
 }
 
 .underSubcategoryEnterActive {
     opacity: 1;
+    transform: scale(1);
     transition: all 300ms ease-in;
-    transform: translateX(0);
 }
 
 .underSubcategoryExit {
     opacity: 1;
+    transform: scale(1);
 }
 
 .underSubcategoryExitActive {
     opacity: 0;
+    transform: scale(0.95);
     transition: all 300ms ease-in;
-    transform: translateX(-150px);
+}
+
+.switching .underSubcategoryExitActive {
+    transition: none;
+    display: none;
 }

@@ -1,20 +1,37 @@
-.wrapper {
+.footer {
     color: var(--white);
     margin-top: 60px;
 }
-.wrapper a {
+.footer .linkContainer a {
     color: var(--white);
     text-decoration: none;
+    transition: .2s;
+    position: relative;
+    padding-bottom: 3px;
+}
+.footer .linkContainer a::before {
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0; height: 1px;
+    background-color: var(--white);
+    transition: width .2s ease;
+}
+.footer .linkContainer a:hover::before {
+    width: 100%;
 }
 
-/* --MAIN CONTENT--*/
-.mainContent {
+/* TOP */
+.top {
     display: grid;
     grid-template-areas:
-        "subscribe"
         "catalog"
         "info"
-        "company";
+        "company"
+        "subscribe";
+}
+.top h3 {
+    font-size: 24px;
 }
 .subscribe {
     grid-area: subscribe;
@@ -22,26 +39,21 @@
 .catalog {
     grid-area: catalog;
 }
-.catalog > .links {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
 .info {
     grid-area: info;
 }
 .company {
     grid-area: company;
 }
-.mainContent h3 {
-    font-size: 24px;
-}
-.links {
+.topLinks {
     display: flex;
     flex-direction: column;
     margin-top: 50px;
+    gap: 15px;
 }
-.links > a:not(:last-child) {
-    margin-bottom: 15px;
+.catalog .topLinks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 @media (max-width: 767px) {
@@ -50,25 +62,25 @@
     }
 }
 @media (min-width: 768px) and (max-width: 1359px) {
-    .mainContent {
+    .top {
         grid-template-areas:
             'subscribe subscribe subscribe'
             'catalog   info      company';
     }
-    .mainContent h3 {
+    .top h3 {
         margin-top: 60px;
     }
 
 }
 @media (min-width: 1360px) {
-    .mainContent {
+    .top {
         grid-template-areas: 'catalog info company subscribe';
         grid-template-columns: repeat(3, auto) 343px;
     }
 }
 
-/* --SECONDARY CONTENT-- */
-.secondaryContent {
+/* BOTTOM */
+.bottom {
     border-top: 2px solid var(--white);
     margin-top: 60px;
     padding: 60px 0;
@@ -78,55 +90,53 @@
             'rights'
             'socials';
 }
+.rights, .logo, .socials, .socials > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .logo {
-    font-size: 52px;
-    font-weight: 400;
-    margin-bottom: 5px;
-    font-family: 'Ahsing', sans-serif;
     grid-area: logo;
+    justify-content: flex-start;
 }
 .rights {
     grid-area: rights;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
-.rights > a {
+.rights a {
     font-size: 14px;
-    font-weight: 700;
-}
-.rights > a:not(:last-child) {
-    margin-bottom: 10px;
+    font-weight: 500;
 }
 .socials {
     grid-area: socials;
-    display: flex;
-    align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
+    gap: 10px;
 }
-.socials > a {
-    display: flex;
-    justify-content: center; align-items: center;
+.socials a {
     width: 40px; height: 40px;
     background: var(--white);
+    border: 1px solid var(--white);
     border-radius: 50%;
+    transition: .2s;
 }
-.socials > a:not(:last-child) {
-    margin-right: 10px;
+.socials a:hover {
+    background: var(--green);
+}
+.socials a:hover svg * {
+    fill: var(--white);
 }
 
 @media (max-width: 767px) {
-    .secondaryContent {
+    .bottom {
         border: none;
         margin-top: 0;
     }
     .logo {
-        text-align: center;
+        justify-content: center;
     }
     .rights {
         margin: 25px 0;
     }
-    .rights > a {
+    .rights a {
         font-weight: 400;
     }
     .socials {
@@ -134,21 +144,12 @@
     }
 }
 @media (min-width: 768px) {
-    .secondaryContent {
+    .bottom {
         grid-template-areas: 'logo rights socials';
     }
 }
 @media (max-width: 999px) {
-    .secondaryContent {
+    .bottom {
         margin-bottom: 57px;
-    }
-}
-@media (min-width: 1360px) {
-    .rights {
-        flex-direction: row;
-        justify-content: center;
-    }
-    .rights > a:not(:last-child) {
-        margin: 0 40px 0 0;
     }
 }

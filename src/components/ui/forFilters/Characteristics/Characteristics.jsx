@@ -66,7 +66,7 @@ const Characteristics = ({
                                 <Checkbox
                                     checked={characteristicIds.includes(option.id)}
                                     onChange={e => handleChangeCharacteristic(e, option.id)}
-                                    style='_'
+                                    style={modificationStyle.color}
                                     text={`${option.option} (${option.productsAmount})`}
                                 />
                             </div>

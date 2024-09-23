@@ -1,0 +1,29 @@
+.extraClassSwiperList h2 {
+    font-size: 24px;
+    font-weight: 700;
+}
+@media (max-width: 767px) {
+    .extraClassCardItem {
+        width: 234px !important; height: 394px !important;
+    }
+    .extraClassCardItem img, .extraClassCardItem svg {
+        height: 190px;
+    }
+}
+@media (min-width: 768px) and (max-width: 1359px) {
+    .extraClassCardItem {
+        width: 100% !important; height: 423px !important;
+    }
+    .extraClassCardItem img, .extraClassCardItem svg {
+        height: 202px;
+    }
+}
+@media (min-width: 1360px) {
+    .extraClassCardItem {
+        width: 240px !important; height: 423px !important;
+    }
+    .extraClassCardItem img, .extraClassCardItem svg {
+        height: 219px;
+    }
+}
+

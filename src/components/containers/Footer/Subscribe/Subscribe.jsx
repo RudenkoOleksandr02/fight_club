@@ -6,11 +6,11 @@ const Subscribe = () => {
     return (
         <section>
             <div className={classes.wrapper}>
-                <h2>Subscribe</h2>
+                <h2>Підпишіться</h2>
                 <div className={classes.form}>
                     <FormSelect type='email' text='Email' color='primary'/>
                 </div>
-                <p>Подпишитесь и получите скидку 10% на первый заказ</p>
+                <p>Підпишіться та отримайте знижку 10% на перше замовлення!</p>
             </div>
         </section>
     );

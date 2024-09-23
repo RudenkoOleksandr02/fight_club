@@ -14,35 +14,45 @@ import linksToRights from '../../../data/linksToRights.json';
 import linksToSocials from '../../../data/linksToSocials.json';
 import {getParentCategories} from "../../../common/utils/getParentCategory";
 import {useSelector} from "react-redux";
+import logo from './../../../assets/images/logo_blossom.png'
 
 
 const Footer = () => {
     const {data: categories} = useSelector((state) => state.navigation.categories);
-    const linksParentCategoriesJSX = <div className={classes.links}>
+
+    const linksParentCategoriesJSX = <div className={classes.topLinks}>
         {getParentCategories(categories).map(link => {
-            return <Link key={uuidv4()} to={'/category/' + link.categoryId}>{link.name}</Link>
+            return <div key={uuidv4()} className={classes.linkContainer}>
+                <Link to={'/category/' + link.categoryId}>{link.name}</Link>
+            </div>
         })}
     </div>
-    const linksToInformationJSX = <div className={classes.links}>
+    const linksToInformationJSX = <div className={classes.topLinks}>
         {linksToInformation.map(link => {
-            return <Link key={uuidv4()} to={link.id}>{link.name}</Link>
+            return <div key={uuidv4()} className={classes.linkContainer}>
+                <Link to={link.id}>{link.name}</Link>
+            </div>
         })}
     </div>
-    const linksToUsJSX = <div className={classes.links}>
+    const linksToUsJSX = <div className={classes.topLinks}>
         {linksToUs.map(link => {
-            return <Link key={uuidv4()} to={link.id}>{link.name}</Link>
+            return <div key={uuidv4()} className={classes.linkContainer}>
+                <Link to={link.id}>{link.name}</Link>
+            </div>
         })}
     </div>
     const linksToRightsJSX = <div className={classes.rights}>
         {linksToRights.map(link => {
-            return <Link key={uuidv4()} to={link.id}>{link.name}</Link>
+            return <div key={uuidv4()} className={classes.linkContainer}>
+                <Link to={link.id}>{link.name}</Link>
+            </div>
         })}
     </div>
 
     return (
         <footer>
-            <div className={classes.wrapper}>
-                <div className={classes.mainContent}>
+            <div className={classes.footer}>
+                <div className={classes.top}>
                     <div className={classes.subscribe}>
                         <Subscribe/>
                     </div>
@@ -51,25 +61,27 @@ const Footer = () => {
                         {linksParentCategoriesJSX}
                     </div>
                     <div className={classes.info}>
-                        <h3>Информация</h3>
+                        <h3>Інформація</h3>
                         {linksToInformationJSX}
                     </div>
                     <div className={classes.company}>
-                        <h3>Мы</h3>
+                        <h3>Ми</h3>
                         {linksToUsJSX}
                     </div>
                 </div>
-                <div className={classes.secondaryContent}>
-                    <h2 className={classes.logo}>BLOSSOM</h2>
+                <div className={classes.bottom}>
+                    <div className={classes.logo}>
+                        <img src={logo} alt='logotype'/>
+                    </div>
                     {linksToRightsJSX}
                     <div className={classes.socials}>
-                        <Link to={linksToSocials[0].id}>
+                        <Link to={linksToSocials[0].path}>
                             <IcoInstagram/>
                         </Link>
-                        <Link to={linksToSocials[1].id}>
+                        <Link to={linksToSocials[1].path}>
                             <IcoFacebook/>
                         </Link>
-                        <Link to={linksToSocials[2].id}>
+                        <Link to={linksToSocials[2].path}>
                             <IcoTelegram/>
                         </Link>
                     </div>

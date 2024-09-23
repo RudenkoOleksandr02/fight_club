@@ -1,5 +1,5 @@
 [
-  {"id": "instagram", "name": "instagram"},
-  {"id": "facebook", "name": "facebook"},
-  {"id": "telegram", "name":  "telegram"}
+  {"path": "https://www.instagram.com/", "name": "instagram"},
+  {"path": "https://uk-ua.facebook.com/", "name": "facebook"},
+  {"path": "https://web.telegram.org/k/", "name":  "telegram"}
 ]

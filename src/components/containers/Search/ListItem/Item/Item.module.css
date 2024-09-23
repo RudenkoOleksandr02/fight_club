@@ -22,9 +22,12 @@
     display: flex;
     align-items: center;
 }
-.image {
+.inner .image, .inner svg {
     height: 73px; width: 73px;
     object-fit: cover;
+}
+.inner > div::before {
+    font-size: 12px !important;
 }
 .name {
     margin-left: 10px;
@@ -34,7 +37,7 @@
     .wrapper {
         height: 33px;
     }
-    .image {
+    .inner .image, .inner svg {
         height: 33px; width: 33px;
     }
     .name {

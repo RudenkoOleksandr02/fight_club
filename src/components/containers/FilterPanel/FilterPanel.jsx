@@ -17,6 +17,7 @@ const FilterPanel = ({
                          forMaxPrice: {maxPrice, setMaxPrice}
 
                      }) => {
+
     return (
         <div className={classes.wrapper}>
             <div className={classes.mobileExhibition}>
@@ -27,45 +28,51 @@ const FilterPanel = ({
                 />
             </div>
             <div className={classes.inner}>
-                <Categories
-                    categories={categories}
-                    setCategoryIds={setCategoryIds}
-                    categoryIds={categoryIds}
-                    isOpen={true}
-                    modificationStyle={{
-                        color: 'primary',
-                        fontSize1: '20px',
-                        fontSize2: '18px',
-                        fontWeight1: '500',
-                        fontWeight2: '400'
+                {!!categories.length && (
+                    <Categories
+                        categories={categories}
+                        setCategoryIds={setCategoryIds}
+                        categoryIds={categoryIds}
+                        isOpen={true}
+                        modificationStyle={{
+                            color: 'primary',
+                            fontSize1: '20px',
+                            fontSize2: '18px',
+                            fontWeight1: '500',
+                            fontWeight2: '400'
 
-                    }}
-                />
-                <Characteristics
-                    characteristics={characteristics}
-                    setCharacteristicIds={setCharacteristicIds}
-                    characteristicIds={characteristicIds}
-                    isOpen={true}
-                    modificationStyle={{
-                        color: 'primary',
-                        fontSize1: '20px',
-                        fontSize2: '18px',
-                        fontWeight1: '500',
-                        fontWeight2: '400'
+                        }}
+                    />
+                )}
+                {!!characteristics.length && (
+                    <Characteristics
+                        characteristics={characteristics}
+                        setCharacteristicIds={setCharacteristicIds}
+                        characteristicIds={characteristicIds}
+                        isOpen={true}
+                        modificationStyle={{
+                            color: 'primary',
+                            fontSize1: '20px',
+                            fontSize2: '18px',
+                            fontWeight1: '500',
+                            fontWeight2: '400'
 
-                    }}
-                />
-                <Brands
-                    brands={brands}
-                    setBrandIds={setBrandIds}
-                    brandIds={brandIds}
-                    isOpen={true}
-                    modificationStyle={{
-                        color: 'primary',
-                        fontSize: '20px',
-                        fontWeight: '500',
-                    }}
-                />
+                        }}
+                    />
+                )}
+                {!!brands.length && (
+                    <Brands
+                        brands={brands}
+                        setBrandIds={setBrandIds}
+                        brandIds={brandIds}
+                        isOpen={true}
+                        modificationStyle={{
+                            color: 'primary',
+                            fontSize: '20px',
+                            fontWeight: '500',
+                        }}
+                    />
+                )}
                 <MinMaxPrice
                     minPrice={minPrice || 0}
                     maxPrice={maxPrice || 0}

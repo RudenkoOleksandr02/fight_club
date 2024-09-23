@@ -1,35 +1,19 @@
 import React from 'react';
 import classes from './Header.module.css';
 import {Link, useNavigate} from "react-router-dom";
-import User from "../User/User";
-import {ReactComponent as IcoCart} from "../../../assets/images/header/ico_cart.svg";
-import {useSelector} from "react-redux";
+import User from "./User/User";
+import logo from "../../../assets/images/logo_blossom.png";
+import Basket from "./Basket/Basket";
 
-const Header = ({openLoginPanel, setOpenLoginPanel}) => {
-    const productsInCart = useSelector(state => state.cartPage.productsInCart);
-
+const Header = ({openLoginPanel, setOpenLoginPanel, userButtonRef}) => {
     const navigate = useNavigate();
-
-    const handleClickCart = () => {
-        if (productsInCart.length !== 0) {
-            navigate('/cart')
-        } else {
-            return false
-        }
-    }
-
-    const productsQuantity = productsInCart.reduce((total, product) => {
-        return total + product.quantity;
-    }, 0);
 
     return (
         <header>
-            <div className={classes.wrapper}>
-                <h1 className={classes.logo}>
-                    <Link to='/'>
-                        BLOSSOM
-                    </Link>
-                </h1>
+            <div className={classes.header}>
+                <div className={classes.logo} onClick={() => navigate('/')}>
+                    <img src={logo} alt='logotype'/>
+                </div>
                 <div className={classes.container}>
                     <div className={classes.navigate}>
                         <div className={classes.links}>
@@ -39,15 +23,13 @@ const Header = ({openLoginPanel, setOpenLoginPanel}) => {
                         </div>
                     </div>
                     <div className={classes.basket}>
-                        <div className={`${classes.icoBasket} ${productsInCart.length !== 0 ? classes.pointer : ''}`}
-                             onClick={handleClickCart}>
-                            {productsInCart.length !== 0 && (
-                                <span className={classes.count}>{productsQuantity}</span>
-                            )}
-                            <IcoCart/>
-                        </div>
+                        <Basket/>
                     </div>
-                    <User openLoginPanel={openLoginPanel} setOpenLoginPanel={setOpenLoginPanel}/>
+                    <User
+                        openLoginPanel={openLoginPanel}
+                        setOpenLoginPanel={setOpenLoginPanel}
+                        userButtonRef={userButtonRef}
+                    />
                 </div>
             </div>
         </header>

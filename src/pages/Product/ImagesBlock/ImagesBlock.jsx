@@ -5,6 +5,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {FreeMode} from "swiper/modules";
 import ModalImage from "../../../components/ui/ModalImage/ModalImage";
 import {ReactComponent as IcoAbsence} from './../../../assets/images/ico_absence.svg';
+import NoImageBlock from "../../../components/ui/blocks/NoImageBlock/NoImageBlock";
 
 const ImagesBlock = ({images}) => {
     const [selectedImage, setSelectedImage] = useState([]);
@@ -69,18 +70,21 @@ const ImagesBlock = ({images}) => {
             {getSlides()}
         </Swiper>
     )
+
     return <div className={classes.wrapper}>
         <div className={classes.mainImage} onClick={handleOpenImage}>
             {selectedImage ? (
                 <img src={selectedImage} alt='product'/>
             ) : (
-                <IcoAbsence/>
+                <NoImageBlock/>
             )}
 
         </div>
-        <div className={classes.imagesPanel}>
-            {otherImagesSwapJSX}
-        </div>
+        {!!images.length && (
+            <div className={classes.imagesPanel}>
+                {otherImagesSwapJSX}
+            </div>
+        )}
         {selectedModalImage && (
             <ModalImage
                 onClose={() => selectedOpenModalImage(null)}

@@ -1,0 +1,38 @@
+.wrapper {
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+.wrapper svg {
+    width: 37px;
+    height: 37px;
+    stroke: var(--white);
+    fill: transparent;
+}
+.wrapper.animate {
+    animation: cart-bounce 0.8s ease-in-out;
+}
+.wrapper:hover {
+    transform: scale(1.1);
+    animation: none;
+}
+@keyframes cart-bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+.wrapper.disabled {
+    cursor: default;
+}
+.wrapper.disabled:hover {
+    transform: none;
+}

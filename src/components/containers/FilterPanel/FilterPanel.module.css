@@ -19,7 +19,6 @@
         overflow: auto;
     }
     .inner {
-        width: max-content;
         margin: 0 auto;
     }
     .mobileExhibition {

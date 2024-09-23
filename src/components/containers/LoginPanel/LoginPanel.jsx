@@ -8,7 +8,7 @@ import {useDispatch} from "react-redux";
 import {login} from "../../../store/authSlice";
 import useScreen from "../../../common/hooks/useScreen";
 
-const LoginPanel = ({openLoginPanel, setOpenLoginPanel}) => {
+const LoginPanel = ({openLoginPanel, setOpenLoginPanel, userButtonRef}) => {
     const navigate = useNavigate();
     const [paramsLogin, setParamsLogin] = useState({
         email: '',
@@ -25,14 +25,18 @@ const LoginPanel = ({openLoginPanel, setOpenLoginPanel}) => {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (panelRef.current && !panelRef.current.contains(event.target)) {
+            if (
+                panelRef.current &&
+                !panelRef.current.contains(event.target) &&
+                (!userButtonRef.current || !userButtonRef.current.contains(event.target))
+            ) {
                 setOpenLoginPanel(false);
             }
         };
 
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [setOpenLoginPanel]);
+    }, [setOpenLoginPanel, userButtonRef]);
 
     const handleLoginClick = () => {
         dispatch(login(paramsLogin))

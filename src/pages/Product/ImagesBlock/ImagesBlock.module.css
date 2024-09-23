@@ -22,6 +22,9 @@
     transition: .3s;
     cursor: url("../../../assets/images/zoom-in.png"), auto;
 }
+.mainImage > div {
+    height: 100%;
+}
 .mainImage img:hover {
     transform: scale(1.01);
 }

@@ -1,17 +1,22 @@
 .wrapper {
-    display: grid;
     margin-top: 60px;
+}
+.breadCrumbs {
+    margin-bottom: 30px;
+}
+.main {
+    display: grid;
     grid-template-rows: auto;
     grid-gap: 10px;
 }
 @media (max-width: 999px) {
-    .wrapper {
+    .main {
         grid-template-columns: 1fr;
         grid-template-rows: auto 469px 469px;
     }
 }
 @media (min-width: 1000px) {
-    .wrapper {
+    .main {
         grid-template-columns: 280px 1fr 1fr;
     }
 }

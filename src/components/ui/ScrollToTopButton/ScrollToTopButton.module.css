@@ -12,7 +12,7 @@
     z-index: 99;
     opacity: 0;
     cursor: default;
-    transition: 0.3s ease-in-out;
+    transition: .2s;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,10 +22,13 @@
     opacity: 1;
     cursor: pointer;
 }
-.button.show:hover {
-    background: var(--black);
+.button.show svg * {
+    fill: var(--green);
 }
-.button.show:hover > svg g {
+.button.show:hover {
+    background: var(--green);
+}
+.button.show:hover svg * {
     fill: var(--white);
 }
 

@@ -45,7 +45,7 @@ const Brands = ({
                         <Checkbox
                             checked={brandIds.includes(brand.id)}
                             onChange={e => handleChangeBrand(e, brand.id)}
-                            style='_'
+                            style={modificationStyle.color}
                             text={`${brand.option} (${brand.productsAmount})`}
                         />
                     </div>

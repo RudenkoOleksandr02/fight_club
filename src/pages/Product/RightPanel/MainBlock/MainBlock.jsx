@@ -39,6 +39,7 @@ const MainBlock = (props) => {
 
     const productsInCart = useSelector(state => state.cartPage.productsInCart);
     const inCart = productsInCart.some(product => product.productId === id);
+    const isAuth = useSelector(state => state.auth.isAuth);
     const navigate = useNavigate();
 
     // FAVORITE
@@ -72,18 +73,26 @@ const MainBlock = (props) => {
 
             <div className={classes.priceContainer}>
                 <div className={classes.price}>
-                    <span>{roundNumber(price)}</span>
+                    <span>{roundNumber(price)}₴</span>
                     <span>{roundNumber(priceWithDiscount(price, discount))}₴</span>
                 </div>
-                <div className={classes.selected}>
+                <div className={`${classes.selected} ${!isAuth ? classes.notActive : ''}`} onClick={() => {
+                    if (isAuth) {
+                        if (isFavorite) {
+                            handleRemoveFavorite(id)
+                        } else {
+                            handleAddFavorite(id)
+                        }
+                    } else {
+                        return false
+                    }
+                }}>
                     <span>У обране</span>
                     {isFavorite ? (
                         <IcoHeartFilled
-                            onClick={() => handleRemoveFavorite(id)}
                             className={classes.icoFavorite}
                         />
                     ) : <IcoHeart
-                        onClick={() => handleAddFavorite(id)}
                         className={classes.icoFavorite}
                     />}
                 </div>

@@ -7,7 +7,7 @@ import {
     createRoutesFromElements,
     RouterProvider,
     Route,
-    Outlet, useParams, useLocation
+    Outlet,
 } from "react-router-dom";
 import {Provider, useDispatch, useSelector} from "react-redux";
 import {PersistGate} from 'redux-persist/integration/react';
@@ -17,12 +17,12 @@ import ScrollToTop from './common/utils/ScrollToTop';
 import Header from "./components/containers/Header/Header";
 import Navigation from "./components/containers/Navigation/Navigation";
 import Footer from "./components/containers/Footer/Footer";
-import Blogs from "./pages/Blogs/Blogs";
-import Brands from "./pages/Brands/Brands";
+import Blogs from "./pages/ContentShowcaseList/Blogs/Blogs";
+import Brands from "./pages/ContentShowcaseList/Brands/Brands";
 import About from "./pages/About/About";
 import ErrorPage from "./pages/Error/Error";
 import MobilePanel from "./components/containers/MobilePanel/MobilePanel";
-import Catalog from "./pages/Catalog/Catalog";
+import Products from "./pages/Catalog/Products/Products";
 import Product from "./pages/Product/Product";
 import Home from "./pages/Home/Home";
 import Cart from "./pages/Cart/Cart";
@@ -37,12 +37,13 @@ import ScrollToTopButton from "./components/ui/ScrollToTopButton/ScrollToTopButt
 import Admin from "./admin/Admin";
 import {getCategory} from "./store/navigationSlice";
 import Preloader from "./components/ui/Preloader/Preloader";
-import Blog from "./pages/Blog/Blog";
-import BannerPage from "./pages/BannerPage/BannerPage";
-import Brand from "./pages/Brand/Brand";
+import Blog from "./pages/ContentShowcaseItem/Blog";
+import BannerPage from "./pages/Catalog/BannerPage/BannerPage";
+import Brand from "./pages/ContentShowcaseItem/Brand";
 
 const Root = () => {
     const [openLoginPanel, setOpenLoginPanel] = React.useState(false);
+    const userButtonRef = React.useRef(null);
     const {loading: categoryLoading} = useSelector((state) => state.navigation.categories);
     const isAuth = useSelector(state => state.auth.isAuth);
     const dispatch = useDispatch();
@@ -67,10 +68,15 @@ const Root = () => {
                 <LoginPanel
                     openLoginPanel={openLoginPanel}
                     setOpenLoginPanel={setOpenLoginPanel}
+                    userButtonRef={userButtonRef}
                 />
             </div>
             <div className="app-container">
-                <Header setOpenLoginPanel={setOpenLoginPanel} openLoginPanel={openLoginPanel}/>
+                <Header
+                    setOpenLoginPanel={setOpenLoginPanel}
+                    openLoginPanel={openLoginPanel}
+                    userButtonRef={userButtonRef}
+                />
                 <Navigation/>
                 <Outlet/>
                 <Footer/>
@@ -98,7 +104,7 @@ const router = createBrowserRouter(
                 <Route path='/checkout' element={<Checkout/>}/>
                 <Route path='/register' element={<RegisterPage/>}/>
                 <Route path='/user' element={<UserPage/>}/>
-                <Route path='/category/:id' element={<Catalog/>} errorElement={<ErrorPage/>}/>
+                <Route path='/category/:id' element={<Products/>} errorElement={<ErrorPage/>}/>
                 <Route path='/product/:id' element={<Product />} errorElement={<ErrorPage/>}/>
                 <Route path='*' element={<ErrorPage/>}/>
             </Route>

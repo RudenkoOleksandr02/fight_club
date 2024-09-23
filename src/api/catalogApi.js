@@ -1,4 +1,4 @@
-import {instance, CatalogUrls} from "./urls/apiUrls";
+import {instance, CatalogUrls, NavigationUrls} from "./urls/apiUrls";
 
 const CatalogApi = {
     getFilterPanelById(categoryId) {
@@ -12,6 +12,10 @@ const CatalogApi = {
             .then(response => {
                 return response.data
             })
+    },
+    getCategoryById(categoryId) {
+        return instance.get(CatalogUrls.GetCategoryById(categoryId))
+            .then(response => response.data)
     }
 }
 

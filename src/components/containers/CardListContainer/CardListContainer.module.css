@@ -7,15 +7,15 @@
     .cardList {
         grid-template-columns: 1fr;
     }
-    .extraClass img {
-        height: 309px !important;
+    .extraClass img, .extraClass svg {
+        height: 309px;
     }
 }
 @media (min-width: 600px) and (max-width: 1000px) {
     .cardList {
         grid-template-columns: repeat(2, 1fr);
     }
-    .extraClass img {
+    .extraClass img, .extraClass svg {
         height: 298px !important;
     }
 }
@@ -23,7 +23,7 @@
     .cardList {
         grid-template-columns: repeat(2, 1fr);
     }
-    .extraClass img {
+    .extraClass img, .extraClass svg {
         height: 258px !important;
     }
 }
@@ -31,7 +31,7 @@
     .cardList {
         grid-template-columns: repeat(3, 1fr);
     }
-    .extraClass img {
+    .extraClass img, .extraClass svg {
         height: 286px !important;
     }
 }

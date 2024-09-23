@@ -1,0 +1,15 @@
+.icoBtn {
+    background: transparent;
+    border: 1px solid var(--white);
+    height: 37px; width: 37px;
+    transition: .2s;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.icoBtn svg {
+    margin-top: 8px;
+    fill: var(--green);
+}
+.icoBtn:hover {
+    transform: scale(1.1);
+}

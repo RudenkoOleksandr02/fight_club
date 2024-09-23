@@ -33,7 +33,10 @@ export const CatalogUrls = {
     GetFilterPanelById(categoryId) {
         return `FilterPanel/${categoryId}`
     },
-    GetProductsByFilter: 'Product/GetProductsByFilter'
+    GetProductsByFilter: 'Product/GetProductsByFilter',
+    GetCategoryById(categoryId) {
+        return `Category/${categoryId}`
+    }
 }
 export const SearchUrls = {
     GetSearchByQuery(query) {
@@ -60,6 +63,12 @@ export const PromocodesUrls = {
     GetPromocodesCheck(code) {
         return `Promocodes/check/${code}`
     }
+}
+export const ReviewsUrls = {
+    GetReviewsInProduct(productId, page, pageSize) {
+        return `Reviews/Product/${productId}?page=${page}&pageSize=${pageSize}`
+    },
+    PostReviews: 'Reviews'
 }
 export const AdminUrls = {
     // PRODUCTS
@@ -168,7 +177,16 @@ export const AdminUrls = {
     UpdatePromocodeById(promoId) {
         return `Promocodes/${promoId}`
     },
-    AddPromocode: 'Promocodes'
+    AddPromocode: 'Promocodes',
+
+    //REVIEWS
+    SearchReviews: 'Reviews/Admin/Search',
+    DeleteReviewById(reviewId) {
+        return `Reviews/Admin/${reviewId}`
+    },
+    DeleteUserById(userId) {
+        return `Reviews/Admin/DeleteByUser/${userId}`
+    }
 }
 export const UserUrls = {
     GetFavorite: 'Favorite',

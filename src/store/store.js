@@ -23,6 +23,7 @@ import adminBrandsSlice from "./adminSlices/adminBrandsSlice";
 import brandPageSlice from "./pageSlices/brandPageSlice";
 import cashbackSlice from "./cashbackSlice";
 import adminPromocodeSlice from "./adminSlices/adminPromocodeSlice";
+import reviewsSlice from "./reviewsSlice";
 
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist/es/constants';
 
@@ -59,7 +60,8 @@ const store = configureStore({
         admin: combinedAdminReducer,
         cartPage: persistedCartReducer,
         checkoutPage: checkoutPageSlice,
-        userPage: userPageSlice
+        userPage: userPageSlice,
+        reviews: reviewsSlice
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from "react-router-dom";
 import classes from "./SubcategoriesWithButton.module.css";
 import SecondaryButton from "../../../../ui/Buttons/SecondaryButton/SecondaryButton";
 import PlusButton from "./PlusButton/PlusButton";
 
-const SubcategoriesWithButton = ({ subcategories, setShowCategoryTree, handlePlusButtonClick, selectedUnderSubcategories }) => {
+const SubcategoriesWithButton = ({ subcategories, setShowCategoryTree, handlePlusButtonClick }) => {
     const navigate = useNavigate();
 
     const subcategoriesWithButtonJSX = subcategories.map(subcategory => (

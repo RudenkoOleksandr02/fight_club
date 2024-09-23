@@ -3,7 +3,10 @@ import classes from "./PlusButton.module.css";
 
 const PlusButton = ({ handleClick, isOpen }) => {
     return (
-        <button onClick={handleClick} className={classes.showMore}>
+        <button
+            onClick={handleClick}
+            className={`${classes.showMore} ${isOpen ? classes.animateMinus : ''}`}
+        >
             <span className={`${classes.verticalLine} ${isOpen ? classes.rotated : ''}`}></span>
             <span className={classes.horizontalLine}></span>
         </button>

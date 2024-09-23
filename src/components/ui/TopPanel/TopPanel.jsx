@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './TopPanel.module.css';
 import TertiaryButton from "../Buttons/TertiaryButton/TertiaryButton";
 import Pagination from "../Pagination/Pagination";
+import {ReactComponent as IcoFilter} from './../../../assets/images/ico_filter.svg';
 
 const TopPanel = ({ totalCount, currentPage, amount, handleChangePage, setSortBy, onOpenFilterPanelInMobile}) => {
     return (
@@ -12,14 +13,14 @@ const TopPanel = ({ totalCount, currentPage, amount, handleChangePage, setSortBy
                     params={[
                         { name: "За замовчуванням", value: "" },
                         { name: "Популярністю", value: "popularity" },
-                        { name: "ціна за зростанням", value: "price_asc" },
-                        { name: "ціна за зниженням", value: "price_desc" },
+                        { name: "Ціна за зростанням", value: "price_asc" },
+                        { name: "Ціна за зниженням", value: "price_desc" },
                     ]}
                 >
                     Сортувати за
                 </TertiaryButton>
                 <button className={classes.filters} onClick={onOpenFilterPanelInMobile}>
-                    Фільтри
+                    <IcoFilter/>
                 </button>
             </div>
             <div className={classes.pagination}>

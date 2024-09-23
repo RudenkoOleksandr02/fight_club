@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import homePageApi from "../../api/homePageApi";
-import {delay, handleFulfilled, handlePending, handleRejected, initialObject} from "../../common/utils/forSlice";
+import {handleFulfilled, handlePending, handleRejected, initialObject} from "../../common/utils/forSlice";
 
 const initialState = {
     newProducts: initialObject,
@@ -10,21 +10,18 @@ const initialState = {
 const loadNewProducts = createAsyncThunk(
     'homePage/loadNewProducts',
     async () => {
-        await delay(500);
         return homePageApi.getNewProducts();
     }
 );
 const loadDiscountsProducts = createAsyncThunk(
     'homePage/loadDiscountsProducts',
     async () => {
-        await delay(500);
         return homePageApi.getDiscountsProducts();
     }
 );
 const loadPopularProducts = createAsyncThunk(
     'homePage/loadPopularProducts',
     async () => {
-        await delay(500);
         return homePageApi.getPopularProducts();
     }
 );

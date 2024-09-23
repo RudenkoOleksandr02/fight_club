@@ -1,14 +1,20 @@
 import React from 'react';
 import classes from './PopularProducts.module.css';
 import {Swiper, SwiperSlide} from 'swiper/react';
-import {FreeMode} from "swiper/modules";
-import 'swiper/css/free-mode';
+import {Navigation} from "swiper/modules";
+import 'swiper/css/navigation';
 import 'swiper/css';
-import {v4 as uuidv4} from 'uuid';
 import {useNavigate} from "react-router-dom";
 import Preloader from "../../../../ui/Preloader/Preloader";
+import NoImageBlock from "../../../../ui/blocks/NoImageBlock/NoImageBlock";
 
-const PopularProducts = ({mainCategoryName, popularProducts, setShowCategoryTree, popularProductsByCategoryLoading}) => {
+const PopularProducts = ({
+                             mainCategoryName,
+                             popularProducts,
+                             setShowCategoryTree,
+                             popularProductsByCategoryLoading,
+                             popularProductsByCategoryError
+                         }) => {
     const navigate = useNavigate()
 
     const handleClick = (productId) => {
@@ -19,32 +25,39 @@ const PopularProducts = ({mainCategoryName, popularProducts, setShowCategoryTree
     const popularProductsJSX = (
         <div className={classes.popularProducts}>
             <Swiper
-                modules={[FreeMode]}
+                navigation={true}
+                modules={[Navigation]}
                 spaceBetween={10}
-                grabCursor={true}
                 speed={800}
                 slidesPerView={"auto"}
-                freeMode={true}
+                slidesPerGroup={2}
             >
-                {popularProductsByCategoryLoading
-                    ? <Preloader color='tertiary' overflowHidden={false}/>
-                    : popularProducts.map(product => {
-                            return <SwiperSlide key={uuidv4()}>
-                                <div className={classes.product} onClick={() => handleClick(product.id)}>
-                                    <img src={product.images[0]} alt={mainCategoryName}/>
-                                    <h4>{product.name}</h4>
-                                </div>
-                            </SwiperSlide>
-                        })
-                }
+                {popularProducts.map(product => {
+                    return <SwiperSlide key={product.id}>
+                        <div className={classes.product} onClick={() => handleClick(product.id)}>
+                            {product.images[0] ? (
+                                <img src={product.images[0]} alt={mainCategoryName}/>
+                            ) : (
+                                <NoImageBlock/>
+                            )}
+                            <h4>{product.name}</h4>
+                        </div>
+                    </SwiperSlide>
+                })}
             </Swiper>
         </div>
     )
 
+    if (popularProductsByCategoryError) return null
+
     return (
         <div className={classes.wrapper}>
-            <h3>Популярні товари "{mainCategoryName}"</h3>
-            {popularProductsJSX}
+            {popularProductsByCategoryLoading ? <Preloader color='tertiary' overflowHidden={false}/> : (
+                <>
+                    <h3>Популярні товари "{mainCategoryName}"</h3>
+                    {popularProductsJSX}
+                </>
+            )}
         </div>
     );
 };

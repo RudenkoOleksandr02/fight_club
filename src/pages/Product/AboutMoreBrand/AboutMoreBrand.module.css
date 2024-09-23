@@ -19,6 +19,9 @@
     font-size: 16px;
     font-weight: 600;
 }
+.btn {
+    margin-top: 20px;
+}
 .btn button {
     transition: .2s;
 }

@@ -13,13 +13,23 @@
 .filters {
     border: 1px solid var(--black);
     margin-left: 10px;
-    padding: 10.5px 25px;
+    padding: 10.5px 15px;
     font-size: 14px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     display: flex;
     align-items: center;
     background: transparent;
+}
+@media (max-width: 999px) {
+    .btns {
+        height: 58px;
+        width: 100%;
+        justify-content: space-between;
+        padding: 10px;
+        background: var(--white);
+        order: 1;
+    }
 }
 @media (max-width: 767px) {
     .wrapper {
@@ -30,14 +40,6 @@
         justify-content: start;
         padding: 0;
         gap: 10px;
-    }
-    .btns {
-        height: 58px;
-        width: 100%;
-        justify-content: space-between;
-        padding: 10px;
-        background: var(--white);
-        order: 1;
     }
     .pagination > div > button {
         color: var(--white) !important;

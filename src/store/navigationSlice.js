@@ -16,15 +16,17 @@ const loadCategoryTree = createAsyncThunk(
 );
 const loadPopularProductsByCategory = createAsyncThunk(
     'navigation/loadPopularProductsById',
-    async (categoryId) => {
+    async (categoryId, {dispatch}) => {
         await delay(500);
+        dispatch(removePopularProducts())
         return navigationApi.getPopularProductsByCategory(categoryId);
     }
 );
 const loadCategory = createAsyncThunk(
     'navigation/loadCategory',
-    async () => {
+    async (_, {dispatch}) => {
         await delay(500);
+        dispatch(removeCategoryTree())
         return navigationApi.getCategory();
     }
 )
@@ -32,7 +34,22 @@ const loadCategory = createAsyncThunk(
 export const navigationSlice = createSlice({
     name: 'navigation',
     initialState,
-    reducers: {},
+    reducers: {
+        removePopularProducts(state) {
+            state.popularProductsByCategory = {
+                data: [],
+                loading: true,
+                error: null
+            };
+        },
+        removeCategoryTree(state) {
+            state.categoryTree = {
+                data: [],
+                loading: true,
+                error: null
+            };
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(loadCategoryTree.pending, (state) => (
@@ -61,11 +78,11 @@ export const navigationSlice = createSlice({
             )
             .addCase(loadCategory.rejected, (state, action) => (
                 handleRejected(state, action, 'categories'))
-            );
+            )
     }
 });
 
-export const {} = navigationSlice.actions;
+export const {removePopularProducts, removeCategoryTree} = navigationSlice.actions;
 export default navigationSlice.reducer;
 
 export const getCategoryTree = (categoryId) => async (dispatch) => {

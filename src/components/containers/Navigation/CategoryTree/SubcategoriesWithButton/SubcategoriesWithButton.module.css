@@ -4,7 +4,7 @@
     margin-bottom: 10px;
 }
 .subcategoryWithButton button {
-    transition: .3s;
+    transition: .2s;
 }
 .subcategoryWithButton button:first-child:hover {
     color: var(--white);

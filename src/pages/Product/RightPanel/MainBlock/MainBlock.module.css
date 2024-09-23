@@ -39,14 +39,29 @@
 .priceContainer > .price > span:first-child {
     text-decoration: line-through;
 }
+
 .priceContainer > .selected {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 .priceContainer > .selected > span {
     opacity: 40%;
     margin-right: 10px;
 }
+.priceContainer > .selected .icoFavorite {
+    transition: .1s;
+}
+.priceContainer > .selected:hover .icoFavorite {
+    opacity: 70%;
+}
+.priceContainer > .selected.notActive {
+    cursor: default;
+}
+.priceContainer > .selected.notActive:hover .icoFavorite {
+    opacity: 1;
+}
+
 .buyContainer {
     margin: 10px 0 10px;
     display: flex;
@@ -58,11 +73,4 @@
 .inStockContainer {
     display: flex;
     justify-content: space-between;
-}
-.icoFavorite {
-    cursor: pointer;
-    transition: .1s;
-}
-.icoFavorite:hover {
-    opacity: 70%;
 }

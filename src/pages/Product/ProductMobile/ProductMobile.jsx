@@ -32,7 +32,7 @@ const ProductMobile = ({product}) => {
             <AboutMoreBrand brand={product.brand}/>
             <Description description={product.description}/>
             <Ingridients ingridients={product.ingridients}/>
-            <Reviews reviews={product.reviews}/>
+            <Reviews productId={product.id}/>
         </div>
     );
 };

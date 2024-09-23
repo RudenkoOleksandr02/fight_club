@@ -1,0 +1,8 @@
+.wrapper {
+    display: flex;
+}
+.starButton {
+    background: none;
+    border: none;
+    padding: 0 3px;
+}

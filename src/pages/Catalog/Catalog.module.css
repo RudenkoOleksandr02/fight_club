@@ -1,6 +1,9 @@
 .wrapper {
     margin-top: 60px;
 }
+.breadCrumbs {
+    margin-bottom: 30px;
+}
 .main {
     display: grid;
     grid-template-areas:
@@ -50,4 +53,12 @@
         opacity: 1;
         pointer-events: all;
     }
+}
+
+.banner {
+    margin-bottom: 10px;
+}
+
+.absence {
+    margin-top: 10px;
 }

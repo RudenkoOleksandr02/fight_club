@@ -2,7 +2,7 @@ export const initialObject = {loading: true, error: null, data: []};
 
 export const handlePending = (state, key) => {
     state[key].loading = true;
-    state[key].error = null;
+    state[key].error = false;
 };
 
 export const handleFulfilled = (state, action, key) => {
@@ -12,7 +12,7 @@ export const handleFulfilled = (state, action, key) => {
 
 export const handleRejected = (state, action, key) => {
     state[key].loading = false;
-    state[key].error = action.payload;
+    state[key].error = true;
 };
 
 export const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Lottie from 'lottie-react';
 import preloaderAnimation from './preloaderAnimation.json';
 import classes from './Preloader.module.css';
@@ -6,7 +6,6 @@ import useBodyOverflowHidden from "../../../common/hooks/useBodyOverflowHidden";
 
 const Preloader = ({ color, cover = false, overflowHidden = true }) => {
     const modifiedAnimation = JSON.parse(JSON.stringify(preloaderAnimation));
-    useBodyOverflowHidden(overflowHidden)
 
     const colorMap = {
         primary: [78/255, 118/255, 92/255, 1],

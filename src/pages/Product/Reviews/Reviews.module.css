@@ -1,23 +1,85 @@
-.wrapper > h3, .wrapper > .content {
+.wrapper h3, .review, .leaveReview, .pagination, .preloader, .notReview {
     padding: 25px;
     background: var(--white);
 }
-.wrapper > .content {
+.review, .notReview, .preloader, .pagination {
     margin-top: 10px;
 }
-.wrapper > h3 {
-    font-size: 16px;
-    font-weight: 600;
+.review .date {
+    font-family: 'Montserrat', sans-serif;
 }
-.inner {
+.review .inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.inner > button {
+.review .inner button {
     background: transparent;
     border: none;
 }
-.review {
-    margin: 25px 0;
+.review .reviewText {
+    margin: 25px 0 0;
 }
+.wrapper h3 {
+    font-size: 16px;
+    font-weight: 600;
+}
+.leaveReview {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.leaveReview h3 {
+    background: none;
+    padding: 0;
+}
+.leaveReview textarea {
+    width: 100%;
+    resize: none;
+    height: 110px;
+    padding: 8px 20px;
+    border: 1px solid var(--black);
+    outline: none;
+    overflow: auto;
+}
+.leaveReview textarea.alreadyReview {
+    border-color: #C13E3E;
+    font-weight: 500;
+}
+.leaveReview textarea.leftReview {
+    color: var(--green);
+    font-weight: 500;
+}
+.leaveReview textarea, .leaveReview textarea::placeholder {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--black);
+    font-size: 16px;
+    background: transparent;
+}
+.leaveReview textarea::placeholder {
+    opacity: 40%;
+}
+.leaveReview .inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.leaveReview .inner .rating {
+    flex-shrink: 0;
+}
+.leaveReview .inner button {
+    max-width: 256px;
+    height: 36px;
+}
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+}
+.notReview {
+    color: var(--black);
+    font-family: 'Montserrat', sans-serif;
+}
+
+

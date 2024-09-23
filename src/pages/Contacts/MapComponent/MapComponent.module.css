@@ -11,13 +11,17 @@
     width: 100%;
     height: 100%;
     position: relative;
+
+    :global(.gm-style div:nth-of-type(15)) {
+        display: none;
+    }
 }
 .map {
     width: 100%;
     height: 100%;
 }
 .markerLabel {
-    transform: translateX(80%);
+    transform: translate(80%, -30%);
     margin-top: 10px;
 }
 .mapButton {
