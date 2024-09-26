@@ -4,17 +4,23 @@ import {roundNumber} from "../../../../../common/utils/roundNumber";
 import DieBlock from "../../../../ui/blocks/DieBlock/DieBlock";
 
 
-const SummaryOrder = ({totalPrice, discount}) => {
+const SummaryOrder = ({totalPrice, promotionalDiscount, cashbackToUse}) => {
     return (
             <DieBlock>
                 <div className={classes.inner}>
                     <span>Сума замовлення</span>
-                    <span>{roundNumber(totalPrice)}$</span>
+                    <span>{roundNumber(totalPrice)}₴</span>
                 </div>
-                {discount !== 0 && (
+                {promotionalDiscount !== 0 && (
                     <div className={classes.inner + ' ' + classes.discount}>
-                        <span>Знижка</span>
-                        <span>{discount}%</span>
+                        <span>Знижка від промокоду</span>
+                        <span>{promotionalDiscount}%</span>
+                    </div>
+                )}
+                {cashbackToUse !== 0 && (
+                    <div className={classes.inner + ' ' + classes.discount}>
+                        <span>Знижка від кешбеку</span>
+                        <span>{cashbackToUse}₴</span>
                     </div>
                 )}
             </DieBlock>

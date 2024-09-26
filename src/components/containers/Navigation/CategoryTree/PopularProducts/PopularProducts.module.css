@@ -41,6 +41,10 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    transition: .2s;
+}
+.product:hover > h4 {
+    color: var(--green);
 }
 
 /* SWIPER */

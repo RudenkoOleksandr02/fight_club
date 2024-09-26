@@ -2,39 +2,51 @@
     display: flex;
     align-items: center;
 }
-.form > input {
+
+.form input {
     padding: 8px 20px;
     font-size: 20px;
     outline: none;
     background: transparent;
     height: 40px;
     width: 100%;
+    color: var(--black);
 }
-.form > input::placeholder {
+.form input::placeholder {
     opacity: 40%;
 }
-.form > button {
+
+.form button {
     padding: 10px;
     border: none;
     display: inline-flex;
     align-items: center;
     height: 40px;
+    transition: .2s;
+}
+.form button:hover {
+    opacity: 80%;
 }
 
-.form.error > input {
+.form.error input {
     border-color: #C13E3E !important;
 }
-.form.error > input::placeholder {
+.form.error input::placeholder {
     color: #C13E3E;
 }
-.form.error > button {
+.form.error button {
     background: #C13E3E !important;
 }
+
 .error {
-    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 500;
     color: #C13E3E;
 }
 .success {
-    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 500;
     color: var(--green);
 }

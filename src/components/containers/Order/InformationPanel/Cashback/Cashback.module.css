@@ -1,59 +1,74 @@
-.forIsntAuth p {
-    font-size: 20px;
+.forGuest .success, .forGuest .error {
+    font-size: 18px;
     font-weight: 500;
 }
-.forIsntAuth div {
+.forGuest .success span {
+    color: var(--green);
+}
+.forGuest h3 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.forGuest .error {
+    color: #C13E3E;
+    margin-bottom: 10px;
+}
+.forGuest .form {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     gap: 10px;
-    margin-top: 15px;
 }
-.forIsntAuth div input, .forIsntAuth div button {
-    height: 30px;
-    padding: 5px;
-    font-size: 16px;
+.forGuest .form :first-child {
     width: 100%;
-    border: 1px solid var(--black);
-    background: var(--white);
-    outline: none;
 }
-.forIsntAuth div button {
-    width: 130px;
-    padding: 0;
+.forGuest .form button {
+    width: 200px;
+    border-radius: 0;
+    height: 38px;
+}
+@media (max-width: 1159px) {
+    .forGuest .form {
+        flex-direction: column;
+    }
+    .forGuest .form button {
+        width: 100%;
+    }
 }
 
-
-.forIsAuth {
+.forUser .cashbackNotFound {
+    font-size: 18px;
+    font-weight: 500;
+}
+.forUser .form {
     display: flex;
     align-items: center; justify-content: space-between;
+    gap: 10px;
 }
-.forIsAuth label:last-child {
+@media (max-width: 369px) {
+    .forUser .form {
+        flex-direction: column;
+    }
+}
+.forUser .form label:last-child {
     font-size: 18px;
 }
-.forIsAuth .cashback {
+.forUser .cashback {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 5px;
 }
-.forIsAuth .cashback input {
+.forUser .cashback.disabled {
+    opacity: 40%;
+    pointer-events: none;
+}
+.forUser .cashback input {
     height: 30px;
+    width: 80px;
     padding: 5px;
     font-size: 16px;
-    width: 100px;
     background: var(--white);
     border: 1px solid var(--black);
     outline: none;
-}
-
-.error {
-    font-size: 16px !important;
-    font-weight: 400 !important;
-    margin-top: 10px !important;
-    color: #C13E3E;
-}
-.cashback.disabled {
-    opacity: 40%;
-    pointer-events: none;
+    text-align: center;
 }

@@ -5,8 +5,9 @@ import { handleFulfilled, handlePending, handleRejected, initialObject } from ".
 const initialState = {
     filterPanel: initialObject,
     catalog: initialObject,
-    parentCategory: initialObject,
-    childrenCategory: initialObject
+    firstCategory: initialObject,
+    secondaryCategory: initialObject,
+    tertiaryCategory: initialObject
 };
 
 const loadFilterPanel = createAsyncThunk(
@@ -23,26 +24,35 @@ const loadProductsByFilter = createAsyncThunk(
     }
 );
 
-const getParentCategoryByIdLoading = createAsyncThunk(
-    'catalog/getParentCategoryByIdLoading',
+const getFirstCategoryByIdLoading = createAsyncThunk(
+    'catalog/getFirstCategoryByIdLoading',
     async (categoryId) => {
         return CatalogApi.getCategoryById(categoryId);
     }
 );
 
-const getChildrenCategoryByIdLoading = createAsyncThunk(
-    'catalog/getChildrenCategoryByIdLoading',
+const getSecondaryCategoryByIdLoading = createAsyncThunk(
+    'catalog/getSecondaryCategoryByIdLoading',
     async (categoryId) => {
         return CatalogApi.getCategoryById(categoryId);
     }
 );
+
+const getTertiaryCategoryByIdLoading = createAsyncThunk(
+    'catalog/getTertiaryCategoryByIdLoading',
+    async (categoryId) => {
+        return CatalogApi.getCategoryById(categoryId);
+    }
+);
+
 
 export const catalogPageSlice = createSlice({
     name: 'catalog',
     initialState,
     reducers: {
-        clearParentCategoryData: (state) => {
-            state.parentCategory = initialObject;
+        clearCategoryData: (state) => {
+            state.secondaryCategory = initialObject;
+            state.firstCategory = initialObject;
         }
     },
     extraReducers: (builder) => {
@@ -67,30 +77,40 @@ export const catalogPageSlice = createSlice({
             .addCase(loadProductsByFilter.rejected, (state, action) => (
                 handleRejected(state, action, 'catalog'))
             )
-            // Parent Category
-            .addCase(getParentCategoryByIdLoading.pending, (state) => (
-                handlePending(state, 'parentCategory'))
+            // First Category
+            .addCase(getFirstCategoryByIdLoading.pending, (state) => (
+                handlePending(state, 'firstCategory'))
             )
-            .addCase(getParentCategoryByIdLoading.fulfilled, (state, action) => (
-                handleFulfilled(state, action, 'parentCategory'))
+            .addCase(getFirstCategoryByIdLoading.fulfilled, (state, action) => (
+                handleFulfilled(state, action, 'firstCategory'))
             )
-            .addCase(getParentCategoryByIdLoading.rejected, (state, action) => (
-                handleRejected(state, action, 'parentCategory'))
+            .addCase(getFirstCategoryByIdLoading.rejected, (state, action) => (
+                handleRejected(state, action, 'firstCategory'))
             )
-            // Children Category
-            .addCase(getChildrenCategoryByIdLoading.pending, (state) => (
-                handlePending(state, 'childrenCategory'))
+            // Secondary Category
+            .addCase(getSecondaryCategoryByIdLoading.pending, (state) => (
+                handlePending(state, 'secondaryCategory'))
             )
-            .addCase(getChildrenCategoryByIdLoading.fulfilled, (state, action) => (
-                handleFulfilled(state, action, 'childrenCategory'))
+            .addCase(getSecondaryCategoryByIdLoading.fulfilled, (state, action) => (
+                handleFulfilled(state, action, 'secondaryCategory'))
             )
-            .addCase(getChildrenCategoryByIdLoading.rejected, (state, action) => (
-                handleRejected(state, action, 'childrenCategory'))
-            );
+            .addCase(getSecondaryCategoryByIdLoading.rejected, (state, action) => (
+                handleRejected(state, action, 'secondaryCategory'))
+            )
+            // Tertiary Category
+            .addCase(getTertiaryCategoryByIdLoading.pending, (state) => (
+                handlePending(state, 'tertiaryCategory'))
+            )
+            .addCase(getTertiaryCategoryByIdLoading.fulfilled, (state, action) => (
+                handleFulfilled(state, action, 'tertiaryCategory'))
+            )
+            .addCase(getTertiaryCategoryByIdLoading.rejected, (state, action) => (
+                handleRejected(state, action, 'tertiaryCategory'))
+            )
     }
 });
 
-export const { clearParentCategoryData } = catalogPageSlice.actions;
+export const { clearCategoryData } = catalogPageSlice.actions;
 export default catalogPageSlice.reducer;
 
 export const getFilterPanelById = (categoryId) => async (dispatch) => {
@@ -101,10 +121,15 @@ export const getProductsByFilter = (filter) => async (dispatch) => {
     return await dispatch(loadProductsByFilter(filter));
 };
 
-export const getParentCategoryById = (categoryId) => async (dispatch) => {
-    return await dispatch(getParentCategoryByIdLoading(categoryId));
+export const getFirstCategoryById = (categoryId) => async (dispatch) => {
+    return await dispatch(getFirstCategoryByIdLoading(categoryId));
 };
 
-export const getChildrenCategoryById = (categoryId) => async (dispatch) => {
-    return await dispatch(getChildrenCategoryByIdLoading(categoryId));
+export const getSecondaryCategoryById = (categoryId) => async (dispatch) => {
+    return await dispatch(getSecondaryCategoryByIdLoading(categoryId));
 };
+
+export const getTertiaryCategoryById = (categoryId) => async (dispatch) => {
+    return await dispatch(getTertiaryCategoryByIdLoading(categoryId));
+};
+

@@ -1,14 +1,18 @@
 .wrapper {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 10px;
 }
+
+/* quantity */
 .quantity {
     border: 1px solid rgba(217, 217, 217, 1);
     border-radius: 44px;
     padding: 1px;
     display: flex;
     align-items: center;
-    width: 107px; height: 32px;
+    min-width: 107px; height: 36px;
     position: relative;
 }
 .quantity > span {
@@ -21,6 +25,10 @@
     display: flex;
     justify-content: center; align-items: center;
     position: relative;
+    transition: .2s;
+}
+.remove:hover, .add:hover {
+    opacity: .8;
 }
 .remove {
     height: 28px; width: 28px;
@@ -37,13 +45,15 @@
     width: 34px; height: 34px;
     background: var(--green);
 }
+.add.disabled {
+    background: var(--lightGreen);
+    pointer-events: none;
+}
 .add > span:last-child {
     position: absolute;
     transform: rotate(90deg);
 }
-.price {
-    margin: 0 20px;
-}
+
 .quantityInput {
     max-width: 41px;
     text-align: center;
@@ -53,9 +63,18 @@
     background: transparent;
     outline: none;
 }
+.price {
+    min-width: 100px;
+    text-align: center;
+}
 .delete {
     background: transparent;
     border: none;
+    flex-basis: 24px;
+    transition: .2s;
+}
+.delete:hover {
+    transform: scale(1.1);
 }
 @media (max-width: 767px) {
     .wrapper {

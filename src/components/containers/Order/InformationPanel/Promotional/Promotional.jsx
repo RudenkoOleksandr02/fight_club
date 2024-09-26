@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import classes from './Promotional.module.css'
-import {getPromocodesCheck} from "../../../../../store/promocodesSlice";
+import {clearPromocodes, getPromocodesCheck} from "../../../../../store/promocodesSlice";
 import {setUsedPromocode} from "../../../../../store/pageSlices/checkoutPageSlice";
 import FormSelect from "../../../../ui/inputs/FormSelect/FormSelect";
 import DieBlock from "../../../../ui/blocks/DieBlock/DieBlock";
@@ -18,11 +18,14 @@ const Promotional = () => {
             .then(response => {
                 if (response.meta.requestStatus === 'fulfilled') {
                     setError('');
-                    setSuccess('Промокод задіяний');
+                    setSuccess('Промокод застосовано');
                     dispatch(setUsedPromocode(promocode));
                 } else if (response.meta.requestStatus === 'rejected') {
                     setSuccess('');
                     setError('Невалідний промокод');
+                    setPromocode('');
+                    dispatch(clearPromocodes());
+                    dispatch(setUsedPromocode(""));
                 }
             })
     }

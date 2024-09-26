@@ -1,0 +1,8 @@
+.wrapper {
+    font-size: 18px;
+    font-weight: 500;
+}
+.wrapper span {
+    font-size: 20px;
+    color: var(--green);
+}

@@ -2,7 +2,18 @@ import React from 'react';
 import classes from "./FormSelect.module.css";
 import {ReactComponent as IcoArrow} from "../../../../assets/images/arrows/ico_arrow1.svg";
 
-const FormSelect = ({type, text, color, value, onChange, handleSend = () => {}, error = '', success = ''}) => {
+const FormSelect = (props) => {
+    const {
+        type,
+        text,
+        color,
+        value,
+        onChange,
+        handleSend = () => {},
+        error = '',
+        success = ''
+    } = props;
+
     const setColor = () => {
         if (color === 'primary') {
             return 'rgba(249, 249, 249, 1)';
@@ -12,13 +23,22 @@ const FormSelect = ({type, text, color, value, onChange, handleSend = () => {}, 
     }
 
     return <>
-        <form className={`${classes.form} ${error !== '' ? classes.error : ''}`} onSubmit={e => e.preventDefault()}>
+        {error !== '' && <p className={classes.error}>{error}</p>}
+        {success !== '' && <p className={classes.success}>{success}</p>}
+        <form
+            className={`
+                ${classes.form} 
+                ${error !== '' ? classes.error : ''}
+                ${success !== '' ? classes.success : ''}
+            `}
+            onSubmit={e => e.preventDefault()}
+        >
             <input
                 type={type}
                 placeholder={text}
                 style={{
                     border: `1px solid ${setColor()}`,
-                    color: setColor()
+                    borderRight: 'none'
                 }}
                 value={value}
                 onChange={onChange}
@@ -29,8 +49,6 @@ const FormSelect = ({type, text, color, value, onChange, handleSend = () => {}, 
                 <IcoArrow/>
             </button>
         </form>
-        {error !== '' && <p className={classes.error}>{error}</p>}
-        {success !== '' && <p className={classes.success}>{success}</p>}
     </>;
 };
 

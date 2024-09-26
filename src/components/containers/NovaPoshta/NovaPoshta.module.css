@@ -1,6 +1,7 @@
 .wrapper {
     display: grid;
     grid-gap: 10px;
+    align-items: flex-end;
 }
 
 @media (max-width: 767px) {

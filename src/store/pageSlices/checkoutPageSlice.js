@@ -1,54 +1,53 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {shoppingCartOrderApi} from '../../api/shoppingCartOrderApi';
 
-const checkoutLoading = createAsyncThunk(
-    'checkout/checkoutLoading',
-    async (params, {getState, rejectWithValue}) => {
-        const state = getState();
-        const isAuth = state.auth.isAuth;
+const initialParams = {
+    usedPromocode: "",
+    userInfo: {
+        name: "",
+        phone: "",
+        surname: "",
+        email: ""
+    },
+    deliveryInfo: {
+        city: "",
+        department: ""
+    },
+    additionalInfo: {
+        dontCallMe: false,
+        ecoPackaging: false,
+    },
+    cashbackToUse: 0
+}
+const initialState = {
+    params: initialParams,
+    loading: true,
+    error: false
+};
 
+const checkoutForUserLoading = createAsyncThunk(
+    'checkout/checkoutForUserLoading',
+    async (params, {rejectWithValue}) => {
         try {
-            if (isAuth) {
-                return await shoppingCartOrderApi.createOrderForUser(params);
-            } else {
-                return await shoppingCartOrderApi.createOrderForGuest({
-                    ...params,
-                    products: state.cart.productsInCart.map(product => {
-                        return {
-                            productId: product.productId,
-                            productAmount: product.quantity
-                        }
-                    })
-                });
-            }
+            return await shoppingCartOrderApi.createOrderForUser(params);
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
     }
 );
-
-const initialState = {
-    params: {
-        usedPromocode: "",
-        userInfo: {
-            name: "",
-            phone: "",
-            surname: "",
-            email: ""
-        },
-        deliveryInfo: {
-            city: "",
-            department: ""
-        },
-        additionalInfo: {
-            dontCallMe: false,
-            ecoPackaging: false,
-        },
-        cashbackToUse: 0
-    },
-    loading: false,
-    error: null
-};
+const checkoutForGuestLoading = createAsyncThunk(
+    'checkout/checkoutForGuestLoading',
+    async ({params, products}, {rejectWithValue}) => {
+        try {
+            return await shoppingCartOrderApi.createOrderForGuest({
+                ...params,
+                products
+            })
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
 
 const checkoutPageSlice = createSlice({
     name: 'checkout',
@@ -75,37 +74,34 @@ const checkoutPageSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(checkoutLoading.pending, (state) => {
+            .addCase(checkoutForUserLoading.pending, (state) => {
                 state.loading = true;
-                state.error = null;
+                state.error = false;
             })
-            .addCase(checkoutLoading.fulfilled, (state) => {
+            .addCase(checkoutForUserLoading.fulfilled, (state) => {
                 state.loading = false;
-                state.params = {
-                    usedPromocode: "",
-                    userInfo: {
-                        name: "",
-                        phone: "",
-                        surname: "",
-                        email: ""
-                    },
-                    deliveryInfo: {
-                        city: "",
-                        department: ""
-                    },
-                    additionalInfo: {
-                        dontCallMe: false,
-                        ecoPackaging: false
-                    }
-                };
+                state.params = initialParams;
             })
-            .addCase(checkoutLoading.rejected, (state, action) => {
+            .addCase(checkoutForUserLoading.rejected, (state) => {
                 state.loading = false;
-                state.error = action.payload;
+                state.error = true;
+            })
+            .addCase(checkoutForGuestLoading.pending, (state) => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(checkoutForGuestLoading.fulfilled, (state) => {
+                state.loading = false;
+                state.params = initialParams;
+            })
+            .addCase(checkoutForGuestLoading.rejected, (state) => {
+                state.loading = false;
+                state.error = true;
             });
     }
 });
 
+export default checkoutPageSlice.reducer;
 export const {
     setUsedPromocode,
     setUserInfo,
@@ -114,9 +110,19 @@ export const {
     setCashbackToUse
 } = checkoutPageSlice.actions;
 
-export default checkoutPageSlice.reducer;
-
-export const checkout = () => async (dispatch, getState) => {
+export const checkout = (params) => async (dispatch, getState) => {
     const state = getState();
-    return await dispatch(checkoutLoading(state.checkoutPage.params));
+    const isAuth = state.auth.isAuth;
+
+    if (isAuth) {
+        return await dispatch(checkoutForUserLoading(params));
+    } else {
+        const products = state.cartPage.productsInCart.map(product => {
+            return {
+                productId: product.productId,
+                productAmount: product.quantity
+            }
+        });
+        return await dispatch(checkoutForGuestLoading({params, products}));
+    }
 };

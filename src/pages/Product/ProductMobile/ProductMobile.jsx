@@ -11,7 +11,7 @@ import Ingridients from "../Ingridients/Ingridients";
 const ProductMobile = ({product}) => {
     return (
         <div className={classes.wrapper}>
-            <ImagesBlock images={product.images}/>
+            <ImagesBlock images={product.images} name={product.name}/>
             <RightPanel
                 src={product.images[0]}
                 id={product.id}

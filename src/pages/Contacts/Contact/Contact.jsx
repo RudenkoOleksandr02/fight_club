@@ -18,7 +18,7 @@ const Contact = () => {
                 <form onSubmit={e => e.preventDefault()} className={classes.form}>
                     <Input value='' onChange={() => {}} type='text' placeholder="Ім'я*" errors={[]}/>
                     <Input value='' onChange={() => {}} type='text' placeholder="Прізвище*" errors={[]}/>
-                    <InputMobile placeholder='Телефон*' handleSetPhoneInUserInfo={() => {}} errors={[]}/>
+                    <InputMobile value='' placeholder='Телефон*' handleChangePhoneNumber={() => {}} errors={[]}/>
                     <Input value='' onChange={() => {}} type='email' placeholder="E-mail*" errors={[]}/>
                 </form>
                 <div className={classes.submit}>

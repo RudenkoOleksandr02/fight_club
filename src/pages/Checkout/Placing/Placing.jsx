@@ -9,7 +9,7 @@ const Placing = ({userInfo, handleSetUserInfo, handleSetDeliveryInfo, errors}) =
         <div className={classes.wrapper}>
             <OwnerData userInfo={userInfo} handleSetUserInfo={handleSetUserInfo} errors={errors}/>
             <DeliveryMethod handleSetDeliveryInfo={handleSetDeliveryInfo} errors={errors}/>
-            <PaymentMethod/>
+            {/*<PaymentMethod/>*/}
         </div>
     );
 };

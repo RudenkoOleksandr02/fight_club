@@ -25,8 +25,8 @@ const userApi = {
                 return response.data
             })
     },
-    updateUser() {
-        return instance.get(UserUrls.UpdateUser)
+    updateUser(params) {
+        return instance.put(UserUrls.UpdateUser, params)
             .then(response => {
                 return response.data
             })

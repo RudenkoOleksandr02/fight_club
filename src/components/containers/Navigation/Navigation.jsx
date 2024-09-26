@@ -4,9 +4,7 @@ import SearchDesktop from "../Search/Desktop/SearchDesktop";
 import {useDispatch, useSelector} from "react-redux";
 import {
     getCategoryTree,
-    getPopularProductsByCategory,
-    removeCategoryTree,
-    removePopularProducts
+    getPopularProductsByCategory
 } from "../../../store/navigationSlice";
 import CategoryTree from "./CategoryTree/CategoryTree";
 import Preloader from "../../ui/Preloader/Preloader";

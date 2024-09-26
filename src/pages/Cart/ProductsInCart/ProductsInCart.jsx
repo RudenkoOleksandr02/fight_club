@@ -1,40 +1,69 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import classes from './ProductsInCart.module.css';
-import {v4 as uuidv4} from 'uuid';
 import Quantity from "./Quantity/Quantity";
-import {useNavigate} from "react-router-dom";
-import {ReactComponent as IcoAbsence} from "./../../../assets/images/ico_absence.svg";
+import { useNavigate } from "react-router-dom";
+import NoImageBlock from "../../../components/ui/blocks/NoImageBlock/NoImageBlock";
+import { useSelector } from "react-redux";
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-const ProductsInCart = ({productsInCart, handleAddToCart, handleDeleteFromCart, handleChangeProductsInCart}) => {
+const ProductsInCart = ({ productsInCart }) => {
     const navigate = useNavigate();
-
-    const productsInCartJSX = productsInCart.map(product => {
-        return <div key={uuidv4()} className={classes.productInCart}>
-            <div className={classes.inner} onClick={() => navigate('/product/' +  product?.productId)}>
-                <div className={classes.imageContainer}>
-                    {product?.image || (Array.isArray(product?.images) && product?.images.length > 0) ? (
-                        <img src={product?.image ? product?.image : product?.images[0]} alt="product"/>
-                    ) : (
-                        <IcoAbsence/>
-                    )}
-                </div>
-                <p className={classes.name} onClick={() => navigate('/product/' + product.productId)}>{product.name}</p>
-            </div>
-            <Quantity
-                product={product}
-                productId={product.productId}
-                quantity={product.quantity}
-                price={product.price * (1 - product.discount / 100)}
-                handleAddToCart={handleAddToCart}
-                handleDeleteFromCart={handleDeleteFromCart}
-                handleChangeProductsInCart={handleChangeProductsInCart}
-            />
-        </div>
-    })
+    const { data: productsTotalAmount } = useSelector(state => state.cartPage.productsTotalAmount);
+    const nodeRefs = useRef({});
 
     return (
         <div className={classes.wrapper}>
-            {productsInCartJSX}
+            <TransitionGroup>
+                {productsInCart.map(product => {
+                    if (!nodeRefs.current[product.productId]) {
+                        nodeRefs.current[product.productId] = React.createRef();
+                    }
+
+                    return (
+                        <CSSTransition
+                            key={product.productId}
+                            nodeRef={nodeRefs.current[product.productId]}
+                            timeout={500}
+                            classNames={{
+                                enter: classes.productEnter,
+                                enterActive: classes.productEnterActive,
+                                exit: classes.productExit,
+                                exitActive: classes.productExitActive,
+                            }}
+                        >
+                            <div
+                                ref={nodeRefs.current[product.productId]}
+                                className={classes.productInCart}
+                            >
+                                <div
+                                    className={classes.inner}
+                                    onClick={() => navigate(`/product/${product.productId}`)}
+                                >
+                                    <div className={classes.imageContainer}>
+                                        {product.image || !!product.images?.length ? (
+                                            <img src={product.image || product.images[0]} alt={`${product.name} in cart`} />
+                                        ) : (
+                                            <div className={classes.noImageBlock}>
+                                                <NoImageBlock />
+                                            </div>
+                                        )}
+                                    </div>
+                                    <p className={classes.name}>{product.name}</p>
+                                </div>
+                                <Quantity
+                                    product={product}
+                                    productId={product.productId}
+                                    quantity={product.quantity}
+                                    totalAmount={
+                                        productsTotalAmount.find(item => item?.id === product.productId)?.totalAmount || 0
+                                    }
+                                    price={product.price * (1 - product.discount / 100)}
+                                />
+                            </div>
+                        </CSSTransition>
+                    );
+                })}
+            </TransitionGroup>
         </div>
     );
 };

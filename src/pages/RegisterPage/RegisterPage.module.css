@@ -1,19 +1,27 @@
-.form {
-    display: grid;
-    grid-gap: 15px;
+.wrapper {
     margin: 60px auto;
     background: var(--white);
     padding: 25px;
     width: 620px;
 }
+.wrapper h3 {
+    margin-bottom: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+}
+.form {
+    display: grid;
+    grid-gap: 18px;
+}
 .form > button {
     border-radius: 0;
     justify-content: center;
     height: 38px;
-    margin-bottom: 10px;
+    margin-top: 7px;
 }
 @media (max-width: 768px) {
-    .form {
+    .wrapper {
         width: 100%;
     }
 }

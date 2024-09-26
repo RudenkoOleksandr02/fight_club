@@ -4,17 +4,13 @@
     border: 1px solid #2b2b2b;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 0 20px;
-    margin-bottom: 10px;
-    background: transparent;
+    background: var(--white);
     font-size: 18px;
+    transition: .2s;
 }
-.button > svg {
-    transition: .1s;
-    margin-left: 10px;
-}
-
-.button:hover svg {
-    transform: rotate(30deg);
+.button:hover {
+    background: var(--black);
+    color: var(--white);
 }

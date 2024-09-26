@@ -94,16 +94,13 @@ const useProductCatalog = ({
         ]
     );
 
-    // Применение фильтров
     const handleApplyFilter = () => {
-        setIsPageLoading(true);
         setCurrentPage(1);
-        fetchProducts(1).finally(() => setIsPageLoading(false));
+        fetchProducts(1);
     };
 
     useEffect(() => {
-        setIsPageLoading(true);
-        fetchProducts().finally(() => setIsPageLoading(false));
+        fetchProducts();
     }, [currentPage, sortBy]);
 
     return {

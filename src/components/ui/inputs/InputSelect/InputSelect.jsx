@@ -15,16 +15,14 @@ const InputSelect = ({value, onInputChange, onOptionClick, placeholder, options,
         setShowModal(true);
     };
 
-    const handleOptionClick = (option) => {
+    const handleOptionMouseDown = (option) => {
         onOptionClick(option);
         setShowModal(false);
     };
 
     const handleBlur = () => {
-        setTimeout(() => {
-            setShowModal(false);
-            setFocus(false);
-        }, 200);
+        setShowModal(false);
+        setFocus(false);
     };
 
     return (
@@ -47,7 +45,7 @@ const InputSelect = ({value, onInputChange, onOptionClick, placeholder, options,
                     <div
                         key={index}
                         className={classes.option}
-                        onClick={() => handleOptionClick(option)}
+                        onMouseDown={() => handleOptionMouseDown(option)}
                     >
                         {option}
                     </div>

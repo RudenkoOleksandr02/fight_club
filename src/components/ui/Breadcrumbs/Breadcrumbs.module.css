@@ -1,3 +1,8 @@
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 5px;
+}
 .wrapper a {
     color: var(--white);
     text-decoration: none;

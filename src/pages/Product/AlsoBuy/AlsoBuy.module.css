@@ -7,12 +7,12 @@
     font-weight: 600;
 }
 @media (min-width: 1000px) and (max-width: 1359px) {
-    .extraClassCardItem img {
+    .extraClassCardItem img, .extraClassCardItem svg {
         height: 239px;
     }
 }
 @media (min-width: 1360px) {
-    .extraClassCardItem img {
+    .extraClassCardItem img, .extraClassCardItem svg {
         height: 219px;
     }
 }

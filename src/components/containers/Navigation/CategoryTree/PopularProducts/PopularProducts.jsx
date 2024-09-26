@@ -36,7 +36,7 @@ const PopularProducts = ({
                     return <SwiperSlide key={product.id}>
                         <div className={classes.product} onClick={() => handleClick(product.id)}>
                             {product.images[0] ? (
-                                <img src={product.images[0]} alt={mainCategoryName}/>
+                                <img src={product.images[0]} alt={product.name}/>
                             ) : (
                                 <NoImageBlock/>
                             )}

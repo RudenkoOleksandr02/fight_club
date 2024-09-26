@@ -1,6 +1,3 @@
-.check {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.wrapper label:last-child {
     font-size: 18px;
 }

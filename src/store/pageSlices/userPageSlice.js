@@ -33,15 +33,22 @@ const getUserLoading = createAsyncThunk(
 )
 const updateUserLoading = createAsyncThunk(
     'user/updateUserLoading',
-    async () => {
-        return userApi.updateUser();
+    async (params) => {
+        return userApi.updateUser(params);
     }
 )
 
 export const userPageSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        setUserInformation: (state, action) => {
+            state.userInformation.data = action.payload;
+        },
+        deleteLocalFavorite: (state, action) => {
+            state.favorite.data = state.favorite.data.filter(item => item.id !== action.payload);
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getFavoriteLoading.pending, (state) => {
@@ -53,24 +60,6 @@ export const userPageSlice = createSlice({
             .addCase(getFavoriteLoading.rejected, (state, action) => {
                 handleRejected(state, action, 'favorite');
             })
-            .addCase(addFavoriteLoading.pending, (state) => {
-                handlePending(state, 'favorite');
-            })
-            .addCase(addFavoriteLoading.fulfilled, (state) => {
-                state.favorite.loading = false;
-            })
-            .addCase(addFavoriteLoading.rejected, (state, action) => {
-                handleRejected(state, action, 'favorite');
-            })
-            .addCase(deleteFavoriteLoading.pending, (state) => {
-                handlePending(state, 'favorite');
-            })
-            .addCase(deleteFavoriteLoading.fulfilled, (state) => {
-                state.favorite.loading = false;
-            })
-            .addCase(deleteFavoriteLoading.rejected, (state, action) => {
-                handleRejected(state, action, 'favorite');
-            })
             .addCase(getUserLoading.pending, (state) => {
                 handlePending(state, 'userInformation');
             })
@@ -80,36 +69,25 @@ export const userPageSlice = createSlice({
             .addCase(getUserLoading.rejected, (state, action) => {
                 handleRejected(state, action, 'userInformation');
             })
-            .addCase(updateUserLoading.pending, (state) => {
-                handlePending(state, 'userInformation');
-            })
-            .addCase(updateUserLoading.fulfilled, (state) => {
-                state.userInformation.loading = false;
-            })
-            .addCase(updateUserLoading.rejected, (state, action) => {
-                handleRejected(state, action, 'userInformation');
-            })
     }
 });
 
 
-export const {} = userPageSlice.actions;
+export const {setUserInformation, deleteLocalFavorite} = userPageSlice.actions;
 export default userPageSlice.reducer
 
-export const getFavorite = () => async (dispatch) => {
-    return await dispatch(getFavoriteLoading());
+export const getFavorite = () => (dispatch) => {
+    return dispatch(getFavoriteLoading());
 }
-export const addFavorite = (productId) => async (dispatch) => {
-    await dispatch(addFavoriteLoading(productId));
-    return await dispatch(getFavorite());
+export const addFavorite = (productId) => (dispatch) => {
+    return dispatch(addFavoriteLoading(productId));
 }
-export const deleteFavorite = (productId) => async (dispatch) => {
-    await dispatch(deleteFavoriteLoading(productId));
-    return await dispatch(getFavorite());
+export const deleteFavorite = (productId) => (dispatch) => {
+    return dispatch(deleteFavoriteLoading(productId));
 }
-export const getUser = () => async (dispatch) => {
-    return await dispatch(getUserLoading());
+export const getUser = () => (dispatch) => {
+    return dispatch(getUserLoading());
 }
-export const updateUser = () => async (dispatch) => {
-    return await dispatch(updateUserLoading());
+export const updateUser = (params) => (dispatch) => {
+    return dispatch(updateUserLoading(params));
 }

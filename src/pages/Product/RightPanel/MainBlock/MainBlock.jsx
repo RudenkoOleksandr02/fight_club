@@ -3,10 +3,9 @@ import classes from './MainBlock.module.css'
 import {ReactComponent as IcoHeart} from "../../../../assets/images/ico_heart.svg";
 import {ReactComponent as IcoHeartFilled} from './../../../../assets/images/IcoHeartFilled.svg'
 import Rating from "../../../../components/ui/Rating/Rating";
-import TertiaryButton from "../../../../components/ui/Buttons/TertiaryButton/TertiaryButton";
 import PrimaryButton from "../../../../components/ui/Buttons/PrimaryButton/PrimaryButton";
 import {useDispatch, useSelector} from "react-redux";
-import {addProduct} from "../../../../store/pageSlices/cartPageSlice";
+import {addProductToCart} from "../../../../store/pageSlices/cartPageSlice";
 import {useNavigate} from "react-router-dom";
 import {roundNumber} from "../../../../common/utils/roundNumber";
 import {priceWithDiscount} from "../../../../common/utils/priceWithDiscount";
@@ -29,11 +28,12 @@ const MainBlock = (props) => {
     } = props;
     const dispatch = useDispatch();
     const handleAddToCart = () => {
-        dispatch(addProduct({
+        dispatch(addProductToCart({
             productId: id,
             image: src,
             name: name,
-            price
+            price,
+            discount
         }));
     };
 
@@ -43,7 +43,7 @@ const MainBlock = (props) => {
     const navigate = useNavigate();
 
     // FAVORITE
-    const {data: favoriteData, loading: favoriteLoading} = useSelector(state => state.userPage.favorite);
+    const {data: favoriteData} = useSelector(state => state.userPage.favorite);
     const [isFavorite, setIsFavorite] = useState(favoriteData.find(favorite => favorite.id === id)?.id === id)
     useEffect(() => {
         dispatch(getFavorite())

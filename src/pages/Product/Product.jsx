@@ -12,6 +12,8 @@ import Breadcrumbs from "../../components/ui/Breadcrumbs/Breadcrumbs";
 const Product = () => {
     const productId = useParams()
     const {data, loading} = useSelector(state => state.productPage.product);
+    const {loading: favoriteLoading} = useSelector(state => state.userPage.favorite);
+    const {isAuth} = useSelector(state => state.auth.isAuth);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -19,7 +21,7 @@ const Product = () => {
     }, [productId]);
     const isSmallScreen = useScreen(999);
 
-    if (loading) {
+    if (loading || (isAuth && favoriteLoading)) {
         return <Preloader color='secondary' cover={true}/>;
     }
 
@@ -29,12 +31,6 @@ const Product = () => {
         linksForBreadCrumbs.push({
             name: data.mainCategory.name,
             id: `/category/${data.mainCategory.categoryId}`
-        });
-    }
-    if (!!data.additionalCategories.length) {
-        linksForBreadCrumbs.push({
-            name: data.additionalCategories[0].name,
-            id: `/category/${data.additionalCategories[0].categoryId}`
         });
     }
 

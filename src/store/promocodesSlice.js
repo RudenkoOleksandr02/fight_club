@@ -16,7 +16,11 @@ const loadPromocodes = createAsyncThunk(
 const promocodesSlice = createSlice({
     name: 'promocodes',
     initialState,
-    reducers: {},
+    reducers: {
+        clearPromocodes: (state) => {
+            state.discount = 0
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(loadPromocodes.fulfilled, (state, action) => {
@@ -26,7 +30,8 @@ const promocodesSlice = createSlice({
 });
 
 export default promocodesSlice.reducer;
+export const {clearPromocodes} = promocodesSlice.actions;
 
-export const getPromocodesCheck = (code) => async (dispatch) => {
-    return await dispatch(loadPromocodes(code));
+export const getPromocodesCheck = (code) => (dispatch) => {
+    return dispatch(loadPromocodes(code));
 };

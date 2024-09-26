@@ -48,10 +48,10 @@ export const cashbackSlice = createSlice({
 export const {} = cashbackSlice.actions;
 export default cashbackSlice.reducer;
 
-export const getBalance = () => async (dispatch) => {
-    return await dispatch(getBalanceLoading());
+export const getBalance = () => (dispatch) => {
+    return dispatch(getBalanceLoading());
 };
-export const getBalanceByPhone = (phoneNumber) => async (dispatch) => {
+export const getBalanceByPhone = (phoneNumber) => (dispatch) => {
     const encodedPhoneNumber = encodeURIComponent(phoneNumber);
-    return await dispatch(getBalanceByPhoneLoading(encodedPhoneNumber));
+    return dispatch(getBalanceByPhoneLoading(encodedPhoneNumber));
 };

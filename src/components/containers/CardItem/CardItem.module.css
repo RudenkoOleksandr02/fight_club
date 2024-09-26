@@ -28,6 +28,7 @@
     width: 100%;
     object-fit: cover;
 }
+
 /* DIE CONTAINER */
 .dieContainer {
     position: absolute;
@@ -70,6 +71,15 @@
     line-height: 19px;
     margin: 15px 0 5px;
     text-decoration: none;
+    transition: .2s;
+}
+.titlesContainer > a.title::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+}
+.titlesContainer > a.title:hover {
+    color: var(--green);
 }
 .titlesContainer > p.titleEng {
     -webkit-line-clamp: 1;
@@ -117,5 +127,6 @@
 /* BUTTON CONTAINER */
 .buttonContainer {
     height: 38px;
+    position: relative;
 }
 

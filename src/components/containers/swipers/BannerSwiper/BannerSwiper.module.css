@@ -5,6 +5,7 @@
     :global(.swiper-pagination) {
         bottom: 0 !important;
         top: 320px !important;
+        height: 17px;
     }
     :global(.swiper-pagination-bullet) {
         height: 17px;
@@ -13,7 +14,6 @@
         background: #fff;
         margin: 0 5px !important;
     }
-
 }
 @media (min-width: 1360px) {
     .wrapper {

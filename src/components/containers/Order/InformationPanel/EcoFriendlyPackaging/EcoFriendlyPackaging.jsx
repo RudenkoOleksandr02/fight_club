@@ -1,19 +1,16 @@
 import React from 'react';
 import DieBlock from "../../../../ui/blocks/DieBlock/DieBlock";
 import classes from './EcoFriendlyPackaging.module.css';
+import Checkbox from "../../../../ui/inputs/Checkbox/Checkbox";
 
-const EcoFriendlyPackaging = ({additionalInfo, handleChangeAdditionalInfo}) => {
+const EcoFriendlyPackaging = ({ecoPackaging, handleChangeAdditionalInfo}) => {
     return (
         <div className={classes.wrapper}>
             <DieBlock title='Екологічна упаковка'>
-                <p>Зберегти екологічність нашого світу та купи екологічно чисту упаковку</p>
-                <div className={classes.check}>
-                    <input type='checkbox' id='check' checked={additionalInfo.ecoPackaging}
-                           onChange={e => handleChangeAdditionalInfo(e.target.checked, 'ecoPackaging')}/>
-                    <label htmlFor='check'>
-                        Додати Опцію
-                    </label>
-                </div>
+                <p>Збережи планету – обирай екологічно чисту упаковку!</p>
+                <Checkbox onChange={e => handleChangeAdditionalInfo(e.target.checked, 'ecoPackaging')}
+                          checked={ecoPackaging}
+                          text='Додати опцію'/>
             </DieBlock>
         </div>
     );

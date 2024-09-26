@@ -15,9 +15,11 @@ const Item = ({data, onClose}) => {
         <div className={classes.wrapper} onClick={handleClick}>
             <div className={classes.inner}>
                 {data.image !== null ? (
-                    <img className={classes.image} src={data.image} alt={`product${data.id}`}/>
+                    <img className={classes.image} src={data.image} alt={data.name}/>
                 ) : (
-                    <NoImageBlock/>
+                    <div className={classes.noImageBlock}>
+                        <NoImageBlock/>
+                    </div>
                 )}
                 <p className={classes.name}>{data.name}</p>
             </div>

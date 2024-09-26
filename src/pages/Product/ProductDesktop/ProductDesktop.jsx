@@ -27,13 +27,13 @@ const ProductDesktop = ({product}) => {
     }, []);
 
     useEffect(() => {
-        dispatch(getAlsoBoughtById(product.productId))
+        dispatch(getAlsoBoughtById(product.id))
     }, [product.productId]);
 
     return (
         <div className={classes.wrapper}>
             <div className={classes.leftPanel}>
-                <ImagesBlock images={product.images}/>
+                <ImagesBlock images={product.images} name={product.name}/>
                 <Characteristics characteristics={product.characteristics}/>
                 <Description description={product.description}/>
                 <Ingridients ingridients={product.ingridients}/>

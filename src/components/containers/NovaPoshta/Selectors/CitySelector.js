@@ -9,7 +9,7 @@ const CitySelector = ({ setCity, errorsCity }) => {
     const handleInputChange = async (e) => {
         const text = e.target.value;
         setSearchText(text);
-        if (text.length > 2) {
+        if (text.length > 0) {
             const results = await fetchCities(text);
             setCities(results);
         }

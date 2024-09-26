@@ -3,7 +3,7 @@ import PrimaryButton from "../../ui/Buttons/PrimaryButton/PrimaryButton";
 import classes from './CardItem.module.css'
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {addProduct} from "../../../store/pageSlices/cartPageSlice";
+import {addProductToCart} from "../../../store/pageSlices/cartPageSlice";
 import {roundNumber} from "../../../common/utils/roundNumber";
 import {priceWithDiscount} from "../../../common/utils/priceWithDiscount";
 import Rating from "../../ui/Rating/Rating";
@@ -29,13 +29,15 @@ const CardItem = (props) => {
     const navigate = useNavigate();
 
     const handleAddToCart = () => {
-        dispatch(addProduct({
+        dispatch(addProductToCart({
             productId: id,
             image: src,
             name: titles[0],
-            price
+            price,
+            discount
         }));
     };
+
     const imageContainerJSX = (
         <div className={classes.imageContainer}>
             {src ? (
@@ -86,7 +88,7 @@ const CardItem = (props) => {
 
     return (
         <div className={`${classes.wrapper} ${extraClass}`}>
-            <div className={classes.pointer} onClick={() => navigate(path)}>
+            <div className={classes.pointer}>
                 {imageContainerJSX}
                 {dieContainerJSX}
             </div>

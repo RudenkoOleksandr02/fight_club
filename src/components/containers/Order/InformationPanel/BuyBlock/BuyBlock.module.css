@@ -1,14 +1,14 @@
 .buyBlock {
     font-size: 18px;
 }
-.buyBlock .btns button:last-child, .buyBlock .btns button:first-child {
+.buyBlock .btns button {
     height: 46px; width: 100%;
     margin-top: 10px;
     font-size: 16px;
+    border-radius: 0;
 }
 .buyBlock .btns button:last-child {
-    background: transparent;
-    border: 1px solid var(--black);
+    justify-content: center;
 }
 .summaryOrder {
     display: flex;

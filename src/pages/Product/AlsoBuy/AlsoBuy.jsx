@@ -1,6 +1,6 @@
 import React from 'react';
 import {Pagination} from "swiper/modules";
-import classes from './AlsoBuy.module.css'
+import classes from './AlsoBuy.module.css';
 import SwiperList from "../../../components/containers/swipers/SwiperList/SwiperList";
 import Preloader from "../../../components/ui/Preloader/Preloader";
 

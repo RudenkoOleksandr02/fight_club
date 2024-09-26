@@ -17,7 +17,7 @@ const OwnerData = ({userInfo, handleSetUserInfo, errors}) => {
                 />
                 <InputMobile
                     placeholder="Телефон*"
-                    handleSetPhoneInUserInfo={value => handleSetUserInfo(value, 'phone')}
+                    handleChangePhoneNumber={value => handleSetUserInfo(value, 'phone')}
                     errors={errors.phone}
                     value={userInfo.phone}
                 />

@@ -3,6 +3,7 @@ import classes from './CardListContainer.module.css';
 import CardItem from "../CardItem/CardItem";
 
 const CardListContainer = ({ productsData }) => {
+
     const productListJSX = productsData.products.map(product => (
         <div key={product.id}>
             <CardItem
@@ -10,9 +11,12 @@ const CardListContainer = ({ productsData }) => {
                 path={`/product/${product.id}`}
                 src={product.image}
                 titles={[product.name, product.nameEng]}
-                discount={product.discount}
                 price={product.price}
+                discount={product.discount}
                 inStock={product.inStock}
+                isHit={product.isHit}
+                isNew={product.isNew}
+                rating={product.rating}
                 extraClass={classes.extraClass}
             />
         </div>

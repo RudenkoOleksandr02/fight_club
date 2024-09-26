@@ -4,10 +4,9 @@ import {v4 as uuidv4} from 'uuid';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {FreeMode} from "swiper/modules";
 import ModalImage from "../../../components/ui/ModalImage/ModalImage";
-import {ReactComponent as IcoAbsence} from './../../../assets/images/ico_absence.svg';
 import NoImageBlock from "../../../components/ui/blocks/NoImageBlock/NoImageBlock";
 
-const ImagesBlock = ({images}) => {
+const ImagesBlock = ({images, name}) => {
     const [selectedImage, setSelectedImage] = useState([]);
     const [selectedModalImage, selectedOpenModalImage] = useState(null)
 
@@ -22,13 +21,15 @@ const ImagesBlock = ({images}) => {
     }, [images]);
 
     const getSlides = () => {
-        return images.map((image) => {
+        return images.map((image, index) => {
+            const numSlide = index + 1;
+
             return <SwiperSlide key={uuidv4()}>
                 <div
                     className={selectedImage === image ? `${classes.imageSecondaryWrapper} ${classes.active}` : classes.imageSecondaryWrapper}
                     onClick={() => handleChangeImage(image)}
                 >
-                    <img src={image} alt='product'/>
+                    <img src={image} alt={'image slide ' + numSlide + ' for ' + name}/>
                 </div>
             </SwiperSlide>
         })
@@ -74,7 +75,7 @@ const ImagesBlock = ({images}) => {
     return <div className={classes.wrapper}>
         <div className={classes.mainImage} onClick={handleOpenImage}>
             {selectedImage ? (
-                <img src={selectedImage} alt='product'/>
+                <img src={selectedImage} alt={name}/>
             ) : (
                 <NoImageBlock/>
             )}

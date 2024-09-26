@@ -15,7 +15,7 @@ const AboutMoreBrand = ({brand}) => {
                     <h3>{brand.title}</h3>
                     <p>{brand.description}</p>
                 </div>
-                <img src={brand.logoImageUrl} alt='company'/>
+                <img src={brand.logoImageUrl} alt={brand.title}/>
             </div>
             <div className={classes.btn}>
                 <SecondaryButton handleClick={() => navigate(`/brands/${brand.brandId}`)}>

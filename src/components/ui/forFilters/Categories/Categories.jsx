@@ -87,7 +87,7 @@ const Categories = ({
                                 <Checkbox
                                     onChange={e => handleChangeCategory(e, parentCategory.categoryId)}
                                     checked={categoryIds.includes(parentCategory.categoryId)}
-                                    style='_'
+                                    style={modificationStyle.color}
                                     text={parentCategory.name}
                                 />
                             </div>

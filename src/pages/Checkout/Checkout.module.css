@@ -1,5 +1,11 @@
 .wrapper {
     margin-top: 60px;
+
+}
+.breadcrumbs {
+    margin-bottom: 30px;
+}
+.main {
     display: grid;
     grid-template-areas:
         'topPanel'
@@ -16,35 +22,9 @@
 .informationPanel {
     grid-area: informationPanel;
 }
-.successfulOrder {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-.successfulOrder .links {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.successfulOrder .links a {
-    color: var(--black);
-    text-decoration: none;
-}
-.successfulOrder .links a:hover {
-    text-decoration: underline;
-}
-.successfulOrder .links button {
-    justify-content: center;
-    border-radius: 0;
-    transition: 0.3s;
-}
-.successfulOrder .links button:hover {
-    background: var(--black);
-    color: var(--white);
-}
 
 @media (min-width: 1160px) {
-    .wrapper {
+    .main {
         grid-template-areas:
             'topPanel informationPanel'
             'placing informationPanel';
@@ -53,7 +33,7 @@
     }
 }
 @media (min-width: 1000px) and (max-width: 1159px) {
-    .wrapper {
+    .main {
         grid-template-areas:
             'topPanel informationPanel'
             'placing informationPanel';

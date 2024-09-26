@@ -3,14 +3,15 @@ import classes from './../Catalog.module.css';
 import FilterPanel from "../../../components/containers/FilterPanel/FilterPanel";
 import TopPanel from "../../../components/ui/TopPanel/TopPanel";
 import CardListContainer from "../../../components/containers/CardListContainer/CardListContainer";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
 import useBodyOverflowHidden from "../../../common/hooks/useBodyOverflowHidden";
 import {
-    getParentCategoryById,
     getFilterPanelById,
     getProductsByFilter,
-    getChildrenCategoryById, clearParentCategoryData
+    getSecondaryCategoryById,
+    getTertiaryCategoryById,
+    clearCategoryData, getFirstCategoryById
 } from "../../../store/pageSlices/catalogPageSlice";
 import Preloader from "../../../components/ui/Preloader/Preloader";
 import AbsenceBlock from "../../../components/ui/blocks/AbsenceBlock/AbsenceBlock";
@@ -18,13 +19,17 @@ import useProductCatalog from '../../../common/hooks/useProductCatalog';
 import Breadcrumbs from "../../../components/ui/Breadcrumbs/Breadcrumbs";
 
 const Products = () => {
-    const { id: categoryId } = useParams();
+    const {id: categoryId} = useParams();
     const dispatch = useDispatch();
 
-    const { data: catalogData, loading: catalogLoading } = useSelector(state => state.catalogPage.catalog);
-    const { data: parentCategoryData, loading: parentCategoryLoading } = useSelector(state => state.catalogPage.parentCategory);
-    const { data: childrenCategoryData, loading: childrenCategoryLoading } = useSelector(state => state.catalogPage.childrenCategory);
-    const { loading: filterPanelLoading, data: filterPanelData } = useSelector(state => state.catalogPage.filterPanel);
+    const {data: catalogData, loading: catalogLoading} = useSelector(state => state.catalogPage.catalog);
+    const {data: firstCategoryData} = useSelector(state => state.catalogPage.firstCategory);
+    const {data: secondaryCategoryData} = useSelector(state => state.catalogPage.secondaryCategory);
+    const {
+        data: tertiaryCategoryData,
+        loading: tertiaryCategoryLoading
+    } = useSelector(state => state.catalogPage.tertiaryCategory);
+    const {loading: filterPanelLoading, data: filterPanelData} = useSelector(state => state.catalogPage.filterPanel);
 
     const {
         currentPage,
@@ -49,39 +54,52 @@ const Products = () => {
     } = useProductCatalog({
         fetchFilterPanelData: getFilterPanelById,
         fetchProductsData: getProductsByFilter,
-        initialParams: { filterPanelData },
+        initialParams: {filterPanelData},
         identifier: categoryId,
         identifierKey: 'categoryId',
     });
 
     useEffect(() => {
-        dispatch(getChildrenCategoryById(categoryId));
-        dispatch(clearParentCategoryData());
+
+    }, []);
+
+    useEffect(() => {
+        dispatch(getTertiaryCategoryById(categoryId));
+        dispatch(clearCategoryData());
     }, [categoryId]);
 
     useEffect(() => {
-        if (childrenCategoryData && childrenCategoryData) {
-            dispatch(getParentCategoryById(childrenCategoryData.parentCategoryId));
+        if (tertiaryCategoryData) {
+            dispatch(getSecondaryCategoryById(tertiaryCategoryData.parentCategoryId));
         }
-    }, [childrenCategoryData]);
-
+    }, [tertiaryCategoryData]);
+    useEffect(() => {
+        if (secondaryCategoryData) {
+            dispatch(getFirstCategoryById(secondaryCategoryData.parentCategoryId));
+        }
+    }, [secondaryCategoryData])
 
     useBodyOverflowHidden(isVisibleFilterPanelInMobile);
 
-    if (isPageLoading || childrenCategoryLoading) return <Preloader color='secondary' cover={true} />;
+    if (isPageLoading || tertiaryCategoryLoading) return <Preloader color='secondary' cover={true}/>;
 
     const linksForBreadCrumbs = [];
-
-    if (!Array.isArray(parentCategoryData) && !!childrenCategoryData.parentCategoryId) {
+    if (!Array.isArray(firstCategoryData) && !!secondaryCategoryData.parentCategoryId) {
         linksForBreadCrumbs.push({
-            name: parentCategoryData.name,
-            id: `/category/${parentCategoryData.categoryId}`
+            name: firstCategoryData.name,
+            id: `/category/${firstCategoryData.categoryId}`
         });
     }
-    if (childrenCategoryData) {
+    if (!Array.isArray(secondaryCategoryData) && !!tertiaryCategoryData.parentCategoryId) {
         linksForBreadCrumbs.push({
-            name: childrenCategoryData.name,
-            id: `/category/${childrenCategoryData.categoryId}`
+            name: secondaryCategoryData.name,
+            id: `/category/${secondaryCategoryData.categoryId}`
+        });
+    }
+    if (tertiaryCategoryData) {
+        linksForBreadCrumbs.push({
+            name: tertiaryCategoryData.name,
+            id: `/category/${tertiaryCategoryData.categoryId}`
         });
     }
 
@@ -89,7 +107,7 @@ const Products = () => {
         <section>
             <div className={classes.wrapper}>
                 <div className={classes.breadCrumbs}>
-                    <Breadcrumbs links={linksForBreadCrumbs} />
+                    <Breadcrumbs links={linksForBreadCrumbs}/>
                 </div>
                 {!catalogLoading && (!catalogData?.products?.length) ? (
                     <AbsenceBlock
@@ -104,7 +122,7 @@ const Products = () => {
                             }`}
                         >
                             {filterPanelLoading ? (
-                                <Preloader color='tertiary' />
+                                <Preloader color='tertiary'/>
                             ) : (
                                 <FilterPanel
                                     handleApplyFilter={handleApplyFilter}
@@ -124,8 +142,8 @@ const Products = () => {
                                         brandIds,
                                         brands: filterPanelData?.brands || [],
                                     }}
-                                    forMinPrice={{ minPrice, setMinPrice }}
-                                    forMaxPrice={{ maxPrice, setMaxPrice }}
+                                    forMinPrice={{minPrice, setMinPrice}}
+                                    forMaxPrice={{maxPrice, setMaxPrice}}
                                 />
                             )}
                         </div>
@@ -138,9 +156,9 @@ const Products = () => {
                             onOpenFilterPanelInMobile={() => setIsVisibleFilterPanelInMobile(true)}
                         />
                         {catalogLoading ? (
-                            <Preloader color='secondary' />
+                            <Preloader color='secondary'/>
                         ) : (
-                            <CardListContainer productsData={catalogData} overflowHidden={false} />
+                            <CardListContainer productsData={catalogData} overflowHidden={false}/>
                         )}
                     </div>
                 )}
