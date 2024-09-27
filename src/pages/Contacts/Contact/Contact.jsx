@@ -15,14 +15,41 @@ const Contact = () => {
         <div className={classes.wrapper}>
             <DieBlock>
                 <h3>Зворотній зв'язок</h3>
+                <p>(Тимчасово не працює)</p>
                 <form onSubmit={e => e.preventDefault()} className={classes.form}>
-                    <Input value='' onChange={() => {}} type='text' placeholder="Ім'я*" errors={[]}/>
-                    <Input value='' onChange={() => {}} type='text' placeholder="Прізвище*" errors={[]}/>
-                    <InputMobile value='' placeholder='Телефон*' handleChangePhoneNumber={() => {}} errors={[]}/>
-                    <Input value='' onChange={() => {}} type='email' placeholder="E-mail*" errors={[]}/>
+                    <Input
+                        value=''
+                        onChange={() => {}}
+                        type='text'
+                        placeholder="Ім'я*"
+                        errors={[]}
+                        disabled={true}
+                    />
+                    <Input
+                        value=''
+                        onChange={() => {}}
+                        type='text'
+                        placeholder="Прізвище*" errors={[]}
+                        disabled={true}
+                    />
+                    <InputMobile
+                        value=''
+                        placeholder='Телефон*'
+                        handleChangePhoneNumber={() => {}}
+                        errors={[]}
+                        disabled={true}
+                    />
+                    <Input
+                        value=''
+                        onChange={() => {}}
+                        type='email'
+                        placeholder="E-mail*"
+                        errors={[]}
+                        disabled={true}
+                    />
                 </form>
                 <div className={classes.submit}>
-                    <PrimaryButton>Відправити</PrimaryButton>
+                    <PrimaryButton disabled={true} onClick={() => {}}>Відправити</PrimaryButton>
                     <span>або</span>
                     <div className={classes.socials}>
                         <Link to={linksToSocials[0].path}>

@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import { PatternFormat } from 'react-number-format';
+import React, {useState} from 'react';
+import {PatternFormat} from 'react-number-format';
 import classes from "./Input.module.css";
 
 const InputMobile = ({
                          placeholder = 'Телефон',
                          handleChangePhoneNumber,
                          errors = [],
-                         value = ''
+                         value = '',
+                         disabled = false,
                      }) => {
     const [isFocused, setIsFocused] = useState(false);
 
     const handleValueChange = (values) => {
-        const { value } = values;
+        const {value} = values;
         handleChangePhoneNumber('+38' + value);
     };
 
@@ -45,6 +46,7 @@ const InputMobile = ({
                 placeholder={placeholder}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
+                disabled={disabled}
             />
         </div>
     );

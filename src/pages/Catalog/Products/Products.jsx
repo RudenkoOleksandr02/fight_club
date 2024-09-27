@@ -50,6 +50,7 @@ const Products = () => {
         setIsVisibleFilterPanelInMobile,
         isPageLoading,
         handleApplyFilter,
+        handleResetFilter,
         amount,
     } = useProductCatalog({
         fetchFilterPanelData: getFilterPanelById,
@@ -126,6 +127,7 @@ const Products = () => {
                             ) : (
                                 <FilterPanel
                                     handleApplyFilter={handleApplyFilter}
+                                    handleResetFilter={handleResetFilter}
                                     onCloseFilterPanelInMobile={() => setIsVisibleFilterPanelInMobile(false)}
                                     forCategories={{
                                         setCategoryIds,

@@ -47,7 +47,7 @@
         z-index: 150;
         opacity: 0;
         pointer-events: none;
-        transition: .3s;
+        transition: .2s;
     }
     .filterPanel.visible {
         opacity: 1;

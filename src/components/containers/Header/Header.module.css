@@ -44,6 +44,9 @@
     .basket {
         display: none;
     }
+    .header {
+        min-height: 67px;
+    }
 }
 @media (min-width: 768px) and (max-width: 999px) {
     .navigate {

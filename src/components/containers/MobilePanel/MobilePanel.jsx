@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {BottomSheet} from 'react-spring-bottom-sheet';
 import 'react-spring-bottom-sheet/dist/style.css';
 import classes from './MobilePanel.module.css';
@@ -12,9 +12,9 @@ import {v4 as uuidv4} from 'uuid';
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
-// --DATA--
 import useScreen from "../../../common/hooks/useScreen";
 import {getParentCategories} from "../../../common/utils/getParentCategory";
+import useBodyOverflowHidden from "../../../common/hooks/useBodyOverflowHidden";
 
 
 const MobilePanel = ({setOpenLoginPanel, openLoginPanel}) => {
@@ -24,16 +24,25 @@ const MobilePanel = ({setOpenLoginPanel, openLoginPanel}) => {
     const [contentSheet, setContentSheet] = useState(null);
     const cartForGuest = useSelector(state => state.cartPage.productsInCart);
     const isAuth = useSelector(state => state.auth.isAuth);
-    const navigate = useNavigate()
-    const isSmallScreen = useScreen(999)
+    const navigate = useNavigate();
+    const isSmallScreen = useScreen(999);
+
+    const [closing, setClosing] = useState(false);
+
+    const handleClose = () => {
+        setClosing(true);
+        setOpen(false);
+        setClosing(false);
+    };
 
     const handleMainCategoryClick = (categoryId) => {
         navigate(`/category/${categoryId}`);
         setOpen(false);
     }
+
     const contentLinks = getParentCategories(categories).map(link => {
         return <SecondaryButton
-            handleClick={() => handleMainCategoryClick(link.id)}
+            handleClick={() => handleMainCategoryClick(link.categoryId)}
             putIcoArrow={true}
             key={uuidv4()}
         >
@@ -59,6 +68,24 @@ const MobilePanel = ({setOpenLoginPanel, openLoginPanel}) => {
                     setOpenLoginPanel(false);
                 }
             }}>Мій Кабінет</SecondaryButton>
+            <SecondaryButton handleClick={() => {
+                navigate('/blogs');
+                setOpen(false);
+            }}>
+                Блог
+            </SecondaryButton>
+            <SecondaryButton handleClick={() => {
+                navigate('/contacts');
+                setOpen(false);
+            }}>
+                Контакти
+            </SecondaryButton>
+            <SecondaryButton handleClick={() => {
+                navigate('/brands');
+                setOpen(false);
+            }}>
+                Бренди
+            </SecondaryButton>
         </>
     )
 
@@ -79,39 +106,58 @@ const MobilePanel = ({setOpenLoginPanel, openLoginPanel}) => {
         }
     }
 
+
+    const buttonsInPanelJSX = (
+        <div className={classes.buttonsInPanel}>
+            <button onClick={() => handleClickPanel('search', linksWithSearch)}>
+                <IcoSearch/>
+            </button>
+            <button disabled={cartForGuest.length === 0}
+                    className={`${classes.cart} ${cartForGuest.length !== 0 ? classes.active : ''}`} onClick={() => {
+                if (cartForGuest.length !== 0) {
+                    navigate('/cart');
+                    setOpen(false);
+                } else {
+                    setOpen(false);
+                }
+            }}><IcoCart/></button>
+            <button onClick={() => {
+                setOpen(false);
+                navigate('/')
+            }}
+            ><IcoHome/></button>
+            <button onClick={() => handleClickPanel('menu', contentMenu)}>
+                <IcoMenu/>
+            </button>
+        </div>
+    )
+
     return (
         <div className={classes.wrapper}>
             <div className={classes.panel}>
-                <div className={classes.btns}>
-                    <button onClick={() => handleClickPanel('search', linksWithSearch)}>
-                        <IcoSearch/>
-                    </button>
-                    <button disabled={cartForGuest.length === 0} className={`${classes.cart} ${cartForGuest.length !== 0 ? classes.active : ''}`} onClick={() => {
-                        if (cartForGuest.length !== 0) {
-                            navigate('/cart');
-                            setOpen(false);
-                        } else {
-                            setOpen(false);
-                        }
-                    }}><IcoCart/></button>
-                    <button onClick={() => {
-                        setOpen(false);
-                        navigate('/')}}
-                    ><IcoHome/></button>
-                    <button onClick={() => handleClickPanel('menu', contentMenu)}>
-                        <IcoMenu/>
-                    </button>
-                </div>
+                {buttonsInPanelJSX}
             </div>
-            {isSmallScreen && <BottomSheet
-                blocking={false}
-                open={open}
-                onDismiss={() => setOpen(false)}
-            >
-                <div className={classes.contentSheet}>
-                    {contentSheet}
-                </div>
-            </BottomSheet>}
+            {isSmallScreen && (
+                <>
+                    {open && (
+                        <div
+                            className={`${classes.overlay} ${closing ? 'closing' : ''}`}
+                            onClick={handleClose}
+                        ></div>
+                    )}
+                    <BottomSheet
+                        blocking={false}
+                        open={open}
+                        onDismiss={handleClose}
+                        header={<div></div>}
+                        snapPoints={({minHeight, maxHeight}) => [minHeight, maxHeight / 2, maxHeight]}
+                    >
+                        <div className={classes.contentSheet}>
+                            {contentSheet}
+                        </div>
+                    </BottomSheet>
+                </>
+            )}
         </div>
     );
 };

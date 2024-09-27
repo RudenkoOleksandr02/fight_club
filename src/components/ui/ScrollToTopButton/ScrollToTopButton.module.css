@@ -9,7 +9,7 @@
     0 144px 86px 0 #0000000D,
     0 256px 102px 0 #00000003,
     0 400px 112px 0 #00000000;
-    z-index: 99;
+    z-index: 98;
     opacity: 0;
     cursor: default;
     transition: .2s;
@@ -31,9 +31,8 @@
 .button.show:hover svg * {
     fill: var(--white);
 }
-
-@media (max-width: 767px) {
+@media (max-width: 999px) {
     .button {
-        right: 0;
+        display: none;
     }
 }

@@ -9,7 +9,6 @@
                 0 213px 60px 0 rgba(0, 0, 0, 0);
     background: var(--white);
     padding: 10px 10px 0;
-    z-index: 101;
     margin-top: 10px;
     opacity: 0;
     pointer-events: none;
@@ -17,6 +16,9 @@
     color: var(--black);
     right: 40px;
     top: 70px;
+}
+.desktopLogin, .mobileLogin {
+    z-index: 102;
 }
 .desktopLogin.open {
     pointer-events: all;
@@ -31,7 +33,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 101;
     pointer-events: none;
     opacity: 0;
     transition: 0.4s;

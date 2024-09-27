@@ -45,6 +45,7 @@ const BannerPage = () => {
         setIsVisibleFilterPanelInMobile,
         isPageLoading,
         handleApplyFilter,
+        handleResetFilter,
         amount,
     } = useProductCatalog({
         fetchFilterPanelData: getFilterPanelBannerById,
@@ -111,6 +112,7 @@ const BannerPage = () => {
                             ) : (
                                 <FilterPanel
                                     handleApplyFilter={handleApplyFilter}
+                                    handleResetFilter={handleResetFilter}
                                     onCloseFilterPanelInMobile={() => setIsVisibleFilterPanelInMobile(false)}
                                     forCategories={{
                                         setCategoryIds,

@@ -62,3 +62,7 @@
         width: 232px;
     }
 }
+
+.wrapper p {
+    margin-top: -25px;
+}

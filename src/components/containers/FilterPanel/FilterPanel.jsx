@@ -6,28 +6,29 @@ import MinMaxPrice from "../../ui/forFilters/MinMaxPrice/MinMaxPrice";
 import Characteristics from "../../ui/forFilters/Characteristics/Characteristics";
 import Categories from "../../ui/forFilters/Categories/Categories";
 import Brands from "../../ui/forFilters/Brands/Brands";
+import SecondaryButton from "../../ui/Buttons/SecondaryButton/SecondaryButton";
 
 const FilterPanel = ({
                          handleApplyFilter,
+                         handleResetFilter,
                          onCloseFilterPanelInMobile,
                          forCategories: {setCategoryIds, categoryIds, categories},
                          forCharacteristics: {setCharacteristicIds, characteristicIds, characteristics},
                          forBrands: {setBrandIds, brandIds, brands},
                          forMinPrice: {minPrice, setMinPrice},
                          forMaxPrice: {maxPrice, setMaxPrice}
-
                      }) => {
 
     return (
         <div className={classes.wrapper}>
-            <div className={classes.mobileExhibition}>
-                <h3>Фільтри</h3>
-                <CloseBtn
-                    setIsOpen={onCloseFilterPanelInMobile}
-                    styles={{width1: '40px', width2: '40px', color: 'black', height: '40px'}}
-                />
-            </div>
             <div className={classes.inner}>
+                <div className={classes.mobileExhibition}>
+                    <h3>Фільтри</h3>
+                    <CloseBtn
+                        setIsOpen={onCloseFilterPanelInMobile}
+                        styles={{width1: '40px', width2: '40px', color: 'black', height: '40px'}}
+                    />
+                </div>
                 {!!categories.length && (
                     <Categories
                         categories={categories}
@@ -79,9 +80,10 @@ const FilterPanel = ({
                     setMinPrice={setMinPrice}
                     setMaxPrice={setMaxPrice}
                 />
-                <div className={classes.buttonWrapper}>
-                    <PrimaryButton onClick={handleApplyFilter}>Застосувати</PrimaryButton>
-                </div>
+            </div>
+            <div className={classes.buttonWrapper}>
+                <PrimaryButton onClick={handleApplyFilter}>Застосувати</PrimaryButton>
+                <SecondaryButton handleClick={handleResetFilter}>Скинути</SecondaryButton>
             </div>
         </div>
     );

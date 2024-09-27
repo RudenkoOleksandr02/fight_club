@@ -4,7 +4,9 @@ import {handleFulfilled, handlePending, handleRejected, initialObject} from "../
 
 const initialState = {
     favorite: initialObject,
-    userInformation: initialObject
+    userInformation: initialObject,
+    ordersHistory: initialObject,
+    product: initialObject,
 }
 
 const getFavoriteLoading = createAsyncThunk(
@@ -35,6 +37,18 @@ const updateUserLoading = createAsyncThunk(
     'user/updateUserLoading',
     async (params) => {
         return userApi.updateUser(params);
+    }
+)
+const getOrdersHistoryLoading = createAsyncThunk(
+    'user/getOrdersHistoryLoading',
+    async () => {
+        return userApi.getOrdersHistory();
+    }
+)
+const getProductByIdInOrdersHistoryLoading = createAsyncThunk(
+    'user/getProductByIdInOrdersHistoryLoading',
+    async (productId) => {
+        return userApi.getProductByIdInOrdersHistory(productId);
     }
 )
 
@@ -69,6 +83,24 @@ export const userPageSlice = createSlice({
             .addCase(getUserLoading.rejected, (state, action) => {
                 handleRejected(state, action, 'userInformation');
             })
+            .addCase(getOrdersHistoryLoading.pending, (state) => {
+                handlePending(state, 'ordersHistory');
+            })
+            .addCase(getOrdersHistoryLoading.fulfilled, (state, action) => {
+                handleFulfilled(state, action, 'ordersHistory');
+            })
+            .addCase(getOrdersHistoryLoading.rejected, (state, action) => {
+                handleRejected(state, action, 'ordersHistory');
+            })
+            .addCase(getProductByIdInOrdersHistoryLoading.pending, (state) => {
+                handlePending(state, 'product');
+            })
+            .addCase(getProductByIdInOrdersHistoryLoading.fulfilled, (state, action) => {
+                handleFulfilled(state, action, 'product');
+            })
+            .addCase(getProductByIdInOrdersHistoryLoading.rejected, (state, action) => {
+                handleRejected(state, action, 'product');
+            })
     }
 });
 
@@ -90,4 +122,10 @@ export const getUser = () => (dispatch) => {
 }
 export const updateUser = (params) => (dispatch) => {
     return dispatch(updateUserLoading(params));
+}
+export const getOrdersHistory = () => (dispatch) => {
+    return dispatch(getOrdersHistoryLoading());
+}
+export const getProductByIdInOrdersHistory = (productId) => (dispatch) => {
+    return dispatch(getProductByIdInOrdersHistoryLoading(productId));
 }

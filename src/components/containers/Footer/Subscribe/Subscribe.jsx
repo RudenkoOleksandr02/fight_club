@@ -8,9 +8,9 @@ const Subscribe = () => {
             <div className={classes.wrapper}>
                 <h2>Підпишіться</h2>
                 <div className={classes.form}>
-                    <FormSelect type='email' text='Email' color='primary'/>
+                    <FormSelect type='email' text='Email' color='primary' disabled={true}/>
                 </div>
-                <p>Підпишіться та отримайте знижку 10% на перше замовлення!</p>
+                <p>Підписуйтесь та дізнавайтеся про акції та новинки!</p>
             </div>
         </section>
     );

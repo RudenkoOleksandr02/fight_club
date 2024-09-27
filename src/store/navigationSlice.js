@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import navigationApi from "../api/navigationApi";
-import {delay, handleFulfilled, handlePending, handleRejected, initialObject} from "../common/utils/forSlice";
+import {handleFulfilled, handlePending, handleRejected, initialObject} from "../common/utils/forSlice";
 
 const initialState = {
     categoryTree: initialObject,
@@ -10,14 +10,12 @@ const initialState = {
 const loadCategoryTree = createAsyncThunk(
     'navigation/loadCategoryTree',
     async (categoryId) => {
-        await delay(500);
         return navigationApi.getCategoryTree(categoryId);
     }
 );
 const loadPopularProductsByCategory = createAsyncThunk(
     'navigation/loadPopularProductsById',
     async (categoryId, {dispatch}) => {
-        await delay(500);
         dispatch(removePopularProducts())
         return navigationApi.getPopularProductsByCategory(categoryId);
     }
@@ -25,7 +23,6 @@ const loadPopularProductsByCategory = createAsyncThunk(
 const loadCategory = createAsyncThunk(
     'navigation/loadCategory',
     async (_, {dispatch}) => {
-        await delay(500);
         dispatch(removeCategoryTree())
         return navigationApi.getCategory();
     }

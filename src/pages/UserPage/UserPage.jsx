@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import classes from "./UserPage.module.css";
-import {getFavorite, getUser} from "../../store/pageSlices/userPageSlice";
+import {getFavorite, getOrdersHistory, getUser} from "../../store/pageSlices/userPageSlice";
 import Preloader from "../../components/ui/Preloader/Preloader";
 import Details from "./Details/Details";
 import PurchaseHistory from "./PurchaseHistory/PurchaseHistory";
@@ -18,6 +18,7 @@ const UserPage = () => {
     const {loading: favoriteLoading} = useSelector(state => state.userPage.favorite);
     const {loading: userLoading} = useSelector(state => state.userPage.userInformation);
     const {loading: cashbackLoading} = useSelector(state => state.cashback.balance);
+    const {loading: ordersHistoryLoading} = useSelector(state => state.userPage.ordersHistory);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -31,9 +32,10 @@ const UserPage = () => {
         dispatch(getUser());
         dispatch(getFavorite());
         dispatch(getBalance());
+        dispatch(getOrdersHistory());
     }, []);
 
-    if (userLoading || favoriteLoading || cashbackLoading) {
+    if (userLoading || favoriteLoading || cashbackLoading || ordersHistoryLoading) {
         return <Preloader color='secondary' cover={true}/>;
     }
 

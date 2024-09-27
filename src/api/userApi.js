@@ -30,6 +30,15 @@ const userApi = {
             .then(response => {
                 return response.data
             })
+    },
+    getOrdersHistory() {
+        return instance.get(UserUrls.GetOrdersHistory)
+            .then(response => response.data)
+    },
+    getProductByIdInOrdersHistory(productId) {
+        return instance.get(UserUrls.GetProductByIdInOrdersHistory(productId))
+            .then(response => response.data)
+
     }
 }
 

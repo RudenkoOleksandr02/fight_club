@@ -21,7 +21,7 @@ const LoginPanel = ({openLoginPanel, setOpenLoginPanel, userButtonRef}) => {
     const [errorMessage, setErrorMessage] = useState('');
     const dispatch = useDispatch();
     const panelRef = useRef(null);
-    const isSmallScreen = useScreen(768);
+    const isSmallScreen = useScreen(999);
 
     useEffect(() => {
         const handleClickOutside = (event) => {

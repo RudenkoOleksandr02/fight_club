@@ -8,11 +8,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: 99;
 }
 
 .modalContent {
     overflow: hidden;
+}
+@media (max-width: 999px) {
+    .modalContent {
+        margin-bottom: 57px;
+    }
 }
 .selectedImage {
     max-height: 90vh;

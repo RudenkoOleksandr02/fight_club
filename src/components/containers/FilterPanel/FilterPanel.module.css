@@ -1,6 +1,7 @@
 .wrapper {
     background: var(--white);
     padding: 25px;
+    max-width: 100%;
 }
 .wrapper h3 {
     font-size: 24px;
@@ -8,18 +9,31 @@
 }
 .buttonWrapper {
     margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.buttonWrapper button {
     height: 38px;
+    border-radius: 0;
+    justify-content: center;
 }
 .mobileExhibition {
     display: none;
 }
 @media (max-width: 999px) {
     .wrapper {
+        position: fixed;
+        top: 0; bottom: 0; left: 0; right: 0;
         height: 100%;
         overflow: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
     .inner {
         margin: 0 auto;
+        width: 100%;
     }
     .mobileExhibition {
         display: flex;

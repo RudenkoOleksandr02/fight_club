@@ -19,3 +19,16 @@
 .inner:first-child p {
     font-size: 20px;
 }
+@media (max-width: 767px) {
+    .wrapper {
+        flex-direction: column;
+        height: auto;
+        align-items: flex-start;
+    }
+    .inner:first-child {
+        order: 1;
+    }
+    .inner:last-child svg {
+        width: 270px;
+    }
+}

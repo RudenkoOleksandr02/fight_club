@@ -97,7 +97,26 @@ const useProductCatalog = ({
     const handleApplyFilter = () => {
         setCurrentPage(1);
         fetchProducts(1);
+        setIsVisibleFilterPanelInMobile(false)
     };
+    const handleResetFilter = () => {
+        setCurrentPage(1);
+        setCategoryIds([]);
+        setCharacteristicIds([]);
+        setBrandIds([]);
+        setMinPrice(initialParams.filterPanelData.minPrice || 0);
+        setMaxPrice(initialParams.filterPanelData.maxPrice || 0);
+
+        fetchProducts(
+            1,
+            [],
+            [],
+            [],
+            initialParams.filterPanelData.minPrice || 0,
+            initialParams.filterPanelData.maxPrice || 0
+        )
+        setIsVisibleFilterPanelInMobile(false);
+    }
 
     useEffect(() => {
         fetchProducts();
@@ -122,6 +141,7 @@ const useProductCatalog = ({
         setIsVisibleFilterPanelInMobile,
         isPageLoading,
         handleApplyFilter,
+        handleResetFilter,
         amount,
         fetchProducts,
     };

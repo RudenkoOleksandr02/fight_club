@@ -197,7 +197,11 @@ export const UserUrls = {
         return `Favorite/Remove/${productId}`
     },
     GetUser: 'User',
-    UpdateUser: 'User'
+    UpdateUser: 'User',
+    GetOrdersHistory: 'Orders/user/history',
+    GetProductByIdInOrdersHistory(productId) {
+        return `Orders/${productId}/products`
+    }
 }
 export const BlogUrls = {
     GetBlogs: 'Blogs',

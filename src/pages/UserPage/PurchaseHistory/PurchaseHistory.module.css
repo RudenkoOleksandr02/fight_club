@@ -5,3 +5,107 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
 }
+.ordersHistory {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.order {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.order .box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+.order .box button {
+    height: 40px;
+    width: 160px;
+}
+.order:not(:last-child) {
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(43, 43, 43, .2);
+}
+@media (max-width: 767px) {
+    .order .box:last-child {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .order .box button {
+        width: 100%;
+    }
+}
+
+/* POPUP */
+.productsInformation {
+    max-width: 770px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.productInformation {
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.productInformation p, .productInformation span {
+    color: var(--black);
+}
+@media (max-width: 767px) {
+    .productInformation {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+.productInformation .box {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.productInformation img, .productInformation svg {
+    min-width: 73px; height: 73px;
+    object-fit: cover;
+}
+.productInformation .noImageBlock div::before {
+    font-size: 12px !important;
+}
+
+.productInformation .titleAndBreadcrumbs {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.productInformation p {
+    font-size: 18px;
+    transition: .2s;
+}
+.productInformation:hover p {
+    color: var(--green);
+}
+.productInformation .breadcrumbs {
+    pointer-events: none;
+}
+.productInformation .breadcrumbs a, .productInformation .breadcrumbs span {
+    color: black !important;
+    opacity: 60%;
+}
+.productInformation .breadcrumbs a::before {
+    background-color: var(--black) !important;
+    opacity: 60%;
+}
+
+.amountAndPrice span:last-child {
+    min-width: 100px;
+    text-align: end;
+}
+@media (max-width: 767px) {
+    .amountAndPrice {
+        justify-content: space-between;
+    }
+}

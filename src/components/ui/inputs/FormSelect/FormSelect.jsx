@@ -11,7 +11,8 @@ const FormSelect = (props) => {
         onChange,
         handleSend = () => {},
         error = '',
-        success = ''
+        success = '',
+        disabled = false
     } = props;
 
     const setColor = () => {
@@ -38,12 +39,15 @@ const FormSelect = (props) => {
                 placeholder={text}
                 style={{
                     border: `1px solid ${setColor()}`,
-                    borderRight: 'none'
+                    borderRight: 'none',
+                    color: `${color === 'primary' ? '#F9F9F9' : '#2B2B2B'}`,
+                    fontSize: disabled ? '16px' : '20px'
                 }}
-                value={value}
+                value={`${disabled ? 'Тимчасово не працює' : value}`}
                 onChange={onChange}
+                disabled={disabled}
             />
-            <button onClick={handleSend} style={{
+            <button onClick={handleSend} disabled={disabled} style={{
                 background: setColor()
             }}>
                 <IcoArrow/>
