@@ -88,7 +88,6 @@ export const AdminUrls = {
         return `Product/${productId}`
     },
     PutProductById(productId) {
-        console.log(productId)
         return `Product/${productId}`
     },
     AddProduct: 'Product',
@@ -103,6 +102,9 @@ export const AdminUrls = {
         return `Category/Search?searchTerm=${searchTerm}`
     },
     GetAdminFilterPanel: 'AdminFilterPanel',
+    DeleteProductById(productId) {
+        return `Product/${productId}`
+    },
 
     // PROMOCODE
     GetPromocodesById(promoId) {
@@ -129,6 +131,9 @@ export const AdminUrls = {
         return `Blogs/${blogId}`
     },
     AddBlog: 'Blogs',
+    DeleteBlogById(blogId) {
+        return `Blogs/${blogId}`
+    },
 
     // BANNER
     GetBanners: 'Banners',
@@ -139,6 +144,9 @@ export const AdminUrls = {
         return `Banners/${bannerId}`
     },
     AddBanner: 'Banners',
+    DeleteBannerById(bannerId) {
+        return `Banners/${bannerId}`
+    },
 
     // CHARACTERISTICS
     GetCharacteristics: 'Characteristic',
@@ -155,6 +163,9 @@ export const AdminUrls = {
     GetCharacteristicDescsByTitle(characteristicTitle) {
         return `Characteristic/${characteristicTitle}/values`
     },
+    DeleteCharacteristicById(characteristicId) {
+        return `Characteristic/${characteristicId}`
+    },
 
     // BRANDS
     GetBrands: 'Brands',
@@ -168,6 +179,9 @@ export const AdminUrls = {
     GetBrandsBySearch(searchTerm) {
         return `Brands/Search?searchTerm=${searchTerm}`
     },
+    DeleteBrandById(brandId) {
+        return `Brands/${brandId}`
+    },
 
     // PROMOCODE
     GetPromocodes: 'Promocodes',
@@ -179,14 +193,20 @@ export const AdminUrls = {
     },
     AddPromocode: 'Promocodes',
 
-    //REVIEWS
+    // REVIEWS
     SearchReviews: 'Reviews/Admin/Search',
     DeleteReviewById(reviewId) {
         return `Reviews/Admin/${reviewId}`
     },
     DeleteUserById(userId) {
         return `Reviews/Admin/DeleteByUser/${userId}`
-    }
+    },
+    DeletePromocodeById(promoId) {
+        return `Promocodes/${promoId}`
+    },
+
+    // OFFLINE ORDERS
+    CreateOfflineOrder: 'ShoppingCartOrder/CreateOfflineOrder'
 }
 export const UserUrls = {
     GetFavorite: 'Favorite',

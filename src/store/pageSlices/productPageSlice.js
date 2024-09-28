@@ -9,16 +9,23 @@ const initialState = {
 
 const loadProductById = createAsyncThunk(
     'product/loadProductById',
-    async (productId) => {
-        return productAPI.getProductById(productId);
-
+    async (productId, {rejectWithValue}) => {
+        try {
+            return await productAPI.getProductById(productId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 
 const loadAlsoBoughtById = createAsyncThunk(
     'product/loadAlsoBoughtById',
-    async (productId) => {
-        return productAPI.getAlsoBought(productId);
+    async (productId, {rejectWithValue}) => {
+        try {
+            return await productAPI.getAlsoBought(productId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 )
 

@@ -1,15 +1,15 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {delay, handlePending, handleRejected, initialObject} from "../../common/utils/forSlice";
 import {adminApi} from "../../api/adminApi";
 
 const initialState = {
-    adminAuth: {...initialObject, data: false}
+    isAuthAdmin: false,
+    loading: true,
+    error: null
 }
 
 const getIsAdminAuthLoading = createAsyncThunk(
     'admin/getAdminAuthLoading',
     async (_, {rejectWithValue}) => {
-        await delay(500);
         try {
             return await adminApi.getAdminAuth();
         } catch (error) {
@@ -20,26 +20,40 @@ const getIsAdminAuthLoading = createAsyncThunk(
 
 const adminAuthSlice = createSlice({
     name: 'adminAuth', initialState,
-    reducers: {},
+    reducers: {
+        logoutAdmin: state => {
+            state.isAuthAdmin = false;
+            state.loading = false;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getIsAdminAuthLoading.pending, (state) => {
-                handlePending(state, 'adminAuth')
+                state.loading = true;
+                state.error = null;
             })
             .addCase(getIsAdminAuthLoading.fulfilled, (state) => {
-                state.adminAuth.loading = false;
-                state.adminAuth.data = true;
+                state.loading = false;
+                state.isAuthAdmin = true;
             })
             .addCase(getIsAdminAuthLoading.rejected, (state, action) => {
-                handleRejected(state, action, 'adminAuth')
+                state.loading = false;
+                state.error = action.payload;
             })
     }
-})
+});
 
-export const {} = adminAuthSlice.actions;
+export const {logoutAdmin} = adminAuthSlice.actions;
 export default adminAuthSlice.reducer;
 
-export const getIsAdminAuth = () => async (dispatch) => {
-    return dispatch(getIsAdminAuthLoading());
+export const getIsAdminAuth = () => (dispatch, getState) => {
+    const state = getState();
+    const isAuth = state.auth.isAuth;
+
+    if (isAuth) {
+        return dispatch(getIsAdminAuthLoading());
+    } else {
+        return dispatch(logoutAdmin())
+    }
 }
 

@@ -1,5 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import promocodesAPI from '../api/promocodesApi';
+import searchApi from "../api/searchApi";
 
 const initialState = {
     discount: 0
@@ -7,9 +8,12 @@ const initialState = {
 
 const loadPromocodes = createAsyncThunk(
     'promocodes/loadPromocodes',
-    async (code) => {
-        return promocodesAPI.getPromocodesCheck(code);
-
+    async (code, {rejectWithValue}) => {
+        try {
+            return await promocodesAPI.getPromocodesCheck(code);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 

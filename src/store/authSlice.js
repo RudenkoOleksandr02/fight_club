@@ -1,8 +1,12 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {authorizationApi} from '../api/authorizationApi';
 import {clearCart} from './pageSlices/cartPageSlice';
+import {logoutAdmin} from "./adminSlices/adminAuthSlice";
+import {clearParams} from "./pageSlices/checkoutPageSlice";
+import {setBalance} from "./cashbackSlice";
+import {clearPromocodes} from "./promocodesSlice";
 
-const registerUser = createAsyncThunk(
+export const registerUser = createAsyncThunk(
     'auth/register',
     async (params, {rejectWithValue}) => {
         try {
@@ -10,28 +14,29 @@ const registerUser = createAsyncThunk(
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
-    });
-
+    }
+);
 const loginUser = createAsyncThunk(
-    'auth/login', async (params, {rejectWithValue}) => {
+    'auth/login',
+    async (params, {rejectWithValue}) => {
         try {
             return await authorizationApi.login(params);
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
-    });
-
+    }
+);
 const logoutUser = createAsyncThunk(
-    'auth/logout', async (_, {dispatch, rejectWithValue}) => {
+    'auth/logout',
+    async (_, {dispatch, rejectWithValue}) => {
         try {
-            const response = await authorizationApi.logout();
-            dispatch(clearCart());
-            return response;
+            await dispatch(clearCart());
+            return await authorizationApi.logout();
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
-    });
-
+    }
+);
 const getIsAuthLoading = createAsyncThunk(
     'auth/getAuthLoading',
     async (_, {rejectWithValue}) => {
@@ -41,7 +46,8 @@ const getIsAuthLoading = createAsyncThunk(
             return rejectWithValue(error.response.data);
         }
     }
-)
+);
+
 const initialState = {
     isAuth: false,
     loading: true,
@@ -108,15 +114,19 @@ const authSlice = createSlice({
 export const {} = authSlice.actions;
 export default authSlice.reducer;
 
-export const login = (params) => async (dispatch) => {
-    return await dispatch(loginUser(params))
+export const login = (params) => (dispatch) => {
+    return dispatch(loginUser(params))
 }
-export const register = (params) => async (dispatch) => {
-    return await dispatch(registerUser(params))
+export const register = (params) => (dispatch) => {
+    return dispatch(registerUser(params))
 }
 export const logout = () => async (dispatch) => {
-    return await dispatch(logoutUser())
+    await dispatch(logoutAdmin());
+    await dispatch(clearParams());
+    await dispatch(setBalance(null));
+    await dispatch(clearPromocodes());
+    return await dispatch(logoutUser());
 }
-export const getIsAuth = () => async (dispatch) => {
-    return await dispatch(getIsAuthLoading())
+export const getIsAuth = () => (dispatch) => {
+    return dispatch(getIsAuthLoading())
 }

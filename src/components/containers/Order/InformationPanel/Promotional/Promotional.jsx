@@ -7,9 +7,9 @@ import FormSelect from "../../../../ui/inputs/FormSelect/FormSelect";
 import DieBlock from "../../../../ui/blocks/DieBlock/DieBlock";
 
 
-const Promotional = () => {
+const Promotional = ({usedPromocode}) => {
     const dispatch = useDispatch();
-    const [promocode, setPromocode] = useState('');
+    const [promocode, setPromocode] = useState(usedPromocode);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 

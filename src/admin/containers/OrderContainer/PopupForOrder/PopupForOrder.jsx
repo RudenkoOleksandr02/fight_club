@@ -28,7 +28,7 @@ const PopupForOrder = ({handleSave, data, handleClose, setData, isSaveButtonActi
         setData(prevState => ({...prevState, status: newStatus}));
         setIsOpenSelectStatusPopup(false);
     };
-    const statusOptionsJSX = [0, 1, 2, 3, 4, 5, 6].map(statusNumber => (
+    const statusOptionsJSX = [0, 1, 2, 3, 4, 5, 6, 7].map(statusNumber => (
         <button
             key={statusNumber}
             onClick={() => handleStatusChange(statusNumber)}

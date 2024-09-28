@@ -5,8 +5,8 @@ import {adminApi} from "../../api/adminApi";
 const getAdminBannersLoading = createAsyncThunk(
     'admin/getAdminBannersLoading',
     async (_, {rejectWithValue}) => {
-        await delay(500);
         try {
+            await delay(500);
             return await adminApi.getBanners();
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -16,8 +16,8 @@ const getAdminBannersLoading = createAsyncThunk(
 const getAdminBannerByIdLoading = createAsyncThunk(
     'admin/getAdminBannerByIdLoading',
     async (bannerId, {rejectWithValue}) => {
-        await delay(500);
         try {
+            await delay(500);
             return await adminApi.getBannerById(bannerId);
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -46,8 +46,22 @@ const getProductsBySearchForBannerLoading = createAsyncThunk(
 )
 const addBannerLoading = createAsyncThunk(
     'admin/addBannerLoading',
-    async (params) => {
-        return adminApi.addBanner(params);
+    async (params, {rejectWithValue}) => {
+        try {
+            return await adminApi.addBanner(params);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+const deleteBannerByIdLoading = createAsyncThunk(
+    'admin/deleteBannerByIdLoading',
+    async (bannerId, {rejectWithValue}) => {
+        try {
+            return await adminApi.deleteBannerById(bannerId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 )
 
@@ -128,4 +142,7 @@ export const getProductsBySearchForBanner = (searchTerm) => async (dispatch) => 
 }
 export const addBanner = (params) => async (dispatch) => {
     return await dispatch(addBannerLoading(params));
+};
+export const deleteBannerById = (bannerId) => async (dispatch) => {
+    return await dispatch(deleteBannerByIdLoading(bannerId));
 };

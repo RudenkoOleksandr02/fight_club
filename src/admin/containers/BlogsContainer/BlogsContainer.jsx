@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Preloader from "../../../components/ui/Preloader/Preloader";
 import BlogsTable from "./BlogsTable/BlogsTable";
 import BottomPanel from "../../BottomPanel/BottomPanel";
-import {getAdminBlogById, getAdminBlogs} from "../../../store/adminSlices/adminBlogSlice";
+import {deleteBlogById, getAdminBlogById, getAdminBlogs} from "../../../store/adminSlices/adminBlogSlice";
 import EditBlog from "./EditBlog/EditBlog";
 import AddBlog from "./AddBlog/AddBlog";
 
@@ -27,6 +27,10 @@ const BlogsContainer = ({currentPage, setCurrentPage, amount, setAmount}) => {
         setIsOpenPopupEdit(true);
     }
 
+    const handleDeleteBlogById = (blogId) => {
+        dispatch(deleteBlogById(blogId))
+            .then(() => dispatch(getAdminBlogs()))
+    }
     return (
         <div className={classes.wrapper}>
             <TopPanel
@@ -37,9 +41,7 @@ const BlogsContainer = ({currentPage, setCurrentPage, amount, setAmount}) => {
             >
                 <SecondaryButton handleClick={() => setIsOpenPopupAdd(true)}>Додати статтю</SecondaryButton>
             </TopPanel>
-            {blogsLoading ? <Preloader color='primary'/> : (
-                <BlogsTable blogsData={displayedBlogs} handleClickEdit={handleClickEdit}/>
-            )}
+            <BlogsTable blogsData={displayedBlogs} handleClickEdit={handleClickEdit} handleDeleteBlogById={handleDeleteBlogById}/>
             <EditBlog isOpenPopupEdit={isOpenPopupEdit} setIsOpenPopupEdit={setIsOpenPopupEdit}/>
             <AddBlog isOpenPopupAdd={isOpenPopupAdd} setIsOpenPopupAdd={setIsOpenPopupAdd}/>
             <BottomPanel

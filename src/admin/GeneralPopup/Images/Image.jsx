@@ -38,6 +38,7 @@ const Image = ({title, titleForBtn, image, handleAddImage, handleRemoveImage, im
             {isOpenPopupImportImages && (
                 <Popup onClose={() => setIsOpenPopupImportImages(false)}>
                     <FileDropzone
+                        text='Додати зображення'
                         accepts={[
                             'image/png',
                             'image/jpeg',

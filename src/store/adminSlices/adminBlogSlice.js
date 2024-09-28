@@ -5,8 +5,8 @@ import {adminApi} from "../../api/adminApi";
 const getAdminBlogsLoading = createAsyncThunk(
     'admin/getAdminBlogsLoading',
     async (_, {rejectWithValue}) => {
-        await delay(500);
         try {
+            await delay(500);
             return await adminApi.getBlogs();
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -16,8 +16,8 @@ const getAdminBlogsLoading = createAsyncThunk(
 const getAdminBlogByIdLoading = createAsyncThunk(
     'admin/getAdminBlogByIdLoading',
     async (blogId, {rejectWithValue}) => {
-        await delay(500);
         try {
+            await delay(500);
             return await adminApi.getBlogById(blogId);
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -46,8 +46,22 @@ const getProductsBySearchLoading = createAsyncThunk(
 )
 const addBlogLoading = createAsyncThunk(
     'admin/addBlogLoading',
-    async (params) => {
-        return adminApi.addBlog(params);
+    async (params, {rejectWithValue}) => {
+        try {
+            return await adminApi.addBlog(params);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+const deleteBlogByIdLoading = createAsyncThunk(
+    'admin/deleteBlogByIdLoading',
+    async (blogId, {rejectWithValue}) => {
+        try {
+            return await adminApi.deleteBlogById(blogId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 )
 
@@ -128,4 +142,7 @@ export const getProductsBySearch = (searchTerm) => async (dispatch) => {
 }
 export const addBlog = (params) => async (dispatch) => {
     return await dispatch(addBlogLoading(params));
+};
+export const deleteBlogById = (blogId) => async (dispatch) => {
+    return await dispatch(deleteBlogByIdLoading(blogId));
 };

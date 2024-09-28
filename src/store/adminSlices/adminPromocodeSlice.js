@@ -6,8 +6,8 @@ import { adminApi } from "../../api/adminApi";
 const getPromocodesLoading = createAsyncThunk(
     'admin/getPromocodesLoading',
     async (_, { rejectWithValue }) => {
-        await delay(500);
         try {
+            await delay(500);
             return await adminApi.getPromocodes();
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -18,15 +18,14 @@ const getPromocodesLoading = createAsyncThunk(
 const getPromocodeByIdLoading = createAsyncThunk(
     'admin/getPromocodeByIdLoading',
     async (promoId, { rejectWithValue }) => {
-        await delay(500);
         try {
+            await delay(500);
             return await adminApi.getPromocodeById(promoId);
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
     }
 );
-
 const updatePromocodeByIdLoading = createAsyncThunk(
     'admin/updatePromocodeByIdLoading',
     async ({ promoId, params }, { rejectWithValue }) => {
@@ -37,21 +36,32 @@ const updatePromocodeByIdLoading = createAsyncThunk(
         }
     }
 );
-
 const addPromocodeLoading = createAsyncThunk(
     'admin/addPromocodeLoading',
-    async (params) => {
-        return adminApi.addPromocode(params);
+    async (params, { rejectWithValue }) => {
+        try {
+            return await adminApi.addPromocode(params);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+const deletePromocodeByIdLoading = createAsyncThunk(
+    'admin/deletePromocodeByIdLoading',
+    async (promoId, { rejectWithValue }) => {
+        try {
+            return await adminApi.deletePromocodeById(promoId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 
-// Initial State
 const initialState = {
     promocodes: initialObject,
     promocode: initialObject
 };
 
-// PromoCode Slice
 const adminPromoCodeSlice = createSlice({
     name: 'adminPromocode',
     initialState,
@@ -100,20 +110,19 @@ const adminPromoCodeSlice = createSlice({
 export const {} = adminPromoCodeSlice.actions;
 export default adminPromoCodeSlice.reducer;
 
-// Action Creators
-export const getAdminPromocodes = () => async (dispatch) => {
+export const getAdminPromocodes = () => (dispatch) => {
     return dispatch(getPromocodesLoading());
 };
-
-export const getAdminPromocodeById = (promoId) => async (dispatch) => {
+export const getAdminPromocodeById = (promoId) => (dispatch) => {
     return dispatch(getPromocodeByIdLoading(promoId));
 };
-
-export const updateAdminPromocodeById = (promoId, params) => async (dispatch) => {
+export const updateAdminPromocodeById = (promoId, params) => (dispatch) => {
     return dispatch(updatePromocodeByIdLoading({ promoId, params }))
         .then(() => dispatch(getPromocodeByIdLoading(promoId)));
 };
-
-export const addAdminPromocode = (params) => async (dispatch) => {
-    return await dispatch(addPromocodeLoading(params));
+export const addAdminPromocode = (params) => (dispatch) => {
+    return dispatch(addPromocodeLoading(params));
 };
+export const deletePromocodeById = (promoId) => (dispatch) => {
+    return dispatch(deletePromocodeByIdLoading(promoId));
+}

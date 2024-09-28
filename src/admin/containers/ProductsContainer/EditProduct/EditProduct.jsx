@@ -50,7 +50,6 @@ const EditProduct = ({
             });
         }
     }, [productData]);
-    console.log(productData.brand)
 
     const trackerFields = (obj = {}) => {
         const initialUrls = initialImageUrls;

@@ -10,29 +10,45 @@ const initialState = {
 }
 const getBannersLoading = createAsyncThunk(
     'bannerPage/getBannersLoading',
-    async () => {
-        return bannerApi.getBanners();
+    async (_, {rejectWithValue}) => {
+        try {
+            return await bannerApi.getBanners();
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 const getBannerByIdLoading = createAsyncThunk(
     'bannerPage/getBannerByIdLoading',
-    async (bannerId) => {
-        await delay(500);
-        return bannerApi.getBannerById(bannerId);
+    async (bannerId, {rejectWithValue}) => {
+        try {
+            await delay(500);
+            return await bannerApi.getBannerById(bannerId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 const getProductsByBannerFilterLoading = createAsyncThunk(
     'bannerPage/getProductsByBannerFilterLoading',
-    async (params) => {
-        await delay(500);
-        return bannerApi.getProductsByBannerFilter(params);
+    async (params, {rejectWithValue}) => {
+        try {
+            await delay(500);
+            return await bannerApi.getProductsByBannerFilter(params);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 const getFilterPanelBannerByIdLoading = createAsyncThunk(
     'bannerPage/getFilterPanelBannerByIdLoading',
-    async (bannerId) => {
-        await delay(500);
-        return bannerApi.getFilterPanelBannerById(bannerId);
+    async (bannerId, {rejectWithValue}) => {
+        try {
+            await delay(500);
+            return await bannerApi.getFilterPanelBannerById(bannerId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 

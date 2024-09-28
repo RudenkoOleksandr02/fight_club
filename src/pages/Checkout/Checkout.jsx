@@ -11,6 +11,7 @@ import Breadcrumbs from "../../components/ui/Breadcrumbs/Breadcrumbs";
 import PopupForCheckout from "./PopupForCheckout/PopupForCheckout";
 
 const Checkout = () => {
+    const {isAuthAdmin} = useSelector(state => state.admin.adminAuth);
     const isAuth = useSelector(state => state.auth.isAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -40,17 +41,10 @@ const Checkout = () => {
     });
 
     useEffect(() => {
-        if (isAuth) {
+        if (isAuth && (!isAuthAdmin )) {
             dispatch(getUser())
-                .then(response => {
-                    const userInformation = response.payload
-                    dispatch(setUserInfo({key: 'name', value: userInformation.username}));
-                    dispatch(setUserInfo({key: 'surname', value: userInformation.surname}));
-                    dispatch(setUserInfo({key: 'phone', value: userInformation.phoneNumber}));
-                    dispatch(setUserInfo({key: 'email', value: userInformation.email}));
-                })
         }
-    }, [isAuth]);
+    }, [isAuth, isAuthAdmin]);
 
     const handleSetUserInfo = (value, key) => {
         dispatch(setUserInfo({key, value}));
@@ -95,6 +89,7 @@ const Checkout = () => {
                         handleSetUserInfo={handleSetUserInfo}
                         handleSetDeliveryInfo={handleSetDeliveryInfo}
                         errors={errors}
+                        isAuthAdmin={isAuthAdmin}
                     />
                 </div>
                 <div className={classes.informationPanel}>

@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAdminPromocodes, getAdminPromocodeById } from '../../../store/adminSlices/adminPromocodeSlice';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+    getAdminPromocodes,
+    getAdminPromocodeById,
+    deletePromocodeById
+} from '../../../store/adminSlices/adminPromocodeSlice';
 import classes from '../BannerContainer/BannerContainer.module.css';
 import TopPanel from '../../TopPanel/TopPanel';
 import SecondaryButton from '../../buttons/SecondaryButton/SecondaryButton';
-import Preloader from '../../../components/ui/Preloader/Preloader';
 import BottomPanel from '../../BottomPanel/BottomPanel';
 import PromocodesTable from './PromocodesTable/PromocodesTable';
 import EditPromocode from './EditPromocode/EditPromocode';
 import AddPromocode from './AddPromocode/AddPromocode';
 
-const PromocodesContainer = ({ currentPage, setCurrentPage, amount, setAmount }) => {
+const PromocodesContainer = ({currentPage, setCurrentPage, amount, setAmount}) => {
     const [isOpenPopupEdit, setIsOpenPopupEdit] = useState(false);
     const [isOpenPopupAdd, setIsOpenPopupAdd] = useState(false);
-    const { promocodes: { data: promocodesData, loading: promocodesLoading } } = useSelector(state => state.admin.adminPromocode);
+    const {promocodes: {data: promocodesData}} = useSelector(state => state.admin.adminPromocode);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -27,6 +30,11 @@ const PromocodesContainer = ({ currentPage, setCurrentPage, amount, setAmount })
         setIsOpenPopupEdit(true);
     };
 
+    const handleDeletePromocodeById = (promoId) => {
+        dispatch(deletePromocodeById(promoId))
+            .then(() => dispatch(getAdminPromocodes()))
+    }
+
     return (
         <div className={classes.wrapper}>
             <TopPanel
@@ -37,18 +45,17 @@ const PromocodesContainer = ({ currentPage, setCurrentPage, amount, setAmount })
             >
                 <SecondaryButton handleClick={() => setIsOpenPopupAdd(true)}>Додати промокод</SecondaryButton>
             </TopPanel>
-            {promocodesLoading ? <Preloader color="primary" /> : (
-                <PromocodesTable promocodesData={displayedPromocodes} handleClickEdit={handleClickEdit} />
-            )}
-            <EditPromocode isOpenPopupEdit={isOpenPopupEdit} setIsOpenPopupEdit={setIsOpenPopupEdit} />
-            <AddPromocode isOpenPopupAdd={isOpenPopupAdd} setIsOpenPopupAdd={setIsOpenPopupAdd} />
+            <PromocodesTable promocodesData={displayedPromocodes} handleClickEdit={handleClickEdit}
+                             handleDeletePromocodeById={handleDeletePromocodeById}/>
+            <EditPromocode isOpenPopupEdit={isOpenPopupEdit} setIsOpenPopupEdit={setIsOpenPopupEdit}/>
+            <AddPromocode isOpenPopupAdd={isOpenPopupAdd} setIsOpenPopupAdd={setIsOpenPopupAdd}/>
             <BottomPanel
                 currentPage={currentPage}
                 amount={amount}
                 totalCount={promocodesData.length}
                 setCurrentPage={setCurrentPage}
                 setAmount={setAmount}
-                amountTitle="Displayed Promocodes"
+                amountTitle="Кількість відображених промокодів"
             />
         </div>
     );

@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 import classes from './ProductsContainer.module.css';
-import {getProductById, getProductsByAdminFilter, importFromExcel} from "../../../store/adminSlices/adminProductSlice";
+import {
+    deleteProductById,
+    getProductById,
+    getProductsByAdminFilter,
+    importFromExcel
+} from "../../../store/adminSlices/adminProductSlice";
 import {useImportState} from "../../../common/hooks/useImportState";
 import {useHandlePostFile} from "../../../common/hooks/useHandlePostFile";
 import TopPanel from "../../TopPanel/TopPanel";
@@ -18,9 +23,9 @@ import EditProduct from "./EditProduct/EditProduct";
 import BottomPanel from "../../BottomPanel/BottomPanel";
 import AddProduct from "./AddProduct/AddProduct";
 
-const ProductsContainer = ({ currentPage, setCurrentPage, amount, setAmount }) => {
+const ProductsContainer = ({currentPage, setCurrentPage, amount, setAmount}) => {
     const dispatch = useDispatch();
-    const { products } = useSelector(state => state.admin.adminProduct);
+    const {products} = useSelector(state => state.admin.adminProduct);
 
     // POPUP
     const [isOpenLeftPanel, setIsOpenLeftPanel] = useState(false);
@@ -42,7 +47,7 @@ const ProductsContainer = ({ currentPage, setCurrentPage, amount, setAmount }) =
     const [searchTerm, setSearchTerm] = useState('');
     const handleCloseSearchAdmin = () => {
         setSearchTerm('');
-        setIsOpenSearch(false)
+        setIsOpenSearch(false);
     }
     const [categoryIds, setCategoryIds] = useState([]);
     const [characteristicIds, setCharacteristicIds] = useState([]);
@@ -85,6 +90,27 @@ const ProductsContainer = ({ currentPage, setCurrentPage, amount, setAmount }) =
     const handleClickEdit = (productId) => {
         dispatch(getProductById(productId));
         setIsOpenPopupProductEdit(true);
+    }
+
+    // DELETE PRODUCT
+    const handleDeleteProductById = (productId) => {
+        dispatch(deleteProductById(productId))
+            .then(() => dispatch(getProductsByAdminFilter({
+                    amount,
+                    start: (currentPage - 1) * amount,
+                    sortOption,
+                    searchTerm,
+                    categoryIds,
+                    selectedCharacteristics: characteristicIds,
+                    brandIds,
+                    minPrice,
+                    maxPrice,
+                    isShown,
+                    isHit,
+                    hasDiscount,
+                    isNew
+                }))
+            )
     }
 
     return (
@@ -177,6 +203,7 @@ const ProductsContainer = ({ currentPage, setCurrentPage, amount, setAmount }) =
                 handleClickEdit={handleClickEdit}
                 sortOption={sortOption}
                 handleSortOption={handleSortOption}
+                handleDeleteProductById={handleDeleteProductById}
             />
             {/* EDIT PRODUCT */}
             <EditProduct

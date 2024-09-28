@@ -29,8 +29,8 @@ const OrderContainer = ({currentPage, setCurrentPage, setAmount, amount}) => {
     const [statusIds, setStatusIds] = useState([]);
     const [minOrderDate, setMinOrderDate] = useState(null);
     const [maxOrderDate, setMaxOrderDate] = useState(null);
-    const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(0);
+    const [minPrice, setMinPrice] = useState(null);
+    const [maxPrice, setMaxPrice] = useState(null);
     const [sortOption, setSortOption] = useState('');
     const handleSortOption = (option) => {
         if (sortOption === `${option}_asc`) {
@@ -114,6 +114,7 @@ const OrderContainer = ({currentPage, setCurrentPage, setAmount, amount}) => {
                 handleClickEdit={handleClickEdit}
                 sortOption={sortOption}
                 handleSortOption={handleSortOption}
+                orderData={orders.data}
             />
             <EditOrder
                 isOpenPopupEdit={isOpenPopupEdit}

@@ -8,16 +8,24 @@ const initialState = {
 }
 const getBlogsLoading = createAsyncThunk(
     'blogPage/getBlogsLoading',
-    async () => {
-        await delay(500);
-        return blogApi.getBlogs();
+    async (_, {rejectWithValue}) => {
+        try {
+            await delay(500);
+            return await blogApi.getBlogs();
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 const getBlogByIdLoading = createAsyncThunk(
     'blogPage/getBlogByIdLoading',
-    async (blogId) => {
-        await delay(500);
-        return blogApi.getBlogById(blogId);
+    async (blogId, {rejectWithValue}) => {
+        try {
+            await delay(500);
+            return await blogApi.getBlogById(blogId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 

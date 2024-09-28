@@ -1,5 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {shoppingCartOrderApi} from '../../api/shoppingCartOrderApi';
+import {adminApi} from "../../api/adminApi";
 
 const initialParams = {
     usedPromocode: "",
@@ -48,6 +49,32 @@ const checkoutForGuestLoading = createAsyncThunk(
         }
     }
 );
+const createOfflineOrderLoading = createAsyncThunk(
+    'checkout/createOfflineOrderLoading',
+    async ({
+               name,
+               phoneNumber,
+               surname,
+               email,
+               usedPromocode,
+               cashbackToUse,
+               products
+           }, {rejectWithValue}) => {
+        try {
+            return await adminApi.createOfflineOrder({
+                name,
+                phoneNumber,
+                surname,
+                email,
+                usedPromocode,
+                cashbackToUse,
+                products
+            })
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
 
 const checkoutPageSlice = createSlice({
     name: 'checkout',
@@ -70,6 +97,9 @@ const checkoutPageSlice = createSlice({
         },
         setCashbackToUse(state, action) {
             state.params.cashbackToUse = action.payload;
+        },
+        clearParams(state) {
+            state.params = initialParams;
         }
     },
     extraReducers: (builder) => {
@@ -97,6 +127,18 @@ const checkoutPageSlice = createSlice({
             .addCase(checkoutForGuestLoading.rejected, (state) => {
                 state.loading = false;
                 state.error = true;
+            })
+            .addCase(createOfflineOrderLoading.pending, (state) => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(createOfflineOrderLoading.fulfilled, (state) => {
+                state.loading = false;
+                state.params = initialParams;
+            })
+            .addCase(createOfflineOrderLoading.rejected, (state) => {
+                state.loading = false;
+                state.error = true;
             });
     }
 });
@@ -107,14 +149,16 @@ export const {
     setUserInfo,
     setDeliveryInfo,
     setAdditionalInfo,
-    setCashbackToUse
+    setCashbackToUse,
+    clearParams
 } = checkoutPageSlice.actions;
 
 export const checkout = (params) => async (dispatch, getState) => {
     const state = getState();
     const isAuth = state.auth.isAuth;
+    const isAdminAuth = state.admin.adminAuth.data;
 
-    if (isAuth) {
+    if (isAuth && !isAdminAuth) {
         return await dispatch(checkoutForUserLoading(params));
     } else {
         const products = state.cartPage.productsInCart.map(product => {
@@ -123,6 +167,30 @@ export const checkout = (params) => async (dispatch, getState) => {
                 productAmount: product.quantity
             }
         });
-        return await dispatch(checkoutForGuestLoading({params, products}));
+
+        if (isAdminAuth) {
+            const {
+                userInfo: {
+                    name,
+                    phone: phoneNumber,
+                    surname,
+                    email
+                },
+                usedPromocode,
+                cashbackToUse
+            } = params;
+
+            return await dispatch(createOfflineOrderLoading({
+                name,
+                phoneNumber,
+                surname,
+                email,
+                usedPromocode,
+                cashbackToUse,
+                products
+            }))
+        } else {
+            return await dispatch(checkoutForGuestLoading({params, products}));
+        }
     }
 };

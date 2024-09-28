@@ -5,8 +5,8 @@ import {adminApi} from "../../api/adminApi";
 const getAdminBrandsLoading = createAsyncThunk(
     'admin/getAdminBrandsLoading',
     async (_, {rejectWithValue}) => {
-        await delay(500);
         try {
+            await delay(500);
             return await adminApi.getBrands();
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -16,8 +16,8 @@ const getAdminBrandsLoading = createAsyncThunk(
 const getAdminBrandByIdLoading = createAsyncThunk(
     'admin/getAdminBrandByIdLoading',
     async (brandId, {rejectWithValue}) => {
-        await delay(500);
         try {
+            await delay(500);
             return await adminApi.getBrandById(brandId);
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -49,6 +49,16 @@ const getAdminBrandsBySearchLoading = createAsyncThunk(
     async (searchTerm, {rejectWithValue}) => {
         try {
             return await adminApi.getBrandsBySearch(searchTerm);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+const deleteBrandByIdLoading = createAsyncThunk(
+    'admin/deleteBrandByIdLoading',
+    async (brandId, {rejectWithValue}) => {
+        try {
+            return await adminApi.deleteBrandById(brandId);
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
@@ -114,4 +124,7 @@ export const addAdminBrand = (params) => async (dispatch) => {
 }
 export const getAdminBrandsBySearch = (searchTerm) => async (dispatch) => {
     return dispatch(getAdminBrandsBySearchLoading(searchTerm))
+}
+export const deleteBrandById = (brandId) => async (dispatch) => {
+    return dispatch(deleteBrandByIdLoading(brandId))
 }

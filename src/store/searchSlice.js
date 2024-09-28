@@ -6,8 +6,12 @@ const initialState = {
 }
 const loadSearchByQuery = createAsyncThunk(
     'search/loadSearchByQuery',
-    async (query) => {
-        return searchApi.getSearchByQuery(query);
+    async (query, {rejectWithValue}) => {
+        try {
+            return await searchApi.getSearchByQuery(query);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 
@@ -26,6 +30,6 @@ export const searchSlice = createSlice({
 export const {} = searchSlice.actions;
 export default searchSlice.reducer;
 
-export const getSearchByQuery = (query) => async (dispatch) => {
-    return await dispatch(loadSearchByQuery(query));
+export const getSearchByQuery = (query) => (dispatch) => {
+    return dispatch(loadSearchByQuery(query));
 };

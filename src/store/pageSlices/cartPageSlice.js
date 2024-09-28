@@ -12,33 +12,52 @@ const initialState = {
 
 const getUserShoppingCartLoading = createAsyncThunk(
     'cart/getUserShoppingCartLoading',
-    async () => {
-        return shoppingCartApi.getUserShoppingCart()
+    async (_, {rejectWithValue}) => {
+        try {
+            return await shoppingCartApi.getUserShoppingCart()
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 const addProductToCartLoading = createAsyncThunk(
     'cart/addProductToCartLoading',
-    async (productId) => {
-        return shoppingCartApi.addProduct(productId);
+    async (productId, {rejectWithValue}) => {
+        try {
+            return await shoppingCartApi.addProduct(productId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 const removeProductInCartLoading = createAsyncThunk(
     'cart/removeProductInCartLoading',
-    async (params) => {
-        return shoppingCartApi.changeProductAmount(params);
+    async (params, {rejectWithValue}) => {
+        try {
+            return await shoppingCartApi.changeProductAmount(params);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 const deleteProductInCartLoading = createAsyncThunk(
     'cart/deleteProductInCartLoading',
-    async (productId) => {
-        return shoppingCartApi.removeProduct(productId);
+    async (productId, {rejectWithValue}) => {
+        try {
+            return await shoppingCartApi.removeProduct(productId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 const getProductByIdLoading = createAsyncThunk(
     'cart/getProductByIdLoading',
-    async (productId) => {
-        return productAPI.getProductById(productId);
-
+    async (productId, {rejectWithValue}) => {
+        try {
+            return await productAPI.getProductById(productId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 

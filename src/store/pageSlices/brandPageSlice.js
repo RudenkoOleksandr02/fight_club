@@ -8,16 +8,24 @@ const initialState = {
 }
 const getBrandsLoading = createAsyncThunk(
     'brandPage/getBrandsLoading',
-    async () => {
-        await delay(500);
-        return brandApi.getBrands();
+    async (_, {rejectWithValue}) => {
+        try {
+            await delay(500);
+            return await brandApi.getBrands();
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 const getBrandByIdLoading = createAsyncThunk(
     'brandPage/getBrandByIdLoading',
-    async (brandId) => {
-        await delay(500);
-        return brandApi.getBrandById(brandId);
+    async (brandId, {rejectWithValue}) => {
+        try {
+            await delay(500);
+            return await brandApi.getBrandById(brandId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 

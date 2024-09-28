@@ -32,6 +32,9 @@ button, input, a, p, h1, h2, h3, h4, h5, h6, span {
 button {
   cursor: pointer;
 }
+.outlet {
+  min-height: calc(100vh - 461.25px - 97px - 40px - 60px - 60px);
+}
 .app-container, .login-container {
   margin: 0 auto;
   padding: 0 40px;

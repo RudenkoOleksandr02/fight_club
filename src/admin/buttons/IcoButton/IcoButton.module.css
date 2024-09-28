@@ -4,6 +4,7 @@
     background: var(--white);
     border: none;
     transition: .1s;
+    height: fit-content;
 }
 .button:hover {
     opacity: 70%;

@@ -1,6 +1,7 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import userApi from "../../api/userApi";
 import {handleFulfilled, handlePending, handleRejected, initialObject} from "../../common/utils/forSlice";
+import {setUserInfo} from "./checkoutPageSlice";
 
 const initialState = {
     favorite: initialObject,
@@ -11,44 +12,72 @@ const initialState = {
 
 const getFavoriteLoading = createAsyncThunk(
     'user/getFavoriteLoading',
-    async () => {
-        return userApi.getFavorite();
+    async (_, {rejectWithValue}) => {
+        try {
+            return await userApi.getFavorite();
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 )
 const addFavoriteLoading = createAsyncThunk(
     'user/addFavoriteLoading',
-    async (productId) => {
-        return userApi.addFavorite(productId);
+    async (productId, {rejectWithValue}) => {
+        try {
+            return await userApi.addFavorite(productId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 )
 const deleteFavoriteLoading = createAsyncThunk(
     'user/deleteFavoriteLoading',
-    async (productId) => {
-        return userApi.deleteFavorite(productId);
+    async (productId, {rejectWithValue}) => {
+        try {
+            return await userApi.deleteFavorite(productId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 )
 const getUserLoading = createAsyncThunk(
     'user/getUserLoading',
-    async () => {
-        return userApi.getUser();
+    async (_, {rejectWithValue}) => {
+        try {
+            return await userApi.getUser();
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 )
 const updateUserLoading = createAsyncThunk(
     'user/updateUserLoading',
-    async (params) => {
-        return userApi.updateUser(params);
+    async (params, {rejectWithValue}) => {
+        try {
+            return await userApi.updateUser(params);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 )
 const getOrdersHistoryLoading = createAsyncThunk(
     'user/getOrdersHistoryLoading',
-    async () => {
-        return userApi.getOrdersHistory();
+    async (_, {rejectWithValue}) => {
+        try {
+            return await userApi.getOrdersHistory();
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 )
 const getProductByIdInOrdersHistoryLoading = createAsyncThunk(
     'user/getProductByIdInOrdersHistoryLoading',
-    async (productId) => {
-        return userApi.getProductByIdInOrdersHistory(productId);
+    async (productId, {rejectWithValue}) => {
+        try {
+            return await userApi.getProductByIdInOrdersHistory(productId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 )
 
@@ -118,7 +147,14 @@ export const deleteFavorite = (productId) => (dispatch) => {
     return dispatch(deleteFavoriteLoading(productId));
 }
 export const getUser = () => (dispatch) => {
-    return dispatch(getUserLoading());
+    return dispatch(getUserLoading())
+        .then(response => {
+                const userInformation = response.payload
+                dispatch(setUserInfo({key: 'name', value: userInformation.username}));
+                dispatch(setUserInfo({key: 'surname', value: userInformation.surname}));
+                dispatch(setUserInfo({key: 'phone', value: userInformation.phoneNumber}));
+                dispatch(setUserInfo({key: 'email', value: userInformation.email}));
+        })
 }
 export const updateUser = (params) => (dispatch) => {
     return dispatch(updateUserLoading(params));

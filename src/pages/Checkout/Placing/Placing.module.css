@@ -3,3 +3,12 @@
     flex-direction: column;
     gap: 10px;
 }
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.form button {
+    border-radius: 0;
+    justify-content: center;
+}

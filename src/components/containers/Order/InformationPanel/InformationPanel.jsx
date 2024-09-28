@@ -15,10 +15,12 @@ import DieBlock from "../../../ui/blocks/DieBlock/DieBlock";
 const InformationPanel = ({orderParams}) => {
     const additionalInfo = useSelector(state => state.checkoutPage.params.additionalInfo);
     const cashbackToUse = useSelector(state => state.checkoutPage.params.cashbackToUse);
+    const usedPromocode = useSelector(state => state.checkoutPage.params.usedPromocode);
+
     const promotionalDiscount = useSelector(state => state.promocodes.discount);
     const totalPrice = useSelector(selectTotalPrice);
+    const {isAuthAdmin} = useSelector(state => state.admin.adminAuth);
     const dispatch = useDispatch();
-
 
     const handleChangeAdditionalInfo = (value, key) => {
         dispatch(setAdditionalInfo({ key, value }));
@@ -29,18 +31,26 @@ const InformationPanel = ({orderParams}) => {
 
     return (
         <div className={classes.wrapper}>
-            <div className={classes.loyaltyProgram}>
-                <DieBlock>
-                    <LoyaltyProgram/>
-                </DieBlock>
-            </div>
-            <Promotional/>
-            <EcoFriendlyPackaging
-                ecoPackaging={additionalInfo.ecoPackaging}
-                handleChangeAdditionalInfo={handleChangeAdditionalInfo}
+            {isAuthAdmin ? null : (
+                <div className={classes.loyaltyProgram}>
+                    <DieBlock>
+                        <LoyaltyProgram/>
+                    </DieBlock>
+                </div>
+            )}
+            <Promotional
+                usedPromocode={usedPromocode}
             />
+            {isAuthAdmin ? null : (
+                <EcoFriendlyPackaging
+                    ecoPackaging={additionalInfo.ecoPackaging}
+                    handleChangeAdditionalInfo={handleChangeAdditionalInfo}
+                />
+            )}
             <Cashback
                 handleChangeCashbackToUse={handleChangeCashbackToUse}
+                cashbackToUse={cashbackToUse}
+                isAuthAdmin={isAuthAdmin}
             />
             <SummaryOrder
                 totalPrice={totalPrice}
@@ -53,10 +63,12 @@ const InformationPanel = ({orderParams}) => {
                 cashbackToUse={cashbackToUse}
                 promotionalDiscount={promotionalDiscount}
             />
-            <CallMe
-                additionalInfo={additionalInfo}
-                handleChangeAdditionalInfo={handleChangeAdditionalInfo}
-            />
+            {isAuthAdmin ? null : (
+                <CallMe
+                    additionalInfo={additionalInfo}
+                    handleChangeAdditionalInfo={handleChangeAdditionalInfo}
+                />
+            )}
         </div>
     );
 };

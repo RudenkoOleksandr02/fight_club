@@ -9,20 +9,32 @@ const initialState = {
 }
 const loadNewProducts = createAsyncThunk(
     'homePage/loadNewProducts',
-    async () => {
-        return homePageApi.getNewProducts();
+    async (_, {rejectWithValue}) => {
+        try {
+            return await homePageApi.getNewProducts();
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 const loadDiscountsProducts = createAsyncThunk(
     'homePage/loadDiscountsProducts',
-    async () => {
-        return homePageApi.getDiscountsProducts();
+    async (_, {rejectWithValue}) => {
+        try {
+            return await homePageApi.getDiscountsProducts();
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 const loadPopularProducts = createAsyncThunk(
     'homePage/loadPopularProducts',
-    async () => {
-        return homePageApi.getPopularProducts();
+    async (_, {rejectWithValue}) => {
+        try {
+            return await homePageApi.getPopularProducts();
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 

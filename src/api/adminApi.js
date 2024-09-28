@@ -1,4 +1,4 @@
-import {AdminUrls, instance} from "./urls/apiUrls";
+import {AdminUrls, instance, ProductsUrls} from "./urls/apiUrls";
 
 export const adminApi = {
     getAdminAuth() {
@@ -109,6 +109,11 @@ export const adminApi = {
         })
             .then(response => response.data)
     },
+    deleteProductById(productId) {
+        return instance.delete(AdminUrls.DeleteProductById(productId))
+            .then(response => response.data)
+    },
+
     postImagesByProductId(productId, files) {
         const formData = new FormData();
 
@@ -168,7 +173,6 @@ export const adminApi = {
             .then(response => response.data)
     },
     getOrdersByAdminFilterPanel(params) {
-        console.log(params)
         return instance.post(AdminUrls.GetOrdersByAdminFilter, params)
             .then(response => response.data)
     },
@@ -204,6 +208,9 @@ export const adminApi = {
         })
             .then(response => response.data)
     },
+    deleteBlogById(blogId) {
+        return instance.delete(AdminUrls.DeleteBlogById(blogId)).then(response => response.data)
+    },
 
     // BANNER
     getBanners() {
@@ -230,6 +237,9 @@ export const adminApi = {
         })
             .then(response => response.data)
     },
+    deleteBannerById(bannerId) {
+      return instance.delete(AdminUrls.DeleteBannerById(bannerId)).then(response => response.data)
+    },
 
     // CHARACTERISTICS
     getCharacteristics() {
@@ -254,6 +264,10 @@ export const adminApi = {
     },
     getCharacteristicDescsByTitle(characteristicTitle) {
         return instance.get(AdminUrls.GetCharacteristicDescsByTitle(characteristicTitle))
+            .then(response => response.data)
+    },
+    deleteCharacteristicById(characteristicId) {
+        return instance.delete(AdminUrls.DeleteCharacteristicById(characteristicId))
             .then(response => response.data)
     },
 
@@ -304,6 +318,9 @@ export const adminApi = {
         return instance.get(AdminUrls.GetBrandsBySearch(searchTerm))
             .then(response => response.data)
     },
+    deleteBrandById(brandId) {
+        return instance.delete(AdminUrls.DeleteBrandById(brandId))
+    },
 
     // PROMOCODE
     getPromocodes() {
@@ -322,6 +339,30 @@ export const adminApi = {
         return instance.post(AdminUrls.AddPromocode, params)
             .then(response => response.data)
     },
+    deletePromocodeById(promoId) {
+      return instance.delete(AdminUrls.DeletePromocodeById(promoId))
+          .then(response => response.data)
+    },
+
+    // REVIEWS
+    searchReviews(params) {
+        return instance.post(AdminUrls.SearchReviews, params)
+            .then(response => response.data)
+    },
+    deleteReviewById(reviewId) {
+        return instance.delete(AdminUrls.DeleteReviewById(reviewId))
+            .then(response => response.data)
+    },
+    deleteAllReviewsByUserId(userId) {
+        return instance.delete(AdminUrls.DeleteUserById(userId))
+            .then(response => response.data)
+    },
+
+    // OFFLINE ORDERS
+    createOfflineOrder(params) {
+        return instance.post(AdminUrls.CreateOfflineOrder, params)
+            .then(response => response.data)
+    }
 }
 
 const getFormDataForBannerAndBlog = (params) => {

@@ -7,21 +7,34 @@ const initialState = {
 }
 const getBalanceLoading = createAsyncThunk(
     'cashback/getBalanceLoading',
-    async () => {
-        return cashbackApi.getBalance();
+    async (_, {rejectWithValue}) => {
+        try {
+            return await cashbackApi.getBalance();
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 const getBalanceByPhoneLoading = createAsyncThunk(
     'cashback/getBalanceByPhoneLoading',
-    async (phoneNumber) => {
-        return cashbackApi.getBalanceByPhone(phoneNumber);
+    async (phoneNumber, {rejectWithValue}) => {
+        try {
+            return await cashbackApi.getBalanceByPhone(phoneNumber);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
+
 
 export const cashbackSlice = createSlice({
     name: 'cashbackSlice',
     initialState,
-    reducers: {},
+    reducers: {
+        setBalance(state, action) {
+            state.balance.data = action.payload;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getBalanceLoading.pending, (state) => (
@@ -45,13 +58,13 @@ export const cashbackSlice = createSlice({
     }
 })
 
-export const {} = cashbackSlice.actions;
+export const {setBalance} = cashbackSlice.actions;
 export default cashbackSlice.reducer;
 
 export const getBalance = () => (dispatch) => {
     return dispatch(getBalanceLoading());
 };
-export const getBalanceByPhone = (phoneNumber) => (dispatch) => {
+export const getBalanceByPhone = (phoneNumber) => async (dispatch) => {
     const encodedPhoneNumber = encodeURIComponent(phoneNumber);
-    return dispatch(getBalanceByPhoneLoading(encodedPhoneNumber));
+    return await dispatch(getBalanceByPhoneLoading(encodedPhoneNumber));
 };

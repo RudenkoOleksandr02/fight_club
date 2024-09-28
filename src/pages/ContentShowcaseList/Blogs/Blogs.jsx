@@ -43,6 +43,8 @@ const Blogs = () => {
                                 phoneImage: blog.phoneImageUrl,
                                 altText: blog.altText
                             }}
+                            metaKeywords={blog.metaKeywords}
+                            metaDescription={blog.metaDescription}
                         />
                     ))}
                 </div>

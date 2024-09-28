@@ -1,0 +1,32 @@
+.wrapper {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.wrapper h3 {
+    color: var(--black);
+    margin-bottom: 10px;
+}
+.wrapper button {
+    height: 38px;
+    transition: .2s;
+    font-size: 18px;
+    border: none;
+}
+.wrapper button:first-of-type {
+    background: #C13E3E;
+    color: var(--white);
+}
+.wrapper button:first-of-type:hover {
+    opacity: 80%;
+}
+.wrapper button:last-of-type {
+    background: var(--white);
+    color: var(--black);
+    border: 1px solid var(--black);
+}
+.wrapper button:last-of-type:hover {
+    background: var(--black);
+    color: var(--white);
+}

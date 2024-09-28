@@ -23,6 +23,9 @@ const EditCharacteristic = ({isOpenPopupEdit, setIsOpenPopupEdit}) => {
             loading: characteristicLoading
         }
     } = useSelector(state => state.admin.adminCharacteristics);
+
+    const [showedPreloader, setShowedPreloader] = useState(false);
+
     useEffect(() => {
         if (!!characteristicDescsData.length) {
             dispatch(getAdminCharacteristicById(characteristicDescsData[0].id))
@@ -45,28 +48,33 @@ const EditCharacteristic = ({isOpenPopupEdit, setIsOpenPopupEdit}) => {
         }
     }
     const handleSave = async (prevDataForOnlyTrack, dataForOnlyTrack) => {
-        const modifiedData = getModifiedFields(prevDataForOnlyTrack, dataForOnlyTrack);
+        setShowedPreloader(true);
+        try {
+            const modifiedData = getModifiedFields(prevDataForOnlyTrack, dataForOnlyTrack);
 
-        // ADD
-        for (const item of modifiedData.characteristicDescs) {
-            const id = String(item.id);
-
-            if (id.split('-')[0] === 'new') {
-                await dispatch(addAdminCharacteristic({title: characteristicData.title, desc: item.desc}))
+            // ADD
+            for (const item of modifiedData.characteristicDescs) {
+                const id = String(item.id);
+                if (id.startsWith('new')) {
+                    await dispatch(addAdminCharacteristic({ title: dataForOnlyTrack.characteristicTitle, desc: item.desc }));
+                }
             }
-        }
 
-        // UPDATE
-        for (const item of modifiedData.characteristicDescs) {
-            const id = String(item.id);
-
-            if (!(id.split('-')[0] === 'new')) {
-                await dispatch(updateAdminCharacteristicById(item.id, {title: characteristicData.title, desc: item.desc}))
+            // UPDATE
+            for (const item of modifiedData.characteristicDescs) {
+                const id = String(item.id);
+                if (!id.startsWith('new')) {
+                    await dispatch(updateAdminCharacteristicById(item.id, { title: dataForOnlyTrack.characteristicTitle, desc: item.desc }));
+                }
             }
-        }
 
-        await dispatch(getCharacteristicDescsByTitle(characteristicData.title))
-        await dispatch(getCharacteristicTitlesBySearchTerm(''))
+            await dispatch(getCharacteristicDescsByTitle(dataForOnlyTrack.characteristicTitle));
+            await dispatch(getCharacteristicTitlesBySearchTerm(''));
+        } catch (error) {
+            console.error('Ошибка при сохранении характеристик:', error);
+        } finally {
+            setShowedPreloader(false);
+        }
     }
 
     return (
@@ -75,7 +83,7 @@ const EditCharacteristic = ({isOpenPopupEdit, setIsOpenPopupEdit}) => {
             setIsOpenPopup={setIsOpenPopupEdit}
             handleSave={handleSave}
             initialObject={initialObject}
-            loading={characteristicDescsLoading || characteristicLoading}
+            loading={showedPreloader}
             trackerFields={trackerFields}
             Component={CharacteristicPopup}
         />

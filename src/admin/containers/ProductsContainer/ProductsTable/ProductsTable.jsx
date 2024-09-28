@@ -14,8 +14,9 @@ import ToggleButton from "../../../buttons/ToggleButton/ToggleButton";
 import Preloader from "../../../../components/ui/Preloader/Preloader";
 import {roundNumber} from "../../../../common/utils/roundNumber";
 import IcoButton from "../../../buttons/IcoButton/IcoButton";
+import PopupForDelete from "../../../PopupForDelete/PopupForDelete";
 
-const ProductsTable = ({handleClickEdit, sortOption, handleSortOption}) => {
+const ProductsTable = ({handleClickEdit, sortOption, handleSortOption, handleDeleteProductById}) => {
     const {products: {data, loading}} = useSelector(state => state.admin.adminProduct);
     const dispatch = useDispatch();
     const getRotatedFromSortOption = (sortOption, name) => {
@@ -41,19 +42,19 @@ const ProductsTable = ({handleClickEdit, sortOption, handleSortOption}) => {
         }
     }, [data])
 
-   const handleClickOnShow = (productId) => {
-       setBtnsData(btnsData.map(btn => {
-           if (productId === btn.id) {
-               dispatch(toggleIsShow(productId, !btn.isShown))
-               return {
-                   ...btn,
-                   isShown: !btn.isShown
-               }
-           } else {
-               return btn;
-           }
-       }))
-   }
+    const handleClickOnShow = (productId) => {
+        setBtnsData(btnsData.map(btn => {
+            if (productId === btn.id) {
+                dispatch(toggleIsShow(productId, !btn.isShown))
+                return {
+                    ...btn,
+                    isShown: !btn.isShown
+                }
+            } else {
+                return btn;
+            }
+        }))
+    }
     const handleClickOnHit = (productId) => {
         setBtnsData(btnsData.map(btn => {
             if (productId === btn.id) {
@@ -92,6 +93,8 @@ const ProductsTable = ({handleClickEdit, sortOption, handleSortOption}) => {
         const data = btnsData.filter(btn => productId === btn.id);
         return data[0]?.['isNew'];
     }
+
+    const [deleteProductId, setDeleteProductId] = useState(null);
 
     return (
         <Table>
@@ -153,21 +156,34 @@ const ProductsTable = ({handleClickEdit, sortOption, handleSortOption}) => {
                         <Td>
                             <div className={classes.icoBtns}>
                                 <IcoButton
-                                    svgIco={<IcoEye className={`${!returnIsShowByProductId(product.id) ? classes.svgGray : ''}`}/>}
+                                    svgIco={<IcoEye
+                                        className={`${!returnIsShowByProductId(product.id) ? classes.svgGray : ''}`}/>}
                                     onClick={() => handleClickOnShow(product.id)}
                                 />
                                 <IcoButton
-                                    svgIco={<IcoNew className={`${!returnIsNewByProductId(product.id) ? classes.svgGray : ''}`}/>}
+                                    svgIco={<IcoNew
+                                        className={`${!returnIsNewByProductId(product.id) ? classes.svgGray : ''}`}/>}
                                     onClick={() => handleClickOnNew(product.id)}
                                 />
                                 <IcoButton
-                                    svgIco={<IcoHot className={`${!returnIsHitByProductId(product.id) ? classes.svgGray : ''}`}/>}
+                                    svgIco={<IcoHot
+                                        className={`${!returnIsHitByProductId(product.id) ? classes.svgGray : ''}`}/>}
                                     onClick={() => handleClickOnHit(product.id)}
                                 />
                                 <IcoButton svgIco={<IcoEdit/>} onClick={() => handleClickEdit(product.id)}/>
-                                <IcoButton svgIco={<IcoDelete/>}/>
+                                <IcoButton svgIco={<IcoDelete/>} onClick={() => setDeleteProductId(product.id)}/>
                             </div>
                         </Td>
+                        {deleteProductId === product.id && (
+                            <PopupForDelete
+                                message={`Видалити товар: ${product.name}`}
+                                onDelete={() => {
+                                    handleDeleteProductById(product.id);
+                                    setDeleteProductId(null);
+                                }}
+                                onCancel={() => setDeleteProductId(null)}
+                            />
+                        )}
                     </Tr>
                 ))
             )}

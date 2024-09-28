@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getAdminBrandById, getAdminBrands} from "../../../store/adminSlices/adminBrandsSlice";
-import classes from "../BannerContainer/BannerContainer.module.css";
+import {deleteBrandById, getAdminBrandById, getAdminBrands} from "../../../store/adminSlices/adminBrandsSlice";
+import classes from "./BrandsContainer.module.css";
 import TopPanel from "../../TopPanel/TopPanel";
 import SecondaryButton from "../../buttons/SecondaryButton/SecondaryButton";
-import Preloader from "../../../components/ui/Preloader/Preloader";
 import BottomPanel from "../../BottomPanel/BottomPanel";
 import BrandsTable from "./BrandsTable/BrandsTable";
 import EditBrands from "./EditBrands/EditBrands";
@@ -13,7 +12,7 @@ import AddBrands from "./AddBrands/AddBrands";
 const BrandsContainer = ({currentPage, setCurrentPage, amount, setAmount}) => {
     const [isOpenPopupEdit, setIsOpenPopupEdit] = useState(false);
     const [isOpenPopupAdd, setIsOpenPopupAdd] = useState(false);
-    const {brands: {data: brandsData, loading: brandsLoading}} = useSelector(state => state.admin.adminBrands);
+    const {brands: {data: brandsData}} = useSelector(state => state.admin.adminBrands);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -27,6 +26,11 @@ const BrandsContainer = ({currentPage, setCurrentPage, amount, setAmount}) => {
         setIsOpenPopupEdit(true);
     }
 
+    const handleDeleteBrandById = (brandId) => {
+        dispatch(deleteBrandById(brandId))
+            .then(() => dispatch(getAdminBrands()))
+    }
+
     return (
         <div className={classes.wrapper}>
             <TopPanel
@@ -37,9 +41,11 @@ const BrandsContainer = ({currentPage, setCurrentPage, amount, setAmount}) => {
             >
                 <SecondaryButton handleClick={() => setIsOpenPopupAdd(true)}>Додати бренд</SecondaryButton>
             </TopPanel>
-            {brandsLoading ? <Preloader color='primary'/> : (
-                <BrandsTable brandsData={displayedBrands} handleClickEdit={handleClickEdit}/>
-            )}
+            <BrandsTable
+                brandsData={displayedBrands}
+                handleClickEdit={handleClickEdit}
+                handleDeleteBrandById={handleDeleteBrandById}
+            />
             <EditBrands isOpenPopupEdit={isOpenPopupEdit} setIsOpenPopupEdit={setIsOpenPopupEdit}/>
             <AddBrands isOpenPopupAdd={isOpenPopupAdd} setIsOpenPopupAdd={setIsOpenPopupAdd}/>
             <BottomPanel

@@ -5,7 +5,16 @@ import {ReactComponent as IcoLoadFile} from './../images/icoLoadFile.svg';
 import PrimaryButton from "../buttons/PrimaryButton/PrimaryButton";
 import {ReactComponent as IcoDelete} from './../images/icoDelete.svg';
 
-const FileDropzone = ({ accepts, handleSend, maxFiles = 1, isError, isSuccess, setIsError, setIsSuccess }) => {
+const FileDropzone = ({
+                          accepts,
+                          handleSend,
+                          maxFiles = 1,
+                          isError,
+                          isSuccess,
+                          setIsError,
+                          setIsSuccess,
+                          text = 'Завантажити на сервер'
+                      }) => {
     const [files, setFiles] = useState([]);
     const [isSent, setIsSent] = useState(false)
 
@@ -59,7 +68,7 @@ const FileDropzone = ({ accepts, handleSend, maxFiles = 1, isError, isSuccess, s
                     <p>Перетягніть файли сюди або натисніть, щоб завантажити</p>
                 </div>
             </Files>
-            <PrimaryButton handleClick={handleUploadFiles}>Завантажити на сервер</PrimaryButton>
+            <PrimaryButton handleClick={handleUploadFiles}>{text}</PrimaryButton>
             {files.length > 0 && (
                 <div className={classes.filesList}>
                     <ul>

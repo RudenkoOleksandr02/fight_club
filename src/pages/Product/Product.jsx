@@ -8,6 +8,7 @@ import {useParams} from "react-router-dom";
 import useScreen from "../../common/hooks/useScreen";
 import Preloader from "../../components/ui/Preloader/Preloader";
 import Breadcrumbs from "../../components/ui/Breadcrumbs/Breadcrumbs";
+import {Helmet, HelmetProvider} from "react-helmet-async";
 
 const Product = () => {
     const productId = useParams()
@@ -35,19 +36,30 @@ const Product = () => {
     }
 
     return (
-        <section>
-            <div className={classes.wrapper}>
-                <div className={classes.breadCrumbs}>
-                    <Breadcrumbs
-                        links={[...linksForBreadCrumbs, {name: data.name, id: `/product/${data.id}`}]}
-                    />
+        <HelmetProvider>
+            <Helmet>
+                <title>BLOSSOM</title>
+                <meta name="description"
+                      content={data.metaDescription !== null ? data.metaDescription : ''}
+                />
+                <meta name="keywords"
+                      content={data.metaKeys !== null ? data.metaKeys : ''}
+                />
+            </Helmet>
+            <section>
+                <div className={classes.wrapper}>
+                    <div className={classes.breadCrumbs}>
+                        <Breadcrumbs
+                            links={[...linksForBreadCrumbs, {name: data.name, id: `/product/${data.id}`}]}
+                        />
+                    </div>
+                    {isSmallScreen
+                        ? <ProductMobile product={data}/>
+                        : <ProductDesktop product={data}/>
+                    }
                 </div>
-                {isSmallScreen
-                    ? <ProductMobile product={data}/>
-                    : <ProductDesktop product={data}/>
-                }
-            </div>
-        </section>
+            </section>
+        </HelmetProvider>
     );
 };
 

@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getAdminBannerById, getAdminBanners} from "../../../store/adminSlices/adminBannerSlice";
+import {deleteBannerById, getAdminBannerById, getAdminBanners} from "../../../store/adminSlices/adminBannerSlice";
 import classes from './BannerContainer.module.css'
 import TopPanel from "../../TopPanel/TopPanel";
 import SecondaryButton from "../../buttons/SecondaryButton/SecondaryButton";
-import Preloader from "../../../components/ui/Preloader/Preloader";
 import BottomPanel from "../../BottomPanel/BottomPanel";
 import BannersTable from "./BannersTable/BannersTable";
 import EditBanner from "./EditBanner/EditBanner";
@@ -26,6 +25,10 @@ const BannerContainer = ({currentPage, setCurrentPage, amount, setAmount}) => {
         dispatch(getAdminBannerById(blogId))
         setIsOpenPopupEdit(true);
     }
+    const handleDeleteBannerById = (bannerId) => {
+        dispatch(deleteBannerById(bannerId))
+            .then(() => dispatch(getAdminBanners()))
+    }
 
     return (
         <div className={classes.wrapper}>
@@ -37,9 +40,11 @@ const BannerContainer = ({currentPage, setCurrentPage, amount, setAmount}) => {
             >
                 <SecondaryButton handleClick={() => setIsOpenPopupAdd(true)}>Додати баннер</SecondaryButton>
             </TopPanel>
-            {bannersLoading ? <Preloader color='primary'/> : (
-                <BannersTable bannersData={displayedBanners} handleClickEdit={handleClickEdit}/>
-            )}
+            <BannersTable
+                bannersData={displayedBanners}
+                handleClickEdit={handleClickEdit}
+                handleDeleteBannerById={handleDeleteBannerById}
+            />
             <EditBanner isOpenPopupEdit={isOpenPopupEdit} setIsOpenPopupEdit={setIsOpenPopupEdit}/>
             <AddBanner isOpenPopupAdd={isOpenPopupAdd} setIsOpenPopupAdd={setIsOpenPopupAdd}/>
             <BottomPanel

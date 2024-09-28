@@ -38,6 +38,8 @@ const Brands = () => {
                             brandId={brand.brandId}
                             image={brand.imageUrl}
                             altText={brand.title}
+                            metaKeywords={brand.metaKeywords}
+                            metaDescription={brand.metaDescription}
                         />
                     ))}
                 </div>

@@ -9,22 +9,34 @@ const initialState = {
 }
 const loadCategoryTree = createAsyncThunk(
     'navigation/loadCategoryTree',
-    async (categoryId) => {
-        return navigationApi.getCategoryTree(categoryId);
+    async (categoryId, {dispatch, rejectWithValue}) => {
+        try {
+            await dispatch(removeCategoryTree())
+            return await navigationApi.getCategoryTree(categoryId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 const loadPopularProductsByCategory = createAsyncThunk(
     'navigation/loadPopularProductsById',
-    async (categoryId, {dispatch}) => {
-        dispatch(removePopularProducts())
-        return navigationApi.getPopularProductsByCategory(categoryId);
+    async (categoryId, {dispatch, rejectWithValue}) => {
+        try {
+            await dispatch(removePopularProducts());
+            return await navigationApi.getPopularProductsByCategory(categoryId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 const loadCategory = createAsyncThunk(
     'navigation/loadCategory',
-    async (_, {dispatch}) => {
-        dispatch(removeCategoryTree())
-        return navigationApi.getCategory();
+    async (_, {rejectWithValue}) => {
+        try {
+            return await navigationApi.getCategory();
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 )
 

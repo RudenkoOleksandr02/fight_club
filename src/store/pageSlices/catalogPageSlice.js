@@ -12,36 +12,56 @@ const initialState = {
 
 const loadFilterPanel = createAsyncThunk(
     'catalog/loadFilterPanel',
-    async (categoryId) => {
-        return CatalogApi.getFilterPanelById(categoryId);
+    async (categoryId, {rejectWithValue}) => {
+        try {
+            return await CatalogApi.getFilterPanelById(categoryId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 
 const loadProductsByFilter = createAsyncThunk(
     'catalog/loadProductsByFilter',
-    async (params) => {
-        return CatalogApi.getProductsByFilter(params);
+    async (params, {rejectWithValue}) => {
+        try {
+            return await CatalogApi.getProductsByFilter(params);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 
 const getFirstCategoryByIdLoading = createAsyncThunk(
     'catalog/getFirstCategoryByIdLoading',
-    async (categoryId) => {
-        return CatalogApi.getCategoryById(categoryId);
+    async (categoryId, {rejectWithValue}) => {
+        try {
+            return await CatalogApi.getCategoryById(categoryId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 
 const getSecondaryCategoryByIdLoading = createAsyncThunk(
     'catalog/getSecondaryCategoryByIdLoading',
-    async (categoryId) => {
-        return CatalogApi.getCategoryById(categoryId);
+    async (categoryId, {rejectWithValue}) => {
+        try {
+            return await CatalogApi.getCategoryById(categoryId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 
 const getTertiaryCategoryByIdLoading = createAsyncThunk(
     'catalog/getTertiaryCategoryByIdLoading',
-    async (categoryId) => {
-        return CatalogApi.getCategoryById(categoryId);
+    async (categoryId, {rejectWithValue}) => {
+        try {
+            return await CatalogApi.getCategoryById(categoryId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 

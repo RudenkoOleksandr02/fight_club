@@ -23,7 +23,11 @@ const getOrdersLoading = createAsyncThunk(
 const loadPromocodesById = createAsyncThunk(
     'adminOrder/loadPromocodesById',
     async (promoId, {rejectWithValue}) => {
-        return adminApi.getPromocodesById(promoId);
+        try {
+            return await adminApi.getPromocodesById(promoId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 const getOrderByIdLoading = createAsyncThunk(
@@ -50,15 +54,20 @@ const updateOrderByIdLoading = createAsyncThunk(
 )
 const getAdminOrderFilterPanelLoading = createAsyncThunk(
     'adminOrder/getAdminOrderFilterPanelLoading',
-    async () => {
-        return adminApi.getAdminOrderFilterPanel()
+    async (_, {rejectWithValue}) => {
+        try {
+            return await adminApi.getAdminOrderFilterPanel()
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 )
 const getOrdersByAdminFilterPanelLoading = createAsyncThunk(
     'adminOrder/getOrdersByAdminFilterPanelLoading',
     async (params, {rejectWithValue}) => {
         try {
-            return adminApi.getOrdersByAdminFilterPanel(params)
+            await delay(500);
+            return await adminApi.getOrdersByAdminFilterPanel(params)
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
@@ -121,19 +130,19 @@ const adminOrderSlice = createSlice({
 export const {} = adminOrderSlice.actions;
 export default adminOrderSlice.reducer;
 
-export const getPromocodeById = (promoId) => async (dispatch) => {
+export const getPromocodeById = (promoId) => (dispatch) => {
     return dispatch(loadPromocodesById(promoId));
 };
-export const getOrderById = (orderId) => async (dispatch) => {
+export const getOrderById = (orderId) => (dispatch) => {
     return dispatch(getOrderByIdLoading(orderId))
 }
-export const updateOrderById = (orderId, params) => async (dispatch) => {
+export const updateOrderById = (orderId, params) => (dispatch) => {
     return dispatch(updateOrderByIdLoading({orderId, params}))
         .then(() => dispatch(getOrderById(orderId)));
 }
-export const getAdminOrderFilterPanel = () => async (dispatch) => {
+export const getAdminOrderFilterPanel = () => (dispatch) => {
     return dispatch(getAdminOrderFilterPanelLoading())
 }
-export const getOrdersByAdminFilterPanel = (params) => async (dispatch) => {
+export const getOrdersByAdminFilterPanel = (params) => (dispatch) => {
     return dispatch(getOrdersByAdminFilterPanelLoading(params))
 }

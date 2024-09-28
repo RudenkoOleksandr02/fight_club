@@ -7,13 +7,15 @@ export const returnStatusFromNumber = (number) => {
         case 2:
             return 'Відхилено';
         case 3:
-            return 'Треба відправити';
+            return 'Потрібно відправити';
         case 4:
             return 'Відправлено';
         case 5:
-            return 'Виконано';
+            return 'Завершено';
         case 6:
-            return 'Відшкодування';
+            return 'Повернення';
+        case 7:
+            return 'Офлайн'
         default:
             return 'Невідомий статус';
     }

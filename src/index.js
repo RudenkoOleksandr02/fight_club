@@ -30,61 +30,76 @@ import Checkout from "./pages/Checkout/Checkout";
 import UserPage from "./pages/UserPage/UserPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import LoginPanel from "./components/containers/LoginPanel/LoginPanel";
-import {getIsAuth} from "./store/authSlice";
-import {getUserShoppingCart} from "./store/pageSlices/cartPageSlice";
 import Contacts from "./pages/Contacts/Contacts";
 import ScrollToTopButton from "./components/ui/ScrollToTopButton/ScrollToTopButton";
 import Admin from "./admin/Admin";
-import {getCategory} from "./store/navigationSlice";
 import Preloader from "./components/ui/Preloader/Preloader";
 import Blog from "./pages/ContentShowcaseItem/Blog";
 import BannerPage from "./pages/Catalog/BannerPage/BannerPage";
 import Brand from "./pages/ContentShowcaseItem/Brand";
+import {initializeApp} from "./store/appSlice";
+import {getIsAdminAuth} from "./store/adminSlices/adminAuthSlice";
+import {getUserShoppingCart} from "./store/pageSlices/cartPageSlice";
+import {Helmet, HelmetProvider} from "react-helmet-async";
 
 const Root = () => {
-    const [openLoginPanel, setOpenLoginPanel] = React.useState(false);
-    const userButtonRef = React.useRef(null);
-    const {loading: categoryLoading} = useSelector((state) => state.navigation.categories);
-    const isAuth = useSelector(state => state.auth.isAuth);
+    const initialized = useSelector((state) => state.app.initialized);
+    const isAuth = useSelector((state) => state.auth.isAuth);
     const dispatch = useDispatch();
 
+    const [openLoginPanel, setOpenLoginPanel] = React.useState(false);
+    const userButtonRef = React.useRef(null);
+
+
     useEffect(() => {
-        dispatch(getIsAuth());
+        dispatch(initializeApp());
     }, []);
     useEffect(() => {
+        dispatch(getIsAdminAuth());
         dispatch(getUserShoppingCart());
-    }, [isAuth]);
-    useEffect(() => {
-        dispatch(getCategory())
-    }, [])
+    }, [isAuth])
 
-    if (categoryLoading) {
+
+    if (!initialized) {
         return <Preloader color='secondary' cover={true}/>
     }
 
     return (
-        <div>
-            <div className="login-container">
-                <LoginPanel
-                    openLoginPanel={openLoginPanel}
-                    setOpenLoginPanel={setOpenLoginPanel}
-                    userButtonRef={userButtonRef}
+        <HelmetProvider>
+            <Helmet>
+                <title>BLOSSOM</title>
+                <meta name="description"
+                      content="BLOSSOM - це ваш ідеальний вибір для натуральної та органічної косметики. У нас ви знайдете все для догляду за шкірою, волоссям та тілом: креми, сироватки, шампуні, бальзами, маски та багато іншого. Висока якість, природні інгредієнти та ефективність - основні принципи нашого бренду. Доглядайте за собою з любов'ю разом з BLOSSOM!"
                 />
-            </div>
-            <div className="app-container">
-                <Header
-                    setOpenLoginPanel={setOpenLoginPanel}
-                    openLoginPanel={openLoginPanel}
-                    userButtonRef={userButtonRef}
+                <meta name="keywords"
+                      content="косметика, натуральна косметика, органічна косметика, догляд за шкірою, догляд за волоссям, крем для обличчя, сироватка, шампунь, бальзам, маска для обличчя, BLOSSOM"
                 />
-                <Navigation/>
-                <Outlet/>
-                <Footer/>
-                <ScrollToTopButton/>
-                <ScrollToTop/>
-                <MobilePanel setOpenLoginPanel={setOpenLoginPanel} openLoginPanel={openLoginPanel}/>
+            </Helmet>
+            <div>
+                <div className="login-container">
+                    <LoginPanel
+                        openLoginPanel={openLoginPanel}
+                        setOpenLoginPanel={setOpenLoginPanel}
+                        userButtonRef={userButtonRef}
+                    />
+                </div>
+                <div className="app-container">
+                    <Header
+                        setOpenLoginPanel={setOpenLoginPanel}
+                        openLoginPanel={openLoginPanel}
+                        userButtonRef={userButtonRef}
+                    />
+                    <Navigation/>
+                    <div className="outlet">
+                        <Outlet/>
+                    </div>
+                    <Footer/>
+                    <ScrollToTopButton/>
+                    <ScrollToTop/>
+                    <MobilePanel setOpenLoginPanel={setOpenLoginPanel} openLoginPanel={openLoginPanel}/>
+                </div>
             </div>
-        </div>
+        </HelmetProvider>
     );
 };
 
@@ -105,10 +120,10 @@ const router = createBrowserRouter(
                 <Route path='/register' element={<RegisterPage/>}/>
                 <Route path='/user' element={<UserPage/>}/>
                 <Route path='/category/:id' element={<Products/>} errorElement={<ErrorPage/>}/>
-                <Route path='/product/:id' element={<Product />} errorElement={<ErrorPage/>}/>
+                <Route path='/product/:id' element={<Product/>} errorElement={<ErrorPage/>}/>
                 <Route path='*' element={<ErrorPage/>}/>
             </Route>
-            <Route path="/admin" element={<Admin />}/>
+            <Route path="/admin" element={<Admin/>}/>
         </>
     )
 );
@@ -117,7 +132,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-            <RouterProvider router={router}/>
+            <HelmetProvider>
+                <RouterProvider router={router}/>
+            </HelmetProvider>
         </PersistGate>
     </Provider>
 );

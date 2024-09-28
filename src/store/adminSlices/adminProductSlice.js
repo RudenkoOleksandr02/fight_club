@@ -94,6 +94,16 @@ const addProductLoading = createAsyncThunk(
         }
     }
 )
+const deleteProductByIdLoading = createAsyncThunk(
+    'adminProduct/deleteProductByIdLoading',
+    async (productId, {rejectWithValue}) => {
+        try {
+            return await adminApi.deleteProductById(productId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
 
 const initialState = {
     product: initialObject,
@@ -180,6 +190,15 @@ const adminProductSlice = createSlice({
             .addCase(importFromExcelLoading.rejected, (state, action) => (
                 handleRejected(state, action, 'products'))
             )
+            .addCase(deleteProductByIdLoading.pending, (state) => (
+                handlePending(state, 'products'))
+            )
+            .addCase(deleteProductByIdLoading.fulfilled, (state, action) => {
+                state.product.loading = false;
+            })
+            .addCase(deleteProductByIdLoading.rejected, (state, action) => (
+                handleRejected(state, action, 'products'))
+            )
     }
 })
 
@@ -255,4 +274,7 @@ export const toggleIsNew = (productId, boolean) => async (dispatch) => {
 export const addProduct = (params) => (dispatch) => {
     return dispatch(addProductLoading(params));
 };
+export const deleteProductById = (productId) => (dispatch) => {
+    return dispatch(deleteProductByIdLoading(productId));
+}
 

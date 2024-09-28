@@ -14,8 +14,8 @@ import {useSelector} from "react-redux";
 import Preloader from "../../../../components/ui/Preloader/Preloader";
 import ToggleButton from "../../../buttons/ToggleButton/ToggleButton";
 
-const OrderTable = ({handleClickEdit, sortOption, handleSortOption}) => {
-    const {orders: {data, loading}} = useSelector(state => state.admin.adminOrder);
+const OrderTable = ({handleClickEdit, sortOption, handleSortOption, orderData}) => {
+    const {orders: {loading}} = useSelector(state => state.admin.adminOrder);
 
     const getRotatedFromSortOption = (sortOption, name) => {
         return sortOption.endsWith('_desc') && sortOption.startsWith(name);
@@ -49,12 +49,12 @@ const OrderTable = ({handleClickEdit, sortOption, handleSortOption}) => {
                 <Td fontWeight='700'>Дії</Td>
             </Tr>
             {loading ? <Preloader color='primary'/> : (
-                data.orders.map(order => (
+                orderData.orders.map(order => (
                     <Tr key={order.orderId} templateColumns='1fr 120px 251px 109px 170px 131px'>
                         <Td justifyContent='left'>
                             <div className={classes.orderIdAndPhone}>
                                 <span>{order.orderId}</span>
-                                <button className={classes.phoneButt}><IcoPhone/></button>
+                                {/*<button className={classes.phoneButt}><IcoPhone/></button>*/}
                             </div>
                         </Td>
                         <Td>{formatDate(order.orderDate)}</Td>
@@ -64,7 +64,7 @@ const OrderTable = ({handleClickEdit, sortOption, handleSortOption}) => {
                         <Td>
                             <div className={classes.icoBtns}>
                                 <IcoButton svgIco={<IcoEdit/>} onClick={() => handleClickEdit(order.orderId)}/>
-                                <IcoButton svgIco={<IcoDelete/>}/>
+                                {/*<IcoButton svgIco={<IcoDelete/>}/>*/}
                             </div>
                         </Td>
                     </Tr>

@@ -5,8 +5,8 @@ import {adminApi} from "../../api/adminApi";
 const getAdminCharacteristicsLoading = createAsyncThunk(
     'admin/getAdminCharacteristicsLoading',
     async (_, {rejectWithValue}) => {
-        await delay(500);
         try {
+            await delay(500);
             return await adminApi.getCharacteristics();
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -16,8 +16,8 @@ const getAdminCharacteristicsLoading = createAsyncThunk(
 const getAdminCharacteristicByIdLoading = createAsyncThunk(
     'admin/getAdminCharacteristicByIdLoading',
     async (characteristicId, {rejectWithValue}) => {
-        await delay(500);
         try {
+            await delay(500);
             return await adminApi.getCharacteristicById(characteristicId);
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -59,6 +59,16 @@ const getCharacteristicDescsByTitleLoading = createAsyncThunk(
     async (characteristicTitle, {rejectWithValue}) => {
         try {
             return await adminApi.getCharacteristicDescsByTitle(characteristicTitle);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+const deleteCharacteristicByIdLoading = createAsyncThunk(
+    'admin/deleteCharacteristicByIdLoading',
+    async (characteristicId, {rejectWithValue}) => {
+        try {
+            return await adminApi.deleteCharacteristicById(characteristicId);
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
@@ -137,4 +147,7 @@ export const getCharacteristicTitlesBySearchTerm = (searchTerm) => (dispatch) =>
 }
 export const getCharacteristicDescsByTitle = (characteristicTitle) => (dispatch) => {
     return dispatch(getCharacteristicDescsByTitleLoading(characteristicTitle))
+}
+export const deleteCharacteristicById = (characteristicId) => (dispatch) => {
+    return dispatch(deleteCharacteristicByIdLoading(characteristicId))
 }

@@ -1,21 +1,28 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import reviewsApi from "../api/reviewsApi";
-import {delay, handleFulfilled, handlePending, handleRejected, initialObject} from "../common/utils/forSlice";
+import {handleFulfilled, handlePending, handleRejected, initialObject} from "../common/utils/forSlice";
 
 const initialState = {
     reviews: initialObject
 }
 const getReviewsInProductLoading = createAsyncThunk(
     'reviewsSlice/getReviewsInProductLoading',
-    async ({productId, page, pageSize}) => {
-        await delay(300);
-        return reviewsApi.getReviewsInProduct(productId, page, pageSize);
+    async ({productId, page, pageSize}, {rejectWithValue}) => {
+        try {
+            return await reviewsApi.getReviewsInProduct(productId, page, pageSize);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 const postReviewsLoading = createAsyncThunk(
     'reviewsSlice/postReviewsLoading',
-    async (params) => {
-        return reviewsApi.postReviews(params);
+    async (params, {rejectWithValue}) => {
+        try {
+            return await reviewsApi.postReviews(params);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 

@@ -2,13 +2,12 @@ import React, {useEffect, useState} from 'react';
 import classes from './CharacteristicsContainer.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {
+    deleteCharacteristicById,
     getCharacteristicDescsByTitle,
     getCharacteristicTitlesBySearchTerm
 } from "../../../store/adminSlices/adminCharacteristicsSlice";
 import TopPanel from "../../TopPanel/TopPanel";
 import SecondaryButton from "../../buttons/SecondaryButton/SecondaryButton";
-import Preloader from "../../../components/ui/Preloader/Preloader";
-import AddBlog from "../BlogsContainer/AddBlog/AddBlog";
 import BottomPanel from "../../BottomPanel/BottomPanel";
 import CharacteristicsTable from "./CharacteristicsTable/CharacteristicsTable";
 import EditCharacteristic from "./EditCharacteristic/EditCharacteristic";
@@ -19,8 +18,7 @@ const CharacteristicsContainer = ({currentPage, setCurrentPage, amount, setAmoun
     const [isOpenPopupAdd, setIsOpenPopupAdd] = useState(false);
     const {
         characteristicTitles: {
-            data: characteristicsData,
-            loading: characteristicsLoading
+            data: characteristicsData
         }
     } = useSelector(state => state.admin.adminCharacteristics);
     const dispatch = useDispatch();
@@ -36,6 +34,11 @@ const CharacteristicsContainer = ({currentPage, setCurrentPage, amount, setAmoun
         setIsOpenPopupEdit(true);
     }
 
+    const handleDeleteCharacteristicById = (characteristicId) => {
+        dispatch(deleteCharacteristicById(characteristicId))
+            .then(() => dispatch(getCharacteristicTitlesBySearchTerm('')))
+    }
+
     return (
         <div className={classes.wrapper}>
             <TopPanel
@@ -46,13 +49,14 @@ const CharacteristicsContainer = ({currentPage, setCurrentPage, amount, setAmoun
             >
                 <SecondaryButton handleClick={() => setIsOpenPopupAdd(true)}>Додати характеристику</SecondaryButton>
             </TopPanel>
-            {characteristicsLoading ? <Preloader color='primary'/> : (
-                <CharacteristicsTable characteristicsData={displayedCharacteristics} handleClickEdit={handleClickEdit}/>
-            )}
+            <CharacteristicsTable
+                characteristicsData={displayedCharacteristics}
+                handleClickEdit={handleClickEdit}
+                handleDeleteCharacteristicById={handleDeleteCharacteristicById}
+            />
             <EditCharacteristic
                 isOpenPopupEdit={isOpenPopupEdit}
                 setIsOpenPopupEdit={setIsOpenPopupEdit}
-
             />
             <AddCharacteristic isOpenPopupAdd={isOpenPopupAdd} setIsOpenPopupAdd={setIsOpenPopupAdd}/>
             <BottomPanel

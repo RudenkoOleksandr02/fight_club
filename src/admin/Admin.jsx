@@ -14,21 +14,23 @@ import PromocodeContainer from "./containers/PromocodeContainer/PromocodeContain
 import CharacteristicsContainer from "./containers/CharacteristicsContainer/CharacteristicsContainer";
 import BrandsContainer from "./containers/BrandsContainer/BrandsContainer";
 import CommentsContainer from "./containers/CommentsContainer/CommentsContainer";
+import {getIsAuth} from "../store/authSlice";
 
 const Admin = () => {
-    const navigate = useNavigate();
-    const {adminAuth: {data, loading}} = useSelector(state => state.admin.adminAuth);
+    const {isAuthAdmin, loading} = useSelector(state => state.admin.adminAuth);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        if (!loading && !data) {
+        dispatch(getIsAuth())
+            .then(() => dispatch(getIsAdminAuth()))
+    }, [])
+
+    useEffect(() => {
+        if (!isAuthAdmin && !loading) {
             navigate('/');
         }
-    }, [data, loading]);
-
-    useEffect(() => {
-        dispatch(getIsAdminAuth());
-    }, []);
+    }, [isAuthAdmin, loading]);
 
     // ASIDE
     const [navigation, setNavigation] = useState({
@@ -39,7 +41,6 @@ const Admin = () => {
         isOpenCharacteristics: false,
         isOpenBlogs: false,
         isOpenBrands: false,
-        isOpenUsers: false,
         isOpenParams: false,
         isOpenComments: false,
     });
@@ -52,7 +53,6 @@ const Admin = () => {
             isOpenCharacteristics: false,
             isOpenBlogs: false,
             isOpenBrands: false,
-            isOpenUsers: false,
             isOpenParams: false,
             isOpenComments: false,
             [key]: true
@@ -110,8 +110,6 @@ const Admin = () => {
                                                isOpen={navigation.isOpenBrands}>Бренди</PrimaryButton>
                                 <PrimaryButton handleClick={() => handleOpen('isOpenBlogs')}
                                                isOpen={navigation.isOpenBlogs}>Блог</PrimaryButton>
-                                {/*<PrimaryButton handleClick={() => handleOpen('isOpenUsers')}
-                                               isOpen={navigation.isOpenUsers}>Користувачі</PrimaryButton>*/}
                                 <PrimaryButton handleClick={() => handleOpen('isOpenComments')}
                                                 isOpen={navigation.isOpenComments}>Коментарі</PrimaryButton>
                                 <PrimaryButton handleClick={() => handleOpen('isOpenBanner')}
@@ -180,10 +178,10 @@ const Admin = () => {
                         )}
                         {navigation.isOpenComments && (
                             <CommentsContainer
-                                currentPage={currentPagePromocode}
-                                setCurrentPage={setCurrentPagePromocode}
-                                amount={amountPromocode}
-                                setAmount={setAmountPromocode}
+                                currentPage={currentPageComments}
+                                setCurrentPage={setCurrentPageComments}
+                                amount={amountComments}
+                                setAmount={setAmountComments}
                             />
                         )}
                     </section>

@@ -6,7 +6,7 @@ const RightPanel = (props) => {
     return (
         <div>
             <MainBlock {...props}/>
-            <DieBlock dieNumbers={props.dieNumbers}/>
+            {/*<DieBlock dieNumbers={props.dieNumbers}/>*/}
         </div>
     );
 };

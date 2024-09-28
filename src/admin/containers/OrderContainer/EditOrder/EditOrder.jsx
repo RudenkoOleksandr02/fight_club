@@ -15,8 +15,6 @@ const EditOrder = ({isOpenPopupEdit, setIsOpenPopupEdit, amount, currentPage}) =
     const prevOrderDataForOnlyTrack = useRef({});
     const [isSaveButtonActive, setIsSaveButtonActive] = useState(false);
 
-    console.log(orderData)
-
     // Обновление orderDataForOnlyChange и зачистка prevBlogDataForOnlyTrack.current
     useEffect(() => {
         if (orderData) {

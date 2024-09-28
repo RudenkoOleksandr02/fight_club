@@ -16,6 +16,7 @@ import BannerBlock from "../../../components/ui/blocks/BannerBlock/BannerBlock";
 import AbsenceBlock from "../../../components/ui/blocks/AbsenceBlock/AbsenceBlock";
 import useProductCatalog from '../../../common/hooks/useProductCatalog';
 import Breadcrumbs from "../../../components/ui/Breadcrumbs/Breadcrumbs";
+import {Helmet, HelmetProvider} from "react-helmet-async";
 
 const BannerPage = () => {
     const { id: bannerId } = useParams();
@@ -64,93 +65,104 @@ const BannerPage = () => {
     if (isPageLoading) return <Preloader color='secondary' cover={true} />;
 
     return (
-        <section>
-            <div className={classes.wrapper}>
-                <div className={classes.breadCrumbs}>
-                    <Breadcrumbs
-                        links={[
-                            {
-                                name: bannerData.title,
-                                id: `/banner/${bannerData.bannerId}`
-                            }
-                        ]}
-                    />
-                </div>
-                {(bannerData.desktopImageUrl ||
-                    bannerData.laptopImageUrl ||
-                    bannerData.tabletImageUrl ||
-                    bannerData.phoneImageUrl) && (
-                    <div className={classes.banner}>
-                        <BannerBlock
-                            text={bannerData.description}
-                            images={{
-                                desktopImage: bannerData.desktopImageUrl,
-                                laptopImage: bannerData.laptopImageUrl,
-                                tabletImage: bannerData.tabletImageUrl,
-                                phoneImage: bannerData.phoneImageUrl,
-                                altText: bannerData.altText,
-                            }}
+        <HelmetProvider>
+            <Helmet>
+                <title>BLOSSOM</title>
+                <meta name="description"
+                      content={bannerData.metaDescription !== null ? bannerData.metaDescription : ''}
+                />
+                <meta name="keywords"
+                      content={bannerData.metaKeywords !== null ? bannerData.metaKeywords : ''}
+                />
+            </Helmet>
+            <section>
+                <div className={classes.wrapper}>
+                    <div className={classes.breadCrumbs}>
+                        <Breadcrumbs
+                            links={[
+                                {
+                                    name: bannerData.title,
+                                    id: `/banner/${bannerData.bannerId}`
+                                }
+                            ]}
                         />
                     </div>
-                )}
-                {!productsLoading && (!productsData?.products?.length) ? (
-                    <div className={classes.absence}>
-                        <AbsenceBlock
-                            title='Будь ласка, зайдіть пізніше.'
-                            text='Товари у цій категорії тимчасово відсутні.'
-                        />
-                    </div>
-                ) : (
-                    <div className={classes.main}>
-                        <div
-                            className={`${classes.filterPanel} ${
-                                isVisibleFilterPanelInMobile ? classes.visible : ''
-                            }`}
-                        >
-                            {filterPanelLoading ? (
-                                <Preloader color='tertiary' />
+                    {(bannerData.desktopImageUrl ||
+                        bannerData.laptopImageUrl ||
+                        bannerData.tabletImageUrl ||
+                        bannerData.phoneImageUrl) && (
+                        <div className={classes.banner}>
+                            <BannerBlock
+                                text={bannerData.description}
+                                images={{
+                                    desktopImage: bannerData.desktopImageUrl,
+                                    laptopImage: bannerData.laptopImageUrl,
+                                    tabletImage: bannerData.tabletImageUrl,
+                                    phoneImage: bannerData.phoneImageUrl,
+                                    altText: bannerData.altText,
+                                }}
+                            />
+                        </div>
+                    )}
+                    {!productsLoading && (!productsData?.products?.length) ? (
+                        <div className={classes.absence}>
+                            <AbsenceBlock
+                                title='Будь ласка, зайдіть пізніше.'
+                                text='Товари у цій категорії тимчасово відсутні.'
+                            />
+                        </div>
+                    ) : (
+                        <div className={classes.main}>
+                            <div
+                                className={`${classes.filterPanel} ${
+                                    isVisibleFilterPanelInMobile ? classes.visible : ''
+                                }`}
+                            >
+                                {filterPanelLoading ? (
+                                    <Preloader color='tertiary'/>
+                                ) : (
+                                    <FilterPanel
+                                        handleApplyFilter={handleApplyFilter}
+                                        handleResetFilter={handleResetFilter}
+                                        onCloseFilterPanelInMobile={() => setIsVisibleFilterPanelInMobile(false)}
+                                        forCategories={{
+                                            setCategoryIds,
+                                            categoryIds,
+                                            categories: filterPanelData?.categories || [],
+                                        }}
+                                        forCharacteristics={{
+                                            setCharacteristicIds,
+                                            characteristicIds,
+                                            characteristics: filterPanelData?.characteristics || [],
+                                        }}
+                                        forBrands={{
+                                            setBrandIds,
+                                            brandIds,
+                                            brands: filterPanelData?.brands || [],
+                                        }}
+                                        forMinPrice={{minPrice, setMinPrice}}
+                                        forMaxPrice={{maxPrice, setMaxPrice}}
+                                    />
+                                )}
+                            </div>
+                            <TopPanel
+                                totalCount={productsData?.totalCount}
+                                currentPage={currentPage}
+                                amount={amount}
+                                handleChangePage={setCurrentPage}
+                                setSortBy={setSortBy}
+                                onOpenFilterPanelInMobile={() => setIsVisibleFilterPanelInMobile(true)}
+                            />
+                            {productsLoading ? (
+                                <Preloader color='secondary' overflowHidden={false}/>
                             ) : (
-                                <FilterPanel
-                                    handleApplyFilter={handleApplyFilter}
-                                    handleResetFilter={handleResetFilter}
-                                    onCloseFilterPanelInMobile={() => setIsVisibleFilterPanelInMobile(false)}
-                                    forCategories={{
-                                        setCategoryIds,
-                                        categoryIds,
-                                        categories: filterPanelData?.categories || [],
-                                    }}
-                                    forCharacteristics={{
-                                        setCharacteristicIds,
-                                        characteristicIds,
-                                        characteristics: filterPanelData?.characteristics || [],
-                                    }}
-                                    forBrands={{
-                                        setBrandIds,
-                                        brandIds,
-                                        brands: filterPanelData?.brands || [],
-                                    }}
-                                    forMinPrice={{ minPrice, setMinPrice }}
-                                    forMaxPrice={{ maxPrice, setMaxPrice }}
-                                />
+                                <CardListContainer productsData={productsData}/>
                             )}
                         </div>
-                        <TopPanel
-                            totalCount={productsData?.totalCount}
-                            currentPage={currentPage}
-                            amount={amount}
-                            handleChangePage={setCurrentPage}
-                            setSortBy={setSortBy}
-                            onOpenFilterPanelInMobile={() => setIsVisibleFilterPanelInMobile(true)}
-                        />
-                        {productsLoading ? (
-                            <Preloader color='secondary' overflowHidden={false} />
-                        ) : (
-                            <CardListContainer productsData={productsData} />
-                        )}
-                    </div>
-                )}
-            </div>
-        </section>
+                    )}
+                </div>
+            </section>
+        </HelmetProvider>
     );
 };
 
