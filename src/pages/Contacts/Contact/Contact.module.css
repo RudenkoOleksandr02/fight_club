@@ -57,9 +57,7 @@
     .submit {
         flex-direction: row;
         height: 46px;
-    }
-    .submit > button {
-        width: 232px;
+        gap: 10px;
     }
 }
 

@@ -16,7 +16,7 @@ const LeftPanel = () => {
             </DieBlock>
             <DieBlock>
                 <h3>Пошта</h3>
-                <p>{contacts.mail}</p>
+                <p className={classes.email}>{contacts.mail}</p>
             </DieBlock>
             <DieBlock>
                 <h3>Адреса</h3>

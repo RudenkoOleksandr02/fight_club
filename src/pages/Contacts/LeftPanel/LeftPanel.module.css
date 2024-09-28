@@ -13,3 +13,7 @@
     font-weight: 500;
     font-size: 20px;
 }
+.email {
+    word-break: break-all;
+    max-width: 100%;
+}
