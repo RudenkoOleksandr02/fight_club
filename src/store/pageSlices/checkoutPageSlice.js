@@ -156,7 +156,7 @@ export const {
 export const checkout = (params) => async (dispatch, getState) => {
     const state = getState();
     const isAuth = state.auth.isAuth;
-    const isAdminAuth = state.admin.adminAuth.data;
+    const isAdminAuth = state.admin.adminAuth.isAuthAdmin;
 
     if (isAuth && !isAdminAuth) {
         return await dispatch(checkoutForUserLoading(params));

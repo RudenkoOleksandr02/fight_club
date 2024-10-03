@@ -98,7 +98,7 @@ const Cashback = ({handleChangeCashbackToUse, cashbackToUse, isAuthAdmin}) => {
         <div className={classes.forGuest}>
             {typeof data === 'number' ? (
                 <p className={classes.success}>
-                    Ваш доступний кешбек <span>{data}$</span>. Авторизуйтесь, щоб його використати.
+                    Ваш доступний кешбек <span>{data}₴</span>. Авторизуйтесь, щоб його використати.
                 </p>
             ) : (
                 <>
