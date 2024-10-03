@@ -190,7 +190,7 @@ const Cashback = ({handleChangeCashbackToUse, cashbackToUse, isAuthAdmin}) => {
                             max={data}
                             value={localAdminCashback}
                         /> /
-                        <span>{data}</span>
+                        <span>{data}₴</span>
                     </div>
                 </div>
             )}

@@ -121,7 +121,7 @@
 .priceStockRatingContainer .inStock.absence {
     color: #C13E3E;
 }
-.priceStockRatingContainer svg {
+.priceStockRatingContainer .ratingAndStock svg {
     height: 11px !important;
 }
 /* BUTTON CONTAINER */
