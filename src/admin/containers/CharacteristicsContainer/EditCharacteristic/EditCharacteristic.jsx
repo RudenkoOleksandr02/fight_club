@@ -1,81 +1,79 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {getModifiedFields} from "../../../../common/utils/getModifiedFields";
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from "react-redux";
+import { getModifiedFields } from "../../../../common/utils/getModifiedFields";
 import EditableEntity from "../../../EditableEntity/EditableEntity";
 import CharacteristicPopup from "../CharacteristicPopup/CharacteristicPopup";
 import {
     addAdminCharacteristic,
-    getAdminCharacteristicById, getCharacteristicDescsByTitle, getCharacteristicTitlesBySearchTerm,
+    deleteCharacteristicById,
+    getAdminCharacteristics,
     updateAdminCharacteristicById
 } from "../../../../store/adminSlices/adminCharacteristicsSlice";
 
-const EditCharacteristic = ({isOpenPopupEdit, setIsOpenPopupEdit}) => {
+const EditCharacteristic = ({ isOpenPopupEdit, setIsOpenPopupEdit, currentTitle, characteristicsData }) => {
     const dispatch = useDispatch();
-    const {
-        characteristicDescs: {
-            data: characteristicDescsData,
-            loading: characteristicDescsLoading
-        }
-    } = useSelector(state => state.admin.adminCharacteristics);
-    const {
-        characteristic: {
-            data: characteristicData,
-            loading: characteristicLoading
-        }
-    } = useSelector(state => state.admin.adminCharacteristics);
-
-    const [showedPreloader, setShowedPreloader] = useState(false);
-
-    useEffect(() => {
-        if (!!characteristicDescsData.length) {
-            dispatch(getAdminCharacteristicById(characteristicDescsData[0].id))
-        }
-    }, [characteristicDescsData]);
-
     const [initialObject, setInitialObject] = useState({});
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
-        if (characteristicData) {
+        if (characteristicsData) {
+            const currentCharacteristic = characteristicsData.find(item => item.title === currentTitle);
             setInitialObject({
-                characteristicTitle: characteristicData.title || '',
-                characteristicDescs: characteristicDescsData || []
+                characteristicTitle: currentCharacteristic?.title || '',
+                characteristicDescs: currentCharacteristic?.descriptionsWithIds || []
             });
         }
-    }, [characteristicData]);
+    }, [characteristicsData, currentTitle]);
 
     const trackerFields = (obj = {}) => {
         return {
             characteristicDescs: obj.characteristicDescs
-        }
-    }
+        };
+    };
+
     const handleSave = async (prevDataForOnlyTrack, dataForOnlyTrack) => {
-        setShowedPreloader(true);
         try {
+            setLoading(true);
             const modifiedData = getModifiedFields(prevDataForOnlyTrack, dataForOnlyTrack);
 
+            const modifiedDescs = modifiedData.characteristicDescs || [];
+            const prevDescs = prevDataForOnlyTrack.characteristicDescs || [];
+
+            const modifiedDataIds = new Set(modifiedDescs.map(item => String(item.id)));
+
             // ADD
-            for (const item of modifiedData.characteristicDescs) {
-                const id = String(item.id);
-                if (id.startsWith('new')) {
-                    await dispatch(addAdminCharacteristic({ title: dataForOnlyTrack.characteristicTitle, desc: item.desc }));
-                }
-            }
+            const addPromises = modifiedDescs
+                .filter(item => String(item.id).startsWith('new'))
+                .map(item => dispatch(addAdminCharacteristic({
+                    title: initialObject.characteristicTitle,
+                    desc: item.description
+                })));
+            await Promise.all(addPromises);
 
             // UPDATE
-            for (const item of modifiedData.characteristicDescs) {
-                const id = String(item.id);
-                if (!id.startsWith('new')) {
-                    await dispatch(updateAdminCharacteristicById(item.id, { title: dataForOnlyTrack.characteristicTitle, desc: item.desc }));
-                }
-            }
+            const updatePromises = modifiedDescs
+                .filter(item => !String(item.id).startsWith('new'))
+                .map(item => dispatch(updateAdminCharacteristicById(item.id, {
+                    title: initialObject.characteristicTitle,
+                    desc: item.description
+                })));
+            await Promise.all(updatePromises);
 
-            await dispatch(getCharacteristicDescsByTitle(dataForOnlyTrack.characteristicTitle));
-            await dispatch(getCharacteristicTitlesBySearchTerm(''));
+            // DELETE
+            const prevDataIds = new Set(prevDescs.map(item => String(item.id)));
+            const deletedIds = [...prevDataIds].filter(id => !modifiedDataIds.has(id));
+            const deletePromises = deletedIds
+                .filter(id => !id.startsWith('new'))
+                .map(id => dispatch(deleteCharacteristicById(id)));
+            await Promise.all(deletePromises);
+
+            await dispatch(getAdminCharacteristics());
+            setLoading(false);
         } catch (error) {
+            setLoading(false);
             console.error('Ошибка при сохранении характеристик:', error);
-        } finally {
-            setShowedPreloader(false);
         }
-    }
+    };
 
     return (
         <EditableEntity
@@ -83,9 +81,10 @@ const EditCharacteristic = ({isOpenPopupEdit, setIsOpenPopupEdit}) => {
             setIsOpenPopup={setIsOpenPopupEdit}
             handleSave={handleSave}
             initialObject={initialObject}
-            loading={showedPreloader}
+            loading={loading}
             trackerFields={trackerFields}
             Component={CharacteristicPopup}
+            editMode={true}
         />
     );
 };

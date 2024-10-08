@@ -52,8 +52,8 @@ const AddCharacteristicsDesc = ({characteristic, setCharacteristics, characteris
                     ) : (
                         characteristicsDesc.data.map(option => (
                             <button className={classes.option} key={uuidv4()}
-                                    onClick={() => handleSelectCharacteristicDesc(option.desc, option.id)}>
-                                {option.desc}
+                                    onClick={() => handleSelectCharacteristicDesc(option.description, option.id)}>
+                                {option.description}
                             </button>
                         )))}
                 modificationStyle={{

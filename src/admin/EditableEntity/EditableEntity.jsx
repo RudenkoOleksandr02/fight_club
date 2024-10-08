@@ -9,8 +9,10 @@ const EditableEntity = ({
                             handleSave,
                             initialObject = {},
                             loading,
-                            trackerFields = () => {},
-                            Component
+                            trackerFields = () => {
+                            },
+                            Component,
+                            editMode = false
                         }) => {
     const [dataForOnlyChange, setDataForOnlyChange] = useState({});
     const [dataForOnlyTrack, setDataForOnlyTrack] = useState({});
@@ -65,6 +67,7 @@ const EditableEntity = ({
                             setData={setDataForOnlyChange}
                             isSaveButtonActive={isSaveButtonActive}
                             handleSave={modifyHandleSave}
+                            editMode={editMode}
                         />
                     </PopupAdmin>
                 )

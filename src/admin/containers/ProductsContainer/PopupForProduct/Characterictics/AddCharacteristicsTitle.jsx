@@ -18,8 +18,8 @@ const AddCharacteristicsTitle = ({setCharacteristics}) => {
     }, [searchCharacteristicsTitle]);
     const [mutatedCharacteristicsTitle, setMutatedCharacteristicsTitle] = useState([])
     useEffect(() => {
-        setMutatedCharacteristicsTitle(characteristicsTitle.data.map(title => ({
-            title,
+        setMutatedCharacteristicsTitle(characteristicsTitle.data.map(item => ({
+            title: item.title,
             characteristicId: uuidv4(),
             desc: null
         })))

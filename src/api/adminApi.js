@@ -142,6 +142,14 @@ export const adminApi = {
         return instance.get(AdminUrls.SearchCategories(searchTerm))
             .then(response => response.data)
     },
+    searchMainCategories(searchTerm) {
+        return instance.get(AdminUrls.SearchMainCategories(searchTerm))
+            .then(response => response.data)
+    },
+    searchAdditionalCategories(searchTerm, mainCategoryId) {
+        return instance.get(AdminUrls.SearchAdditionalCategories(searchTerm, mainCategoryId))
+            .then(response => response.data)
+    },
     getAdminFilterPanel() {
         return instance.get(AdminUrls.GetAdminFilterPanel)
             .then(response => response.data)
@@ -266,8 +274,16 @@ export const adminApi = {
         return instance.get(AdminUrls.GetCharacteristicDescsByTitle(characteristicTitle))
             .then(response => response.data)
     },
+    getCharacteristicTree() {
+        return instance.get(AdminUrls.GetCharacteristicTree)
+            .then(response => response.data)
+    },
     deleteCharacteristicById(characteristicId) {
         return instance.delete(AdminUrls.DeleteCharacteristicById(characteristicId))
+            .then(response => response.data)
+    },
+    deleteCharacteristicAll(title) {
+        return instance.delete(AdminUrls.DeleteCharacteristicAll(title))
             .then(response => response.data)
     },
 

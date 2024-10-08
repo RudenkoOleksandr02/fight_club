@@ -19,7 +19,7 @@ const AdditionalCategories = ({productData, setProductData}) => {
     return (
         <div className={classes.wrapper}>
             <DieBlock title='Додаткові категорії' withoutButton={true}>
-                <AddCategories setProductData={setProductData}/>
+                <AddCategories setProductData={setProductData} mainCategoryId={productData.mainCategory?.categoryId}/>
                 <Table>
                     {!!productData.additionalCategories.length ? productData.additionalCategories.map((category, index) => (
                         <Tr key={index} templateColumns='1fr 44px'>

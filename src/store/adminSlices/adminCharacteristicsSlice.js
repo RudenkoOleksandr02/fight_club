@@ -7,7 +7,7 @@ const getAdminCharacteristicsLoading = createAsyncThunk(
     async (_, {rejectWithValue}) => {
         try {
             await delay(500);
-            return await adminApi.getCharacteristics();
+            return await adminApi.getCharacteristicTree();
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
@@ -69,6 +69,16 @@ const deleteCharacteristicByIdLoading = createAsyncThunk(
     async (characteristicId, {rejectWithValue}) => {
         try {
             return await adminApi.deleteCharacteristicById(characteristicId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+const deleteCharacteristicAllLoading = createAsyncThunk(
+    'admin/deleteCharacteristicAllLoading',
+    async (title, {rejectWithValue}) => {
+        try {
+            return await adminApi.deleteCharacteristicAll(title);
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
@@ -150,4 +160,8 @@ export const getCharacteristicDescsByTitle = (characteristicTitle) => (dispatch)
 }
 export const deleteCharacteristicById = (characteristicId) => (dispatch) => {
     return dispatch(deleteCharacteristicByIdLoading(characteristicId))
+}
+export const deleteCharacteristicAll = (title) => (dispatch) => {
+    return dispatch(deleteCharacteristicAllLoading(title))
+        .then(() => dispatch(getAdminCharacteristicsLoading()))
 }

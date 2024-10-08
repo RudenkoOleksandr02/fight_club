@@ -2,19 +2,21 @@ import React, {useEffect, useState} from 'react';
 import classes from "./AdditionalCategories.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {ReactComponent as IcoPlus} from './../../../../images/icoPlus.svg';
-import {searchCategories} from "../../../../../store/adminSlices/adminProductSlice";
+import {searchAdditionalCategories} from "../../../../../store/adminSlices/adminProductSlice";
 import ButtonWithModal from "../../../../buttons/ButtonWithModal/ButtonWithModal";
 import PrimaryButton from "../../../../buttons/PrimaryButton/PrimaryButton";
 import ContentWithSearch from "../../../../ContentWithSearch/ContentWithSearch";
 
-const AddCategories = ({setProductData}) => {
-    const categoriesSearch = useSelector(state => state.admin.adminProduct.categoriesSearch);
+const AddCategories = ({setProductData,  mainCategoryId}) => {
+    const categoriesSearch = useSelector(state => state.admin.adminProduct.additionalCategoriesSearch);
     const [isOpenPopupCategories, setIsOpenPopupCategories] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(searchCategories(searchTerm));
-    }, [searchTerm]);
+        if (mainCategoryId !== undefined) {
+            dispatch(searchAdditionalCategories(searchTerm, mainCategoryId));
+        }
+    }, [searchTerm, mainCategoryId]);
     const handleSelectCategory = (categoryId) => {
         const handleCategories = categoriesSearch.data.find(category => category.categoryId === categoryId)
         setProductData(prevState => ({

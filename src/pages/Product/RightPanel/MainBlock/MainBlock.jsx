@@ -73,8 +73,8 @@ const MainBlock = (props) => {
 
             <div className={classes.priceContainer}>
                 <div className={classes.price}>
-                    <span>{roundNumber(price)}₴</span>
-                    <span>{roundNumber(priceWithDiscount(price, discount))}₴</span>
+                    {!!discount && <span className={classes.discount}>{roundNumber(price)}₴</span>}
+                    <span className={classes.totalPrice}>{roundNumber(priceWithDiscount(price, discount))}₴</span>
                 </div>
                 <div className={`${classes.selected} ${!isAuth ? classes.notActive : ''}`} onClick={() => {
                     if (isAuth) {

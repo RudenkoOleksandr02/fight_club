@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {searchCategories} from "../../../../../store/adminSlices/adminProductSlice";
+import {searchMainCategories} from "../../../../../store/adminSlices/adminProductSlice";
 import SelectButtonWithPlaceholder from "../../../../buttons/SelectButtonWithPlaceholder/SelectButtonWithPlaceholder";
 import ContentWithSearch from "../../../../ContentWithSearch/ContentWithSearch";
 
 const MainCategory = ({productData, setProductData}) => {
-    const categoriesSearch = useSelector(state => state.admin.adminProduct.categoriesSearch);
+    const categoriesSearch = useSelector(state => state.admin.adminProduct.mainCategoriesSearch);
     const dispatch = useDispatch();
     const [isOpenPopupCategories, setIsOpenPopupCategories] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        dispatch(searchCategories(searchTerm));
+        dispatch(searchMainCategories(searchTerm));
     }, [searchTerm]);
 
     const handleSelectCategory = (categoryId) => {

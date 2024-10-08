@@ -73,7 +73,27 @@ const searchCategoriesLoading = createAsyncThunk(
             return rejectWithValue(error.response.data);
         }
     }
-)
+);
+const searchMainCategoriesLoading = createAsyncThunk(
+    'adminProduct/searchMainCategoriesLoading',
+    async (searchTerm, {rejectWithValue}) => {
+        try {
+            return await adminApi.searchMainCategories(searchTerm);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+const searchAdditionalCategoriesLoading = createAsyncThunk(
+    'adminProduct/searchAdditionalCategoriesLoading',
+    async ({searchTerm, mainCategoryId}, {rejectWithValue}) => {
+        try {
+            return await adminApi.searchAdditionalCategories(searchTerm, mainCategoryId);
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
 const importFromExcelLoading = createAsyncThunk(
     'adminProduct/importFromExcelLoading',
     async (file, {rejectWithValue}) => {
@@ -110,6 +130,8 @@ const initialState = {
     products: initialObject,
     category: initialObject,
     categoriesSearch: initialObject,
+    mainCategoriesSearch: initialObject,
+    additionalCategoriesSearch: initialObject,
     adminFilterPanel: initialObject,
 }
 
@@ -181,6 +203,24 @@ const adminProductSlice = createSlice({
             .addCase(searchCategoriesLoading.rejected, (state, action) => (
                 handleRejected(state, action, 'categoriesSearch'))
             )
+            .addCase(searchMainCategoriesLoading.pending, (state) => {
+                handlePending(state, 'mainCategoriesSearch');
+            })
+            .addCase(searchMainCategoriesLoading.fulfilled, (state, action) => (
+                handleFulfilled(state, action, 'mainCategoriesSearch'))
+            )
+            .addCase(searchMainCategoriesLoading.rejected, (state, action) => (
+                handleRejected(state, action, 'mainCategoriesSearch'))
+            )
+            .addCase(searchAdditionalCategoriesLoading.pending, (state) => {
+                handlePending(state, 'additionalCategoriesSearch');
+            })
+            .addCase(searchAdditionalCategoriesLoading.fulfilled, (state, action) => (
+                handleFulfilled(state, action, 'additionalCategoriesSearch'))
+            )
+            .addCase(searchAdditionalCategoriesLoading.rejected, (state, action) => (
+                handleRejected(state, action, 'additionalCategoriesSearch'))
+            )
             .addCase(importFromExcelLoading.pending, (state) => (
                 handlePending(state, 'products'))
             )
@@ -224,6 +264,12 @@ export const getAdminFilterPanel = () => (dispatch) => {
 }
 export const searchCategories = (searchTerm) => (dispatch) => {
     return dispatch(searchCategoriesLoading(searchTerm))
+}
+export const searchMainCategories = (searchTerm) => (dispatch) => {
+    return dispatch(searchMainCategoriesLoading(searchTerm))
+}
+export const searchAdditionalCategories = (searchTerm, mainCategoryId) => (dispatch) => {
+    return dispatch(searchAdditionalCategoriesLoading({searchTerm, mainCategoryId}))
 }
 export const importFromExcel = (file) => (dispatch) => {
     return dispatch(importFromExcelLoading(file));

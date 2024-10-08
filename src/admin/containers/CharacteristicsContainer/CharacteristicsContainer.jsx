@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react';
 import classes from './CharacteristicsContainer.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {
+    getAdminCharacteristics,
     deleteCharacteristicById,
     getCharacteristicDescsByTitle,
-    getCharacteristicTitlesBySearchTerm
+    getCharacteristicTitlesBySearchTerm, deleteCharacteristicAll
 } from "../../../store/adminSlices/adminCharacteristicsSlice";
 import TopPanel from "../../TopPanel/TopPanel";
 import SecondaryButton from "../../buttons/SecondaryButton/SecondaryButton";
@@ -17,26 +18,31 @@ const CharacteristicsContainer = ({currentPage, setCurrentPage, amount, setAmoun
     const [isOpenPopupEdit, setIsOpenPopupEdit] = useState(false);
     const [isOpenPopupAdd, setIsOpenPopupAdd] = useState(false);
     const {
-        characteristicTitles: {
-            data: characteristicsData
-        }
-    } = useSelector(state => state.admin.adminCharacteristics);
+        data: characteristicsData,
+        loading: characteristicsLoading
+    } = useSelector(state => state.admin.adminCharacteristics.characteristics);
     const dispatch = useDispatch();
 
+    const [currentTitle, setCurrentTitle] = useState(null);
+
     useEffect(() => {
-        dispatch(getCharacteristicTitlesBySearchTerm(''))
+        dispatch(getAdminCharacteristics())
     }, [])
 
     const startIndex = (currentPage - 1) * amount;
     const displayedCharacteristics = characteristicsData.slice(startIndex, startIndex + amount);
     const handleClickEdit = (characteristicTitle) => {
-        dispatch(getCharacteristicDescsByTitle(characteristicTitle))
+        setCurrentTitle(characteristicTitle)
         setIsOpenPopupEdit(true);
     }
 
     const handleDeleteCharacteristicById = (characteristicId) => {
         dispatch(deleteCharacteristicById(characteristicId))
             .then(() => dispatch(getCharacteristicTitlesBySearchTerm('')))
+    }
+
+    const handleDeleteCharacteristicAll = (title) => {
+        dispatch(deleteCharacteristicAll(title))
     }
 
     return (
@@ -52,11 +58,14 @@ const CharacteristicsContainer = ({currentPage, setCurrentPage, amount, setAmoun
             <CharacteristicsTable
                 characteristicsData={displayedCharacteristics}
                 handleClickEdit={handleClickEdit}
-                handleDeleteCharacteristicById={handleDeleteCharacteristicById}
+                handleDeleteCharacteristicAll={handleDeleteCharacteristicAll}
+                characteristicsLoading={characteristicsLoading}
             />
             <EditCharacteristic
                 isOpenPopupEdit={isOpenPopupEdit}
                 setIsOpenPopupEdit={setIsOpenPopupEdit}
+                currentTitle={currentTitle}
+                characteristicsData={characteristicsData}
             />
             <AddCharacteristic isOpenPopupAdd={isOpenPopupAdd} setIsOpenPopupAdd={setIsOpenPopupAdd}/>
             <BottomPanel

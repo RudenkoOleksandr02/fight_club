@@ -1,14 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import {getModifiedFields} from "../../../../common/utils/getModifiedFields";
 import {
-    addAdminCharacteristic,
-    getCharacteristicTitlesBySearchTerm
+    addAdminCharacteristic
 } from "../../../../store/adminSlices/adminCharacteristicsSlice";
 import EditableEntity from "../../../EditableEntity/EditableEntity";
 import CharacteristicPopup from "../CharacteristicPopup/CharacteristicPopup";
 
 const AddCharacteristic = ({isOpenPopupAdd, setIsOpenPopupAdd}) => {
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const initialObject = {
         characteristicTitle: '',
@@ -22,20 +22,20 @@ const AddCharacteristic = ({isOpenPopupAdd, setIsOpenPopupAdd}) => {
     }
 
     const handleSave = async (prevDataForOnlyTrack, dataForOnlyTrack) => {
+        setLoading(true);
         const modifiedData = getModifiedFields(prevDataForOnlyTrack, dataForOnlyTrack);
 
         // ADD
         for (const item of modifiedData.characteristicDescs) {
             const id = String(item.id);
 
-
             if (id.split('-')[0] === 'new') {
-                await dispatch(addAdminCharacteristic({title: modifiedData.characteristicTitle, desc: item.desc}))
+                await dispatch(addAdminCharacteristic({title: modifiedData.characteristicTitle, desc: item.description}))
             }
         }
 
-        await dispatch(getCharacteristicTitlesBySearchTerm(''))
         setIsOpenPopupAdd(false)
+        setLoading(false);
     }
 
     return (
@@ -44,7 +44,7 @@ const AddCharacteristic = ({isOpenPopupAdd, setIsOpenPopupAdd}) => {
             setIsOpenPopup={setIsOpenPopupAdd}
             handleSave={handleSave}
             initialObject={initialObject}
-            loading={false}
+            loading={loading}
             trackerFields={trackerFields}
             Component={CharacteristicPopup}
         />

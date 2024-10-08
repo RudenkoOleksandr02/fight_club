@@ -32,11 +32,11 @@
     display: flex;
     flex-direction: column;
 }
-.priceContainer > .price > span:last-child {
+.priceContainer > .price > .totalPrice {
     color: var(--black);
     font-size: 24px;
 }
-.priceContainer > .price > span:first-child {
+.priceContainer > .price > .discount {
     text-decoration: line-through;
 }
 

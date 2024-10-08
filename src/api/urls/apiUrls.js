@@ -101,6 +101,12 @@ export const AdminUrls = {
     SearchCategories(searchTerm) {
         return `Category/Search?searchTerm=${searchTerm}`
     },
+    SearchMainCategories(searchTerm) {
+        return `Category/SearchMain?searchTerm=${searchTerm}`
+    },
+    SearchAdditionalCategories(searchTerm, mainCategoryId) {
+        return `Category/SearchAdditional?searchTerm=${searchTerm}&mainCategoryId=${mainCategoryId}`
+    },
     GetAdminFilterPanel: 'AdminFilterPanel',
     DeleteProductById(productId) {
         return `Product/${productId}`
@@ -163,8 +169,12 @@ export const AdminUrls = {
     GetCharacteristicDescsByTitle(characteristicTitle) {
         return `Characteristic/${characteristicTitle}/values`
     },
+    GetCharacteristicTree: 'Characteristic/tree',
     DeleteCharacteristicById(characteristicId) {
         return `Characteristic/${characteristicId}`
+    },
+    DeleteCharacteristicAll(title) {
+        return `Characteristic/all?title=${title}`
     },
 
     // BRANDS
