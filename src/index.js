@@ -1,4 +1,4 @@
-import React, { useEffect, lazy, Suspense } from 'react';
+import React, {useEffect, lazy, Suspense, useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './assets/styles/global.css';
 import './assets/styles/variables.css';
@@ -9,27 +9,31 @@ import {
     Route,
     Outlet,
 } from 'react-router-dom';
-import { Provider, useDispatch, useSelector } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import store, { persistor } from './store/store';
+import {Provider, useDispatch, useSelector} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import store, {persistor} from './store/store';
+
+import backgroundImage1 from './assets/images/background/background1.png';
+import backgroundImage2 from './assets/images/background/background2.svg';
 
 import ScrollToTop from './common/utils/ScrollToTop';
 import Header from './components/containers/Header/Header';
 import Navigation from './components/containers/Navigation/Navigation';
+import MobilePanel from './components/containers/MobilePanel/MobilePanel';
+import LoginPanel from './components/containers/LoginPanel/LoginPanel';
 import Footer from './components/containers/Footer/Footer';
 import ScrollToTopButton from './components/ui/ScrollToTopButton/ScrollToTopButton';
 import Preloader from './components/ui/Preloader/Preloader';
-import { initializeApp } from './store/appSlice';
-import { getIsAdminAuth } from './store/adminSlices/adminAuthSlice';
-import { getUserShoppingCart } from './store/pageSlices/cartPageSlice';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
+import {initializeApp} from './store/appSlice';
+import {getIsAdminAuth} from './store/adminSlices/adminAuthSlice';
+import {getUserShoppingCart} from './store/pageSlices/cartPageSlice';
+import {Helmet, HelmetProvider} from 'react-helmet-async';
 
 // Ленивая загрузка компонентов
 const Blogs = lazy(() => import('./pages/ContentShowcaseList/Blogs/Blogs'));
 const Brands = lazy(() => import('./pages/ContentShowcaseList/Brands/Brands'));
 const About = lazy(() => import('./pages/About/About'));
 const ErrorPage = lazy(() => import('./pages/Error/Error'));
-const MobilePanel = lazy(() => import('./components/containers/MobilePanel/MobilePanel'));
 const Products = lazy(() => import('./pages/Catalog/Products/Products'));
 const Product = lazy(() => import('./pages/Product/Product'));
 const Home = lazy(() => import('./pages/Home/Home'));
@@ -37,7 +41,6 @@ const Cart = lazy(() => import('./pages/Cart/Cart'));
 const Checkout = lazy(() => import('./pages/Checkout/Checkout'));
 const UserPage = lazy(() => import('./pages/UserPage/UserPage'));
 const RegisterPage = lazy(() => import('./pages/RegisterPage/RegisterPage'));
-const LoginPanel = lazy(() => import('./components/containers/LoginPanel/LoginPanel'));
 const Contacts = lazy(() => import('./pages/Contacts/Contacts'));
 const Admin = lazy(() => import('./admin/Admin'));
 const Blog = lazy(() => import('./pages/ContentShowcaseItem/Blog'));
@@ -61,8 +64,30 @@ const Root = () => {
         dispatch(getUserShoppingCart());
     }, [dispatch, isAuth]);
 
-    if (!initialized) {
-        return <Preloader color="secondary" cover={true} />;
+    const [bgLoaded1, setBgLoaded1] = useState(false);
+    const [bgLoaded2, setBgLoaded2] = useState(false);
+
+    useEffect(() => {
+        const bgImage1 = new Image();
+        const bgImage2 = new Image();
+
+        bgImage1.src = backgroundImage1;
+        bgImage1.onload = () => setBgLoaded1(true);
+        bgImage1.onerror = () => {
+            console.error('Не удалось загрузить фоновое изображение1.');
+            setBgLoaded1(true);
+        };
+
+        bgImage2.src = backgroundImage2;
+        bgImage2.onload = () => setBgLoaded2(true);
+        bgImage2.onerror = () => {
+            console.error('Не удалось загрузить фоновое изображение2.');
+            setBgLoaded2(true);
+        };
+    }, []);
+
+    if (!initialized || !bgLoaded1 || !bgLoaded2) {
+        return <Preloader color="secondary" cover={true}/>;
     }
 
     return (
@@ -80,13 +105,11 @@ const Root = () => {
             </Helmet>
             <div>
                 <div className="login-container">
-                    <Suspense fallback={<Preloader />}>
-                        <LoginPanel
-                            openLoginPanel={openLoginPanel}
-                            setOpenLoginPanel={setOpenLoginPanel}
-                            userButtonRef={userButtonRef}
-                        />
-                    </Suspense>
+                    <LoginPanel
+                        openLoginPanel={openLoginPanel}
+                        setOpenLoginPanel={setOpenLoginPanel}
+                        userButtonRef={userButtonRef}
+                    />
                 </div>
                 <div className="app-container">
                     <Header
@@ -94,21 +117,17 @@ const Root = () => {
                         openLoginPanel={openLoginPanel}
                         userButtonRef={userButtonRef}
                     />
-                    <Navigation />
+                    <Navigation/>
                     <div className="outlet">
-                        <Suspense fallback={<Preloader />}>
-                            <Outlet />
-                        </Suspense>
+                        <Outlet/>
                     </div>
-                    <Footer />
-                    <ScrollToTopButton />
-                    <ScrollToTop />
-                    <Suspense fallback={<Preloader />}>
-                        <MobilePanel
-                            setOpenLoginPanel={setOpenLoginPanel}
-                            openLoginPanel={openLoginPanel}
-                        />
-                    </Suspense>
+                    <Footer/>
+                    <ScrollToTopButton/>
+                    <ScrollToTop/>
+                    <MobilePanel
+                        setOpenLoginPanel={setOpenLoginPanel}
+                        openLoginPanel={openLoginPanel}
+                    />
                 </div>
             </div>
         </HelmetProvider>
@@ -118,134 +137,134 @@ const Root = () => {
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
-            <Route path="/" element={<Root />}>
+            <Route path="/" element={<Root/>}>
                 <Route
                     index
                     element={
-                        <Suspense fallback={<Preloader />}>
-                            <Home />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <Home/>
                         </Suspense>
                     }
                 />
                 <Route
                     path="/contacts"
                     element={
-                        <Suspense fallback={<Preloader />}>
-                            <Contacts />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <Contacts/>
                         </Suspense>
                     }
                 />
                 <Route
                     path="/blogs"
                     element={
-                        <Suspense fallback={<Preloader />}>
-                            <Blogs />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <Blogs/>
                         </Suspense>
                     }
                 />
                 <Route
                     path="/blogs/:id"
                     element={
-                        <Suspense fallback={<Preloader />}>
-                            <Blog />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <Blog/>
                         </Suspense>
                     }
                 />
                 <Route
                     path="/banner/:id"
                     element={
-                        <Suspense fallback={<Preloader />}>
-                            <BannerPage />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <BannerPage/>
                         </Suspense>
                     }
                 />
                 <Route
                     path="/brands"
                     element={
-                        <Suspense fallback={<Preloader />}>
-                            <Brands />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <Brands/>
                         </Suspense>
                     }
                 />
                 <Route
                     path="/brands/:id"
                     element={
-                        <Suspense fallback={<Preloader />}>
-                            <Brand />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <Brand/>
                         </Suspense>
                     }
                 />
                 <Route
                     path="/about"
                     element={
-                        <Suspense fallback={<Preloader />}>
-                            <About />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <About/>
                         </Suspense>
                     }
                 />
                 <Route
                     path="/cart"
                     element={
-                        <Suspense fallback={<Preloader />}>
-                            <Cart />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <Cart/>
                         </Suspense>
                     }
                 />
                 <Route
                     path="/checkout"
                     element={
-                        <Suspense fallback={<Preloader />}>
-                            <Checkout />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <Checkout/>
                         </Suspense>
                     }
                 />
                 <Route
                     path="/register"
                     element={
-                        <Suspense fallback={<Preloader />}>
-                            <RegisterPage />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <RegisterPage/>
                         </Suspense>
                     }
                 />
                 <Route
                     path="/user"
                     element={
-                        <Suspense fallback={<Preloader />}>
-                            <UserPage />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <UserPage/>
                         </Suspense>
                     }
                 />
                 <Route
                     path="/category/:id"
                     element={
-                        <Suspense fallback={<Preloader />}>
-                            <Products />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <Products/>
                         </Suspense>
                     }
                     errorElement={
-                        <Suspense fallback={<Preloader />}>
-                            <ErrorPage />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <ErrorPage/>
                         </Suspense>
                     }
                 />
                 <Route
                     path="/product/:id"
                     element={
-                        <Suspense fallback={<Preloader />}>
-                            <Product />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <Product/>
                         </Suspense>
                     }
                     errorElement={
-                        <Suspense fallback={<Preloader />}>
-                            <ErrorPage />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <ErrorPage/>
                         </Suspense>
                     }
                 />
                 <Route
                     path="*"
                     element={
-                        <Suspense fallback={<Preloader />}>
-                            <ErrorPage />
+                        <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                            <ErrorPage/>
                         </Suspense>
                     }
                 />
@@ -253,8 +272,8 @@ const router = createBrowserRouter(
             <Route
                 path="/admin"
                 element={
-                    <Suspense fallback={<Preloader />}>
-                        <Admin />
+                    <Suspense fallback={<Preloader color="secondary" cover={true}/>}>
+                        <Admin/>
                     </Suspense>
                 }
             />
@@ -267,7 +286,7 @@ root.render(
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
             <HelmetProvider>
-                <RouterProvider router={router} />
+                <RouterProvider router={router}/>
             </HelmetProvider>
         </PersistGate>
     </Provider>

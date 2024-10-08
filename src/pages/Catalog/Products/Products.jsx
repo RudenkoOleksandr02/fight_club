@@ -61,10 +61,6 @@ const Products = () => {
     });
 
     useEffect(() => {
-
-    }, []);
-
-    useEffect(() => {
         dispatch(getTertiaryCategoryById(categoryId));
         dispatch(clearCategoryData());
     }, [categoryId]);

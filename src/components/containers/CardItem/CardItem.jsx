@@ -47,6 +47,7 @@ const CardItem = (props) => {
             )}
         </div>
     );
+
     const dieContainerJSX = (
         <div className={classes.dieContainer}>
             {isNew && <span className={classes.isNew}>NEW</span>}
@@ -67,7 +68,11 @@ const CardItem = (props) => {
                 <p>{roundNumber(priceWithDiscount(price, discount))}₴</p>
             </div>
             <div className={classes.ratingAndStock}>
-                <Rating rating={rating}/>
+                {!!rating ? (
+                    <Rating rating={rating}/>
+                ) : (
+                    <span className={classes.withoutRating}>Без оцінки</span>
+                )}
                 <p className={`${classes.inStock} ${!inStock ? classes.absence : ''}`}>{inStock ? 'В наявності' : 'Відсутній'}</p>
             </div>
         </div>

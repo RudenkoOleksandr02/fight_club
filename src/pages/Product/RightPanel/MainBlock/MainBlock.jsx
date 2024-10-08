@@ -62,7 +62,11 @@ const MainBlock = (props) => {
             <h3>{nameEng}</h3>
             <h2>{name}</h2>
             <div className={classes.rating}>
-                <Rating rating={rating}/>
+                {!!rating ? (
+                    <Rating rating={rating}/>
+                ) : (
+                    <span className={classes.withoutRating}>Без оцінки</span>
+                )}
             </div>
 
             <div className={classes.reviewsContainer}>

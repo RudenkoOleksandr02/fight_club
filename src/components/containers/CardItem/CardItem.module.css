@@ -113,6 +113,11 @@
     align-items: flex-end;
     gap: 5px;
 }
+.priceStockRatingContainer .ratingAndStock .withoutRating {
+    font-size: 14px;
+    opacity: 70%;
+    color: var(--black);
+}
 .priceStockRatingContainer .inStock {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
