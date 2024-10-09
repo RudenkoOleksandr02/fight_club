@@ -66,12 +66,12 @@ const Products = () => {
     }, [categoryId]);
 
     useEffect(() => {
-        if (tertiaryCategoryData) {
+        if (!!tertiaryCategoryData.parentCategoryId) {
             dispatch(getSecondaryCategoryById(tertiaryCategoryData.parentCategoryId));
         }
     }, [tertiaryCategoryData]);
     useEffect(() => {
-        if (secondaryCategoryData) {
+        if (!!secondaryCategoryData.parentCategoryId) {
             dispatch(getFirstCategoryById(secondaryCategoryData.parentCategoryId));
         }
     }, [secondaryCategoryData])
